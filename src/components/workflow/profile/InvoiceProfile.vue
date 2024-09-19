@@ -113,7 +113,8 @@
     </div>
     <div>
       <h3 v-translate class="d-none d-print-block text-center mt-1">
-        TAX INVOICE
+        <span v-if="isGstEnabled || isVatEnabled">TAX</span>
+        INVOICE
       </h3>
     </div>
     <b-card-group deck class="mb-2">

@@ -624,7 +624,7 @@
                   contentId="transaction-profile-wrapper"
                   variant="link"
                   textMode="Original"
-                  pageTitle="<div class='text-center'>Tax Invoice - Original for Recipient</div>"
+                  :pageTitle="getInvoiceTitle('orginal')"
                   fileName="Tax_Invoice_For_Recipient"
                   :messageFromParent="printMessage"
                 ></print-helper>
@@ -632,7 +632,7 @@
                   contentId="transaction-profile-wrapper"
                   variant="link"
                   textMode="Duplicate"
-                  pageTitle="<div class='text-center'>Tax Invoice - Duplicate for Transporter</div>"
+                  :pageTitle="getInvoiceTitle('duplicate')"
                   fileName="Tax_Invoice_For_Transporter"
                   :messageFromParent="printMessage"
                 ></print-helper>
@@ -640,7 +640,7 @@
                   contentId="transaction-profile-wrapper"
                   variant="link"
                   textMode="Triplicate"
-                  pageTitle="<div class='text-center'>Tax Invoice - Triplicate for Supplier</div>"
+                  :pageTitle="getInvoiceTitle('triplicate')"
                   fileName="Tax_Invoice_For_Supplier"
                   :messageFromParent="printMessage"
                 ></print-helper>
@@ -681,7 +681,7 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 import ContactConf from '../js/config/workflow/contacts.js';
 import BusinessConf from '../js/config/workflow/business.js';
@@ -851,6 +851,12 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('global', ['isIndia', 'isGstEnabled', 'isVatEnabled']),
+    invoiceTitleText: (self) => (
+      (self.isGstEnabled || self.isVatEnabled)
+      ? 'Tax Invoice'
+      : 'Invoice'
+    ),
     usePrintTriplicate: (self) =>
       ['Invoice', 'CashMemo', 'DeliveryNote'].indexOf(
         self.activeWorkflow.tabName
@@ -926,6 +932,14 @@ export default {
     ...mapState(['yearStart', 'yearEnd', 'orgCode', 'orgName']),
   },
   methods: {
+    getInvoiceTitle(invoiceType) {
+      const _invoiceType = invoiceType.charAt(0).toUpperCase() + invoiceType.slice(1);
+      return (
+        `<div class="text-center">
+          ${this.invoiceTitleText} - ${_invoiceType} for Recipient
+        </div>`
+      );
+    },
     toggleAll() {
       if (this.allSelected) {
         console.log(this.activeTabOptions)
