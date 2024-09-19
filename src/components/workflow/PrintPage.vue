@@ -28,7 +28,9 @@
             <small>{{ orgDetails.addr1 }}</small> <br />
             <small>{{ orgDetails.addr2 }}</small> <br />
             <small>Contact No: {{ orgDetails.phone }}</small> <br />
-            <small>GSTIN: {{ orgDetails.gstin }}</small>
+            <span v-if="isGstEnabled">
+              <small>GSTIN: {{ orgDetails.gstin }}</small>
+            </span>
           </p>
         </div>
       </b-container>
@@ -121,6 +123,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 import TransactionProfile from '../workflow/profile/Transaction.vue';
 import PrintHelper from '../PrintHelper.vue';
 export default {
@@ -227,6 +230,7 @@ export default {
         },
       ];
     },
+    ...mapGetters('global', ['isGstEnabled']),
   },
   watch: {
     show() {
