@@ -134,7 +134,14 @@
           </template>
           <span>{{ invoice.party.addr }} </span> <br />
           <span>{{ invoice.party.state }} </span> <br />
-          <span>{{ invoice.party.pincode }} </span>
+          <span>{{ invoice.party.pincode }} </span> <br />
+          <span>{{ invoice.party.country }} </span> <br />
+          <span v-if="invoice.party.phone">
+            <span>Contact No: {{ invoice.party.phone }} </span> <br />
+          </span>
+          <span v-if="invoice.party.email">
+            <span>Email: {{ invoice.party.email }} </span> <br />
+          </span>
           <span v-if="invoice.isGst">
             <b> GSTIN: </b> {{ invoice.party.gstin || '-' }}
           </span>
@@ -433,8 +440,11 @@ export default {
           csflag: '3', // 3 -> customer, 19 -> supplier
           name: ' ',
           state: '',
+          country: '',
           addr: '',
-          pincodce: '',
+          pincode: '',
+          phone: '',
+          email: '',
         },
         isSale: '',
         isGst: false,
@@ -829,6 +839,8 @@ export default {
             country: party.country,
             addr: party.custaddr,
             pincodce: party.pincode,
+            phone: party.custphone,
+            email: party.custemail,
             csflag: party.csflag,
             gstin: gstin,
           },
