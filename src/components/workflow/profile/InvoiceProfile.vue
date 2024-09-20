@@ -473,6 +473,8 @@ export default {
   },
   computed: {
     ...mapGetters('global', ['isIndia', 'isGstEnabled', 'isVatEnabled']),
+    isIndianParty: (self) =>
+      !self.invoice.party.country || self.invoice.party.country === 'India',
     tableFields: (self) => {
       // let designation = self.invoice.designation
       //   ? `(${self.invoice.designation})`
@@ -574,17 +576,21 @@ export default {
         });
       }
 
-      res.push(
-        { title: self.$gettext('Godown'), value: self.dnote.goname || '' },
-        {
+      res.push({
+        title: self.$gettext('Godown'), value: self.dnote.goname || ''
+      });
+
+      if (self.isIndia && self.isIndianParty) {
+        res.push({
           title: self.$gettext('Place of Supply'),
           value: details.taxState || '',
-        },
-        {
-          title: self.$gettext('Issued By'),
-          value: `${details.issuer}  ${designation}`,
-        }
-      );
+        });
+      }
+
+      res.push({
+        title: self.$gettext('Issued By'),
+        value: `${details.issuer}  ${designation}`,
+      });
 
       return res;
     },
@@ -815,6 +821,7 @@ export default {
           party: {
             name: party.custname,
             state: party.custsupstate,
+            country: party.country,
             addr: party.custaddr,
             pincodce: party.pincode,
             csflag: party.csflag,
