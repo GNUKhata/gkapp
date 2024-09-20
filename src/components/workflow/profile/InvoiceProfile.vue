@@ -604,8 +604,9 @@ export default {
       ];
     },
     totalDetails: (self) => {
-      let total = [{ title: 'Taxable', value: self.invoice.total.taxable }];
-      if (self.isIndia) {
+      let total = [];
+      if (self.isIndia && (self.invoice.isGst || self.invoice.isVat)) {
+        total.push[{ title: 'Taxable', value: self.invoice.total.taxable }];
         if (self.invoice.isGst) {
           if (self.invoice.total.isIgst) {
             total.push({ title: 'IGST', value: self.invoice.total.tax });
