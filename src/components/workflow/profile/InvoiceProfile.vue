@@ -389,7 +389,7 @@
 import axios from 'axios';
 import { mapGetters, mapState } from 'vuex';
 import EasyVoucher from '@/components/form/VoucherEasy.vue';
-import { numberToRupees } from '../../../js/utils.js';
+import { numberToWords } from '../../../js/utils.js';
 
 export default {
   name: 'InvoiceProfile',
@@ -629,7 +629,11 @@ export default {
         },
         {
           title: self.$gettext('Invoice Value In Words'),
-          value: self.invoice.total.roundoff ? numberToRupees(Math.round(self.invoice.total.amount)) : numberToRupees(self.invoice.total.amount),
+          value: `${(
+            self.invoice.total.roundoff
+              ? numberToWords(Math.round(self.invoice.total.amount))
+              : numberToWords(self.invoice.total.amount)
+          )} Only`,
         }
       );
       return total;
