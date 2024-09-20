@@ -27,9 +27,18 @@
           <p class="ml-3">
             <small>{{ orgDetails.addr1 }}</small> <br />
             <small>{{ orgDetails.addr2 }}</small> <br />
-            <small>Contact No: {{ orgDetails.phone }}</small> <br />
+            <small>{{ orgDetails.country }}</small> <br />
+            <span v-if="orgDetails.phone">
+              <small>Contact No: {{ orgDetails.phone }}</small> <br />
+            </span>
             <span v-if="isGstEnabled">
               <small>GSTIN: {{ orgDetails.gstin }}</small>
+            </span>
+            <span v-if="orgDetails.email">
+              <small>Email: {{ orgDetails.email }}</small>
+            </span>
+            <span v-if="orgDetails.site">
+              <small>Website: {{ orgDetails.site }}</small>
             </span>
           </p>
         </div>
@@ -192,7 +201,10 @@ export default {
         name: '',
         addr1: '',
         addr2: '',
+        country: '',
         phone: '',
+        email: '',
+        site: '',
         gstin: '',
         logo: 'img/gk.png',
       },
@@ -271,7 +283,10 @@ export default {
             name: details.orgname,
             addr1: `${details.orgaddr},`,
             addr2: `${details.orgcity} - ${details.orgpincode}. ${details.orgstate}.`,
+            country: details.country,
             phone: details.orgtelno,
+            email: details.orgemail,
+            site: details.orgwebsite,
             gstin: details.gstin && stateCode ? details.gstin[stateCode] : '',
           };
         }
