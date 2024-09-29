@@ -500,7 +500,7 @@ const routes = [
       title: "Accounts",
       requiresOrgAuth: true,
     },
-    path: "/accounts/:group/:subGroup/:acc",
+    path: "/accounts",
     name: "Accounts",
     component: () =>
       import(/* webpackChunkName: "accounts-all" */ "../views/Accounts.vue"),
