@@ -780,7 +780,9 @@ export default {
           name: '',
         };
       }
-      this.form.date = !this.disabled.date ? this.getNoteDate() : '';
+      this.form.date = !this.disabled.date ? (
+        this.form.date ?? this.getNoteDate()
+      ) : '';
       if (!this.disabled.no) {
         requests.push(this.setInvoiceNo(true));
       } else {

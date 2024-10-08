@@ -1392,6 +1392,7 @@ export default {
             id: null,
             name: '',
           },
+          date: this.form.inv.date ?? new Date().toISOString().slice(0, 10),
         },
         party: {
           name: false,
