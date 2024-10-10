@@ -508,6 +508,17 @@ const routes = [
   },
   {
     meta: {
+      title: "SubGroups",
+      requiresOrgAuth: true,
+    },
+    path: "/sub-groups",
+    name: "SubGroups",
+    component: () =>
+      import(/* webpackChunkName: "subgroups-all" */ "../views/SubGroups.vue"),
+    props: true,
+  },
+  {
+    meta: {
       title: "Create_Account",
       requiresOrgAuth: true,
     },
