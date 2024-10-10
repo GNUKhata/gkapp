@@ -63,79 +63,81 @@
                 </b-form-group>
               </div>
             </div>
-            <b-table
-              borderless
-              hover
-              class="mt-3"
-              :items="group.children"
-              :fields="fields"
-              :groupsSubgroups="groupsSubgroups"
-              head-variant="light"
-              responsive=""
-              :filter="filter"
-            >
-              <template #cell(accountname)="data">
-                {{ data.value }}
-                <p class="text-muted">
-                  {{ data.item?.subgroupname }}
-                </p>
-              </template>
-              <template #cell(openingbal)="data">
-                {{ data.value }}
-              </template>
-              <template #cell(current_balance)="data">
-                {{ data.value }}
-              </template>
-              <template #cell(accountcode)="data">
-                <b-button
-                  @click="$bvModal.show('account-edit'+data.value)"
-                  variant="outline-primary"
-                  class="mr-2 pt-0"
-                  size="sm"
-                >
-                  <b-icon
-                    font-scale="0.9"
-                    icon="pencil"
-                  ></b-icon>
-                </b-button>
-                <b-button
-                  :disabled="data.item?.sysaccount ? true : false"
-                  variant="danger"
-                  @click.prevent="confirmOnDelete(data.item)"
-                  class="pt-0"
-                  size="sm"
-                >
-                  <b-icon
-                    font-scale="0.9"
-                    icon="trash-fill"
-                  ></b-icon>
-                </b-button>
-                <b-modal
-                  centered
-                  static
-                  body-class="p-0"
-                  :id="'account-edit'+data.value"
-                  hide-header
-                  hide-footer
-                >
-                  <account
-                    @account-edited="hideEditAccount('account-edit'+data.value)"
-                    :groupsSubgroups="groupsSubgroups"
-                    :accountDetails="data.item"
+            <b-overlay :show="isLoading">
+              <b-table
+                borderless
+                hover
+                class="mt-3"
+                :items="group.children"
+                :fields="fields"
+                :groupsSubgroups="groupsSubgroups"
+                head-variant="light"
+                responsive=""
+                :filter="filter"
+              >
+                <template #cell(accountname)="data">
+                  {{ data.value }}
+                  <p class="text-muted">
+                    {{ data.item?.subgroupname }}
+                  </p>
+                </template>
+                <template #cell(openingbal)="data">
+                  {{ data.value }}
+                </template>
+                <template #cell(current_balance)="data">
+                  {{ data.value }}
+                </template>
+                <template #cell(accountcode)="data">
+                  <b-button
+                    @click="$bvModal.show('account-edit'+data.value)"
+                    variant="outline-primary"
+                    class="mr-2 pt-0"
+                    size="sm"
                   >
-                    <template #close-button>
-                      <b-button
-                        size="sm"
-                        class="float-right py-0"
-                        @click="hideEditAccount('account-edit'+data.value)"
-                      >
-                        x
-                      </b-button>
-                    </template>
-                  </account>
-                </b-modal>
-              </template>
-            </b-table>
+                    <b-icon
+                      font-scale="0.9"
+                      icon="pencil"
+                    ></b-icon>
+                  </b-button>
+                  <b-button
+                    :disabled="data.item?.sysaccount ? true : false"
+                    variant="danger"
+                    @click.prevent="confirmOnDelete(data.item)"
+                    class="pt-0"
+                    size="sm"
+                  >
+                    <b-icon
+                      font-scale="0.9"
+                      icon="trash-fill"
+                    ></b-icon>
+                  </b-button>
+                  <b-modal
+                    centered
+                    static
+                    body-class="p-0"
+                    :id="'account-edit'+data.value"
+                    hide-header
+                    hide-footer
+                  >
+                    <account
+                      @account-edited="hideEditAccount('account-edit'+data.value)"
+                      :groupsSubgroups="groupsSubgroups"
+                      :accountDetails="data.item"
+                    >
+                      <template #close-button>
+                        <b-button
+                          size="sm"
+                          class="float-right py-0"
+                          @click="hideEditAccount('account-edit'+data.value)"
+                        >
+                          x
+                        </b-button>
+                      </template>
+                    </account>
+                  </b-modal>
+                </template>
+              </b-table>
+            </b-overlay>
           </b-tab>
         </b-tabs>
       </div>
@@ -201,6 +203,7 @@
            class: 'text-break text-right col-2',
          },
        ],
+       isLoading: false,
        groups: [],
        groupsSubgroups: {},
        filter: null,
@@ -424,10 +427,12 @@
       * Actions: Fetch groups and send to prepare the data.
       */
      getGroupsSubgroups() {
+       this.isLoading = true;
        return axios.get('/groups-subgroups').then((resp) => {
          if (resp.data.gkstatus === 0) {
            this.prepareGroupsSubgroups(resp.data.gkresult);
          }
+         this.isLoading = false;
        });
      },
      /**
@@ -436,21 +441,21 @@
       * Actions: Fetch accounts and send to prepare the data.
       */
      getAccountsList() {
-       this.loading = true;
+       this.isLoading = true;
        return axios
          .get(`/accounts`)
          .then((resp) => {
            if (resp.data.gkstatus === 0) {
              this.prepareGroups(resp.data.gkresult);
            }
-           this.loading = false;
+           this.isLoading = false;
          })
          .catch((e) => {
            this.$bvToast.toast(e.message, {
              variant: 'danger',
              solid: true,
            });
-           this.loading = false;
+           this.isLoading = false;
          });
      },
    },
