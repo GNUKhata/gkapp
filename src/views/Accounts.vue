@@ -380,14 +380,12 @@
          if (parentGroup) {
            if (!groupSubgroupsObj?.[parentGroup]) {
              groupSubgroupsObj = Object.assign(
-               {}, groupSubgroupsObj, {parentGroup: {"childGroups": {}}}
+               {}, groupSubgroupsObj, {[parentGroup]: {"childGroups": {}}}
              );
            }
            groupSubgroupsObj[parentGroup]["childGroups"][group.groupcode] = group;
          } else {
-           if (!groupSubgroupsObj?.[group.groupcode]) {
-             groupSubgroupsObj[group.groupcode] = {...group, "childGroups": {}};
-           }
+           groupSubgroupsObj[group.groupcode] = {...group, "childGroups": {}};
          }
        });
        this.groupsSubgroups = Object.assign(
