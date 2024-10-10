@@ -17,6 +17,20 @@
           :commonParams="false"
           :messageFromParent="parentMessage"
         ></gk-file-download>
+        <router-link
+          class="btn btn-outline-info btn-sm"
+          :to="`/sub-groups`"
+        >
+          + Add Subgroup
+        </router-link>
+        <b-button
+          v-b-modal.account-create
+          variant="outline-primary"
+          class="pull-right ml-2"
+          size="sm"
+        >
+          + Add Account
+        </b-button>
       </gk-toolbar>
       <div class="clearfix"></div>
       <div>
@@ -34,7 +48,7 @@
                 <b-form-group
                   class="mb-0"
                 >
-                  <b-input-group size="sm">
+                  <b-input-group size="sm" class="col-auto">
                     <b-form-input
                       id="filter-input"
                       v-model="filter"
@@ -47,16 +61,6 @@
                     </b-input-group-append>
                   </b-input-group>
                 </b-form-group>
-              </div>
-              <div class="col-auto">
-                <b-button
-                  v-b-modal.account-create
-                  variant="outline-primary"
-                  class="pull-right"
-                  size="sm"
-                >
-                  + Add
-                </b-button>
               </div>
             </div>
             <b-table
