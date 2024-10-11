@@ -8,10 +8,22 @@
       <div>
         <div class="d-flex flex-row-reverse">
           <div class="p-2">
+            <router-link
+              class="btn btn-outline-info btn-sm"
+              :to="`/accounts`"
+            >
+              <b-icon
+                aria-hidden="true"
+                class="align-middle mr-1"
+                icon="table"
+              ></b-icon>
+              Accounts
+            </router-link>
+          </div>
+          <div class="p-2">
             <b-button
               v-b-modal.item-create
               variant="outline-primary"
-              class="pull-right"
               size="sm"
             >
               + Add

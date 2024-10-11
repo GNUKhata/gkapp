@@ -17,20 +17,24 @@
           :commonParams="false"
           :messageFromParent="parentMessage"
         ></gk-file-download>
-        <router-link
-          class="btn btn-outline-info btn-sm"
-          :to="`/sub-groups`"
-        >
-          + Add Subgroup
-        </router-link>
         <b-button
           v-b-modal.account-create
           variant="outline-primary"
-          class="pull-right ml-2"
           size="sm"
         >
           + Add Account
         </b-button>
+        <router-link
+          class="ml-2 btn btn-outline-info btn-sm"
+          :to="`/sub-groups`"
+        >
+          <b-icon
+            aria-hidden="true"
+            class="align-middle mr-1"
+            icon="grid"
+          ></b-icon>
+          Subgroups
+        </router-link>
       </gk-toolbar>
       <div class="clearfix"></div>
       <div>
