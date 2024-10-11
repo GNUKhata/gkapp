@@ -145,6 +145,13 @@
          .post(this.apiUrl, payload)
          .then((resp) => {
            switch (resp.data.gkstatus) {
+             case 7:
+               resp.data?.error.forEach((field_err) => {
+                 let location = field_err.loc.join(" at ");
+                 let message = (location ? location+": " : "") + field_err.msg;
+                 this.displayToast("Validation Error", message, "warning");
+               });
+               break;
              case 0:
                {
                  self.displayToast(
@@ -222,6 +229,12 @@
              'success'
            );
            self.$emit('item-edited');
+         } else if (resp.data.gkstatus == 7) {
+           resp.data?.error.forEach((field_err) => {
+             let location = field_err.loc.join(" at ");
+             let message = (location ? location+": " : "") + field_err.msg;
+             this.displayToast("Validation Error", message, "warning");
+           });
          } else {
            self.displayToast(
              this.$gettext('Edit Item Failed'),
