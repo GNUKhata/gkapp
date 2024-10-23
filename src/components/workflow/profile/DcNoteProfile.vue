@@ -70,6 +70,7 @@
           <span>
             <router-link :to="`/ledger/${custid}`">{{ party.name }}</router-link>
           </span>
+          <br>
           <span>{{ party.addr }} </span> <br>
           <span> <b v-translate> Postal Code: </b> {{ party.pincode }} </span>
           <br>
