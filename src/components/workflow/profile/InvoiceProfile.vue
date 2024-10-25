@@ -113,7 +113,8 @@
     </div>
     <div>
       <h3 v-translate class="d-none d-print-block text-center mt-1">
-        TAX INVOICE
+        <span v-if="isGstEnabled || isVatEnabled">TAX</span>
+        INVOICE
       </h3>
     </div>
     <b-card-group deck class="mb-2">
@@ -133,7 +134,14 @@
           </template>
           <span>{{ invoice.party.addr }} </span> <br />
           <span>{{ invoice.party.state }} </span> <br />
-          <span>{{ invoice.party.pincode }} </span>
+          <span>{{ invoice.party.pincode }} </span> <br />
+          <span>{{ invoice.party.country }} </span> <br />
+          <span v-if="invoice.party.phone">
+            <span>Contact No: {{ invoice.party.phone }} </span> <br />
+          </span>
+          <span v-if="invoice.party.email">
+            <span>Email: {{ invoice.party.email }} </span> <br />
+          </span>
           <span v-if="invoice.isGst">
             <b> GSTIN: </b> {{ invoice.party.gstin || '-' }}
           </span>
@@ -388,7 +396,7 @@
 import axios from 'axios';
 import { mapGetters, mapState } from 'vuex';
 import EasyVoucher from '@/components/form/VoucherEasy.vue';
-import { numberToRupees } from '../../../js/utils.js';
+import { numberToWords } from '../../../js/utils.js';
 
 export default {
   name: 'InvoiceProfile',
@@ -432,8 +440,11 @@ export default {
           csflag: '3', // 3 -> customer, 19 -> supplier
           name: ' ',
           state: '',
+          country: '',
           addr: '',
-          pincodce: '',
+          pincode: '',
+          phone: '',
+          email: '',
         },
         isSale: '',
         isGst: false,
@@ -472,6 +483,8 @@ export default {
   },
   computed: {
     ...mapGetters('global', ['isIndia', 'isGstEnabled', 'isVatEnabled']),
+    isIndianParty: (self) =>
+      !self.invoice.party.country || self.invoice.party.country === 'India',
     tableFields: (self) => {
       // let designation = self.invoice.designation
       //   ? `(${self.invoice.designation})`
@@ -573,17 +586,21 @@ export default {
         });
       }
 
-      res.push(
-        { title: self.$gettext('Godown'), value: self.dnote.goname || '' },
-        {
+      res.push({
+        title: self.$gettext('Godown'), value: self.dnote.goname || ''
+      });
+
+      if (self.isIndia && self.isIndianParty) {
+        res.push({
           title: self.$gettext('Place of Supply'),
           value: details.taxState || '',
-        },
-        {
-          title: self.$gettext('Issued By'),
-          value: `${details.issuer}  ${designation}`,
-        }
-      );
+        });
+      }
+
+      res.push({
+        title: self.$gettext('Issued By'),
+        value: `${details.issuer}  ${designation}`,
+      });
 
       return res;
     },
@@ -597,8 +614,9 @@ export default {
       ];
     },
     totalDetails: (self) => {
-      let total = [{ title: 'Taxable', value: self.invoice.total.taxable }];
-      if (self.isIndia) {
+      let total = [];
+      if (self.isIndia && (self.invoice.isGst || self.invoice.isVat)) {
+        total.push[{ title: 'Taxable', value: self.invoice.total.taxable }];
         if (self.invoice.isGst) {
           if (self.invoice.total.isIgst) {
             total.push({ title: 'IGST', value: self.invoice.total.tax });
@@ -621,7 +639,11 @@ export default {
         },
         {
           title: self.$gettext('Invoice Value In Words'),
-          value: self.invoice.total.roundoff ? numberToRupees(Math.round(self.invoice.total.amount)) : numberToRupees(self.invoice.total.amount),
+          value: `${(
+            self.invoice.total.roundoff
+              ? numberToWords(Math.round(self.invoice.total.amount))
+              : numberToWords(self.invoice.total.amount)
+          )} Only`,
         }
       );
       return total;
@@ -814,8 +836,11 @@ export default {
           party: {
             name: party.custname,
             state: party.custsupstate,
+            country: party.country,
             addr: party.custaddr,
             pincodce: party.pincode,
+            phone: party.custphone,
+            email: party.custemail,
             csflag: party.csflag,
             gstin: gstin,
           },

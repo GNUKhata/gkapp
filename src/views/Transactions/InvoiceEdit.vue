@@ -249,7 +249,10 @@
       title="Invoice"
       :id="invModalId"
       :pdata="{
-        printTitle: { page: 'Tax Invoice', file: 'tax_invoice' },
+        printTitle: {
+          page: `${(isGstEnabled || isVatEnabled) ? 'Tax Invoice' : 'Invoice'}`,
+          file: 'tax_invoice',
+        },
         useTriplicate: true,
       }"
       @hidden="showPrintModal = false"
