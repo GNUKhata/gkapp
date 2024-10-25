@@ -228,8 +228,8 @@
                             size="sm"
                             style="max-width: 150px"
                             v-model="godownItems[index].id"
+                            required="true"
                             :options="options.godowns"
-                            :required="!!godownItems.qty"
                             :readonly="!index"
                             @change="warnDuplicateGodown()"
                           >
@@ -985,6 +985,7 @@ export default {
 
       // === Product specific fields ===
       if (!this.isService) {
+        product.godownflag = true;
         product.productdetails.openingstock =
           parseFloat(this.form.stock.value) || 0;
         product.productdetails.uomid = this.form.uom;
@@ -997,24 +998,17 @@ export default {
 
           // format and store godetails, format -> {godownId : stockCount}
           product.godetails = this.form.stock.godowns.reduce((acc, godown) => {
-            if (godown.qty >= 0 && godown.id) {
-              if (!Object.hasOwn(acc, godown.id)) {
-                acc[godown.id] = {
-                  qty: parseFloat(godown.qty),
-                  rate: parseFloat(godown.rate),
-                };
-              } else {
-                acc[godown.id]["qty"] += parseFloat(godown.qty);
-                acc[godown.id]["rate"] += parseFloat(godown.rate);
-              }
+            if (godown.id && Object.hasOwn(acc, godown.id)) {
+              acc[godown.id]["qty"] += parseFloat(godown.qty || 0);
+              acc[godown.id]["rate"] += parseFloat(godown.rate || 0);
+            } else {
+              acc[godown.id] = {
+                qty: parseFloat(godown.qty || 0),
+                rate: parseFloat(godown.rate || 0),
+              };
             }
             return acc;
           }, {});
-
-          // set godownflag true if length > 0, else remains false
-          if (Object.keys(product.godetails).length) {
-            product.godownflag = true;
-          }
         }
       }
 
