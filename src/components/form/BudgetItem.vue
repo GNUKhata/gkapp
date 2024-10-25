@@ -477,16 +477,15 @@ export default {
       );
     },
     totalIn: function () {
-      console.log(this.form.budget[this.inType]);
       let totalIn = Object.values(this.form.budget[this.inType]).reduce(
-        (sum, bud) => sum + parseFloat(bud),
+        (sum, bud) => sum + parseFloat(bud || 0),
         0
       );
       return totalIn;
     },
     totalOut: function () {
       let totalOut = Object.values(this.form.budget[this.outType]).reduce(
-        (sum, bud) => sum + parseFloat(bud),
+        (sum, bud) => sum + parseFloat(bud || 0),
         0
       );
       return totalOut;
