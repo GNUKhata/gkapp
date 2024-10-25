@@ -183,6 +183,13 @@ export default {
                 name: `${data.goname} (${data.goaddr}) `,
               };
             });
+            this.godowns = [
+              {
+                name: 'All',
+                id: 0,
+              },
+              ...this.godowns,
+            ];
             // pre fill the godown input with a godown if user selected godown exits
             if (Object.keys(this.$route.query).length == 0) {
               this.selectedGodown = this.godowns[0];
@@ -236,9 +243,13 @@ export default {
       let requests = [];
 
       let _type = 'pg';
-      if (Number(this.selectedProduct.id) === 0) {
+      this.fields = this.defaultFields;
+      if (Number(this.selectedProduct.id) === 0 && Number(this.selectedGodown.id) === 0) {
+        _type = 'apag';
+      } else if (Number(this.selectedProduct.id) === 0 && Number(this.selectedGodown.id) !== 0) {
         _type = 'apg';
-        this.fields = this.defaultFields;
+      } else if (Number(this.selectedProduct.id) !== 0 && Number(this.selectedGodown.id) === 0) {
+        _type = 'pag';
       } else {
         this.fields = [
           ...this.defaultFields,
@@ -256,7 +267,7 @@ export default {
         .then(([resp1, resp2]) => {
           switch (resp1.data.gkstatus) {
             case 0:
-              this.report = resp1.data.gkresult.map((data) => {
+              this.report = resp1.data.gkresult?.map((data) => {
                 return {
                   no: data.srno,
                   product: data.productname || this.selectedProduct.name,
@@ -265,7 +276,7 @@ export default {
                   balance: data.balance,
                   productcode: data.productcode,
                 };
-              });
+              }) ?? [];
               break;
             case 2:
               this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
