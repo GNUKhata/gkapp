@@ -460,32 +460,55 @@ export default {
     };
   },
   computed: {
-    isEditMode: (self) => self.mode === 'edit',
-    isFormValid: (self) =>
-      self.isValid.fromDate &&
-      self.isValid.toDate &&
-      self.totalIn !== 0 &&
-      self.totalOut !== 0,
-    minDate: (self) =>
-      self.dateReverse(self.isValid.fromDate ? self.form.from : self.yearStart),
-    totalIn: (self) =>
-      Object.values(self.form.budget[self.inType]).reduce(
+    isEditMode: function () {
+      return this.mode === 'edit';
+    },
+    isFormValid: function () {
+      return (
+        this.isValid.fromDate &&
+        this.isValid.toDate &&
+        this.totalIn !== 0 &&
+        this.totalOut !== 0
+      );
+    },
+    minDate: function () {
+      return this.dateReverse(
+        this.isValid.fromDate ? this.form.from : this.yearStart
+      );
+    },
+    totalIn: function () {
+      console.log(this.form.budget[this.inType]);
+      let totalIn = Object.values(this.form.budget[this.inType]).reduce(
         (sum, bud) => sum + parseFloat(bud),
         0
-      ),
-    totalOut: (self) =>
-      Object.values(self.form.budget[self.outType]).reduce(
+      );
+      return totalIn;
+    },
+    totalOut: function () {
+      let totalOut = Object.values(this.form.budget[this.outType]).reduce(
         (sum, bud) => sum + parseFloat(bud),
         0
-      ),
-    inType: (self) => (self.isCash ? 'inflow' : 'income'),
-    outType: (self) => (self.isCash ? 'outflow' : 'expense'),
-    isCash: (self) => self.form.type === 'cash',
-    accIn: (self) =>
-      self.isCash ? self.options.cashAccs.inflow : self.options.plAccs.income,
-    accOut: (self) =>
-      self.isCash ? self.options.cashAccs.outflow : self.options.plAccs.expense,
-    dateFormat: (self) => self.$store.getters['global/getDateFormat'],
+      );
+      return totalOut;
+    },
+    inType: function () {
+      return (this.isCash ? 'inflow' : 'income');
+    },
+    outType: function () {
+      return (this.isCash ? 'outflow' : 'expense');
+    },
+    isCash: function () {
+      return this.form.type === 'cash';
+    },
+    accIn: function () {
+      return this.isCash ? this.options.cashAccs.inflow : this.options.plAccs.income;
+    },
+    accOut: function () {
+      return this.isCash ? this.options.cashAccs.outflow : this.options.plAccs.expense;
+    },
+    dateFormat: function () {
+      return this.$store.getters['global/getDateFormat'];
+    },
     ...mapState(['yearStart', 'yearEnd']),
   },
   watch: {
