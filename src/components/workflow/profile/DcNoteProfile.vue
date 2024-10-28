@@ -1,8 +1,12 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
-    <div class="mb-3 clearfix d-print-none">
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
+    <div class="clearfix d-print-none mb-3">
       <div class="float-right">
         <span>
           <b-button
@@ -11,19 +15,23 @@
             variant="primary"
             v-b-toggle.voucher-container
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
               :to="{
                 name: 'Workflow',
                 params: {
                   wfName:
                     inv.icflag === 3
-                      ? 'Transactions-CashMemo': 
-                      'Transactions-Invoice',
-                  wfId: inv.id,
-                },
+                      ? 'Transactions-CashMemo' : 
+                        'Transactions-Invoice',
+                  wfId: inv.id
+                }
               }"
-              >{{inv.icflag === 3 ? 'View Cash Memo' : 'View Invoice'}}
+            >{{ inv.icflag === 3 ? 'View Cash Memo' : 'View Invoice' }}
             </router-link>
           </b-button>
           <b-button
@@ -32,32 +40,57 @@
             variant="primary"
             v-b-toggle.voucher-container
           >
-            <b-icon icon="eye" class="mr-1"></b-icon>
+            <b-icon
+              icon="eye"
+              class="mr-1"
+            />
             <translate>View Voucher</translate>
           </b-button>
         </span>
       </div>
     </div>
     <b-row>
-      <b-col cols="12" md="6" class="my-2">
-        <b key="dcp-1" v-if="flags.sale" v-translate> Buyer Details </b>
-        <b key="dcp-2" v-else v-translate> Seller Details </b>
-        <br />
+      <b-col
+        cols="12"
+        md="6"
+        class="my-2"
+      >
+        <b
+          key="dcp-1"
+          v-if="flags.sale"
+          v-translate
+        > Buyer Details </b>
+        <b
+          key="dcp-2"
+          v-else
+          v-translate
+        > Seller Details </b>
+        <br>
         <p class="text-small">
           <span>
             <router-link :to="`/ledger/${custid}`">{{ party.name }}</router-link>
           </span>
-          <span>{{ party.addr }} </span> <br />
+          <span>{{ party.addr }} </span> <br>
           <span> <b v-translate> Postal Code: </b> {{ party.pincode }} </span>
-          <br />
+          <br>
           <span v-if="party.gstin"><b> GSTIN: </b> {{ party.gstin }} </span>
           <span v-if="party.tin"><b> TIN: </b> {{ party.tin }} </span>
         </p>
       </b-col>
-      <b-col cols="12" md="6" class="text-md-right my-2">
-        <b v-if="this.flags.credit" v-translate>Credit Note Details</b>
-        <b v-else v-translate>Debit Note Details</b>
-        <br />
+      <b-col
+        cols="12"
+        md="6"
+        class="my-2 text-md-right"
+      >
+        <b
+          v-if="this.flags.credit"
+          v-translate
+        >Credit Note Details</b>
+        <b
+          v-else
+          v-translate
+        >Debit Note Details</b>
+        <br>
         <!-- Note Details Table -->
         <b-table-lite
           :fields="['title', 'value']"
@@ -66,9 +99,8 @@
           bordered
           thead-class="d-none"
           fixed
-          class="text-small table-border-dark"
-        >
-        </b-table-lite>
+          class="table-border-dark text-small"
+        />
       </b-col>
     </b-row>
     <!-- Content Table -->
@@ -79,7 +111,7 @@
       head-variant="dark"
       stacked="sm"
       small
-      class="text-small table-border-dark"
+      class="table-border-dark text-small"
       striped
       tbody-tr-class="gk-vertical-row"
     >
@@ -100,46 +132,63 @@
       </template>
     </b-table-lite>
     <b-row>
-      <b-col class="my-2"> </b-col>
-      <b-col cols="12" md="8" class="my-2">
+      <b-col class="my-2" />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+      >
         <!-- Total Table -->
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            { key: 'title', label: 'Total', tdClass: '' },
-            { key: 'value', label: '₹', class: 'text-right' },
+            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'value', label: '₹', class: 'text-right'}
           ]"
           small
           fixed
           class="text-small"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="my-2"> </b-col>
-      <b-col cols="12" md="8" class="my-2">
+      <b-col class="my-2" />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+      >
         <p class="text-small">
           <b v-translate> Narration: </b> <span> {{ dcNote.narration }} </span>
-          <br />
+          <br>
         </p>
       </b-col>
     </b-row>
-    <div class="clearfix"></div>
-    <b-collapse v-model="showVouchers" id="voucher-container">
+    <div class="clearfix" />
+    <b-collapse
+      v-model="showVouchers"
+      id="voucher-container"
+    >
       <b v-translate>Voucher:</b>
-      <b-card v-if="vouchers.length" body-class="p-1">
-        <div v-for="voucher in vouchers" :key="voucher.id">
-          <div class="text-center m-1 mb-2">
+      <b-card
+        v-if="vouchers.length"
+        body-class="p-1"
+      >
+        <div
+          v-for="voucher in vouchers"
+          :key="voucher.id"
+        >
+          <div class="m-1 mb-2 text-center">
             <span class="float-left">
               Voucher No:
-                <router-link :to="`/Workflow/Transactions-Voucher/${voucher.id}`">
-                  {{voucher.no}}</router-link>
+              <router-link :to="`/Workflow/Transactions-Voucher/${voucher.id}`">
+                {{ voucher.no }}</router-link>
             </span>
             <span> {{ voucher.type }} </span>
             <span class="float-right">
               <translate
                 translate-comment="%{voucherDate} is a variable, translation is not required for it. Enter it, as it is while translation."
-                :translate-params="{ voucherDate: voucher.date }"
+                :translate-params="{voucherDate: voucher.date}"
               >
                 Date: %{voucherDate}
               </translate>
@@ -152,23 +201,22 @@
             :items="voucher.transactions"
             :tbody-tr-class="rowClass"
             fixed
-          >
-          </b-table-lite>
+          />
           <div>
             <translate
               translate-comment="%{narration} is a variable, translation is not required for it. Enter it, as it is while translation."
-              :translate-params="{ narration: voucher.narration }"
+              :translate-params="{narration: voucher.narration}"
             >
               Narration: %{narration}
             </translate>
           </div>
-          <br />
+          <br>
         </div>
       </b-card>
       <div v-else>
         <translate
           translate-comment="%{memoNo} is a variable, translation is not required for it. Enter it, as it is while translation."
-          :translate-params="{ memoNo: dcNote.no }"
+          :translate-params="{memoNo: dcNote.no}"
         >
           No vouchers were found for DebitCreditNote: %{memoNo}
         </translate>
@@ -456,12 +504,12 @@ export default {
           }
         }
         axios.get(`/accounts?type=getAccCode&accountname=${this.party.name}`)
-        .then(response => {
-          this.custid = response.data.accountcode;
-        })
-        .catch(error => {
-          this.error = 'Failed to load data: ' + error.message;
-        });
+          .then(response => {
+            this.custid = response.data.accountcode;
+          })
+          .catch(error => {
+            this.error = 'Failed to load data: ' + error.message;
+          });
       }
     },
     getVouchers() {
@@ -531,35 +579,35 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            // this.invoice = response.data.gkresult;
-            this.formatDetails(response.data.gkresult);
-            break;
-          case 2:
-            this.$bvToast.toast(
-              this.$gettext(`Unauthorized access, Please contact admin`),
-              {
-                title: this.$gettext(`Fetch Debit Credit Note Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
-            break;
-          default:
-            this.$bvToast.toast(
-              this.$gettext(
-                `Unable to Fetch Debit Credit Note Details! Please Try after sometime.`
-              ),
-              {
-                title: this.$gettext(`Fetch Transaction Details Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
+        case 0:
+          // this.invoice = response.data.gkresult;
+          this.formatDetails(response.data.gkresult);
+          break;
+        case 2:
+          this.$bvToast.toast(
+            this.$gettext(`Unauthorized access, Please contact admin`),
+            {
+              title: this.$gettext(`Fetch Debit Credit Note Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
+          break;
+        default:
+          this.$bvToast.toast(
+            this.$gettext(
+              `Unable to Fetch Debit Credit Note Details! Please Try after sometime.`
+            ),
+            {
+              title: this.$gettext(`Fetch Transaction Details Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
         } // end switch
       });
     },
@@ -579,6 +627,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .custom-link {
   color: white;
