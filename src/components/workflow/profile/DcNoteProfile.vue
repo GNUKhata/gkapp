@@ -461,11 +461,12 @@ export default {
           badQuality: details.badquality === 1,
           sale: details.invdata.inoutflag === 15,
         };
+
         this.party = {
           name: details.custSupDetails.custname,
           addr: details.custSupDetails.custaddr,
           pincode: details.custSupDetails.pincode,
-          gstin: details.custSupDetails.gstin,
+          gstin: Object.values(details.custSupDetails?.gstin || {}).join(", "),
           tin: details.custSupDetails.tin,
         };
         this.inv = {
