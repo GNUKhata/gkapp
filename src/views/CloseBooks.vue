@@ -133,15 +133,6 @@
           <div class="row">
             <div class="col-md-6">
               <b-form-group
-                id="input-group-3"
-                :label="$gettext('From')"
-                label-for="ro-from"
-              >
-                <gk-date id="ro-from" v-model="newYearStart"></gk-date>
-              </b-form-group>
-            </div>
-            <div class="col-md-6">
-              <b-form-group
                 id="input-group-4"
                 :label="$gettext('To')"
                 label-for="ro-to"
@@ -308,7 +299,7 @@ export default {
       this.isLoading = true;
       axios
         .get(
-          `/rollover?financialend=${this.newYearEnd}&financialstart=${this.newYearStart}`
+          `/rollover?financialend=${this.newYearEnd}`
         )
         .then((r) => {
           if (r.status == 200) {
