@@ -104,7 +104,6 @@
             required
             v-model="form.openingBalance"
             step="0.01"
-            min="0.01"
           />
         </b-form-group>
         <hr class="my-2">
