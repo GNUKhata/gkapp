@@ -1,20 +1,39 @@
 <template>
-  <div class="card" :style="{ minWidth: '300px' }">
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
-    <div class="card-header text-left py-2">
+  <div
+    class="card"
+    :style="{minWidth: '300px'}"
+  >
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
+    <div class="card-header py-2 text-left">
       <b>
-        <span v-if="isEditMode" v-translate> Edit Budget Details</span>
-        <span v-else v-translate> Create Budget Details </span>
+        <span
+          v-if="isEditMode"
+          v-translate
+        > Edit Budget Details</span>
+        <span
+          v-else
+          v-translate
+        > Create Budget Details </span>
       </b>
-      <slot name="close-button"> </slot>
+      <slot name="close-button" />
     </div>
     <div class="card-body pb-2 px-1 px-md-3">
-      <b-form class="text-left px-2" @submit.prevent="confirmOnSubmit">
+      <b-form
+        class="px-2 text-left"
+        @submit.prevent="confirmOnSubmit"
+      >
         <b-row>
           <b-col class="mb-3 px-3">
-            <b-container fluid class="h-100">
-              <b-row class="h-100 align-content-around">
+            <b-container
+              fluid
+              class="h-100"
+            >
+              <b-row class="align-content-around h-100">
                 <b-col cols="12">
                   <b-form-group
                     label-size="sm"
@@ -52,7 +71,7 @@
                       v-model="form.name"
                       trim
                       required
-                    ></b-form-input>
+                    />
                   </b-form-group>
                   <b-form-group
                     label-size="sm"
@@ -61,14 +80,13 @@
                     label-cols="2"
                     label-class="required"
                   >
-                    <gk-date
+                    <GkDate
                       id="bud-date-1"
                       :format="dateFormat"
                       v-model="form.from"
                       :required="true"
                       @validity="onFromDateSet"
-                    >
-                    </gk-date>
+                    />
                   </b-form-group>
                   <b-form-group
                     label-size="sm"
@@ -76,9 +94,9 @@
                     label-for="bud-date-2"
                     label-cols="2"
                     label-class="required"
-                    :style="{ minWidth: '180px' }"
+                    :style="{minWidth: '180px'}"
                   >
-                    <gk-date
+                    <GkDate
                       id="bud-date-2"
                       :format="dateFormat"
                       :min="minDate"
@@ -89,8 +107,7 @@
                           this.isValid.toDate = validity;
                         }
                       "
-                    >
-                    </gk-date>
+                    />
                   </b-form-group>
                 </b-col>
                 <b-col>
@@ -111,23 +128,33 @@
                     </b-thead>
                     <b-tbody>
                       <b-tr>
-                        <td v-translate>Opening Balance</td>
+                        <td v-translate>
+                          Opening Balance
+                        </td>
                         <td>{{ form.budget.openingBalance }}</td>
                       </b-tr>
                       <b-tr>
-                        <td v-translate>Inflow</td>
+                        <td v-translate>
+                          Inflow
+                        </td>
                         <td>{{ totalIn }}</td>
                       </b-tr>
                       <b-tr>
-                        <td v-translate>Cash Available</td>
+                        <td v-translate>
+                          Cash Available
+                        </td>
                         <td>{{ form.budget.openingBalance + totalIn }}</td>
                       </b-tr>
                       <b-tr>
-                        <td v-translate>Outflow</td>
+                        <td v-translate>
+                          Outflow
+                        </td>
                         <td>{{ totalOut }}</td>
                       </b-tr>
                       <b-tr>
-                        <td v-translate>Closing Balance</td>
+                        <td v-translate>
+                          Closing Balance
+                        </td>
                         <td>
                           {{
                             form.budget.openingBalance + (totalIn - totalOut)
@@ -153,15 +180,21 @@
                     </b-thead>
                     <b-tbody>
                       <b-tr>
-                        <td v-translate>Total Income</td>
+                        <td v-translate>
+                          Total Income
+                        </td>
                         <td>{{ totalIn }}</td>
                       </b-tr>
                       <b-tr>
-                        <td v-translate>Total Expense</td>
+                        <td v-translate>
+                          Total Expense
+                        </td>
                         <td>{{ totalOut }}</td>
                       </b-tr>
                       <b-tr>
-                        <td v-translate>Net Profit</td>
+                        <td v-translate>
+                          Net Profit
+                        </td>
                         <td>{{ totalIn - totalOut }}</td>
                       </b-tr>
                     </b-tbody>
@@ -170,19 +203,29 @@
               </b-row>
             </b-container>
           </b-col>
-          <b-col cols="12" :md="inOverlay ? 12 : 6" lg="6" class="mb-3">
-            <b-card no-body border-variant="dark">
+          <b-col
+            cols="12"
+            :md="inOverlay ? 12 : 6"
+            lg="6"
+            class="mb-3"
+          >
+            <b-card
+              no-body
+              border-variant="dark"
+            >
               <b-card-body class="p-2">
-                <h5 v-translate>Budget Amount</h5>
+                <h5 v-translate>
+                  Budget Amount
+                </h5>
                 <b-alert
-                  class="px-1 py-0 mb-2"
+                  class="mb-2 px-1 py-0"
                   variant="danger"
                   :show="totalIn === 0"
                 >
                   <small>
                     <translate
                       translate-comment="%{inType} is a variable, translation is not required for it. Enter it, as it is while translation."
-                      :translate-params="{ inType: inType }"
+                      :translate-params="{inType: inType}"
                     >
                       Please enter atleast 1 budget amount for %{inType}!
                     </translate>
@@ -201,7 +244,7 @@
                   <template #head(acc)>
                     <translate
                       translate-comment="%{inType} is a variable, translation is not required for it. Enter it, as it is while translation."
-                      :translate-params="{ inType: inType }"
+                      :translate-params="{inType: inType}"
                     >
                       %{inType} Accounts
                     </translate>
@@ -212,18 +255,18 @@
                       type="number"
                       step="0.01"
                       v-model="form.budget[inType][data.item.code]"
-                    ></b-input>
+                    />
                   </template>
                 </b-table-lite>
                 <b-alert
-                  class="px-1 py-0 mb-2"
+                  class="mb-2 px-1 py-0"
                   variant="danger"
                   :show="totalOut === 0"
                 >
                   <small>
                     <translate
                       translate-comment="%{outType} is a variable, translation is not required for it. Enter it, as it is while translation."
-                      :translate-params="{ outType: outType }"
+                      :translate-params="{outType: outType}"
                     >
                       Please enter atleast 1 budget amount for %{outType}!
                     </translate>
@@ -242,7 +285,7 @@
                   <template #head(acc)>
                     <translate
                       translate-comment="%{outType} is a variable, translation is not required for it. Enter it, as it is while translation."
-                      :translate-params="{ outType: outType }"
+                      :translate-params="{outType: outType}"
                     >
                       %{outType} Accounts
                     </translate>
@@ -253,14 +296,14 @@
                       type="number"
                       step="0.01"
                       v-model="form.budget[outType][data.item.code]"
-                    ></b-input>
+                    />
                   </template>
                 </b-table-lite>
               </b-card-body>
             </b-card>
           </b-col>
         </b-row>
-        <hr class="my-2" />
+        <hr class="my-2">
         <div>
           <div class="float-right">
             <b-button
@@ -274,8 +317,11 @@
                 aria-hidden="true"
                 class="align-middle mr-1"
                 icon="arrow-left"
-              ></b-icon>
-              <span class="align-middle" v-translate>Back</span>
+              />
+              <span
+                class="align-middle"
+                v-translate
+              >Back</span>
             </b-button>
             <b-button
               size="sm"
@@ -287,8 +333,11 @@
                 aria-hidden="true"
                 class="align-middle mr-1"
                 icon="arrow-repeat"
-              ></b-icon>
-              <span class="align-middle" v-translate>Reset</span>
+              />
+              <span
+                class="align-middle"
+                v-translate
+              >Reset</span>
             </b-button>
             <b-button
               :disabled="!isFormValid"
@@ -297,17 +346,28 @@
               class="m-1"
               variant="success"
             >
-              <b-spinner v-if="isLoading" small></b-spinner>
+              <b-spinner
+                v-if="isLoading"
+                small
+              />
               <b-icon
                 v-else
                 aria-hidden="true"
                 class="align-middle mr-1"
                 :icon="isEditMode ? 'cloud-arrow-up' : 'plus-square'"
-              ></b-icon>
-              <span class="align-middle" v-translate v-if="isEditMode">
+              />
+              <span
+                class="align-middle"
+                v-translate
+                v-if="isEditMode"
+              >
                 Update
               </span>
-              <span class="align-middle" v-translate v-else>Save</span>
+              <span
+                class="align-middle"
+                v-translate
+                v-else
+              >Save</span>
             </b-button>
           </div>
         </div>
@@ -400,32 +460,54 @@ export default {
     };
   },
   computed: {
-    isEditMode: (self) => self.mode === 'edit',
-    isFormValid: (self) =>
-      self.isValid.fromDate &&
-      self.isValid.toDate &&
-      self.totalIn !== 0 &&
-      self.totalOut !== 0,
-    minDate: (self) =>
-      self.dateReverse(self.isValid.fromDate ? self.form.from : self.yearStart),
-    totalIn: (self) =>
-      Object.values(self.form.budget[self.inType]).reduce(
-        (sum, bud) => sum + parseFloat(bud),
+    isEditMode: function () {
+      return this.mode === 'edit';
+    },
+    isFormValid: function () {
+      return (
+        this.isValid.fromDate &&
+        this.isValid.toDate &&
+        this.totalIn !== 0 &&
+        this.totalOut !== 0
+      );
+    },
+    minDate: function () {
+      return this.dateReverse(
+        this.isValid.fromDate ? this.form.from : this.yearStart
+      );
+    },
+    totalIn: function () {
+      let totalIn = Object.values(this.form.budget[this.inType]).reduce(
+        (sum, bud) => sum + parseFloat(bud || 0),
         0
-      ),
-    totalOut: (self) =>
-      Object.values(self.form.budget[self.outType]).reduce(
-        (sum, bud) => sum + parseFloat(bud),
+      );
+      return totalIn;
+    },
+    totalOut: function () {
+      let totalOut = Object.values(this.form.budget[this.outType]).reduce(
+        (sum, bud) => sum + parseFloat(bud || 0),
         0
-      ),
-    inType: (self) => (self.isCash ? 'inflow' : 'income'),
-    outType: (self) => (self.isCash ? 'outflow' : 'expense'),
-    isCash: (self) => self.form.type === 'cash',
-    accIn: (self) =>
-      self.isCash ? self.options.cashAccs.inflow : self.options.plAccs.income,
-    accOut: (self) =>
-      self.isCash ? self.options.cashAccs.outflow : self.options.plAccs.expense,
-    dateFormat: (self) => self.$store.getters['global/getDateFormat'],
+      );
+      return totalOut;
+    },
+    inType: function () {
+      return (this.isCash ? 'inflow' : 'income');
+    },
+    outType: function () {
+      return (this.isCash ? 'outflow' : 'expense');
+    },
+    isCash: function () {
+      return this.form.type === 'cash';
+    },
+    accIn: function () {
+      return this.isCash ? this.options.cashAccs.inflow : this.options.plAccs.income;
+    },
+    accOut: function () {
+      return this.isCash ? this.options.cashAccs.outflow : this.options.plAccs.expense;
+    },
+    dateFormat: function () {
+      return this.$store.getters['global/getDateFormat'];
+    },
     ...mapState(['yearStart', 'yearEnd']),
   },
   watch: {
@@ -453,7 +535,7 @@ export default {
     confirmOnSubmit() {
       const self = this;
       let from = this.dateReverse(this.form.from),
-        to = this.dateReverse(this.form.to);
+          to = this.dateReverse(this.form.to);
       let action = this.isEditMode ? 'Update' : 'Create';
       let text = `${action} Budget <b>${this.form.name}</b> for the time period, (${from} to ${to})?`;
       let textDom = this.$createElement('div', {
@@ -483,7 +565,7 @@ export default {
       const payload = this.initPayload();
       // console.log(payload);
       let formMode = 'Create',
-        method = 'post';
+          method = 'post';
       if (this.isEditMode) {
         formMode = 'Update';
         method = 'put';
@@ -493,56 +575,56 @@ export default {
           // console.log(response)
           self.isLoading = false;
           switch (response.data.gkstatus) {
-            case 0:
-              {
-                // === Server Log ===
-                let action = self.isEditMode ? 'updated' : 'created';
-                let logdata = {
-                  activity: `budget ${action}: ${payload.budname}`,
-                };
-                axios.post('/log', logdata);
-                self.displayToast(
-                  this.$gettext(`Success!`),
-                  `${formMode} Budget "${payload.budname} Successful"`,
-                  'success'
-                );
-                if (!self.isEditMode) {
-                  // only reset form on success, otherwise leave it as is so that user may edit their input and try again
-                  self.resetForm();
-                }
+          case 0:
+            {
+              // === Server Log ===
+              let action = self.isEditMode ? 'updated' : 'created';
+              let logdata = {
+                activity: `budget ${action}: ${payload.budname}`,
+              };
+              axios.post('/log', logdata);
+              self.displayToast(
+                this.$gettext(`Success!`),
+                `${formMode} Budget "${payload.budname} Successful"`,
+                'success'
+              );
+              if (!self.isEditMode) {
+                // only reset form on success, otherwise leave it as is so that user may edit their input and try again
+                self.resetForm();
               }
-              break;
-            case 1:
-              self.displayToast(
-                this.$gettextInterpolate(
-                  this.$gettext(`%{formMode} Budget Error!`),
-                  { formMode: formMode }
+            }
+            break;
+          case 1:
+            self.displayToast(
+              this.$gettextInterpolate(
+                this.$gettext(`%{formMode} Budget Error!`),
+                { formMode: formMode }
+              ),
+              this.$gettext(`Budget entry already exists!`),
+              'warning'
+            );
+            break;
+          case 2:
+            self.displayToast(
+              this.$gettextInterpolate(
+                this.$gettext(`%{formMode} Budget Error!`),
+                { formMode: formMode }
+              ),
+              this.$gettext(`Unauthorized access, please contact admin.`),
+              'warning'
+            );
+            break;
+          default:
+            self.displayToast(
+              this.$gettext(`Error!`),
+              this.$gettextInterpolate(
+                this.$gettext(
+                  `Unable to %{formMode} Budget, please try again.`
                 ),
-                this.$gettext(`Budget entry already exists!`),
-                'warning'
-              );
-              break;
-            case 2:
-              self.displayToast(
-                this.$gettextInterpolate(
-                  this.$gettext(`%{formMode} Budget Error!`),
-                  { formMode: formMode }
-                ),
-                this.$gettext(`Unauthorized access, please contact admin.`),
-                'warning'
-              );
-              break;
-            default:
-              self.displayToast(
-                this.$gettext(`Error!`),
-                this.$gettextInterpolate(
-                  this.$gettext(
-                    `Unable to %{formMode} Budget, please try again.`
-                  ),
-                  { formMode: formMode }
-                ),
-                'danger'
-              );
+                { formMode: formMode }
+              ),
+              'danger'
+            );
           } // end switch
           if (self.onSave) {
             self.onSave(response.data);
