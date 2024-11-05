@@ -106,23 +106,12 @@ export default {
       let text = '';
       if (this.userPassword) {
         switch (this.pwdStrength.value) {
-          case 'Strong':
-            text = 'Your Password is Strong!';
-            // v-model will emit hashed password digest
-            this.$emit('change', this.hashedPassword(this.userPassword));
-            break;
-          case 'Medium':
-            text = this.getPasswordHint(this.pwdStrength);
-            break;
-          case 'Weak':
-            text = this.getPasswordHint(this.pwdStrength);
-            break;
-          default:
-            if (this.userPassword.length < 8) {
-              text = 'is-danger';
-            } else {
-              text = 'is-success';
-            }
+        case 'Strong':
+          text = 'Your Password is Strong!';
+          break;
+        default:
+          text = this.getPasswordHint(this.pwdStrength);
+          break;
         }
         // v-model will emit hashed password digest
         this.$emit('change', this.hashedPassword(this.userPassword));
