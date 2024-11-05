@@ -205,7 +205,7 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import passwordStrength from 'check-password-strength';
+import { passwordStrength } from 'check-password-strength';
 import countries from '@/js/countries';
 import GkDate from '@/components/GkDate.vue';
 import { STATUS_CODES } from '@/js/enum.js';
