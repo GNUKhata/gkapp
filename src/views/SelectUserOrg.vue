@@ -3,7 +3,7 @@
     <!-- User Login -->
     <b-card
       v-if="!userAuthToken"
-      class="shadow mx-auto"
+      class="mx-auto shadow"
       style="max-width: 35em"
       header-bg-variant="dark"
       header-text-variant="light"
@@ -50,7 +50,7 @@
           />
           <b-button
             variant="link"
-            class="p-0 float-right"
+            class="float-right p-0"
             @click="showForm.resetPwd = true"
           >
             <small><translate>Forgot Password?</translate></small>
@@ -282,7 +282,7 @@
                 <b-button
                   @click="onAcceptInvite(data.index, data.item.name)"
                   size="sm"
-                  class="p-1 mx-1"
+                  class="mx-1 p-1"
                   variant="success"
                 >
                   <b-icon
