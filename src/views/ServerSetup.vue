@@ -6,20 +6,37 @@
       header-text-variant="light"
       class="shadow mx-auto gkcard"
     >
-      <b-overlay :show="isLoading" variant="secondary" no-wrap blur></b-overlay>
+      <b-overlay
+        :show="isLoading"
+        variant="secondary"
+        no-wrap
+        blur
+      />
       <template #header>
         <gk-cardheader
           :name="$gettext('GNUKhata Server Setup')"
           help-body="This menu helps you to select gkcore server to use with this webapp. The default server is <code>localhost:6543</code><br>You can also set your custom gkcore server address."
-        ></gk-cardheader>
+        />
       </template>
       <b-card-body>
-        <b-form @submit.prevent="setCustomServerUrl" class="text-center">
-          <b-button size="sm" variant="dark" @click.prevent="setDefaultServer">
-            <b-icon class="mr-1" icon="arrow-right-circle"></b-icon>
+        <b-form
+          @submit.prevent="setCustomServerUrl"
+          class="text-center"
+        >
+          <b-button
+            size="sm"
+            variant="dark"
+            @click.prevent="setDefaultServer"
+          >
+            <b-icon
+              class="mr-1"
+              icon="arrow-right-circle"
+            />
             <translate>Continue with Default Server</translate>
           </b-button>
-          <div class="mt-2 mb-2"><b>OR</b></div>
+          <div class="mt-2 mb-2">
+            <b>OR</b>
+          </div>
           <h5 class="text-muted text-center">
             <translate>Enter Custom Server URL</translate>
           </h5>
@@ -30,7 +47,7 @@
               v-model="serverUrl"
               type="url"
               placeholder="https://example.com"
-            ></b-form-input>
+            />
             <b-form-invalid-feedback id="input-live-feedback">
               <translate>URL should not contain " / " in the end</translate>
             </b-form-invalid-feedback>
@@ -41,7 +58,10 @@
             variant="success"
             :disabled="serverUrl === '' ? true : false"
           >
-            <b-icon class="mr-1" icon="arrow-right-circle"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="arrow-right-circle"
+            />
             <translate> Save & Continue</translate>
           </b-button>
         </b-form>

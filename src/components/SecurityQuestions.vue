@@ -6,7 +6,10 @@
     @change="$emit('change', choice)"
   >
     <template #first>
-      <b-form-select-option disabled value="">
+      <b-form-select-option
+        disabled
+        value=""
+      >
         <translate>Select a security question</translate>
       </b-form-select-option>
     </template>

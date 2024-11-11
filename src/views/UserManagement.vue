@@ -8,7 +8,10 @@
           variant="outline-primary"
           v-b-modal.create-user
         >
-          <b-icon class="mr-1" icon="person-plus"></b-icon>
+          <b-icon
+            class="mr-1"
+            icon="person-plus"
+          />
           <translate>Invite User</translate>
         </b-button>
       </template>
@@ -16,7 +19,7 @@
         type="text"
         :placeholder="$gettext('Search Users')"
         v-model="searchText"
-      ></b-form-input>
+      />
     </b-input-group>
     <!-- Toolbar -->
     <gk-toolbar>
@@ -24,15 +27,17 @@
         file-suffix="UserList"
         :url="
           `/spreadsheet?user-list&fystart=${dateReverse(
-            this.yearStart
+            this.yearStart,
           )}&fyend=${dateReverse(this.yearEnd)}&orgname=${this.orgName}`
         "
-        :messageFromParent="parentMessage"
-      ></gk-file-download>
+        :message-from-parent="parentMessage"
+      />
     </gk-toolbar>
     <b-row>
       <b-col>
-        <h5 class="mb-3">Users</h5>
+        <h5 class="mb-3">
+          Users
+        </h5>
         <b-table
           head-variant="dark"
           class="table-border-dark"
@@ -61,7 +66,9 @@
         </b-table>
       </b-col>
       <b-col>
-        <h5 class="mb-3">Invitations</h5>
+        <h5 class="mb-3">
+          Invitations
+        </h5>
         <b-table-lite
           head-variant="dark"
           class="table-border-dark"
@@ -79,7 +86,7 @@
               icon="pencil-square"
               class="mr-1"
               role="button"
-            ></b-icon>
+            />
             <b-icon
               v-if="data.item.roleid !== -1"
               icon="trash"
@@ -87,7 +94,7 @@
               class="ml-1"
               role="button"
               @click="onCancelInvite(data.item)"
-            ></b-icon>
+            />
           </template>
         </b-table-lite>
         <b v-else>No pending invitations</b>
@@ -157,39 +164,39 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case STATUS_CODES['Success']:
-                this.gk_log(`user removed: ${userName}`);
-                this.$bvToast.toast(this.$gettext('User is removed'), {
-                  title: 'Success',
-                  variant: 'success',
-                });
-                // refresh user list
-                this.getUsers();
-                break;
-              case STATUS_CODES['BadPrivilege']:
-                this.$bvToast.toast(
-                  this.$gettext('No privileges to delete the user'),
-                  {
-                    title: 'Error',
-                    variant: 'danger',
-                  }
-                );
-                break;
-              case STATUS_CODES['ActionDisallowed']:
-                this.$bvToast.toast(
-                  this.$gettext('User deletion is not allowed'),
-                  {
-                    title: 'Error',
-                    variant: 'danger',
-                  }
-                );
-                break;
-              case STATUS_CODES['ConnectionFailed']:
-                this.$bvToast.toast(this.$gettext('User deletion failed'), {
-                  title: 'error',
+            case STATUS_CODES['Success']:
+              this.gk_log(`user removed: ${userName}`);
+              this.$bvToast.toast(this.$gettext('User is removed'), {
+                title: 'Success',
+                variant: 'success',
+              });
+              // refresh user list
+              this.getUsers();
+              break;
+            case STATUS_CODES['BadPrivilege']:
+              this.$bvToast.toast(
+                this.$gettext('No privileges to delete the user'),
+                {
+                  title: 'Error',
                   variant: 'danger',
-                });
-                break;
+                }
+              );
+              break;
+            case STATUS_CODES['ActionDisallowed']:
+              this.$bvToast.toast(
+                this.$gettext('User deletion is not allowed'),
+                {
+                  title: 'Error',
+                  variant: 'danger',
+                }
+              );
+              break;
+            case STATUS_CODES['ConnectionFailed']:
+              this.$bvToast.toast(this.$gettext('User deletion failed'), {
+                title: 'error',
+                variant: 'danger',
+              });
+              break;
             }
           }
         })
@@ -289,33 +296,33 @@ export default {
       };
       axios.delete('/invite', config).then((resp) => {
         switch (resp.data.gkstatus) {
-          case STATUS_CODES['Success']:
-            this.$bvToast.toast(`Invite for ${name} cancelled successfully`, {
-              variant: 'success',
-            });
-            this.getUsers();
-            break;
-          case STATUS_CODES['UnauthorisedAccess']:
-            this.$bvToast.toast(`Please check login status`, {
+        case STATUS_CODES['Success']:
+          this.$bvToast.toast(`Invite for ${name} cancelled successfully`, {
+            variant: 'success',
+          });
+          this.getUsers();
+          break;
+        case STATUS_CODES['UnauthorisedAccess']:
+          this.$bvToast.toast(`Please check login status`, {
+            variant: 'warning',
+          });
+          break;
+        case STATUS_CODES['ActionDisallowed']:
+          this.$bvToast.toast(
+            `User does not have the ability to cancel invites. Please contact admin.`,
+            {
               variant: 'warning',
-            });
-            break;
-          case STATUS_CODES['ActionDisallowed']:
-            this.$bvToast.toast(
-              `User does not have the ability to cancel invites. Please contact admin.`,
-              {
-                variant: 'warning',
-              }
-            );
-            break;
-          case STATUS_CODES['ConnectionFailed']:
-          default:
-            this.$bvToast.toast(
-              `Could not cancel invite, please contact admin`,
-              {
-                variant: 'danger',
-              }
-            );
+            }
+          );
+          break;
+        case STATUS_CODES['ConnectionFailed']:
+        default:
+          this.$bvToast.toast(
+            `Could not cancel invite, please contact admin`,
+            {
+              variant: 'danger',
+            }
+          );
         }
       });
     },
@@ -325,6 +332,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 table {
   width: 70%;

@@ -11,15 +11,35 @@
         size="sm"
         class="ml-2"
         variant="danger"
-        ><b-icon class="mr-1" icon="person-dash"></b-icon>
+      >
+        <b-icon
+          class="mr-1"
+          icon="person-dash"
+        />
         <translate>Delete Contact</translate>
       </b-button>
-      <b-button type="submit" size="sm" class="ml-2" variant="success"
-        ><b-icon class="mr-1" icon="cloud-arrow-up"></b-icon>
+      <b-button
+        type="submit"
+        size="sm"
+        class="ml-2"
+        variant="success"
+      >
+        <b-icon
+          class="mr-1"
+          icon="cloud-arrow-up"
+        />
         <translate>Save Changes</translate>
       </b-button>
-      <b-button to="/invoice" size="sm" class="ml-2" variant="dark"
-        ><b-icon class="mr-1" icon="receipt"></b-icon>
+      <b-button
+        to="/invoice"
+        size="sm"
+        class="ml-2"
+        variant="dark"
+      >
+        <b-icon
+          class="mr-1"
+          icon="receipt"
+        />
         <translate>Add Transaction</translate>
       </b-button>
       <b-button
@@ -33,7 +53,11 @@
         size="sm"
         class="ml-2"
         variant="warning"
-        ><b-icon class="mr-1" icon="file-earmark-plus"></b-icon>
+      >
+        <b-icon
+          class="mr-1"
+          icon="file-earmark-plus"
+        />
         <translate>Create Voucher</translate>
       </b-button>
       <b-button
@@ -41,11 +65,19 @@
         size="sm"
         class="ml-2"
         variant="success"
-        ><b-icon class="mr-1" icon="journals"></b-icon>
+      >
+        <b-icon
+          class="mr-1"
+          icon="journals"
+        />
         <translate>View Ledger</translate>
       </b-button>
     </div>
-    <b-overlay no-wrap blur :show="isLoading"></b-overlay>
+    <b-overlay
+      no-wrap
+      blur
+      :show="isLoading"
+    />
     <b-card
       class="mt-2"
       header-text-variant="light"
@@ -53,33 +85,60 @@
       no-body
     >
       <template #header>
-        <div class="d-flex" v-b-toggle.collapse-info>
-          <div class="mr-auto" v-translate>Info</div>
+        <div
+          class="d-flex"
+          v-b-toggle.collapse-info
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Info
+          </div>
           <div>
-            <b-icon icon="dash"></b-icon>
+            <b-icon icon="dash" />
           </div>
         </div>
       </template>
-      <b-collapse class="m-3" id="collapse-info">
-        <b-form-group label="Name" label-for="Name" label-cols="3">
-          <template #label> <translate> Name </translate> </template>
+      <b-collapse
+        class="m-3"
+        id="collapse-info"
+      >
+        <b-form-group
+          label="Name"
+          label-for="Name"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Name </translate>
+          </template>
           <b-form-input
             id="nested-name"
             v-model.trim="details.custname"
-          ></b-form-input>
+          />
         </b-form-group>
 
-        <b-form-group label="Phone" label-for="Phone Number" label-cols="3">
-          <template #label> <translate> Phone </translate> </template>
+        <b-form-group
+          label="Phone"
+          label-for="Phone Number"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Phone </translate>
+          </template>
           <b-form-input
             v-model="details.custphone"
             id="nested-city"
             type="tel"
             pattern="^\+?\d{0,13}"
-          ></b-form-input>
+          />
         </b-form-group>
 
-        <b-form-group label="Email" label-for="nested-state" label-cols="3">
+        <b-form-group
+          label="Email"
+          label-for="nested-state"
+          label-cols="3"
+        >
           <template #label>
             <translate>Email</translate>
           </template>
@@ -89,9 +148,15 @@
           />
         </b-form-group>
 
-        <b-form-group label="Fax" label-for="nested-country" label-cols="3">
-          <template #label> <translate> Fax </translate> </template>
-          <b-form-input v-model="details.custfax"></b-form-input>
+        <b-form-group
+          label="Fax"
+          label-for="nested-country"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Fax </translate>
+          </template>
+          <b-form-input v-model="details.custfax" />
         </b-form-group>
       </b-collapse>
     </b-card>
@@ -103,20 +168,37 @@
       no-body
     >
       <template #header>
-        <div v-b-toggle.address class="d-flex">
-          <div class="mr-auto" v-translate>Address</div>
+        <div
+          v-b-toggle.address
+          class="d-flex"
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Address
+          </div>
           <div>
-            <b-icon icon="dash"></b-icon>
+            <b-icon icon="dash" />
           </div>
         </div>
       </template>
-      <b-collapse class="m-3" id="address">
-        <b-form-group label="Street" label-for="nested-street" label-cols="3">
-          <template #label> <translate> Street </translate> </template>
+      <b-collapse
+        class="m-3"
+        id="address"
+      >
+        <b-form-group
+          label="Street"
+          label-for="nested-street"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Street </translate>
+          </template>
           <b-form-input
             id="nested-street"
             v-model="details.custaddr"
-          ></b-form-input>
+          />
         </b-form-group>
 
         <b-form-group
@@ -138,21 +220,29 @@
           label-for="state"
           label-cols="3"
         >
-          <template #label> <translate> State </translate> </template>
+          <template #label>
+            <translate> State </translate>
+          </template>
           <b-form-select
             :options="options.states"
             v-model="details.state"
             @change="gstin.stateCode = options.stateMap[details.state]"
-          ></b-form-select>
+          />
         </b-form-group>
 
-        <b-form-group label="Postal Code" label-for="nested-country" label-cols="3">
-          <template #label> <translate> Postal Code </translate> </template>
+        <b-form-group
+          label="Postal Code"
+          label-for="nested-country"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Postal Code </translate>
+          </template>
           <b-form-input
             no-wheel
             v-model="details.pincode"
             id="nested-country"
-          ></b-form-input>
+          />
         </b-form-group>
       </b-collapse>
     </b-card>
@@ -165,22 +255,38 @@
       no-body
     >
       <template #header>
-        <div v-b-toggle.financial class="d-flex">
-          <div class="mr-auto" v-translate>Financial Details</div>
+        <div
+          v-b-toggle.financial
+          class="d-flex"
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Financial Details
+          </div>
           <div>
-            <b-icon variant="light" icon="dash"></b-icon>
+            <b-icon
+              variant="light"
+              icon="dash"
+            />
           </div>
         </div>
       </template>
 
-      <b-collapse class="m-3" id="financial">
+      <b-collapse
+        class="m-3"
+        id="financial"
+      >
         <template v-if="isGstEnabled">
           <b-form-group
             label="GSTIN"
             label-for="nested-state"
             label-cols="3"
           >
-            <template #label> <translate> GSTIN </translate> </template>
+            <template #label>
+              <translate> GSTIN </translate>
+            </template>
             <gk-gstin
               @validity="onGstinUpdate"
               @gstin_data="onGstinDataFetched"
@@ -202,8 +308,7 @@
               v-model="details.gst_reg_type"
               :options="options.regTypes"
               :disabled="!isGstValid"
-            >
-            </b-form-select>
+            />
           </b-form-group>
           <b-form-group
             v-if="isGstValid && isGstReg"
@@ -219,8 +324,7 @@
               id="nested-gst-party"
               v-model="details.gst_party_type"
               :options="options.partyTypes"
-            >
-            </b-form-select>
+            />
           </b-form-group>
         </template>
         <b-form-group
@@ -247,7 +351,9 @@
           :state="isPanValid"
           invalid-feedback="Format: 5 capital alphabets 4 numbers 1 capital alphabet"
         >
-          <template #label> <translate> PAN </translate> </template>
+          <template #label>
+            <translate> PAN </translate>
+          </template>
           <b-form-input
             :value="details.custpan"
             v-model="details.custpan"
@@ -256,7 +362,7 @@
             pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
             @change="gstin.pan = details.custpan"
             :required="!!details.custpan"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="TAN"
@@ -283,15 +389,29 @@
       no-body
     >
       <template #header>
-        <div v-b-toggle.bank class="d-flex">
-          <div class="mr-auto" v-translate>Bank Details</div>
+        <div
+          v-b-toggle.bank
+          class="d-flex"
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Bank Details
+          </div>
           <div>
-            <b-icon variant="light" icon="dash"></b-icon>
+            <b-icon
+              variant="light"
+              icon="dash"
+            />
           </div>
         </div>
       </template>
 
-      <b-collapse class="m-3" id="bank">
+      <b-collapse
+        class="m-3"
+        id="bank"
+      >
         <b-form-group
           v-if="isIndianContact"
           label="IFSC"
@@ -302,9 +422,16 @@
                  id="cp-bank-ifsc"
                  v-model="bankDetails.ifsc"
                  ></b-form-input> -->
-          <gk-ifsc v-model="bankDetails.ifsc" @fill="autofillIfsc"></gk-ifsc>
+          <gk-ifsc
+            v-model="bankDetails.ifsc"
+            @fill="autofillIfsc"
+          />
         </b-form-group>
-        <b-form-group label="Account Number" label-for="cp-bank-ano" label-cols="3">
+        <b-form-group
+          label="Account Number"
+          label-for="cp-bank-ano"
+          label-cols="3"
+        >
           <template #label>
             <translate> Account Number </translate>
           </template>
@@ -314,20 +441,32 @@
             pattern="[A-Z0-9]+"
           />
         </b-form-group>
-        <b-form-group label="Bank Name" label-for="cp-bank-name" label-cols="3">
-          <template #label> <translate> Bank Name </translate> </template>
+        <b-form-group
+          label="Bank Name"
+          label-for="cp-bank-name"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Bank Name </translate>
+          </template>
           <b-form-input
             id="cp-bank-name"
             v-model="bankDetails.bankname"
-          ></b-form-input>
+          />
         </b-form-group>
 
-        <b-form-group label="Branch" label-for="cp-bank-branch" label-cols="3">
-          <template #label> <translate> Branch </translate> </template>
+        <b-form-group
+          label="Branch"
+          label-for="cp-bank-branch"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Branch </translate>
+          </template>
           <b-form-input
             id="cp-bank-branch"
             v-model="bankDetails.branchname"
-          ></b-form-input>
+          />
         </b-form-group>
       </b-collapse>
     </b-card>
@@ -476,49 +615,49 @@ export default {
         .get(`/customer/${this.customer.custid}`, config)
         .then((res) => {
           switch (res.data.gkstatus) {
-            case 0:
-              {
-                this.details = res.data.gkresult;
+          case 0:
+            {
+              this.details = res.data.gkresult;
 
-                if (!this.details.gst_reg_type) {
-                  this.details.gst_reg_type = GST_REG_TYPE['unregistered'];
-                  this.details.gst_party_type = null;
-                }
-                // update bank details
-                let bdetails = this.details.bankdetails || {};
-                this.bankDetails = {
-                  accountno: bdetails.accountno,
-                  bankname: bdetails.bankname,
-                  branchname: bdetails.branchname,
-                  ifsc: bdetails.ifsc,
-                };
-
-                this.oldContactName = this.details.custname;
-                this.contactCountry = this.details.country;
-                this.isLoading = false;
-                this.states().then(() => {
-                  this.gstin.gstin = this.details.gstin
-                    ? Object.values(this.details.gstin)[0]
-                    : '';
-                });
+              if (!this.details.gst_reg_type) {
+                this.details.gst_reg_type = GST_REG_TYPE['unregistered'];
+                this.details.gst_party_type = null;
               }
-              break;
-            case 2:
-              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                variant: 'danger',
-                title: 'Alert',
-                solid: true,
-              });
+              // update bank details
+              let bdetails = this.details.bankdetails || {};
+              this.bankDetails = {
+                accountno: bdetails.accountno,
+                bankname: bdetails.bankname,
+                branchname: bdetails.branchname,
+                ifsc: bdetails.ifsc,
+              };
+
+              this.oldContactName = this.details.custname;
+              this.contactCountry = this.details.country;
               this.isLoading = false;
-              break;
-            case 3:
-              this.$bvToast.toast(this.$gettext('Contact not found'), {
-                variant: 'danger',
-                title: 'Alert',
-                solid: true,
+              this.states().then(() => {
+                this.gstin.gstin = this.details.gstin
+                  ? Object.values(this.details.gstin)[0]
+                  : '';
               });
-              this.isLoading = false;
-              break;
+            }
+            break;
+          case 2:
+            this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+              variant: 'danger',
+              title: 'Alert',
+              solid: true,
+            });
+            this.isLoading = false;
+            break;
+          case 3:
+            this.$bvToast.toast(this.$gettext('Contact not found'), {
+              variant: 'danger',
+              title: 'Alert',
+              solid: true,
+            });
+            this.isLoading = false;
+            break;
           }
         })
         .catch((err) => {
@@ -557,61 +696,61 @@ export default {
               .put(`/customer/${this.details.custid}`, this.details)
               .then((res) => {
                 switch (res.data.gkstatus) {
-                  case 7:
-                    this.isLoading = false;
-                    res.data?.error.forEach((field_err) => {
-                      let location = field_err.loc.join(" at ");
-                      let message = (location ? location+": " : "") + field_err.msg;
-                      this.displayToast("Validation Error", message, "warning");
-                    });
-                    break;
+                case 7:
+                  this.isLoading = false;
+                  res.data?.error.forEach((field_err) => {
+                    let location = field_err.loc.join(" at ");
+                    let message = (location ? location+": " : "") + field_err.msg;
+                    this.displayToast("Validation Error", message, "warning");
+                  });
+                  break;
 
-                  case 0:
-                    {
-                      this.isLoading = false;
-                      this.updateAccountDetails(this.oldContactName);
-                      this.$bvToast.toast(
-                        `${this.details.custname} Profile Details Updated`,
-                        {
-                          title: 'Success',
-                          variant: 'success',
-                          solid: true,
-                        }
-                      );
-
-                      let log = {
-                        activity: `${
-                          this.customer.csflag ? 'customer' : 'supplier'
-                        } updated: ${this.details.custname}`,
-                      };
-                      axios.post('/log', log);
-                      this.onUpdate({
-                        type: 'update',
-                        data: {
-                          custname: this.details.custname,
-                        },
-                      });
-                    }
-                    break;
-                  case 2:
+                case 0:
+                  {
                     this.isLoading = false;
-                    this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                      variant: 'danger',
-                      solid: true,
-                    });
-                    break;
-                  case 4:
-                    this.isLoading = false;
+                    this.updateAccountDetails(this.oldContactName);
                     this.$bvToast.toast(
-                      this.$gettext(
-                        'You have no permissions to delete details'
-                      ),
+                      `${this.details.custname} Profile Details Updated`,
                       {
-                        variant: 'danger',
+                        title: 'Success',
+                        variant: 'success',
                         solid: true,
                       }
                     );
-                    break;
+
+                    let log = {
+                      activity: `${
+                        this.customer.csflag ? 'customer' : 'supplier'
+                      } updated: ${this.details.custname}`,
+                    };
+                    axios.post('/log', log);
+                    this.onUpdate({
+                      type: 'update',
+                      data: {
+                        custname: this.details.custname,
+                      },
+                    });
+                  }
+                  break;
+                case 2:
+                  this.isLoading = false;
+                  this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                    variant: 'danger',
+                    solid: true,
+                  });
+                  break;
+                case 4:
+                  this.isLoading = false;
+                  this.$bvToast.toast(
+                    this.$gettext(
+                      'You have no permissions to delete details'
+                    ),
+                    {
+                      variant: 'danger',
+                      solid: true,
+                    }
+                  );
+                  break;
                 }
               })
               .catch((e) => {
@@ -638,53 +777,53 @@ export default {
               .then((res) => {
                 this.isLoading = true;
                 switch (res.data.gkstatus) {
-                  case 0:
-                    // Delete Contact's Account
-                    this.delAccount(this.details.custname);
-                    this.isLoading = false;
-                    document.querySelector('#contactinfo').innerHTML = '';
-                    this.$bvToast.toast(
-                      `${this.details.custname} Profile Deleted`,
-                      {
-                        title: 'Success',
-                        variant: 'success',
-                        solid: true,
-                      }
-                    );
-                    this.onUpdate({ type: 'delete' });
-                    break;
-                  case 2:
-                    this.isLoading = false;
-                    this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                      title: this.$gettext('Action Denied'),
+                case 0:
+                  // Delete Contact's Account
+                  this.delAccount(this.details.custname);
+                  this.isLoading = false;
+                  document.querySelector('#contactinfo').innerHTML = '';
+                  this.$bvToast.toast(
+                    `${this.details.custname} Profile Deleted`,
+                    {
+                      title: 'Success',
+                      variant: 'success',
+                      solid: true,
+                    }
+                  );
+                  this.onUpdate({ type: 'delete' });
+                  break;
+                case 2:
+                  this.isLoading = false;
+                  this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                    title: this.$gettext('Action Denied'),
+                    variant: 'danger',
+                    solid: true,
+                  });
+                  break;
+                case 4:
+                  this.isLoading = false;
+                  this.$bvToast.toast(
+                    this.$gettext(
+                      'You have no permissions to modify details'
+                    ),
+                    {
+                      title: this.$gettext('Access Denied'),
                       variant: 'danger',
                       solid: true,
-                    });
-                    break;
-                  case 4:
-                    this.isLoading = false;
-                    this.$bvToast.toast(
-                      this.$gettext(
-                        'You have no permissions to modify details'
-                      ),
-                      {
-                        title: this.$gettext('Access Denied'),
-                        variant: 'danger',
-                        solid: true,
-                      }
-                    );
-                    break;
-                  case 5:
-                    this.isLoading = false;
-                    this.$bvToast.toast(
-                      this.textInterpolated(`Cannot delete ${this.details.custname} as there are some existing entries in the software.`),
-                      {
-                        title: this.$gettext('Cannot Delete Contact'),
-                        variant: 'danger',
-                        solid: true,
-                      }
-                    );
-                    break;
+                    }
+                  );
+                  break;
+                case 5:
+                  this.isLoading = false;
+                  this.$bvToast.toast(
+                    this.textInterpolated(`Cannot delete ${this.details.custname} as there are some existing entries in the software.`),
+                    {
+                      title: this.$gettext('Cannot Delete Contact'),
+                      variant: 'danger',
+                      solid: true,
+                    }
+                  );
+                  break;
                 }
               })
               .catch((e) => {

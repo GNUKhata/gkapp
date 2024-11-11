@@ -1,13 +1,17 @@
 <template>
-  <b-button @click.prevent="printordownloadaction" size="sm" :variant="variant">
+  <b-button
+    @click.prevent="printordownloadaction"
+    size="sm"
+    :variant="variant"
+  >
     <b-icon
       aria-hidden="true"
       class="align-middle"
       :icon="iconName"
       :font-scale="fontScale"
-      :class="{ 'd-none': textMode }"
-    ></b-icon>
-    <span :class="{ 'sr-only': !textMode }">{{ textMode || 'Print' }}</span>
+      :class="{'d-none': textMode}"
+    />
+    <span :class="{'sr-only': !textMode}">{{ textMode || 'Print' }}</span>
   </b-button>
 </template>
 

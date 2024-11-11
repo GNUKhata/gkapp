@@ -2,8 +2,11 @@
   <div id="app">
     <header id="app-header">
       <!--navbar-->
-      <b-navbar size="sm" variant="light">
-        <sidebar v-if="userOrgAuthenticated"></sidebar>
+      <b-navbar
+        size="sm"
+        variant="light"
+      >
+        <sidebar v-if="userOrgAuthenticated" />
         <b-navbar-brand class="d-flex flex-row">
           <router-link
             style="border-bottom: 0px; align-self: center"
@@ -16,7 +19,7 @@
               height="40"
               class="d-inline-block align-top"
               alt="logo"
-            />
+            >
           </router-link>
           <div class="ml-2 d-inline-block">
             <!-- truncate org name in mobile view -->
@@ -24,8 +27,8 @@
               <div
                 v-b-tooltip.click
                 class="text-sm"
-                :class="{ 'text-truncate': is_mobile() }"
-                :style="{ 'max-width': is_mobile() ? '6.5em' : '' }"
+                :class="{'text-truncate': is_mobile()}"
+                :style="{'max-width': is_mobile() ? '6.5em' : ''}"
               >
                 <span v-if="this.orgName">
                   {{ this.orgName }}
@@ -50,18 +53,25 @@
         </b-navbar-brand>
         <!-- user menu -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown id="usermenu" v-if="userOrgAuthenticated" right>
+          <b-nav-item-dropdown
+            id="usermenu"
+            v-if="userOrgAuthenticated"
+            right
+          >
             <template #button-content>
               <b-avatar
                 variant="dark"
                 icon="person"
                 :title="userName"
-              ></b-avatar>
+              />
               <span class="d-none d-md-inline"> {{ userName }} </span>
             </template>
             <!-- logout button -->
-            <b-dropdown-item @click="logOut" href="#">
-              <b-icon icon="box-arrow-in-left"></b-icon> Change Org
+            <b-dropdown-item
+              @click="logOut"
+              href="#"
+            >
+              <b-icon icon="box-arrow-in-left" /> Change Org
             </b-dropdown-item>
             <!-- fy switch button, only shown when org has more than one financial year -->
             <b-dropdown-item
@@ -69,7 +79,7 @@
               v-b-modal.fy-modal
               href="#"
             >
-              <b-icon icon="toggles"></b-icon> Switch FY
+              <b-icon icon="toggles" /> Switch FY
             </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -77,11 +87,14 @@
       <!-- Color bar -->
       <!-- <color-bar></color-bar> -->
     </header>
-    <main role="main" class="mb-5">
+    <main
+      role="main"
+      class="mb-5"
+    >
       <router-view />
     </main>
-    <go-to v-if="userOrgAuthenticated"></go-to>
-    <title-bar></title-bar>
+    <go-to v-if="userOrgAuthenticated" />
+    <title-bar />
     <b-modal
       :title="$gettext('Select Financial Year')"
       header-bg-variant="dark"
@@ -97,16 +110,17 @@
         :options="finYears"
         v-model="currentFinYear"
       >
-        <template #selected-option="{ yend, ystart }">
+        <template #selected-option="{yend, ystart}">
           <!-- WARN: beware of Y3K Bug -->
           FY {{ ystart.split('-')[2] }} -
           {{ yend.split('-')[2].slice(2, 4) }}
         </template>
       </v-select>
     </b-modal>
-    <VersionInfo />
+    <version-info />
   </div>
 </template>
+
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
@@ -207,58 +221,58 @@ export default {
         })
         .then((resp) => {
           switch (resp.data.gkstatus) {
-            case 0:
-              axios.defaults.baseURL = this.gkCoreUrl;
-              axios.defaults.headers = { gktoken: resp.data.token };
-              // Initiate vuex store
-              this.$store.dispatch('setSessionStates', {
-                auth: true,
-                orgCode: selectedYear.code,
-                authToken: resp.data.token,
-                orgYears: {
-                  yearStart: selectedYear.ystart
-                    .split('-')
-                    .reverse()
-                    .join('-'),
-                  yearEnd: selectedYear.yend
-                    .split('-')
-                    .reverse()
-                    .join('-'),
-                },
-              });
+          case 0:
+            axios.defaults.baseURL = this.gkCoreUrl;
+            axios.defaults.headers = { gktoken: resp.data.token };
+            // Initiate vuex store
+            this.$store.dispatch('setSessionStates', {
+              auth: true,
+              orgCode: selectedYear.code,
+              authToken: resp.data.token,
+              orgYears: {
+                yearStart: selectedYear.ystart
+                  .split('-')
+                  .reverse()
+                  .join('-'),
+                yearEnd: selectedYear.yend
+                  .split('-')
+                  .reverse()
+                  .join('-'),
+              },
+            });
 
-              Promise.all([
-                this.$store.dispatch('initLocalStates'), // initialises vuex, org image and org address
-                this.$store.dispatch('global/initGlobalConfig'), // initialises global config
-                this.$store.dispatch('initGstin'), // initialises org GSTIN
-              ]).then(() => {
-                this.$store
-                  .dispatch('global/initGlobalState', {
-                    lang: this.$language,
-                  })
-                  .then(() => {
-                    // debugger;
-                    // redirect to workflow on login
-                    location.reload();
-                  });
-              });
-              break;
-            case 2:
-              this.$bvToast.toast(`Invalid login details`, {
-                title: 'Login Error!',
-                autoHideDelay: 3000,
-                variant: 'danger',
-              });
-              break;
-            case 5:
-              this.$router.push('/select-org');
-              break;
-            default:
-              this.$bvToast.toast(`Internal Server Error`, {
-                title: 'Login Error!',
-                autoHideDelay: 3000,
-                variant: 'danger',
-              });
+            Promise.all([
+              this.$store.dispatch('initLocalStates'), // initialises vuex, org image and org address
+              this.$store.dispatch('global/initGlobalConfig'), // initialises global config
+              this.$store.dispatch('initGstin'), // initialises org GSTIN
+            ]).then(() => {
+              this.$store
+                .dispatch('global/initGlobalState', {
+                  lang: this.$language,
+                })
+                .then(() => {
+                  // debugger;
+                  // redirect to workflow on login
+                  location.reload();
+                });
+            });
+            break;
+          case 2:
+            this.$bvToast.toast(`Invalid login details`, {
+              title: 'Login Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
+            break;
+          case 5:
+            this.$router.push('/select-org');
+            break;
+          default:
+            this.$bvToast.toast(`Internal Server Error`, {
+              title: 'Login Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
           }
         });
     },
@@ -299,6 +313,7 @@ export default {
   },
 };
 </script>
+
 <style>
 #usermenu > ul > li {
   width: max-content;

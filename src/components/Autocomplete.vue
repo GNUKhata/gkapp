@@ -1,13 +1,17 @@
 <template>
-  <div ref="autocomplete" class="gk-autocomplete" v-if="options">
+  <div
+    ref="autocomplete"
+    class="gk-autocomplete"
+    v-if="options"
+  >
     <!-- Autocomplete Input -->
     <b-form-input
       :size="size"
       class="gk-autocomplete-input"
       v-model="searchFilter"
       ref="inputField"
-      @focus="showOptions()"
-      @blur="exit()"
+      @focus="showOptions"
+      @blur="exit"
       @keydown="keyMonitor"
       @update="onInput"
       debounce="500"
@@ -24,13 +28,13 @@
     <div
       class="gk-autocomplete-content"
       v-if="optionsShown && !readonly"
-      v-bind:style="{ minWidth: dropDownWidth }"
+      :style="{minWidth: dropDownWidth}"
     >
       <!--  -->
       <b-list-group-item
         button
         class="gk-autocomplete-item"
-        :class="{ 'gk-autocomplete-item-hover': index === hovered }"
+        :class="{'gk-autocomplete-item-hover': index === hovered}"
         v-for="(option, index) in filteredOptions"
         :key="index"
         @mousedown="onMouseDown(option)"
@@ -39,7 +43,10 @@
         <div class="text-truncate">
           {{ option.text }}
         </div>
-        <small class="text-danger" v-if="!option.active && checkActive">
+        <small
+          class="text-danger"
+          v-if="!option.active && checkActive"
+        >
           ({{ inactiveText }})
         </small>
       </b-list-group-item>
@@ -49,9 +56,9 @@
         :class="{
           'gk-autocomplete-item-hover': filteredOptions.length === hovered,
         }"
-        @mousedown="clearSelection()"
+        @mousedown="clearSelection"
       >
-        <b-icon icon="x-circle-fill"></b-icon> Clear Selection
+        <b-icon icon="x-circle-fill" /> Clear Selection
       </b-list-group-item>
     </div>
   </div>
@@ -324,48 +331,40 @@ export default {
     /** Keyboard press event handlers for arrow keys, enter and escape key */
     keyMonitor: function(event) {
       switch (event.which) {
-        case 38: // ArrowUp
-          {
-            this.setHovered(Math.max(0, --this.hovered));
-          }
-          break;
-        case 40: // ArrowDown
-          {
-            this.setHovered(
-              Math.min(this.filteredOptions.length, ++this.hovered)
-            );
-          }
-          break;
-        case 13:
-          {
-            // Enter Key
-            if (this.hovered === this.filteredOptions.length) {
-              // to choose clear selection on enter key press
-              event.preventDefault();
-              this.clearSelection();
-            } else if (this.filteredOptions[this.hovered]) {
-              // if options have active data, only select options that are active = true
-              // else select the option that is being hovered
-              if (this.checkActive) {
-                if (
-                  !this.filteredOptions[this.hovered].active &&
-                  !this.blockInactive
-                ) {
-                  break;
-                }
-              }
-              event.preventDefault();
-              this.selectOption(this.filteredOptions[this.hovered]);
-              this.isSelected = true;
+      case 38: // ArrowUp
+        this.setHovered(Math.max(0, --this.hovered));
+        break;
+      case 40: // ArrowDown
+        this.setHovered(
+          Math.min(this.filteredOptions.length, ++this.hovered)
+        );
+        break;
+      case 13:
+        // Enter Key
+        if (this.hovered === this.filteredOptions.length) {
+          // to choose clear selection on enter key press
+          event.preventDefault();
+          this.clearSelection();
+        } else if (this.filteredOptions[this.hovered]) {
+          // if options have active data, only select options that are active = true
+          // else select the option that is being hovered
+          if (this.checkActive) {
+            if (
+              !this.filteredOptions[this.hovered].active &&
+              !this.blockInactive
+            ) {
+              break;
             }
           }
-          break;
-        case 27:
-          {
-            // Esc key
-            this.$refs.inputField.blur();
-          }
-          break;
+          event.preventDefault();
+          this.selectOption(this.filteredOptions[this.hovered]);
+          this.isSelected = true;
+        }
+        break;
+      case 27:
+        // Esc key
+        this.$refs.inputField.blur();
+        break;
       }
 
       // on arrow key press, move the hover from one element to another and scroll when necessary

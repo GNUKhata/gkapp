@@ -1,6 +1,9 @@
 <template>
   <section class="m-2">
-    <h4 class="text-center mb-5 bg-dark text-light p-2" v-translate>
+    <h4
+      class="text-center mb-5 bg-dark text-light p-2"
+      v-translate
+    >
       News From GST Portal
     </h4>
     <b-overlay :show="loading">
@@ -11,7 +14,7 @@
           class="mt-3"
           style="max-width: 100%; overflow-x: scroll"
           v-html="post.content"
-        ></p>
+        />
       </div>
     </b-overlay>
   </section>

@@ -6,7 +6,11 @@
   <section class="container-fluid mt-2">
     <b-form @submit.prevent="confirm('update')">
       <!-- {{ details }} -->
-      <b-overlay :show="loading" blur no-wrap></b-overlay>
+      <b-overlay
+        :show="loading"
+        blur
+        no-wrap
+      />
 
       <b-container fluid="xl">
         <b-card-group deck>
@@ -23,7 +27,7 @@
               width="150"
               class="mx-auto m-2 border border-dark"
               :src="orgImg"
-            ></b-img>
+            />
             <b-form-group
               :label="$gettext('Image')"
               label-size="sm"
@@ -39,7 +43,7 @@
                 accept="image/jpeg, image/png"
                 placeholder="Choose a file / Drag & drop it here"
                 drop-placeholder="Drop file here..."
-              ></b-form-file>
+              />
             </b-form-group>
             <b-form-group
               :label="$gettext('Name')"
@@ -52,7 +56,7 @@
                 size="sm"
                 type="text"
                 required
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group
               :label="$gettext('Website')"
@@ -64,7 +68,7 @@
                 v-model="details.orgwebsite"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group
               :label="$gettext('Email')"
@@ -76,7 +80,7 @@
                 v-model="details.orgemail"
                 size="sm"
                 type="email"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-card>
           <!-- Contact Card -->
@@ -85,13 +89,17 @@
             header-bg-variant="dark"
             header-text-variant="light"
           >
-            <b-form-group label="Address" label-cols="4" label-align="right">
+            <b-form-group
+              label="Address"
+              label-cols="4"
+              label-align="right"
+            >
               <b-form-input
                 v-model="details.orgaddr"
                 size="sm"
                 type="text"
                 required
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group
               :label="$gettext('City')"
@@ -103,7 +111,7 @@
                 v-model="details.orgcity"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group
               :label="$gettext('Country')"
@@ -129,7 +137,7 @@
                 v-model="stateCode"
                 size="sm"
                 :options="states"
-              ></b-form-select>
+              />
             </b-form-group>
             <b-form-group
               v-if="isIndia"
@@ -142,7 +150,7 @@
                 v-model="details.orgpincode"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group
               :label="$gettext('Phone')"
@@ -156,7 +164,7 @@
                   size="sm"
                   type="tel"
                   pattern="^\+?\d{0,13}"
-                ></b-form-input>
+                />
               </b-input-group>
             </b-form-group>
             <b-form-group
@@ -169,12 +177,15 @@
                 v-model="details.orgfax"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-card>
         </b-card-group>
         <!-- Bank card --->
-        <b-card-group deck class="mt-4">
+        <b-card-group
+          deck
+          class="mt-4"
+        >
           <b-card
             :header="$gettext('Bank Details')"
             header-bg-variant="dark"
@@ -190,8 +201,8 @@
               <gk-ifsc
                 size="sm"
                 @fill="autoFillIfsc"
-                :ifscCode="bankDetails.ifsc"
-              ></gk-ifsc>
+                :ifsc-code="bankDetails.ifsc"
+              />
             </b-form-group>
             <!-- bank name -->
             <b-form-group
@@ -204,7 +215,7 @@
                 v-model="bankDetails.bankname"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
             <!-- Branch -->
             <b-form-group
@@ -217,7 +228,7 @@
                 v-model="bankDetails.branchname"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
             <!-- account number -->
             <b-form-group
@@ -230,7 +241,7 @@
                 v-model="bankDetails.accountno"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-card>
           <!-- Tax card-->
@@ -252,7 +263,7 @@
                 id="gs-t2-select-20"
                 v-model="taxMode"
                 :options="globalConfOptions.transaction.taxMode"
-              ></b-form-select>
+              />
             </b-form-group>
             <b-form-group
               v-if="['GST', 'GST & VAT'].includes(taxMode)"
@@ -268,10 +279,10 @@
                 @verified="onGstinVerified"
                 :details="details"
                 v-model="gstin"
-                :showValidation="2"
-                valButtonText="Validate & Autofill"
+                :show-validation="2"
+                val-button-text="Validate & Autofill"
                 required
-              ></gk-gstin>
+              />
             </b-form-group>
             <b-form-group
               v-if="['VAT', 'GST & VAT'].includes(taxMode)"
@@ -305,7 +316,7 @@
                   pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
                   @change="gstin.pan = details.orgpan"
                   :required="!!details.orgpan"
-                ></b-form-input>
+                />
               </b-input-group>
             </b-form-group>
             <b-form-group
@@ -319,7 +330,7 @@
                 v-model="details.orgstax"
                 size="sm"
                 type="text"
-              ></b-form-input>
+              />
             </b-form-group>
 
             <b-form-group
@@ -334,14 +345,17 @@
                 :key="index"
                 class="mb-2 d-flex align-items-center justify-content-end justify-content-sm-start"
               >
-                <b :style="{ width: '25px' }">{{ cessAmount }}</b>
+                <b :style="{width: '25px'}">{{ cessAmount }}</b>
                 <b-button
                   class
                   size="sm"
                   variant="danger"
                   @click="deleteCess(cessAmount)"
                 >
-                  <b-icon font-scale="0.95" icon="trash"></b-icon>
+                  <b-icon
+                    font-scale="0.95"
+                    icon="trash"
+                  />
                 </b-button>
               </div>
               <b-button
@@ -351,8 +365,10 @@
                 @click="onCessAdd"
                 size="sm"
               >
-                <b-icon class="align-middle" icon="plus"></b-icon
-                ><translate>CESS</translate>
+                <b-icon
+                  class="align-middle"
+                  icon="plus"
+                /><translate>CESS</translate>
               </b-button>
             </b-form-group>
             <!-- {{ details }} -->
@@ -360,13 +376,26 @@
         </b-card-group>
         <!-- Submit & cancel buttons -->
         <div class="mt-2 mb-3 d-flex flex-row-reverse">
-          <b-button type="submit" size="sm" class="ml-2" variant="success">
-            <b-icon class="mr-1" icon="arrow-up-circle"></b-icon
-            ><translate>Save Changes</translate>
+          <b-button
+            type="submit"
+            size="sm"
+            class="ml-2"
+            variant="success"
+          >
+            <b-icon
+              class="mr-1"
+              icon="arrow-up-circle"
+            /><translate>Save Changes</translate>
           </b-button>
-          <b-button variant="danger" size="sm" @click="confirm('delete')">
-            <b-icon class="mr-1" icon="building"></b-icon
-            ><translate>Delete Organisation</translate>
+          <b-button
+            variant="danger"
+            size="sm"
+            @click="confirm('delete')"
+          >
+            <b-icon
+              class="mr-1"
+              icon="building"
+            /><translate>Delete Organisation</translate>
           </b-button>
         </div>
       </b-container>
@@ -386,47 +415,58 @@
       @ok="onGstinModalOk"
     >
       <b-form>
-        <b-form-group :label="$gettext('State')" label-cols="auto">
+        <b-form-group
+          :label="$gettext('State')"
+          label-cols="auto"
+        >
           <b-form-select
             required
             v-model="gstinModal.stateCode"
             :options="states"
-          ></b-form-select>
+          />
         </b-form-group>
-        <b-form-group :label="$gettext('GSTIN')" label-cols="auto">
+        <b-form-group
+          :label="$gettext('GSTIN')"
+          label-cols="auto"
+        >
           <div class="d-flex">
             <b-form-input
               v-model="gstinModal.stateCode"
               type="text"
               disabled
               style="max-width: 3em"
-            ></b-form-input>
+            />
             <b-form-input
               v-model="details.orgpan"
               type="text"
               class="ml-1 mr-1"
               disabled
-            ></b-form-input>
+            />
             <b-form-input
               type="text"
               title="Format: [Number] [Alphabet] [Number / Alphabet]"
               v-model="gstinModal.checksum"
-            ></b-form-input>
+            />
           </div>
         </b-form-group>
       </b-form>
 
-      <template #modal-footer="{ ok, cancel }">
-        <b-button size="sm" variant="danger" @click="cancel()"
-          ><translate>Cancel</translate></b-button
+      <template #modal-footer="{ok, cancel}">
+        <b-button
+          size="sm"
+          variant="danger"
+          @click="cancel"
         >
+          <translate>Cancel</translate>
+        </b-button>
         <b-button
           size="sm"
           variant="success"
-          @click="ok()"
+          @click="ok"
           :disabled="!isGstinValid"
-          >{{ gstinModal.mode === 'create' ? 'Add' : 'Update' }}</b-button
         >
+          {{ gstinModal.mode === 'create' ? 'Add' : 'Update' }}
+        </b-button>
       </template>
     </b-modal>
     <!-- Add CESS -->
@@ -453,22 +493,27 @@
               type="number"
               step="0.01"
               min="0"
-            ></b-form-input>
+            />
           </b-input-group>
         </b-form-group>
       </b-form>
 
-      <template #modal-footer="{ ok, cancel }">
-        <b-button size="sm" variant="danger" @click="cancel()"
-          ><translate>Cancel</translate></b-button
+      <template #modal-footer="{ok, cancel}">
+        <b-button
+          size="sm"
+          variant="danger"
+          @click="cancel"
         >
+          <translate>Cancel</translate>
+        </b-button>
         <b-button
           size="sm"
           variant="success"
-          @click="ok()"
+          @click="ok"
           :disabled="!(cessModal.rate > 0)"
-          >{{ cessModal.mode === 'create' ? 'Add' : 'Update' }}</b-button
         >
+          {{ cessModal.mode === 'create' ? 'Add' : 'Update' }}
+        </b-button>
       </template>
     </b-modal>
   </section>
@@ -640,37 +685,37 @@ export default {
         .then((res) => {
           this.loading = false;
           switch (res.data.gkstatus) {
-            case 0:
-              {
-                self.details = res.data.gkdata;
-                if (self.details.gstin) {
-                  let stateName = self.details.orgstate;
-                  if (stateName) {
-                    let state = self.states.find(
-                      (item) => item.text === stateName
-                    );
-                    if (state) {
-                      let stateCode = parseInt(state.value);
-                      self.gstin = self.details.gstin[stateCode];
-                      // sometimes statecodes less that 10 have a 0 prefixed and sometimes not. This is caused because of an inconsistency between modules
-                      if (!self.gstin && stateCode < 10) {
-                        self.gstin = self.details.gstin[`0${stateCode}`];
-                      }
+          case 0:
+            {
+              self.details = res.data.gkdata;
+              if (self.details.gstin) {
+                let stateName = self.details.orgstate;
+                if (stateName) {
+                  let state = self.states.find(
+                    (item) => item.text === stateName
+                  );
+                  if (state) {
+                    let stateCode = parseInt(state.value);
+                    self.gstin = self.details.gstin[stateCode];
+                    // sometimes statecodes less that 10 have a 0 prefixed and sometimes not. This is caused because of an inconsistency between modules
+                    if (!self.gstin && stateCode < 10) {
+                      self.gstin = self.details.gstin[`0${stateCode}`];
                     }
-                  } else {
-                    // if state doesn't exist, but gstin is there
-                    let stateCodes = Object.keys(self.details.gstin);
-                    self.stateCode = stateCodes[0];
-                    self.gstin = self.details.gstin[self.stateCode];
                   }
-                }
-                if (self.details.bankdetails) {
-                  Object.assign(self.bankDetails, self.details.bankdetails);
+                } else {
+                  // if state doesn't exist, but gstin is there
+                  let stateCodes = Object.keys(self.details.gstin);
+                  self.stateCode = stateCodes[0];
+                  self.gstin = self.details.gstin[self.stateCode];
                 }
               }
-              break;
-            case 2:
-              alert('Access Denied');
+              if (self.details.bankdetails) {
+                Object.assign(self.bankDetails, self.details.bankdetails);
+              }
+            }
+            break;
+          case 2:
+            alert('Access Denied');
           }
         })
         .catch((e) => {
@@ -710,7 +755,7 @@ export default {
       return axios.get('/organisation/gst_accounts/codes').then((resp) => {
         if (resp.data.gkstatus === 0) {
           let groupCode = resp.data.groupcode,
-            subGroupCode = resp.data.subgroupcode;
+              subGroupCode = resp.data.subgroupcode;
           let stateCodes = Object.keys(this.gstin);
 
           return this.getStateAbbreviations(stateCodes)
@@ -885,10 +930,10 @@ export default {
     deleteCessAccounts() {
       this.getDeleteCessData().then((data) => {
         let accCodes = data.codes,
-          accounts = data.accounts;
+            accounts = data.accounts;
         let deletedCess = '',
-          failedCess = '',
-          error = '';
+            failedCess = '',
+            error = '';
         let deleteCalls = accCodes.map((accCode) => {
           return axios.delete(`/accounts`, {
             data: { accountcode: accCode },
@@ -897,21 +942,21 @@ export default {
         return Promise.all(deleteCalls).then((delAccounts) => {
           delAccounts.forEach((delAccount, i) => {
             switch (delAccount.data.gkstatus) {
-              case 0:
-                deletedCess += `${accounts[i]} `;
-                break;
-              case 2:
-                error = 'Unauthorized Access, Please contact Admin.';
-                break;
-              case 3:
-                error = 'Internal Server Error, Please contact Admin.';
-                break;
-              case 4:
-                error = 'Bad Privilege, Only Admin can delete CESS accounts.';
-                break;
-              case 5:
-                failedCess += `${accounts[i]}`;
-                break;
+            case 0:
+              deletedCess += `${accounts[i]} `;
+              break;
+            case 2:
+              error = 'Unauthorized Access, Please contact Admin.';
+              break;
+            case 3:
+              error = 'Internal Server Error, Please contact Admin.';
+              break;
+            case 4:
+              error = 'Bad Privilege, Only Admin can delete CESS accounts.';
+              break;
+            case 5:
+              failedCess += `${accounts[i]}`;
+              break;
             }
           });
           if (deletedCess) {
@@ -1092,55 +1137,55 @@ export default {
         .put(`/organisation`, this.details)
         .then((res) => {
           switch (res.data.gkstatus) {
-            case 0:
-              this.loading = false;
-              this.updateCessAccounts().then(() => {
-                this.init();
-              });
-              this.$bvToast.toast(
-                `${this.details.orgname} Profile Details Updated`,
-                {
-                  title: 'Success',
-                  variant: 'success',
-                  solid: true,
-                }
-              );
-              // this.getOrgImage();
-              this.$store.dispatch('initOrgAddress');
-              this.$store.dispatch('initOrgImg');
-              if (!this.orgGstin) {
-                this.$store.dispatch('initGstin');
+          case 0:
+            this.loading = false;
+            this.updateCessAccounts().then(() => {
+              this.init();
+            });
+            this.$bvToast.toast(
+              `${this.details.orgname} Profile Details Updated`,
+              {
+                title: 'Success',
+                variant: 'success',
+                solid: true,
               }
-              this.$store.commit('global/setOrgDetails', this.details);
-              break;
-            case 1:
-              this.loading = false;
-              this.$bvToast.toast(
-                `Organisation ${this.details.orgname} already exists`,
-                {
-                  title: 'Duplicate Entry',
-                  variant: 'danger',
-                  solid: true,
-                }
-              );
-              break;
-            case 2:
-              this.loading = false;
-              this.$bvToast.toast('Unauthorised Access', {
+            );
+            // this.getOrgImage();
+            this.$store.dispatch('initOrgAddress');
+            this.$store.dispatch('initOrgImg');
+            if (!this.orgGstin) {
+              this.$store.dispatch('initGstin');
+            }
+            this.$store.commit('global/setOrgDetails', this.details);
+            break;
+          case 1:
+            this.loading = false;
+            this.$bvToast.toast(
+              `Organisation ${this.details.orgname} already exists`,
+              {
+                title: 'Duplicate Entry',
                 variant: 'danger',
                 solid: true,
-              });
-              break;
-            case 4:
-              this.loading = false;
-              this.$bvToast.toast(
-                'You are not authorised to delete the Organisation Details. Please contact the admin',
-                {
-                  variant: 'danger',
-                  solid: true,
-                }
-              );
-              break;
+              }
+            );
+            break;
+          case 2:
+            this.loading = false;
+            this.$bvToast.toast('Unauthorised Access', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 4:
+            this.loading = false;
+            this.$bvToast.toast(
+              'You are not authorised to delete the Organisation Details. Please contact the admin',
+              {
+                variant: 'danger',
+                solid: true,
+              }
+            );
+            break;
           }
         })
         .catch((e) => {
@@ -1247,9 +1292,9 @@ export default {
       } else {
         // edit gstin
         let state = this.gstinModal.inEdit.stateCode,
-          state_new = this.gstinModal.stateCode,
-          checksum = this.gstinModal.inEdit.checksum,
-          checksum_new = this.gstinModal.checksum;
+            state_new = this.gstinModal.stateCode,
+            checksum = this.gstinModal.inEdit.checksum,
+            checksum_new = this.gstinModal.checksum;
         if (state != state_new || checksum != checksum_new) {
           // if gstin was already edited, then the state code will be present as a key in the gstinModal.edited object
           if (this.gstinModal.edited[state]) {

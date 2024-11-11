@@ -6,13 +6,23 @@
     border-variant="secondary"
     no-body
   >
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="p-2 p-md-3">
       <div>
         <b>
-          <span v-if="saleFlag" v-translate> Sale Order Details </span>
-          <span v-else v-translate> Purchase Order Details </span>
+          <span
+            v-if="saleFlag"
+            v-translate
+          > Sale Order Details </span>
+          <span
+            v-else
+            v-translate
+          > Purchase Order Details </span>
         </b>
         <b-button
           variant="secondary"
@@ -27,12 +37,18 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
-      <div class="mt-3" :class="{ 'd-md-block': true, 'd-none': !isCollapsed }">
+      <div
+        class="mt-3"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
+      >
         <b-row>
-          <b-col v-if="config.no" cols="12">
+          <b-col
+            v-if="config.no"
+            cols="12"
+          >
             <b-form-group
               label="No."
               label-for="pod-input-10"
@@ -41,17 +57,22 @@
               label-size="sm"
               label-class="required"
             >
-              <template #label> <translate> No. </translate> </template>
+              <template #label>
+                <translate> No. </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="pod-input-10"
                 v-model="form.no"
                 trim
                 required
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
-          <b-col v-if="config.date" cols="12">
+          <b-col
+            v-if="config.date"
+            cols="12"
+          >
             <b-form-group
               label="Date"
               label-cols="3"
@@ -60,7 +81,9 @@
               id="pod-input-group-1"
               label-class="required"
             >
-              <template #label> <translate> Date </translate> </template>
+              <template #label>
+                <translate> Date </translate>
+              </template>
               <gk-date
                 id="pod-date-1"
                 :format="dateFormat"
@@ -69,8 +92,7 @@
                 :max="maxDate"
                 @validity="setDateValidity"
                 :required="true"
-              >
-              </gk-date>
+              />
             </b-form-group>
           </b-col>
         </b-row>
@@ -93,10 +115,13 @@
                 trim
                 required
                 readonly
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
-          <b-col cols="12" v-if="saleFlag && config.addr">
+          <b-col
+            cols="12"
+            v-if="saleFlag && config.addr"
+          >
             <b-form-group
               label-cols="3"
               label-cols-md="4"
@@ -104,7 +129,9 @@
               label-for="pod-input-30"
               label-size="sm"
             >
-              <template #label> <translate> Address </translate> </template>
+              <template #label>
+                <translate> Address </translate>
+              </template>
               <b-form-textarea
                 size="sm"
                 id="pod-input-30"
@@ -115,10 +142,14 @@
                 required
                 readonly
                 tabindex="-1"
-              ></b-form-textarea>
+              />
             </b-form-group>
           </b-col>
-          <b-col class="pr-lg-2" cols="12" v-if="saleFlag && config.pin">
+          <b-col
+            class="pr-lg-2"
+            cols="12"
+            v-if="saleFlag && config.pin"
+          >
             <b-form-group
               label-cols="3"
               label-cols-md="4"
@@ -133,7 +164,7 @@
                 trim
                 readonly
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
           <b-col
@@ -146,7 +177,9 @@
               :label-cols="3"
               :label-cols-md="4"
             >
-              <template #label> <translate> State </translate> </template>
+              <template #label>
+                <translate> State </translate>
+              </template>
               <b-form-select
                 size="sm"
                 id="pod-input-50"
@@ -155,12 +188,15 @@
                 required
                 disabled
                 tabindex="-1"
-              ></b-form-select>
+              />
             </b-form-group>
           </b-col>
         </b-row>
         <b-row v-if="saleFlag">
-          <b-col v-if="config.issuer" cols="12">
+          <b-col
+            v-if="config.issuer"
+            cols="12"
+          >
             <b-form-group
               label="Issuer"
               label-for="pod-input-60"
@@ -168,7 +204,9 @@
               label-cols-md="4"
               label-size="sm"
             >
-              <template #label> <translate> Issuer </translate> </template>
+              <template #label>
+                <translate> Issuer </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="pod-input-60"
@@ -177,10 +215,13 @@
                 required
                 readonly
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
-          <b-col v-if="config.role" cols="12">
+          <b-col
+            v-if="config.role"
+            cols="12"
+          >
             <b-form-group
               label="Role"
               label-for="pod-input-70"
@@ -188,7 +229,9 @@
               label-cols-md="4"
               label-size="sm"
             >
-              <template #label> <translate> Role </translate> </template>
+              <template #label>
+                <translate> Role </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="pod-input-70"
@@ -197,12 +240,15 @@
                 required
                 readonly
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
         </b-row>
         <b-row>
-          <b-col v-if="config.terms" cols="12">
+          <b-col
+            v-if="config.terms"
+            cols="12"
+          >
             <b-form-group
               label="Terms"
               label-for="pod-input-80"
@@ -210,16 +256,21 @@
               label-cols="3"
               label-cols-md="4"
             >
-              <template #label> <translate> Terms </translate> </template>
+              <template #label>
+                <translate> Terms </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="pod-input-80"
                 v-model="form.terms"
                 trim
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
-          <b-col v-if="config.creditPeriod" cols="12">
+          <b-col
+            v-if="config.creditPeriod"
+            cols="12"
+          >
             <b-form-group
               label="Credit Period"
               label-for="pod-input-90"
@@ -238,10 +289,13 @@
                 type="number"
                 no-wheel
                 min="0"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
-          <b-col cols="12" v-if="config.godown">
+          <b-col
+            cols="12"
+            v-if="config.godown"
+          >
             <b-form-group
               :label="saleFlag ? 'Dispatch From' : 'Dispatch To'"
               label-for="pod-input-100"
@@ -251,8 +305,14 @@
               label-class="required"
             >
               <template #label>
-                <span v-if="saleFlag" v-translate> Dispatch From </span>
-                <span v-else v-translate> Dispatch To </span>
+                <span
+                  v-if="saleFlag"
+                  v-translate
+                > Dispatch From </span>
+                <span
+                  v-else
+                  v-translate
+                > Dispatch To </span>
               </template>
               <v-select
                 id="pod-input-100"
@@ -262,7 +322,7 @@
                 required
                 label="text"
                 :reduce="(gdata) => gdata.value"
-              ></v-select>
+              />
             </b-form-group>
           </b-col>
         </b-row>
@@ -270,6 +330,7 @@
     </div>
   </b-card>
 </template>
+
 <script>
 import axios from 'axios';
 import { mapGetters} from 'vuex';
@@ -428,8 +489,8 @@ export default {
           let orgstate = (this.options.orgDetails.orgstate || '').toLowerCase();
           let state = orgstate
             ? this.options.states.find(
-                (state) => state.text.toLowerCase() === orgstate
-              )
+              (state) => state.text.toLowerCase() === orgstate
+            )
             : null;
           let gstin = this.options.orgDetails.gstin;
           Object.assign(this.form, {

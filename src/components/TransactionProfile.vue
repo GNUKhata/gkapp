@@ -4,13 +4,16 @@
       <b-col cols="8">
         <p>
           <b> {{ invoice.isSale ? 'Buyer' : 'Seller' }}</b>
-          <br />
-          <span>{{ invoice.party.name }} </span><br />
-          <span>{{ invoice.party.state }} </span> <br />
+          <br>
+          <span>{{ invoice.party.name }} </span><br>
+          <span>{{ invoice.party.state }} </span> <br>
           <span>{{ invoice.party.pincode }} </span>
         </p>
       </b-col>
-      <b-col cols="4" class="text-right">
+      <b-col
+        cols="4"
+        class="text-right"
+      >
         <b>{{ invoice.date }}</b>
       </b-col>
     </b-row>
@@ -21,14 +24,26 @@
       head-variant="dark"
       stacked="sm"
     >
-      <template #cell(price)="data"> ₹ {{ data.value }} </template>
-      <template #cell(discount)="data"> ₹ {{ data.value }} </template>
-      <template #cell(tax)="data"> {{ data.value.rate }} % </template>
-      <template #cell(cess)="data"> {{ data.value.rate }} % </template>
-      <template #cell(total)="data"> ₹ {{ data.value }} </template>
+      <template #cell(price)="data">
+        ₹ {{ data.value }}
+      </template>
+      <template #cell(discount)="data">
+        ₹ {{ data.value }}
+      </template>
+      <template #cell(tax)="data">
+        {{ data.value.rate }} %
+      </template>
+      <template #cell(cess)="data">
+        {{ data.value.rate }} %
+      </template>
+      <template #cell(total)="data">
+        ₹ {{ data.value }}
+      </template>
       <template #custom-foot>
         <b-tr>
-          <b-th colspan="6">Total</b-th>
+          <b-th colspan="6">
+            Total
+          </b-th>
           <b-th>₹ {{ invoice.total.amount }}</b-th>
         </b-tr>
       </template>
@@ -50,16 +65,16 @@
           },
         }"
       >
-        <b-icon icon="clipboard-check"></b-icon> <translate> Adjust </translate>
+        <b-icon icon="clipboard-check" /> <translate> Adjust </translate>
       </b-button>
       <b-button
         v-if="rectifyFlag"
         class="mr-2"
         size="sm"
         variant="warning"
-        :to="{ name: 'Invoice', params: { mode: 'edit', invid: invid } }"
+        :to="{name: 'Invoice', params: {mode: 'edit', invid: invid}}"
       >
-        <b-icon icon="pencil"></b-icon> <translate> Rectify </translate>
+        <b-icon icon="pencil" /> <translate> Rectify </translate>
       </b-button>
       <b-button
         v-if="cancelFlag"
@@ -67,10 +82,10 @@
         variant="danger"
         @click="confirmOnCancel"
       >
-        <b-icon icon="x-octagon"></b-icon> <translate> Cancel </translate>
+        <b-icon icon="x-octagon" /> <translate> Cancel </translate>
       </b-button>
     </div>
-    <div class="clearfix"></div>
+    <div class="clearfix" />
   </b-container>
 </template>
 
@@ -221,50 +236,50 @@ export default {
         .delete(`/invoice/cancel/${this.invid}`)
         .then((response) => {
           switch (response.data.gkstatus) {
-            case 0:
-              this.displayToast(
-                this.$gettext('Cancel Invoice Success!'),
-                this.$gettextInterpolate(
-                  this.$gettext(`Successfully cancelled Invoice %{invNumber}`),
-                  {
-                    invNumber: this.invoice.number,
-                  }
-                ),
-                'success'
-              );
-              this.getDetails().then((response) => {
-                if (typeof this.onUpdate === 'function') {
-                  this.onUpdate(response.data);
+          case 0:
+            this.displayToast(
+              this.$gettext('Cancel Invoice Success!'),
+              this.$gettextInterpolate(
+                this.$gettext(`Successfully cancelled Invoice %{invNumber}`),
+                {
+                  invNumber: this.invoice.number,
                 }
-              });
-              break;
-            case 3:
-              this.displayToast(
-                this.$gettext('Cancel Invoice Failure!'),
-                this.$gettextInterpolate(
-                  this.$gettext(
-                    `Could not cancel Invoice %{invNumber}. Try again later or Contact admin`
-                  ),
-                  {
-                    invNumber: this.invoice.number,
-                  }
+              ),
+              'success'
+            );
+            this.getDetails().then((response) => {
+              if (typeof this.onUpdate === 'function') {
+                this.onUpdate(response.data);
+              }
+            });
+            break;
+          case 3:
+            this.displayToast(
+              this.$gettext('Cancel Invoice Failure!'),
+              this.$gettextInterpolate(
+                this.$gettext(
+                  `Could not cancel Invoice %{invNumber}. Try again later or Contact admin`
                 ),
-                'danger'
-              );
-              break;
-            default:
-              this.displayToast(
-                this.$gettext('Cancel Invoice Failure!'),
-                this.$gettextInterpolate(
-                  this.$gettext(
-                    `Could not cancel Invoice %{invNumber}. Try again later or Contact admin`
-                  ),
-                  {
-                    invNumber: this.invoice.number,
-                  }
+                {
+                  invNumber: this.invoice.number,
+                }
+              ),
+              'danger'
+            );
+            break;
+          default:
+            this.displayToast(
+              this.$gettext('Cancel Invoice Failure!'),
+              this.$gettextInterpolate(
+                this.$gettext(
+                  `Could not cancel Invoice %{invNumber}. Try again later or Contact admin`
                 ),
-                'danger'
-              );
+                {
+                  invNumber: this.invoice.number,
+                }
+              ),
+              'danger'
+            );
           }
         })
         .catch((error) => {
@@ -310,35 +325,35 @@ export default {
     fetchAndUpdateData() {
       this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            // this.invoice = response.data.gkresult;
-            this.formatInvoiceDetails(response.data.gkresult);
-            break;
-          case 2:
-            this.$bvToast.toast(
-              this.$gettext(`Unauthorized access, Please contact admin`),
-              {
-                title: `${this.formMode} ${this.formType} Error!`,
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
-            break;
-          default:
-            this.$bvToast.toast(
-              this.$gettext(
-                `Unable to Fetch Transaction Details! Please Try after sometime.`
-              ),
-              {
-                title: this.$gettext(`Fetch Transaction Details Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
+        case 0:
+          // this.invoice = response.data.gkresult;
+          this.formatInvoiceDetails(response.data.gkresult);
+          break;
+        case 2:
+          this.$bvToast.toast(
+            this.$gettext(`Unauthorized access, Please contact admin`),
+            {
+              title: `${this.formMode} ${this.formType} Error!`,
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
+          break;
+        default:
+          this.$bvToast.toast(
+            this.$gettext(
+              `Unable to Fetch Transaction Details! Please Try after sometime.`
+            ),
+            {
+              title: this.$gettext(`Fetch Transaction Details Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
         } // end switch
       });
     },

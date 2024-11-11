@@ -1,7 +1,11 @@
 <template>
   <!--Cards-->
   <b-row cols="2">
-    <router-link v-for="(card, i) in cards" :key="i" :to="card.url">
+    <router-link
+      v-for="(card, i) in cards"
+      :key="i"
+      :to="card.url"
+    >
       <b-card
         :footer="card.name"
         class="text-center m-1"
@@ -16,14 +20,14 @@
           src="img/workflow.svg"
           width="100"
           style="position: relative; bottom: 20px"
-        />
+        >
         <b-card-text v-else>
           <b-icon
             scale="4"
             :variant="card.color"
             :icon="card.icon"
             class="mt-3"
-          ></b-icon>
+          />
         </b-card-text>
       </b-card>
     </router-link>

@@ -4,22 +4,34 @@ list of all the props, methods, computed and data items not defined in this file
   <div class="card mx-0">
     <div class="card-header text-left py-2 bg-dark text-light">
       <b v-translate>{{ vtitle }}</b>
-      <slot name="close-button"> </slot>
+      <slot name="close-button" />
     </div>
     <div class="card-body pb-2 align-form-label-right">
-      <b-overlay :show="isLoading" variant="secondary" no-wrap blur>
-      </b-overlay>
-      <b-form class="text-left" @submit.prevent="confirmOnSubmit">
-        <b-card bg-variant="light" class="text-left mb-3">
+      <b-overlay
+        :show="isLoading"
+        variant="secondary"
+        no-wrap
+        blur
+      />
+      <b-form
+        class="text-left"
+        @submit.prevent="confirmOnSubmit"
+      >
+        <b-card
+          bg-variant="light"
+          class="text-left mb-3"
+        >
           <b-card-text>
-            <h5 class="text-center">Invoice Details</h5>
-            No : {{ creditInvData?.invoiceno }} <br class="d-sm-none" />
+            <h5 class="text-center">
+              Invoice Details
+            </h5>
+            No : {{ creditInvData?.invoiceno }} <br class="d-sm-none">
             <span class="float-sm-right">
               Date: {{ creditInvData?.invoicedate }}
             </span>
-            <br />
-            Invoice Amount : {{ creditInvData?.invoicetotal || '' }} <br />
-            Balance Amount : {{ creditInvData?.balanceamount || '' }} <br />
+            <br>
+            Invoice Amount : {{ creditInvData?.invoicetotal || '' }} <br>
+            Balance Amount : {{ creditInvData?.balanceamount || '' }} <br>
           </b-card-text>
         </b-card>
         <b-form-group
@@ -28,7 +40,9 @@ list of all the props, methods, computed and data items not defined in this file
           label-size="sm"
           id="ci-input-group-1"
         >
-          <template #label> <translate> Date </translate> </template>
+          <template #label>
+            <translate> Date </translate>
+          </template>
           <gk-date
             id="ci-date-1"
             :format="dateFormat"
@@ -37,8 +51,7 @@ list of all the props, methods, computed and data items not defined in this file
             :max="_maxDate"
             @validity="setDateValidity"
             :required="true"
-          >
-          </gk-date>
+          />
         </b-form-group>
         <b-form-group
           label-size="sm"
@@ -59,8 +72,7 @@ list of all the props, methods, computed and data items not defined in this file
             min="0"
             v-model="bank"
             step="0.1"
-          >
-          </b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label-size="sm"
@@ -81,8 +93,7 @@ list of all the props, methods, computed and data items not defined in this file
             no-wheel
             v-model="cash"
             min="0"
-          >
-          </b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label-size="sm"
@@ -103,9 +114,8 @@ list of all the props, methods, computed and data items not defined in this file
             no-wheel
             v-model="due"
             disabled
-            :class="{ 'text-danger': !isDueValid }"
-          >
-          </b-form-input>
+            :class="{'text-danger': !isDueValid}"
+          />
         </b-form-group>
         <b-form-group
           label-size="sm"
@@ -119,20 +129,26 @@ list of all the props, methods, computed and data items not defined in this file
             size="sm"
             rows="2"
             max-rows="3"
-          >
-          </b-form-textarea>
+          />
         </b-form-group>
 
-        <hr class="my-2" />
+        <hr class="my-2">
         <div class="float-right">
-          <b-button size="sm" class="m-1" variant="warning">
+          <b-button
+            size="sm"
+            class="m-1"
+            variant="warning"
+          >
             <b-icon
               aria-hidden="true"
               class="align-middle mr-1"
               icon="arrow-repeat"
               @click.prevent="resetForm"
-            ></b-icon>
-            <span class="align-middle" v-translate>Reset</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Reset</span>
           </b-button>
           <b-button
             :disabled="!allValid"
@@ -145,8 +161,11 @@ list of all the props, methods, computed and data items not defined in this file
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Save</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Save</span>
           </b-button>
         </div>
       </b-form>
@@ -290,55 +309,55 @@ export default {
 
       const method = 'post';
       const failTitle = this.$gettext('Create Voucher Failure!'),
-        failMessage = this.$gettext('Voucher Creation Failed!');
+            failMessage = this.$gettext('Voucher Creation Failed!');
 
       axios({ method: method, url: '/transaction', data: payload })
         .then((resp) => {
           self.isLoading = false;
           switch (resp.data.gkstatus) {
-            case 0:
-              {
-                self.displayToast(
-                  this.$gettext('Success!'),
-                  `Successfully ${self.defComment}`,
-                  'success'
-                );
-                const accMap = self.options.acc;
-                let dr = self.form.dr.reduce(
-                  (acc, dr) => acc + `${accMap[dr.account]}, `,
-                  ''
-                );
-                let cr = self.form.cr.reduce(
-                  (acc, cr) => acc + `${accMap[cr.account]}, `,
-                  ''
-                );
-                dr = dr.substring(0, dr.length - 2);
-                cr = cr.substring(0, cr.length - 2);
-                let log = {
-                  activity: `${self.form.vtype.value} voucher created: dr [ ${dr} ], cr [ ${cr} ]`,
-                };
-                axios.post('/log', log);
+          case 0:
+            {
+              self.displayToast(
+                this.$gettext('Success!'),
+                `Successfully ${self.defComment}`,
+                'success'
+              );
+              const accMap = self.options.acc;
+              let dr = self.form.dr.reduce(
+                (acc, dr) => acc + `${accMap[dr.account]}, `,
+                ''
+              );
+              let cr = self.form.cr.reduce(
+                (acc, cr) => acc + `${accMap[cr.account]}, `,
+                ''
+              );
+              dr = dr.substring(0, dr.length - 2);
+              cr = cr.substring(0, cr.length - 2);
+              let log = {
+                activity: `${self.form.vtype.value} voucher created: dr [ ${dr} ], cr [ ${cr} ]`,
+              };
+              axios.post('/log', log);
 
-                // update billwise if receipt or payment
-                let billData = {
-                  adjbills: [
-                    {
-                      invid: parseInt(payload.invid),
-                      adjamount: parseFloat(self.totalCr),
-                      vouchercode: resp.data.vouchercode,
-                    },
-                  ],
-                };
+              // update billwise if receipt or payment
+              let billData = {
+                adjbills: [
+                  {
+                    invid: parseInt(payload.invid),
+                    adjamount: parseFloat(self.totalCr),
+                    vouchercode: resp.data.vouchercode,
+                  },
+                ],
+              };
 
-                axios.post('/billwise', billData).finally(() => {
-                  if (self.onSave !== null) {
-                    self.onSave(resp.data);
-                  }
-                });
-              }
-              break;
-            default:
-              self.displayToast(failTitle, failMessage, 'danger');
+              axios.post('/billwise', billData).finally(() => {
+                if (self.onSave !== null) {
+                  self.onSave(resp.data);
+                }
+              });
+            }
+            break;
+          default:
+            self.displayToast(failTitle, failMessage, 'danger');
           } // end switch
         })
         .catch((error) => {

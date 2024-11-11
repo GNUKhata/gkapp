@@ -1,5 +1,8 @@
 <template>
-  <b-card-group deck class="mt-4">
+  <b-card-group
+    deck
+    class="mt-4"
+  >
     <!-- Most Sold Product / Service-->
     <b-card class="shadow">
       <b-card-header
@@ -27,11 +30,17 @@
       </b-table>
       <template #footer>
         <router-link to="business-details/create">
-          <b-button size="sm" variant="dark float-right"
-            ><BIcon icon="box" class="mr-1" /><translate
-              >Add Product / Service</translate
-            ></b-button
+          <b-button
+            size="sm"
+            variant="dark float-right"
           >
+            <BIcon
+              icon="box"
+              class="mr-1"
+            /><translate>
+              Add Product / Service
+            </translate>
+          </b-button>
         </router-link>
       </template>
     </b-card>
@@ -62,16 +71,23 @@
       </b-table>
       <template #footer>
         <router-link to="business-details/create">
-          <b-button size="sm" variant="dark float-right"
-            ><BIcon icon="box" class="mr-1" /><translate
-              >Add Product / Service</translate
-            ></b-button
+          <b-button
+            size="sm"
+            variant="dark float-right"
           >
+            <BIcon
+              icon="box"
+              class="mr-1"
+            /><translate>
+              Add Product / Service
+            </translate>
+          </b-button>
         </router-link>
       </template>
     </b-card>
   </b-card-group>
 </template>
+
 <script>
 export default {
   name: 'MostSoldPS',

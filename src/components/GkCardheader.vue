@@ -1,8 +1,16 @@
 <template>
   <div class="d-flex">
-    <div type="button" class="mr-auto text-light">{{ name }}</div>
+    <div
+      type="button"
+      class="mr-auto text-light"
+    >
+      {{ name }}
+    </div>
     <div v-b-modal.m1>
-      <b-icon variant="light" icon="question-circle"></b-icon>
+      <b-icon
+        variant="light"
+        icon="question-circle"
+      />
     </div>
     <b-modal
       id="m1"
@@ -13,7 +21,7 @@
       no-stacking
       scrollable
     >
-      <p v-html="helpBody"></p>
+      <p v-html="helpBody" />
     </b-modal>
   </div>
 </template>

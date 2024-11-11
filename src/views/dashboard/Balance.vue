@@ -1,9 +1,15 @@
 <template>
-  <div v-if="show" class="mb-3 d-flex flex-row justify-content-center">
+  <div
+    v-if="show"
+    class="mb-3 d-flex flex-row justify-content-center"
+  >
     <div class="rounded  m-2 p-3 bg-warning">
       <div class="row">
         <div class="col">
-          <b-icon icon="building" class="mr-1"></b-icon>
+          <b-icon
+            icon="building"
+            class="mr-1"
+          />
           <b>
             Bank Balance: {{ gk_currency(bankBalance) }}
           </b>
@@ -13,7 +19,10 @@
     <div class="rounded m-2 p-3 bg-success text-light">
       <div class="row">
         <div class="col">
-          <b-icon icon="cash" class="mr-1"></b-icon>
+          <b-icon
+            icon="cash"
+            class="mr-1"
+          />
           <b>
             Cash Balance: {{ gk_currency(cashBalance) }}
           </b>
@@ -34,7 +43,7 @@ export default {
       show: false,
     };
   },
-   methods: {
+  methods: {
     getBalances() {
       axios
         .get('/dashboard?type=cashbankaccountdata')

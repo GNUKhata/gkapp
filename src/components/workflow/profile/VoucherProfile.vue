@@ -1,16 +1,24 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div v-if="deletedFlag">
-      <span class="float-right h5 p-2 bg-danger text-white" v-translate
-        >Cancelled</span
-      >
-      <div class="clearfix"></div>
-      <br />
+      <span
+        class="float-right h5 p-2 bg-danger text-white"
+        v-translate
+      >Cancelled</span>
+      <div class="clearfix" />
+      <br>
     </div>
-        <!-- action buttons -->
-    <div class="mb-3 clearfix d-print-none" v-if="voucher?.invid && !deletedFlag">
+    <!-- action buttons -->
+    <div
+      class="mb-3 clearfix d-print-none"
+      v-if="voucher?.invid && !deletedFlag"
+    >
       <div class="float-right">
         <span v-if="voucher?.icflag == 9">
           <b-button
@@ -19,47 +27,62 @@
             variant="primary"
             v-b-toggle.voucher-container
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
-            :to="
-              `/workflow/Transactions-Invoice/${voucher.invid}`
-            "
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
+              :to="
+                `/workflow/Transactions-Invoice/${voucher.invid}`
+              "
             >View Invoice
-          </router-link>
+            </router-link>
           </b-button>
         </span>
-        <span  v-if="voucher?.icflag == 3">
+        <span v-if="voucher?.icflag == 3">
           <b-button
             class="mr-1"
             size="sm"
             variant="primary"
             v-b-toggle.voucher-container
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
-            :to="
-              `/workflow/Transactions-CashMemo/${voucher.invid}`
-            "
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
+              :to="
+                `/workflow/Transactions-CashMemo/${voucher.invid}`
+              "
             >View Cash Memo
-          </router-link>
+            </router-link>
           </b-button>
         </span>
         <span v-if="!deletedFlag">
           <b-button
-              size="sm"
-              variant="warning"
-              class="mr-1"
-              :to="{ name: 'Edit_Voucher', params: { vid: id } }"
-            >
-              <translate> Edit </translate>
+            size="sm"
+            variant="warning"
+            class="mr-1"
+            :to="{name: 'Edit_Voucher', params: {vid: id}}"
+          >
+            <translate> Edit </translate>
           </b-button>
-          <b-button @click.prevent="onDelete" size="sm" variant="danger">
+          <b-button
+            @click.prevent="onDelete"
+            size="sm"
+            variant="danger"
+          >
             <translate> Delete </translate>
           </b-button>
         </span>
       </div>
     </div>
-    <div class="mb-3 clearfix d-print-none" v-if="type === 'creditnote' || type === 'debitnote'">
+    <div
+      class="mb-3 clearfix d-print-none"
+      v-if="type === 'creditnote' || type === 'debitnote'"
+    >
       <div class="float-right">
         <span>
           <b-button
@@ -68,20 +91,33 @@
             variant="primary"
             v-b-toggle.voucher-container
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
-            :to="
-              `/workflow/Transactions-DebitCreditNote/${voucher.drcrid}`
-            "
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
+              :to="
+                `/workflow/Transactions-DebitCreditNote/${voucher.drcrid}`
+              "
             >{{ type === 'creditnote' ? 'View Credit Note' : 'View Debit Note' }}
-          </router-link>
+            </router-link>
           </b-button>
         </span>
       </div>
     </div>
     <b-row>
-      <b-col order="2" order-md="1"> </b-col>
-      <b-col class="text-md-right" cols="12" md="6" order="1" order-md="2">
+      <b-col
+        order="2"
+        order-md="1"
+      />
+      <b-col
+        class="text-md-right"
+        cols="12"
+        md="6"
+        order="1"
+        order-md="2"
+      >
         <b v-translate> Voucher Details </b>
         <!-- Note Details Table -->
         <b-table-lite
@@ -92,7 +128,7 @@
           thead-class="d-none"
           fixed
           class="text-small table-border-dark"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <b-table-lite
@@ -105,24 +141,33 @@
       class="text-small table-border-dark"
     >
       <template #cell(account)="data">
-         <router-link v-if="!deletedFlag" :to="`/ledger/${data.item.accountcode}`">{{ data.item.account }}</router-link>
-          <span v-else>{{ data.item.accountcode }}</span>
+        <router-link
+          v-if="!deletedFlag"
+          :to="`/ledger/${data.item.accountcode}`"
+        >
+          {{ data.item.account }}
+        </router-link>
+        <span v-else>{{ data.item.accountcode }}</span>
       </template>
       <template #foot(account)="">
         <span v-translate> Total </span>
       </template>
       <template #foot(dr)="">
-        <div class="gk-currency">₹ {{ totalDr }}</div>
+        <div class="gk-currency">
+          ₹ {{ totalDr }}
+        </div>
       </template>
       <template #foot(cr)="">
-        <div class="gk-currency">₹ {{ totalCr }}</div>
+        <div class="gk-currency">
+          ₹ {{ totalCr }}
+        </div>
       </template>
     </b-table-lite>
     <p class="text-small">
-      <b v-translate> Narration: </b> <br />
+      <b v-translate> Narration: </b> <br>
       {{ voucher.narration }}
     </p>
-    <br /><br />
+    <br><br>
   </b-container>
 </template>
 
@@ -302,36 +347,36 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            // this.invoice = response.data.gkresult;
-            this.formatVoucherDetails(response.data.gkresult);
-            // this.output = response.data.gkresult;
-            break;
-          case 2:
-            this.$bvToast.toast(
-              this.$gettext(`Unauthorized access, Please contact admin`),
-              {
-                title: this.$gettext(`Fetch Voucher Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
-            break;
-          default:
-            this.$bvToast.toast(
-              this.$gettext(
-                `Unable to Fetch Voucher Details! Please Try after sometime.`
-              ),
-              {
-                title: this.$gettext(`Fetch Transaction Details Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
+        case 0:
+          // this.invoice = response.data.gkresult;
+          this.formatVoucherDetails(response.data.gkresult);
+          // this.output = response.data.gkresult;
+          break;
+        case 2:
+          this.$bvToast.toast(
+            this.$gettext(`Unauthorized access, Please contact admin`),
+            {
+              title: this.$gettext(`Fetch Voucher Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
+          break;
+        default:
+          this.$bvToast.toast(
+            this.$gettext(
+              `Unable to Fetch Voucher Details! Please Try after sometime.`
+            ),
+            {
+              title: this.$gettext(`Fetch Transaction Details Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
         } // end switch
       });
     },
@@ -380,6 +425,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .custom-link {
   color: white;

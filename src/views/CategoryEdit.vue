@@ -7,27 +7,44 @@
       header-text-variant="light"
       body-class="px-2"
     >
-      <b-form class="align-form-label-right" @submit.prevent="onSubmit">
-        <b-form-group label-class="required" label="Name" label-cols="3">
+      <b-form
+        class="align-form-label-right"
+        @submit.prevent="onSubmit"
+      >
+        <b-form-group
+          label-class="required"
+          label="Name"
+          label-cols="3"
+        >
           <b-form-input
             required
             placeholder="Category name"
             type="text"
             size="sm"
             v-model="form.category"
-          ></b-form-input>
+          />
         </b-form-group>
-        <b-form-group label="Parent Category" label-cols="3">
-          <template #label> <translate> Parent Category </translate> </template>
-          <b-form-select v-model="form.parent" size="sm" :disabled="true">
+        <b-form-group
+          label="Parent Category"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Parent Category </translate>
+          </template>
+          <b-form-select
+            v-model="form.parent"
+            size="sm"
+            :disabled="true"
+          >
             <b-form-select-option
               v-for="category in allCategories"
               :key="category.srno"
               :value="category.categorycode"
-              >{{ category.categoryname }}
-              <span v-if="category.subcount !== ''"
-                >({{ category.subcount }})</span
-              >
+            >
+              {{ category.categoryname }}
+              <span
+                v-if="category.subcount !== ''"
+              >({{ category.subcount }})</span>
             </b-form-select-option>
           </b-form-select>
         </b-form-group>
@@ -57,9 +74,9 @@
         <!-- Spec table -->
         <b-table
           :fields="[
-            { key: 'type', label: 'Specification' },
-            { key: 'name', label: 'Title' },
-            { key: 'edit', label: '' },
+            {key: 'type', label: 'Specification'},
+            {key: 'name', label: 'Title'},
+            {key: 'edit', label: ''},
           ]"
           small
           :items="form.specs"
@@ -73,8 +90,7 @@
               :options="specType"
               required
               :disabled="data.item.disabled"
-            >
-            </b-form-select>
+            />
           </template>
           <template #cell(name)="data">
             <b-form-input
@@ -84,20 +100,25 @@
               required
               size="sm"
               :disabled="data.item.disabled"
-            >
-            </b-form-input>
+            />
           </template>
           <template #cell(edit)="data">
-            <b-button-group v-if="!data.item.disabled" size="sm">
+            <b-button-group
+              v-if="!data.item.disabled"
+              size="sm"
+            >
               <b-button
                 title="Add"
                 variant="dark"
                 class="px-1"
-                @click="addSpec()"
+                @click="addSpec"
                 size="sm"
               >
-                <b-icon class="align-middle" icon="plus"></b-icon
-              ></b-button>
+                <b-icon
+                  class="align-middle"
+                  icon="plus"
+                />
+              </b-button>
               <!-- delete spec -->
               <b-button
                 title="delete"
@@ -111,7 +132,7 @@
                   class="align-middle"
                   font-scale="0.92"
                   icon="trash"
-                ></b-icon>
+                />
               </b-button>
             </b-button-group>
           </template>
@@ -119,10 +140,10 @@
         <!-- Tax -->
         <b-table
           :fields="[
-            { key: 'type', label: 'Tax' },
-            { key: 'state', label: 'State' },
+            {key: 'type', label: 'Tax'},
+            {key: 'state', label: 'State'},
             'rate',
-            { key: 'edit', label: '' },
+            {key: 'edit', label: ''},
           ]"
           small
           :items="form.taxes"
@@ -136,8 +157,7 @@
               type="text"
               size="sm"
               readonly
-            >
-            </b-form-input>
+            />
           </template>
           <template #cell(state)="data">
             <autocomplete
@@ -146,9 +166,8 @@
               placeholder="state"
               :readonly="data.item.type !== 'VAT' || data.item.disabled"
               :required="false"
-              :style="{ minWidth: '120px' }"
-            >
-            </autocomplete>
+              :style="{minWidth: '120px'}"
+            />
           </template>
           <template #cell(rate)="data">
             <b-form-input
@@ -160,15 +179,14 @@
               no-wheel
               size="sm"
               :disabled="data.item.disabled"
-            ></b-form-input>
+            />
             <b-form-select
               v-else
               v-model="form.taxes[data.index].rate"
               size="sm"
               :options="gstRates"
               :disabled="data.item.disabled"
-            >
-            </b-form-select>
+            />
           </template>
           <template #cell(edit)="data">
             <b-button-group
@@ -181,11 +199,14 @@
                 title="Add"
                 variant="dark"
                 class="px-1"
-                @click="addVAT()"
+                @click="addVAT"
                 size="sm"
               >
-                <b-icon class="align-middle" icon="plus"></b-icon
-              ></b-button>
+                <b-icon
+                  class="align-middle"
+                  icon="plus"
+                />
+              </b-button>
               <!-- delete spec -->
               <b-button
                 title="delete"
@@ -199,12 +220,17 @@
                   class="align-middle"
                   font-scale="0.92"
                   icon="trash"
-                ></b-icon>
+                />
               </b-button>
             </b-button-group>
           </template>
         </b-table>
-        <b-button type="submit" class="float-right" size="sm" variant="success">
+        <b-button
+          type="submit"
+          class="float-right"
+          size="sm"
+          variant="success"
+        >
           <translate> Update </translate>
         </b-button>
       </b-form>
@@ -372,31 +398,31 @@ export default {
           let vatStates = [];
           resp[1].data.gkresult.forEach((tax) => {
             switch (tax.taxname) {
-              case 'IGST':
-                self.form.taxes[0].rate =
-                  tax.taxrate % 1
-                    ? parseFloat(tax.taxrate)
-                    : parseInt(tax.taxrate);
-                self.form.taxes[0].id = tax.taxid;
-                break;
-              case 'CESS':
-                self.form.taxes[1].rate = parseFloat(tax.taxrate);
-                self.form.taxes[1].id = tax.taxid;
-                break;
-              case 'CVAT':
-                self.form.taxes[2].rate = parseFloat(tax.taxrate);
-                self.form.taxes[2].id = tax.taxid;
-                break;
-              case 'VAT':
-                vat.push({
-                  type: tax.taxname,
-                  state: '',
-                  rate: parseFloat(tax.taxrate),
-                  edit: '',
-                  id: tax.taxid,
-                });
-                vatStates.push(self.stateNameMap[tax.state]);
-                break;
+            case 'IGST':
+              self.form.taxes[0].rate =
+                tax.taxrate % 1
+                  ? parseFloat(tax.taxrate)
+                  : parseInt(tax.taxrate);
+              self.form.taxes[0].id = tax.taxid;
+              break;
+            case 'CESS':
+              self.form.taxes[1].rate = parseFloat(tax.taxrate);
+              self.form.taxes[1].id = tax.taxid;
+              break;
+            case 'CVAT':
+              self.form.taxes[2].rate = parseFloat(tax.taxrate);
+              self.form.taxes[2].id = tax.taxid;
+              break;
+            case 'VAT':
+              vat.push({
+                type: tax.taxname,
+                state: '',
+                rate: parseFloat(tax.taxrate),
+                edit: '',
+                id: tax.taxid,
+              });
+              vatStates.push(self.stateNameMap[tax.state]);
+              break;
             }
           });
           if (vat.length) {
@@ -538,7 +564,7 @@ export default {
       const self = this;
       axios.put('/categories', payload).then((resp) => {
         let specFlag = self.form.specs.length,
-          taxFlag = self.form.taxes.length;
+            taxFlag = self.form.taxes.length;
         if (resp.data.gkstatus === 0) {
           const newSpecs = self.form.specs.filter(
             (spec) => !spec.id && spec.name

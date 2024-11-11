@@ -6,8 +6,12 @@
     border-variant="secondary"
     no-body
   >
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="p-2 p-md-3">
       <div>
         <b v-translate>Invoice Details</b>
@@ -24,10 +28,13 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
-      <div class="mt-3" :class="{ 'd-md-block': true, 'd-none': !isCollapsed }">
+      <div
+        class="mt-3"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
+      >
         <b-form-group
           v-if="config.no"
           label="Inv. #"
@@ -36,7 +43,9 @@
           label-cols-md="4"
           label-size="sm"
         >
-          <template #label> <translate> Inv. # </translate> </template>
+          <template #label>
+            <translate> Inv. # </translate>
+          </template>
           <b-form-input
             size="sm"
             id="ivd-input-10"
@@ -45,7 +54,7 @@
             required
             :readonly="disabled.no"
             :tabindex="disabled.no ? -1 : 0"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           v-if="config.date"
@@ -55,7 +64,9 @@
           label-size="sm"
           id="ivd-input-group-1"
         >
-          <template #label> <translate> Date </translate> </template>
+          <template #label>
+            <translate> Date </translate>
+          </template>
           <gk-date
             id="ivd-date-1"
             :format="dateFormat"
@@ -65,8 +76,7 @@
             @validity="setDateValidity"
             :required="true"
             :readonly="disabled.date"
-          >
-          </gk-date>
+          />
         </b-form-group>
         <b-form-group
           v-if="!saleFlag && config.supInvNo"
@@ -76,14 +86,16 @@
           label-cols-md="4"
           label-size="sm"
         >
-          <template #label> <translate> Supplier Inv. # </translate> </template>
+          <template #label>
+            <translate> Supplier Inv. # </translate>
+          </template>
           <b-form-input
             size="sm"
             id="ivd-input-11"
             v-model="form.supno"
             trim
             :readonly="disabled.supNo"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           v-if="!saleFlag && config.supInvDate"
@@ -101,8 +113,7 @@
             :format="dateFormat"
             v-model="form.supdate"
             :readonly="disabled.supDate"
-          >
-          </gk-date>
+          />
         </b-form-group>
         <b-form-group
           v-if="isIndia && isIndianParty"
@@ -111,9 +122,11 @@
           label-cols="3"
           label-cols-md="4"
           label-size="sm"
-          :label-class="{ required: !disabled.supplySt && parentData.gstin }"
+          :label-class="{required: !disabled.supplySt && parentData.gstin}"
         >
-          <template #label> <translate> Place of Supply </translate> </template>
+          <template #label>
+            <translate> Place of Supply </translate>
+          </template>
           <b-form-select
             id="ivd-input-11"
             v-model="form.placeOfSupply"
@@ -136,11 +149,17 @@
           label-size="sm"
           label-cols="3"
           label-cols-md="4"
-          :label-class="{ required: !disabled.godown }"
+          :label-class="{required: !disabled.godown}"
         >
           <template #label>
-            <span v-translate v-if="saleFlag"> From Godown </span>
-            <span v-translate v-else> To Godown </span>
+            <span
+              v-translate
+              v-if="saleFlag"
+            > From Godown </span>
+            <span
+              v-translate
+              v-else
+            > To Godown </span>
           </template>
           <b-form-select
             id="ivd-input-21"
@@ -150,7 +169,7 @@
             :required="true"
             :disabled="disabled.godown"
             :reduce="(godown) => godown.value"
-          ></b-form-select>
+          />
         </b-form-group>
         <b-form-group
           v-if="saleFlag && config.ebn"
@@ -160,13 +179,15 @@
           label-cols-md="4"
           label-size="sm"
         >
-          <template #label> <translate> Eway Bill # </translate> </template>
+          <template #label>
+            <translate> Eway Bill # </translate>
+          </template>
           <b-form-input
             size="sm"
             id="ivd-input-30"
             v-model="form.ebn"
             trim
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           v-if="config.gstin && isGstEnabled"
@@ -184,7 +205,7 @@
             required
             readonly
             tabindex="-1"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           v-if="saleFlag && config.addr"
@@ -194,7 +215,9 @@
           label-for="ivd-input-50"
           label-size="sm"
         >
-          <template #label> <translate> Address </translate> </template>
+          <template #label>
+            <translate> Address </translate>
+          </template>
           <b-form-textarea
             size="sm"
             id="ivd-input-50"
@@ -205,10 +228,14 @@
             required
             readonly
             tabindex="-1"
-          ></b-form-textarea>
+          />
         </b-form-group>
         <b-row>
-          <b-col class="pr-lg-2" cols="12" v-if="saleFlag && config.pin">
+          <b-col
+            class="pr-lg-2"
+            cols="12"
+            v-if="saleFlag && config.pin"
+          >
             <b-form-group
               label-cols-md="4"
               label-cols="3"
@@ -223,7 +250,7 @@
                 trim
                 readonly
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
           <b-col v-if="config.state && isIndia">
@@ -234,7 +261,9 @@
               label-cols-md="4"
               label-cols="3"
             >
-              <template #label> <translate> State </translate> </template>
+              <template #label>
+                <translate> State </translate>
+              </template>
               <b-form-select
                 id="ivd-input-70"
                 v-model="form.state"
@@ -262,7 +291,9 @@
               label-cols="3"
               label-size="sm"
             >
-              <template #label> <translate> Issuer </translate> </template>
+              <template #label>
+                <translate> Issuer </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="ivd-input-80"
@@ -271,10 +302,13 @@
                 required
                 readonly
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
-          <b-col v-if="config.role" cols="12">
+          <b-col
+            v-if="config.role"
+            cols="12"
+          >
             <b-form-group
               label="Role"
               label-for="ivd-input-90"
@@ -282,7 +316,9 @@
               label-cols="3"
               label-size="sm"
             >
-              <template #label> <translate> Role </translate> </template>
+              <template #label>
+                <translate> Role </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="ivd-input-90"
@@ -291,7 +327,7 @@
                 required
                 readonly
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
         </b-row>
@@ -299,6 +335,7 @@
     </div>
   </b-card>
 </template>
+
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex';
@@ -676,8 +713,8 @@ export default {
           let orgstate = (this.options.orgDetails.orgstate || '').toLowerCase();
           let state = orgstate
             ? this.options.states.find(
-                (state) => state.name.toLowerCase() === orgstate
-              )
+              (state) => state.name.toLowerCase() === orgstate
+            )
             : null;
           let stateCode = state ? state.id : '';
           if (stateCode && stateCode < 9) {

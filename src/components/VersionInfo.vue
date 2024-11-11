@@ -2,15 +2,22 @@
   <!-- app version info -->
   <div class="mt-3 mb-5 text-center">
     Frontend (gkapp):
-    <b-link target="_blank" :href="url.gkapp"
-      ><code>{{ gkappVersion }}</code></b-link
+    <b-link
+      target="_blank"
+      :href="url.gkapp"
     >
+      <code>{{ gkappVersion }}</code>
+    </b-link>
     | Backend (gkcore):
-    <b-link target="_blank" :href="url.gkcore"
-      ><code>{{ gkcoreVersion }}</code></b-link
+    <b-link
+      target="_blank"
+      :href="url.gkcore"
     >
+      <code>{{ gkcoreVersion }}</code>
+    </b-link>
   </div>
 </template>
+
 <script>
 import axios from 'axios';
 import { version } from '../../package';

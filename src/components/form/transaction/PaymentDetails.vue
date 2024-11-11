@@ -8,10 +8,13 @@
   >
     <div class="p-2 p-md-3">
       <div>
-        <b class="mr-1" v-translate> Payment Details </b>
-        <GkTooltip
-          helpTitle="Mode of Payment"
-          helpBody="Available mode of payments are Cash, Bank, Credit. Default mode is Cash. This option can be changed in Administration > Settings > Transaction > Payment Mode"
+        <b
+          class="mr-1"
+          v-translate
+        > Payment Details </b>
+        <gk-tooltip
+          help-title="Mode of Payment"
+          help-body="Available mode of payments are Cash, Bank, Credit. Default mode is Cash. This option can be changed in Administration > Settings > Transaction > Payment Mode"
         />
         <b-button
           variant="secondary"
@@ -26,10 +29,13 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
-      <div class="mt-3" :class="{ 'd-md-block': true, 'd-none': !isCollapsed }">
+      <div
+        class="mt-3"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
+      >
         <!-- payment details -->
         <b-form-group
           label="Mode of Payment"
@@ -38,7 +44,9 @@
           label-cols="auto"
           v-if="config.mode"
         >
-          <template #label> <translate> {{saleFlag ? 'Mode Of Receipt' : 'Mode of Payment'}} </translate> </template>
+          <template #label>
+            <translate> {{ saleFlag ? 'Mode Of Receipt' : 'Mode of Payment' }} </translate>
+          </template>
           <b-form-select
             size="sm"
             id="pmd-input-10"
@@ -46,7 +54,7 @@
             :options="options.payModes"
             required
             @input="onUpdateDetails"
-          ></b-form-select>
+          />
         </b-form-group>
         <div v-if="form.mode === 2">
           <b v-translate> Bank Details </b>
@@ -61,9 +69,8 @@
             <gk-ifsc
               size="sm"
               @fill="autoFillBankInfo"
-              :ifscCode=form.bank.ifsc
-            >
-            </gk-ifsc>
+              :ifsc-code="form.bank.ifsc"
+            />
           </b-form-group>
           <b-form-group
             label="Account Number"
@@ -73,7 +80,9 @@
             label-cols-lg="autauto"
             v-if="config.bank.no"
           >
-            <template #label> <translate> Account Number </translate> </template>
+            <template #label>
+              <translate> Account Number </translate>
+            </template>
             <b-form-input
               size="sm"
               id="pmd-input-20"
@@ -81,7 +90,7 @@
               trim
               required
               pattern="[A-Z0-9]+"
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label="Bank Name"
@@ -90,7 +99,9 @@
             label-size="sm"
             label-cols-lg="autauto"
           >
-            <template #label> <translate> Bank Name </translate> </template>
+            <template #label>
+              <translate> Bank Name </translate>
+            </template>
             <b-form-input
               size="sm"
               id="pmd-input-30"
@@ -98,7 +109,7 @@
               v-model="form.bank.name"
               trim
               required
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label="Branch"
@@ -108,17 +119,22 @@
             label-cols-lg="autauto"
             v-if="config.bank.branch"
           >
-            <template #label> <translate> Branch </translate> </template>
+            <template #label>
+              <translate> Branch </translate>
+            </template>
             <b-form-input
               size="sm"
               id="pmd-input-40"
               v-model="form.bank.branch"
               trim
               required
-            ></b-form-input>
+            />
           </b-form-group>
         </div>
-        <b v-if="form.mode === 15" v-translate>ON CREDIT</b>
+        <b
+          v-if="form.mode === 15"
+          v-translate
+        >ON CREDIT</b>
       </div>
     </div>
   </b-card>

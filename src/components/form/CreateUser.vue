@@ -6,8 +6,15 @@
       header-bg-variant="dark"
       header-text-variant="light"
     >
-      <b-form ref="createForm" @submit.prevent="addUser">
-        <b-overlay :show="isLoading" blur no-wrap></b-overlay>
+      <b-form
+        ref="createForm"
+        @submit.prevent="addUser"
+      >
+        <b-overlay
+          :show="isLoading"
+          blur
+          no-wrap
+        />
         <!-- user name -->
         <b-form-group
           :label="$gettext('Name')"
@@ -26,7 +33,7 @@
             size="sm"
             :state="valid.username"
             @update="validateName"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           :label="$gettext('Password')"
@@ -34,7 +41,10 @@
           label-cols="4"
           label-size="sm"
         >
-          <password size="sm" v-model="form.userpassword"></password>
+          <password
+            size="sm"
+            v-model="form.userpassword"
+          />
         </b-form-group>
         <!-- confirm pwd -->
         <b-form-group
@@ -43,13 +53,17 @@
           label-cols="4"
           label-size="sm"
         >
-          <b-form-input :state="pwdMatch" v-model="cnfPassword" size="sm" type="password">
-          </b-form-input>
-          <b-form-invalid-feedback
-            ><translate
-              >Passwords do not match</translate
-            ></b-form-invalid-feedback
-          >
+          <b-form-input
+            :state="pwdMatch"
+            v-model="cnfPassword"
+            size="sm"
+            type="password"
+          />
+          <b-form-invalid-feedback>
+            <translate>
+              Passwords do not match
+            </translate>
+          </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group
           label-size="sm"
@@ -60,7 +74,7 @@
           <security-questions
             size="sm"
             v-model="form.userquestion"
-          ></security-questions>
+          />
         </b-form-group>
         <b-form-group
           label-cols="4"
@@ -73,9 +87,9 @@
             required
             type="text"
             size="sm"
-          ></b-form-input>
+          />
         </b-form-group>
-        <hr />
+        <hr>
         <b-form-group
           label-size="md"
           id="input-group-1"
@@ -84,7 +98,10 @@
           label-cols="3"
         >
           <template #label>
-            <captcha width="90" v-model="answer"></captcha>
+            <captcha
+              width="90"
+              v-model="answer"
+            />
           </template>
           <!-- user answer -->
           <b-form-input
@@ -95,8 +112,7 @@
             type="text"
             placeholder="Captcha Answer"
             required
-          >
-          </b-form-input>
+          />
         </b-form-group>
         <!-- create user  -->
         <slot name="modal-footer">
@@ -107,9 +123,13 @@
             class="float-right"
             variant="success"
           >
-            <b-icon class="mr-1" type="submit" icon="person-plus"></b-icon>
-            <translate>Create User</translate></b-button
-          >
+            <b-icon
+              class="mr-1"
+              type="submit"
+              icon="person-plus"
+            />
+            <translate>Create User</translate>
+          </b-button>
         </slot>
       </b-form>
     </b-card>

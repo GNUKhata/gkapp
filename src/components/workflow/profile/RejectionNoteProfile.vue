@@ -1,43 +1,66 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <!-- action buttons -->
     <div class="mb-3 clearfix d-print-none">
       <div class="float-right">
         <span>
-           <b-button
+          <b-button
             class="mr-1"
             size="sm"
             variant="primary"
             v-b-toggle.voucher-container
             v-if="!pdata.cancelledFlag"
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
               :to="
                 `/workflow/Transactions-Invoice/${rnote.invid}`
               "
-              >View Invoice
+            >View Invoice
             </router-link>
           </b-button>
         </span>
       </div>
     </div>
     <b-row>
-      <b-col order="2" order-md="1">
-        <b v-translate v-if="party.isCustomer"> Customer Details </b>
-        <b v-translate v-else> Supplier Details </b>
+      <b-col
+        order="2"
+        order-md="1"
+      >
+        <b
+          v-translate
+          v-if="party.isCustomer"
+        > Customer Details </b>
+        <b
+          v-translate
+          v-else
+        > Supplier Details </b>
         <p class="text-small">
           <span>
             <router-link :to="`/ledger/${custid}`">{{ party.name }}</router-link>
-          </span><br />
-          <span> {{ party.addr }} </span><br />
-          <span> {{ party.state }} </span><br />
+          </span><br>
+          <span> {{ party.addr }} </span><br>
+          <span> {{ party.state }} </span><br>
         </p>
-        <br class="d-none d-md-block" />
+        <br class="d-none d-md-block">
       </b-col>
-      <b-col class="text-md-right" cols="12" md="6" order="1" order-md="2">
+      <b-col
+        class="text-md-right"
+        cols="12"
+        md="6"
+        order="1"
+        order-md="2"
+      >
         <b v-translate> Rejection Note Details </b>
         <!-- Note Details Table -->
         <b-table-lite
@@ -48,7 +71,7 @@
           thead-class="d-none"
           fixed
           class="text-small table-border-dark"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <!-- Content Table -->
@@ -80,24 +103,38 @@
       </template>
     </b-table-lite>
     <b-row>
-      <b-col class="my-2" order="2" order-md="1"> </b-col>
-      <b-col cols="12" md="8" class="my-2" order="1" order-md="2">
+      <b-col
+        class="my-2"
+        order="2"
+        order-md="1"
+      />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+        order="1"
+        order-md="2"
+      >
         <!-- Total Table -->
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            { key: 'title', label: 'Total', tdClass: '' },
-            { key: 'value', label: '₹', class: 'text-right' },
+            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'value', label: '₹', class: 'text-right'},
           ]"
           small
           fixed
           class="text-small"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="my-2"> </b-col>
-      <b-col cols="12" md="8" class="my-2">
+      <b-col class="my-2" />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+      >
         <b v-translate> Narration: </b> {{ rnote.narration }}
       </b-col>
     </b-row>
@@ -254,12 +291,12 @@ export default {
         });
       }
       axios.get(`/accounts?type=getAccCode&accountname=${this.party.name}`)
-      .then(response => {
-        this.custid = response.data.accountcode;
-      })
-      .catch(error => {
-        this.error = 'Failed to load data: ' + error.message;
-      });
+        .then(response => {
+          this.custid = response.data.accountcode;
+        })
+        .catch(error => {
+          this.error = 'Failed to load data: ' + error.message;
+        });
     },
     getDetails() {
       return axios
@@ -277,37 +314,37 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            // this.invoice = response.data.gkresult;
-            // this.formatInvoiceDetails(response.data.gkresult);
-            // this.output = response.data.gkresult;
-            this.formatDetails(response.data.gkresult);
-            break;
-          case 2:
-            this.$bvToast.toast(
-              this.$gettext(`Unauthorized access, Please contact admin`),
-              {
-                title: this.$gettext(`Fetch Rejection Note Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
-            break;
-          default:
-            this.$bvToast.toast(
-              this.$gettext(
-                `Unable to Fetch Rejection Note Details! Please Try after sometime.`
-              ),
-              {
-                title: this.$gettext(`Fetch Transaction Details Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
+        case 0:
+          // this.invoice = response.data.gkresult;
+          // this.formatInvoiceDetails(response.data.gkresult);
+          // this.output = response.data.gkresult;
+          this.formatDetails(response.data.gkresult);
+          break;
+        case 2:
+          this.$bvToast.toast(
+            this.$gettext(`Unauthorized access, Please contact admin`),
+            {
+              title: this.$gettext(`Fetch Rejection Note Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
+          break;
+        default:
+          this.$bvToast.toast(
+            this.$gettext(
+              `Unable to Fetch Rejection Note Details! Please Try after sometime.`
+            ),
+            {
+              title: this.$gettext(`Fetch Transaction Details Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
         } // end switch
       });
     },
@@ -341,6 +378,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .custom-link {
   color: white;

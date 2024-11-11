@@ -80,7 +80,7 @@
                     label-cols="2"
                     label-class="required"
                   >
-                    <GkDate
+                    <gk-date
                       id="bud-date-1"
                       :format="dateFormat"
                       v-model="form.from"
@@ -96,7 +96,7 @@
                     label-class="required"
                     :style="{minWidth: '180px'}"
                   >
-                    <GkDate
+                    <gk-date
                       id="bud-date-2"
                       :format="dateFormat"
                       :min="minDate"

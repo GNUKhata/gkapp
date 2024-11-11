@@ -9,15 +9,19 @@
         class="mx-auto gkcard d-print-none"
       >
         <b-form @submit.prevent="showSummary">
-          <gk-period @update="onPeriodUpdate" @validity="updateValidity"> </gk-period>
+          <gk-period
+            @update="onPeriodUpdate"
+            @validity="updateValidity"
+          />
           <b-button
             :disabled="!periodValidity"
             type="submit"
             size="sm"
             variant="success"
             class="float-right"
-            ><b-icon icon="eye-fill"></b-icon> Show</b-button
           >
+            <b-icon icon="eye-fill" /> Show
+          </b-button>
         </b-form>
       </b-card>
     </b-overlay>

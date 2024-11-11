@@ -1,6 +1,9 @@
 <template>
   <section class="m-1">
-    <b-overlay :show="loading" blur>
+    <b-overlay
+      :show="loading"
+      blur
+    >
       <b-card
         :header="$gettext('View Registers')"
         header-bg-variant="dark"
@@ -9,21 +12,35 @@
       >
         <b-form @submit.prevent="getRegisters">
           <!-- Select Register -->
-          <b-form-group label="Type" label-cols="auto">
-            <b-form-select ref="register-type" v-model="registerType" required>
+          <b-form-group
+            label="Type"
+            label-cols="auto"
+          >
+            <b-form-select
+              ref="register-type"
+              v-model="registerType"
+              required
+            >
               <template #first>
-                <b-form-select-option disabled value=""
-                  ><translate
-                    >-- Select Type Of Register --</translate
-                  ></b-form-select-option
+                <b-form-select-option
+                  disabled
+                  value=""
                 >
+                  <translate>
+                    -- Select Type Of Register --
+                  </translate>
+                </b-form-select-option>
               </template>
-              <b-form-select-option value="1"
-                ><translate>Purchase</translate></b-form-select-option
+              <b-form-select-option
+                value="1"
               >
-              <b-form-select-option value="0"
-                ><translate>Sale</translate></b-form-select-option
+                <translate>Purchase</translate>
+              </b-form-select-option>
+              <b-form-select-option
+                value="0"
               >
+                <translate>Sale</translate>
+              </b-form-select-option>
             </b-form-select>
           </b-form-group>
           <!-- Date -->
@@ -31,32 +48,36 @@
             <div class="col">
               <b-form-group :label="$gettext('From')">
                 <gk-date
-                  :formatOutput="true"
+                  :format-output="true"
                   id="1"
                   required
                   v-model="fromDate"
-                ></gk-date>
+                />
               </b-form-group>
             </div>
             <div class="col">
               <b-form-group :label="$gettext('To')">
                 <gk-date
-                  :formatOutput="true"
+                  :format-output="true"
                   id="2"
                   required
                   v-model="toDate"
-                ></gk-date>
+                />
               </b-form-group>
             </div>
           </div>
           <b-button
-            @click="updateRoute()"
+            @click="updateRoute"
             variant="success"
             type="submit"
             class="float-right"
-            ><b-icon class="mr-1" icon="cloud-download"></b-icon>
-            <translate>Get Details</translate></b-button
           >
+            <b-icon
+              class="mr-1"
+              icon="cloud-download"
+            />
+            <translate>Get Details</translate>
+          </b-button>
         </b-form>
       </b-card>
     </b-overlay>
@@ -64,12 +85,10 @@
     <div v-if="report.length > 0">
       <report-header>
         <div class="text-center">
-          <b
-            >{{
-              $refs['register-type'].value == 0 ? 'Sale' : 'Purchase'
-            }}
-            Register</b
-          >
+          <b>{{
+            $refs['register-type'].value == 0 ? 'Sale' : 'Purchase'
+          }}
+            Register</b>
           | <translate>From</translate>
           <b class="ml-1 mr-1">{{ fromDate }}</b>
           <translate>to</translate>
@@ -85,12 +104,18 @@
             v-model="search"
             size="sm"
             style="align-self:center"
-          ></b-form-input>
+          />
         </template>
         <template>
           <div class="d-flex flex-row-reverse m-1">
-            <b-checkbox switch v-model="expandedTable"></b-checkbox>
-            <span class="mr-1" v-translate>Expanded Table</span>
+            <b-checkbox
+              switch
+              v-model="expandedTable"
+            />
+            <span
+              class="mr-1"
+              v-translate
+            >Expanded Table</span>
           </div>
         </template>
       </gk-toolbar>
@@ -124,6 +149,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import { mapGetters, mapState } from 'vuex';
 import GkDate from '../components/GkDate.vue';
@@ -247,39 +273,39 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.report = this.formatTable(r.data);
-                break;
-              case 1:
-                this.$bvToast.toast('Duplicate Entry', {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast('Unauthorised Access', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast('Data error', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast('No Privilege', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast('Integrity error', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.report = this.formatTable(r.data);
+              break;
+            case 1:
+              this.$bvToast.toast('Duplicate Entry', {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast('Unauthorised Access', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast('Data error', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast('No Privilege', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast('Integrity error', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
             this.loading = false;
           } else {

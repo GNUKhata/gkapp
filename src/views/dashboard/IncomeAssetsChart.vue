@@ -1,5 +1,8 @@
 <template>
-  <b-card-group deck class="mt-5">
+  <b-card-group
+    deck
+    class="mt-5"
+  >
     <b-card>
       <b-card-header
         header-bg-variant="light"
@@ -11,7 +14,7 @@
           ({{ dateReverse(yearStart) }} to {{ dateReverse(yearEnd) }})
         </span>
       </b-card-header>
-      <Doughnut
+      <doughnut
         :chart-options="chartOptions"
         :chart-data="assetsChartData"
         :chart-id="chartId"
@@ -34,7 +37,7 @@
           ({{ dateReverse(yearStart) }} to {{ dateReverse(yearEnd) }})
         </span>
       </b-card-header>
-      <Doughnut
+      <doughnut
         :chart-options="chartOptions"
         :chart-data="incomeChartData"
         :chart-id="chartId"

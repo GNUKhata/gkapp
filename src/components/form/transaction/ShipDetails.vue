@@ -6,8 +6,12 @@
     border-variant="secondary"
     no-body
   >
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="p-2 p-md-3">
       <div>
         <b v-translate>Shipping Details</b>
@@ -24,12 +28,12 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
       <div
         class="mt-3 px-2"
-        :class="{ 'd-md-block': true, 'd-none': !isCollapsed }"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
         id="shipping-details"
       >
         <b-form-checkbox
@@ -41,11 +45,20 @@
           switch
           v-if="config.copyFlag"
         >
-          <span v-if="saleFlag" v-translate> Use Billing Address </span>
-          <span v-else v-translate> Use Organisation Address </span>
+          <span
+            v-if="saleFlag"
+            v-translate
+          > Use Billing Address </span>
+          <span
+            v-else
+            v-translate
+          > Use Organisation Address </span>
         </b-form-checkbox>
         <b-row>
-          <b-col cols="12" v-if="config.name">
+          <b-col
+            cols="12"
+            v-if="config.name"
+          >
             <b-form-group
               label="Name"
               label-for="spd-input-10"
@@ -54,17 +67,22 @@
               label-cols-lg="3"
               label-size="sm"
             >
-              <template #label> <translate> Name </translate> </template>
+              <template #label>
+                <translate> Name </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="spd-input-10"
                 v-model="form.name"
                 :readonly="copyFlag"
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
-          <b-col cols="12" v-if="config.addr">
+          <b-col
+            cols="12"
+            v-if="config.addr"
+          >
             <b-form-group
               label-cols="3"
               label-cols-md="4"
@@ -73,7 +91,9 @@
               label-for="spd-input-20"
               label-size="sm"
             >
-              <template #label> <translate> Address </translate> </template>
+              <template #label>
+                <translate> Address </translate>
+              </template>
               <b-form-textarea
                 size="sm"
                 id="spd-input-20"
@@ -83,10 +103,13 @@
                 trim
                 :readonly="copyFlag"
                 tabindex="-1"
-              ></b-form-textarea>
+              />
             </b-form-group>
           </b-col>
-          <b-col cols="12" v-if="config.pin">
+          <b-col
+            cols="12"
+            v-if="config.pin"
+          >
             <b-form-group
               label-cols="3"
               label-cols-md="4"
@@ -102,7 +125,7 @@
                 trim
                 :readonly="copyFlag"
                 tabindex="-1"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
           <b-col
@@ -117,7 +140,9 @@
               label-cols-md="4"
               label-cols-lg="3"
             >
-              <template #label> <translate> State </translate> </template>
+              <template #label>
+                <translate> State </translate>
+              </template>
               <v-select
                 id="spd-input-40"
                 v-model="form.state"
@@ -127,8 +152,7 @@
                 :tabindex="-1"
                 label="name"
                 :reduce="(state) => state.name"
-              >
-              </v-select>
+              />
             </b-form-group>
           </b-col>
           <b-col
@@ -151,7 +175,7 @@
                 trim
                 :readonly="copyFlag"
                 tabindex="-1"
-              ></b-form-input>
+              />
               <gk-gstin
                 v-else
                 v-model="form.gstin"
@@ -181,7 +205,7 @@
                 pattern="[A-Z0-9]+"
                 minlength="10"
                 maxlength="11"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-col>
         </b-row>

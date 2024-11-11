@@ -20,40 +20,48 @@
           on. A download window will pop up when export is done. You can open or
           save the file.
         </div>
-        <br />
+        <br>
         <!-- Export buttons -->
         <b-button-group>
           <gk-file-download
             :url="
               `/data?export&yearstart=${this.yearStart}&yearend=${this.yearEnd}`
             "
-            :fileName="`GNUKhata-DataExport`"
+            :file-name="`GNUKhata-DataExport`"
             name="Export (Legacy)"
             variant="dark"
             :add-date="true"
-            :addTimeStamp="true"
+            :add-time-stamp="true"
             class="mr-1"
-            :messageFromParent="parentMessage"
-          ></gk-file-download>
+            :message-from-parent="parentMessage"
+          />
           <gk-file-download
             :url="`/data?export-json`"
-            fileExtn="json"
+            file-extn="json"
             icon="file-earmark-code"
             name="Export (Json)"
             variant="dark"
             :add-date="true"
-            fileSuffix="Export"
-            :addTimeStamp="true"
-            :messageFromParent="parentMessage"
-          ></gk-file-download>
+            file-suffix="Export"
+            :add-time-stamp="true"
+            :message-from-parent="parentMessage"
+          />
         </b-button-group>
-        <b-alert class="mt-3" show variant="warning">
-          <b-icon icon="exclamation-octagon" scale="1.1x" class="mt-2"></b-icon>
+        <b-alert
+          class="mt-3"
+          show
+          variant="warning"
+        >
+          <b-icon
+            icon="exclamation-octagon"
+            scale="1.1x"
+            class="mt-2"
+          />
           <b v-translate> Note</b>:
-          <translate
-            >The current exported spreadsheet currenly contains list of accounts
-            & vouchers data only</translate
-          >
+          <translate>
+            The current exported spreadsheet currenly contains list of accounts
+            & vouchers data only
+          </translate>
         </b-alert>
       </b-card-body>
     </b-card>

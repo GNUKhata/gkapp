@@ -7,8 +7,15 @@
       header-text-variant="light"
       class="gkcard mx-auto"
     >
-      <b-form ref="createUserForm" @submit.prevent="check">
-        <b-overlay :show="isLoading" blur no-wrap></b-overlay>
+      <b-form
+        ref="createUserForm"
+        @submit.prevent="check"
+      >
+        <b-overlay
+          :show="isLoading"
+          blur
+          no-wrap
+        />
         <b-form-group
           :label="$gettext('Name')"
           label-align="right"
@@ -23,14 +30,20 @@
               type="text"
               trim
               size="sm"
-            ></b-form-input>
-            <b-button :disabled="validating" @click="validateUser" size="sm">
+            />
+            <b-button
+              :disabled="validating"
+              @click="validateUser"
+              size="sm"
+            >
               <!-- <b-icon class="mr-1" type="submit" icon="search"></b-icon> -->
               <translate>Validate</translate>
             </b-button>
             <b-form-invalid-feedback id="input-live-feedback">
-              <translate>Recommended uppercase, lowercase, number, _ & minimum 5 characters long,
-              must start with a letter and underscores with at least one character after the underscore.</translate>
+              <translate>
+                Recommended uppercase, lowercase, number, _ & minimum 5 characters long,
+                must start with a letter and underscores with at least one character after the underscore.
+              </translate>
             </b-form-invalid-feedback>
           </b-input-group>
           <small><translate>* Type an existing user's name</translate></small>
@@ -48,9 +61,12 @@
             size="sm"
             @change="getGodowns"
           >
-            <b-form-select-option disabled value="null"
-              >-- Select Role --</b-form-select-option
+            <b-form-select-option
+              disabled
+              value="null"
             >
+              -- Select Role --
+            </b-form-select-option>
           </b-form-select>
         </b-form-group>
         <b-table-simple
@@ -66,22 +82,32 @@
           </caption>
           <b-thead head-variant="dark">
             <b-tr>
-              <b-th v-translate>Select</b-th>
-              <b-th v-translate>Name</b-th>
-              <b-th v-translate>State</b-th>
-              <b-th v-translate>Address</b-th>
+              <b-th v-translate>
+                Select
+              </b-th>
+              <b-th v-translate>
+                Name
+              </b-th>
+              <b-th v-translate>
+                State
+              </b-th>
+              <b-th v-translate>
+                Address
+              </b-th>
             </b-tr>
           </b-thead>
           <b-tbody>
-            <b-tr v-for="godown in allGodowns" :key="godown.goid">
+            <b-tr
+              v-for="godown in allGodowns"
+              :key="godown.goid"
+            >
               <b-td>
                 <b-form-checkbox
                   value="accepted"
                   unchecked-value="not_accepted"
                   v-model="godown.checked"
                   switch
-                >
-                </b-form-checkbox>
+                />
               </b-td>
               <b-td>{{ godown.goname }}</b-td>
               <b-td>{{ godown.state }}</b-td>
@@ -90,7 +116,10 @@
             </b-tr>
           </b-tbody>
         </b-table-simple>
-        <div v-if="!existUser && existUser !== null" class="mb-2">
+        <div
+          v-if="!existUser && existUser !== null"
+          class="mb-2"
+        >
           <b-form-checkbox
             class="float-right"
             v-model="createUser"
@@ -98,7 +127,7 @@
           >
             <span> User not present, Do you want to create a new user? </span>
           </b-form-checkbox>
-          <div class="clearfix"></div>
+          <div class="clearfix" />
         </div>
         <!-- create new user -->
         <div v-if="createUser">
@@ -108,7 +137,10 @@
             label-cols="4"
             label-size="sm"
           >
-            <password size="sm" v-model="form.userpassword"></password>
+            <password
+              size="sm"
+              v-model="form.userpassword"
+            />
           </b-form-group>
           <b-form-group
             :label="$gettext('Confirm Password')"
@@ -121,13 +153,12 @@
               type="password"
               v-model="cnfPassword"
               size="sm"
-            >
-            </b-form-input>
-            <b-form-invalid-feedback
-              ><translate
-                >Passwords do not match</translate
-              ></b-form-invalid-feedback
-            >
+            />
+            <b-form-invalid-feedback>
+              <translate>
+                Passwords do not match
+              </translate>
+            </b-form-invalid-feedback>
           </b-form-group>
           <b-form-group
             label-size="sm"
@@ -138,7 +169,7 @@
             <security-questions
               size="sm"
               v-model="form.userquestion"
-            ></security-questions>
+            />
           </b-form-group>
           <b-form-group
             label-cols="4"
@@ -151,7 +182,7 @@
               required
               type="text"
               size="sm"
-            ></b-form-input>
+            />
           </b-form-group>
         </div>
         <slot name="modal-footer">
@@ -162,10 +193,14 @@
             class="float-right"
             variant="success"
           >
-            <b-icon class="mr-1" type="submit" icon="person-plus"></b-icon>
-            <span v-if="createUser"
-              ><translate>Create & Invite User</translate></span
-            >
+            <b-icon
+              class="mr-1"
+              type="submit"
+              icon="person-plus"
+            />
+            <span
+              v-if="createUser"
+            ><translate>Create & Invite User</translate></span>
             <span v-else><translate> Invite User </translate></span>
           </b-button>
         </slot>

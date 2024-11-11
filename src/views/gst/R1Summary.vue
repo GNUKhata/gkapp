@@ -16,20 +16,23 @@
              </div> -->
 
     <!-- R1 Tables (only shown if they have atleast one entry) -->
-    <b-overlay :show="isLoading" spinner-type="grow">
+    <b-overlay
+      :show="isLoading"
+      spinner-type="grow"
+    >
       <!-- B2B -->
       <div>
         <gk-file-download
           class="float-right"
           :url="spreadSheetUrl"
-          fileName="GSTR1"
-          fileExtn="xlsx"
-          :addDate="true"
-          :addTimeStamp="true"
+          file-name="GSTR1"
+          file-extn="xlsx"
+          :add-date="true"
+          :add-time-stamp="true"
           name="Spreadsheet"
           icon="cloud-download"
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          :message-from-parent="parentMessage"
+        />
         <b-table
           caption-top
           class="mt-3"
@@ -45,8 +48,12 @@
                      <strong> Fetching data</strong>
                      </div>
                      </template> -->
-          <template #table-caption
-            ><h3 class="ml-4">B2B Invoices:</h3>
+          <template
+            #table-caption
+          >
+            <h3 class="ml-4">
+              B2B Invoices:
+            </h3>
           </template>
         </b-table>
         <b-button
@@ -55,7 +62,10 @@
           @click="go('b2b')"
           class="float-right"
         >
-          Details <b-icon icon="chevron-right" class="ml-1"> </b-icon>
+          Details <b-icon
+            icon="chevron-right"
+            class="ml-1"
+          />
         </b-button>
       </div>
       <!-- B2CL -->
@@ -69,7 +79,11 @@
           :items="summary.b2cl"
           responsive="sm"
         >
-          <template #table-caption><h3 class="ml-4">B2CL:</h3></template>
+          <template #table-caption>
+            <h3 class="ml-4">
+              B2CL:
+            </h3>
+          </template>
         </b-table>
         <b-button
           size="sm"
@@ -77,7 +91,10 @@
           class="float-right"
           @click="go('b2cl')"
         >
-          Details <b-icon class="mx-1" icon="chevron-right"> </b-icon>
+          Details <b-icon
+            class="mx-1"
+            icon="chevron-right"
+          />
         </b-button>
       </div>
       <!-- B2CS -->
@@ -91,7 +108,11 @@
           :items="summary.b2cs"
           responsive="sm"
         >
-          <template #table-caption><h3 class="ml-4">B2CS:</h3></template>
+          <template #table-caption>
+            <h3 class="ml-4">
+              B2CS:
+            </h3>
+          </template>
         </b-table>
         <b-button
           size="sm"
@@ -99,7 +120,10 @@
           class="float-right"
           @click="go('b2cs')"
         >
-          Details <b-icon class="ml-1" icon="chevron-right"> </b-icon>
+          Details <b-icon
+            class="ml-1"
+            icon="chevron-right"
+          />
         </b-button>
       </div>
       <!-- CDNR -->
@@ -113,7 +137,11 @@
           :items="summary.cdnr"
           responsive="sm"
         >
-          <template #table-caption><h3 class="ml-4">CDNR:</h3></template>
+          <template #table-caption>
+            <h3 class="ml-4">
+              CDNR:
+            </h3>
+          </template>
         </b-table>
         <b-button
           size="sm"
@@ -121,7 +149,10 @@
           class="float-right"
           @click="go('cdnr')"
         >
-          Details <b-icon icon="chevron-right" class="ml-1"> </b-icon>
+          Details <b-icon
+            icon="chevron-right"
+            class="ml-1"
+          />
         </b-button>
       </div>
       <!-- CDNUR -->
@@ -135,7 +166,11 @@
           :items="summary.cdnur"
           responsive="sm"
         >
-          <template #table-caption><h3 class="ml-4">CDNUR:</h3></template>
+          <template #table-caption>
+            <h3 class="ml-4">
+              CDNUR:
+            </h3>
+          </template>
         </b-table>
         <b-button
           size="sm"
@@ -143,7 +178,10 @@
           class="float-right"
           @click="go('cdnur')"
         >
-          Details <b-icon icon="chevron-right" class="ml-1"> </b-icon>
+          Details <b-icon
+            icon="chevron-right"
+            class="ml-1"
+          />
         </b-button>
       </div>
       <!-- HSN -->
@@ -157,7 +195,11 @@
           :items="summary.hsn"
           responsive="sm"
         >
-          <template #table-caption><h3 class="ml-4">HSN:</h3></template>
+          <template #table-caption>
+            <h3 class="ml-4">
+              HSN:
+            </h3>
+          </template>
         </b-table>
         <b-button
           size="sm"
@@ -165,17 +207,26 @@
           class="float-right"
           @click="go('hsn1')"
         >
-          Details <b-icon icon="chevron-right" class="ml-1"> </b-icon>
+          Details <b-icon
+            icon="chevron-right"
+            class="ml-1"
+          />
         </b-button>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
       </div>
       <!-- JSON -->
       <div class="mt-4">
-        <h3 class="d-inline-block text-secondary ml-3">GSTR-1 JSON:</h3>
+        <h3 class="d-inline-block text-secondary ml-3">
+          GSTR-1 JSON:
+        </h3>
 
         <div class="float-right">
-          <b-button @click="copyJsonToClipboard" size="sm" variant="link">
-            <b-icon icon="files"></b-icon>
+          <b-button
+            @click="copyJsonToClipboard"
+            size="sm"
+            variant="link"
+          >
+            <b-icon icon="files" />
           </b-button>
           <b-link
             class="display-inline-block p-1"
@@ -183,7 +234,7 @@
             download="GSTR_1.json"
             :disabled="isLoading"
           >
-            <b-icon icon="cloud-download"></b-icon>
+            <b-icon icon="cloud-download" />
           </b-link>
         </div>
       </div>
@@ -206,13 +257,12 @@
             rows="10"
             max-rows="20"
             readonly
-          >
-          </b-form-textarea>
+          />
         </div>
       </b-overlay>
-      <br />
-      <br />
-      <br />
+      <br>
+      <br>
+      <br>
     </b-overlay>
   </section>
 </template>
@@ -526,41 +576,41 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.list = r.data.gkdata;
-                this.gstData = r.data.json;
-                this.generateSummary();
-                break;
-              case 1:
-                this.$bvToast.toast('Duplicate Entry', {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast('Unauthorised Access', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast('Data error', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast('No Privilege', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast('Integrity error', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.list = r.data.gkdata;
+              this.gstData = r.data.json;
+              this.generateSummary();
+              break;
+            case 1:
+              this.$bvToast.toast('Duplicate Entry', {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast('Unauthorised Access', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast('Data error', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast('No Privilege', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast('Integrity error', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           } else {
             console.log(r);

@@ -1,5 +1,5 @@
 <template>
-  <LineChart
+  <line-chart
     :width="200"
     :chart-options="chartOptions"
     :chart-data="chartData"

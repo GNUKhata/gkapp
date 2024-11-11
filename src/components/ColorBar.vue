@@ -4,7 +4,7 @@
       v-for="(style, index) in colorVersion"
       :key="index"
       :style="style"
-    ></div>
+    />
   </div>
 </template>
 

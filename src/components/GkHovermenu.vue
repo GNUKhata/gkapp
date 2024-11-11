@@ -1,8 +1,15 @@
 <template>
   <div class="d-print-none">
     <!-- trigger button -->
-    <b-button :title="title" variant="link" id="select">
-      <b-icon :icon="icon" class="mt-1"></b-icon>
+    <b-button
+      :title="title"
+      variant="link"
+      id="select"
+    >
+      <b-icon
+        :icon="icon"
+        class="mt-1"
+      />
     </b-button>
     <!-- Filters -->
     <b-popover
@@ -11,7 +18,7 @@
       triggers="click"
       placement="bottom"
     >
-      <slot></slot>
+      <slot />
     </b-popover>
   </div>
 </template>

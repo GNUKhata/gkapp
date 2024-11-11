@@ -6,7 +6,7 @@
     :variant="variant"
     :icon="icon"
     :scale="scale"
-  ></b-icon>
+  />
 </template>
 
 <script>

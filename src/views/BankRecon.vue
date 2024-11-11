@@ -1,6 +1,9 @@
 <template>
   <section class="m-1">
-    <b-overlay :show="loading" blur>
+    <b-overlay
+      :show="loading"
+      blur
+    >
       <b-card
         header="Bank Reconciliation"
         header-bg-variant="dark"
@@ -9,8 +12,13 @@
       >
         <b-form class="text-small">
           <!-- Select Register -->
-          <b-form-group label="Account Name" label-cols="auto">
-            <template #label> <translate> Account Name </translate> </template>
+          <b-form-group
+            label="Account Name"
+            label-cols="auto"
+          >
+            <template #label>
+              <translate> Account Name </translate>
+            </template>
             <b-form-select
               ref="bankAcc"
               v-model="accId"
@@ -19,19 +27,26 @@
               text-field="accountname"
               required
               size="sm"
-            >
-            </b-form-select>
+            />
           </b-form-group>
           <!-- Date -->
           <div class="row">
             <div class="col">
               <b-form-group label="From">
-                <gk-date id="date-from" required v-model="fromDate"></gk-date>
+                <gk-date
+                  id="date-from"
+                  required
+                  v-model="fromDate"
+                />
               </b-form-group>
             </div>
             <div class="col">
               <b-form-group label="To">
-                <gk-date id="date-to" required v-model="toDate"></gk-date>
+                <gk-date
+                  id="date-to"
+                  required
+                  v-model="toDate"
+                />
               </b-form-group>
             </div>
           </div>
@@ -40,20 +55,27 @@
             variant="success"
             class="float-right"
             @click.prevent="getVouchers"
-            ><b-icon class="mr-1" icon="cloud-download"></b-icon>
+          >
+            <b-icon
+              class="mr-1"
+              icon="cloud-download"
+            />
             <translate>Get Details</translate>
           </b-button>
         </b-form>
       </b-card>
     </b-overlay>
     <!-- Table -->
-    <div class="mt-3" v-if="dataFetched">
+    <div
+      class="mt-3"
+      v-if="dataFetched"
+    >
       <b-form-radio-group
         v-model="tableType"
         :options="tableTypeOptions"
         name="table-options"
         class="mx-auto text-center d-print-none mb-3"
-      ></b-form-radio-group>
+      />
       <report-header>
         <div class="text-center">
           <b> Register</b>
@@ -83,15 +105,14 @@
             required
             v-model="activeVouchers[data.index].clearancedate"
             @validity="(isValid) => (data.item.valid = isValid)"
-          ></gk-date>
+          />
         </template>
         <template #cell(memo)="data">
           <b-input
             :id="`memo-${data.index}`"
             v-model="activeVouchers[data.index].memo"
             size="sm"
-          >
-          </b-input>
+          />
         </template>
         <template #cell(save)="data">
           <b-button
@@ -104,7 +125,7 @@
               class="align-middle"
               font-scale="1"
               icon="cloud-upload"
-            ></b-icon>
+            />
           </b-button>
         </template>
       </b-table>
@@ -117,14 +138,14 @@
         v-if="tableType === 2"
         :items="statements"
         :fields="[
-          { key: 'particulars', label: 'Reconciliation Statement' },
+          {key: 'particulars', label: 'Reconciliation Statement'},
           'amount',
         ]"
-      >
-      </b-table>
+      />
     </div>
   </section>
 </template>
+
 <!-- TODOS
      * Fix Table fields
      * API response has object with multiple key/values. Process them

@@ -1,28 +1,34 @@
 <template>
   <section class="m-2">
-    <Balance />
+    <balance />
     <!-- bank / cash stats -->
     <div v-if="dataIsFetched">
       <b-card-group deck>
         <!-- Tiles -->
         <b-card class="shadow p-0">
-          <Tiles />
+          <tiles />
         </b-card>
         <!-- Bank/Cash Balance graph -->
-        <b-card class="shadow" no-body>
-          <BankCashBalanceGraph :chartInput="dashboardData.balancedata" />
+        <b-card
+          class="shadow"
+          no-body
+        >
+          <bank-cash-balance-graph :chart-input="dashboardData.balancedata" />
         </b-card>
       </b-card-group>
       <!-- Sale/Purchase Invoice Graphs -->
-      <SalePurchaseInvoiceGraph :info="dashboardData.monthly_balance" />
+      <sale-purchase-invoice-graph :info="dashboardData.monthly_balance" />
       <!-- Make / Recieve Payment -->
-      <MakeRecievePayment :info="dashboardData" :onPayment="onPayment" />
+      <make-recieve-payment
+        :info="dashboardData"
+        :on-payment="onPayment"
+      />
       <!-- Most Valued Customers / suppliers -->
-      <MostValuedCS :info="dashboardData" />
+      <most-valued-c-s :info="dashboardData" />
       <!-- Most Sold Produc/ Services -->
-      <MostSoldPS :info="dashboardData" />
+      <most-sold-p-s :info="dashboardData" />
       <!-- Income / Assets Chart -->
-      <IncomeAssetsChart />
+      <income-assets-chart />
 
       <b-modal
         size="lg"
@@ -36,13 +42,14 @@
       >
         <easy-voucher
           :type="voucherType"
-          :invId="voucherInvId"
-          :onSave="onPaymentComplete"
-        ></easy-voucher>
+          :inv-id="voucherInvId"
+          :on-save="onPaymentComplete"
+        />
       </b-modal>
     </div>
   </section>
 </template>
+
 <script>
 import axios from 'axios';
 import Tiles from './Tiles.vue';

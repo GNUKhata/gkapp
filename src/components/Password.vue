@@ -13,16 +13,17 @@
         required
         aria-label="Password input"
         :placeholder="placeholder"
-      >
-      </b-form-input>
-      <b-input-group-append
-        ><b-button
+      />
+      <b-input-group-append>
+        <b-button
           @click="toggleVisibility"
           :size="size"
           class="ml-1"
           variant="light"
-          ><b-icon :icon="field.icon"></b-icon></b-button
-      ></b-input-group-append>
+        >
+          <b-icon :icon="field.icon" />
+        </b-button>
+      </b-input-group-append>
     </b-input-group>
   </b-form-group>
 </template>

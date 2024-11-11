@@ -1,5 +1,8 @@
 <template>
-  <div class="align-form-label-right" ref="period">
+  <div
+    class="align-form-label-right"
+    ref="period"
+  >
     <b-form-group
       label="Period Type"
       label-for="gkp-select-10"
@@ -7,14 +10,15 @@
       label-cols-md="2"
       label-size="sm"
     >
-      <template #label> <translate> Period Type </translate> </template>
+      <template #label>
+        <translate> Period Type </translate>
+      </template>
       <b-form-select
         id="gkp-select-10"
         size="sm"
         :options="options.periodTypes"
         v-model="periodType"
-      >
-      </b-form-select>
+      />
     </b-form-group>
     <b-form-group
       label="Period"
@@ -23,7 +27,9 @@
       label-cols-md="2"
       label-size="sm"
     >
-      <template #label> <translate> Period </translate> </template>
+      <template #label>
+        <translate> Period </translate>
+      </template>
       <b-form-select
         v-if="isMonthly"
         id="gkp-select-20"
@@ -31,10 +37,13 @@
         @change="onPeriodUpdate"
         v-model="period"
         :options="periods"
-      >
-      </b-form-select>
+      />
 
-      <div v-if="isCustom" id="gkp-select-20" class="row">
+      <div
+        v-if="isCustom"
+        id="gkp-select-20"
+        class="row"
+      >
         <div class="col-sm-6 pr-sm-1">
           <b-form-group
             label-size="md"
@@ -54,7 +63,7 @@
                 id="yst"
                 :min="minDate.from"
                 :max="maxDate.from"
-              ></gk-date>
+              />
             </b-input-group>
           </b-form-group>
         </div>
@@ -77,7 +86,7 @@
                 id="ynd"
                 :min="minDate.to"
                 :max="maxDate.to"
-              ></gk-date>
+              />
             </b-input-group>
           </b-form-group>
         </div>
@@ -177,7 +186,7 @@ export default {
     calculateTimePeriods() {
       let startDate = new Date(this.yearStart);
       let startTime = startDate.getTime(),
-        endTime = new Date(this.yearEnd).getTime();
+          endTime = new Date(this.yearEnd).getTime();
 
       let periods = [];
 

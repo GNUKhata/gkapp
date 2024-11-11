@@ -1,19 +1,42 @@
 <template>
-  <div class="card" :style="{ minWidth: '300px' }">
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+  <div
+    class="card"
+    :style="{minWidth: '300px'}"
+  >
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="card-header text-left py-2">
       <b class="text-capitalize">
-        <span v-if="mode === 'edit'" v-translate> Edit Account </span>
-        <span v-else v-translate> Create Account </span>
+        <span
+          v-if="mode === 'edit'"
+          v-translate
+        > Edit Account </span>
+        <span
+          v-else
+          v-translate
+        > Create Account </span>
       </b>
-      <slot name="close-button"> </slot>
+      <slot name="close-button" />
     </div>
     <div class="card-body pb-2">
-      <b-alert class="p-1" v-if="alertText" show variant="warning">{{
-        alertText
-      }}</b-alert>
-      <b-form class="text-left" @submit.prevent="confirmOnSubmit">
+      <b-alert
+        class="p-1"
+        v-if="alertText"
+        show
+        variant="warning"
+      >
+        {{
+          alertText
+        }}
+      </b-alert>
+      <b-form
+        class="text-left"
+        @submit.prevent="confirmOnSubmit"
+      >
         <b-form-group
           label="Group"
           label-for="acc-input-10"
@@ -21,19 +44,21 @@
           label-size="sm"
           label-class="required"
         >
-          <template #label> <translate> Group </translate> </template>
+          <template #label>
+            <translate> Group </translate>
+          </template>
           <autocomplete
             size="sm"
             id="acc-input-10"
             v-model="form.group"
             :options="options.groups"
-            textField="groupname"
-            valueField="groupcode"
+            text-field="groupname"
+            value-field="groupcode"
             @input="fetchSubGroups"
             required
-            valueUid="id"
+            value-uid="id"
             :readonly="disableFields.group"
-          ></autocomplete>
+          />
         </b-form-group>
         <b-form-group
           label="Sub-Group"
@@ -41,21 +66,23 @@
           label-cols="3"
           label-size="sm"
         >
-          <template #label> <translate> Sub Group </translate> </template>
+          <template #label>
+            <translate> Sub Group </translate>
+          </template>
           <autocomplete
             size="sm"
             id="acc-input-20"
             v-model="form.subGroup"
             :options="subGroups"
-            textField="subgroupname"
-            valueField="groupcode"
+            text-field="subgroupname"
+            value-field="groupcode"
             @input="onSubGroupSelect"
             :required="false"
-            valueUid="id"
+            value-uid="id"
             :readonly="
               !subGroups.length || flags.newSubGroup || disableFields.subGroup
             "
-          ></autocomplete>
+          />
         </b-form-group>
         <b-card
           body-class="p-2"
@@ -72,7 +99,10 @@
           >
             <translate> Add New Sub-Group </translate>
           </b-form-checkbox>
-          <b-collapse id="acc-collapse-10" v-model="showAddSubGroup">
+          <b-collapse
+            id="acc-collapse-10"
+            v-model="showAddSubGroup"
+          >
             <b-form-group
               label="Sub-Group Name"
               label-for="acc-input-30"
@@ -87,7 +117,7 @@
                 size="sm"
                 id="acc-input-30"
                 v-model="newSubGroup"
-              ></b-form-input>
+              />
             </b-form-group>
           </b-collapse>
         </b-card>
@@ -105,7 +135,7 @@
           class="mb-2"
           :disabled="disableFields.default"
         >
-          <translate :translate-params="{ groupName: defaultGroupName }">
+          <translate :translate-params="{groupName: defaultGroupName}">
             Set default for %{groupName}
           </translate>
         </b-form-checkbox>
@@ -116,14 +146,16 @@
           label-size="sm"
           label-class="required"
         >
-          <template #label> <translate> Account Name </translate> </template>
+          <template #label>
+            <translate> Account Name </translate>
+          </template>
           <b-form-input
             type="text"
             size="sm"
             required
             v-model="form.name"
             :readonly="disableFields.name"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Opening Balance"
@@ -132,7 +164,9 @@
           label-size="sm"
           label-class="required"
         >
-          <template #label> <translate> Opening Balance </translate> </template>
+          <template #label>
+            <translate> Opening Balance </translate>
+          </template>
           <b-form-input
             type="number"
             size="sm"
@@ -140,9 +174,9 @@
             v-model="form.openingBalance"
             step="0.01"
             min="0.01"
-          ></b-form-input>
+          />
         </b-form-group>
-        <hr class="my-2" />
+        <hr class="my-2">
         <div class="float-right">
           <b-button
             v-if="!hideBackButton"
@@ -155,8 +189,11 @@
               aria-hidden="true"
               class="align-middle"
               icon="arrow-left"
-            ></b-icon>
-            <span class="align-middle" v-translate> Back</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            > Back</span>
           </b-button>
           <b-button
             size="sm"
@@ -168,20 +205,30 @@
               aria-hidden="true"
               class="align-middle"
               icon="arrow-repeat"
-            ></b-icon>
-            <span class="align-middle" v-translate> Reset</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            > Reset</span>
           </b-button>
-          <b-button size="sm" type="submit" class="m-1" variant="success">
-            <b-spinner v-if="isLoading" small></b-spinner>
+          <b-button
+            size="sm"
+            type="submit"
+            class="m-1"
+            variant="success"
+          >
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle"
               :icon="isEditMode ? 'cloud-arrow-up' : 'plus-square'"
-            ></b-icon>
+            />
             <span class="align-middle">
-              {{ isEditMode ? 'Update' : 'Save' }}</span
-            >
+              {{ isEditMode ? 'Update' : 'Save' }}</span>
           </b-button>
         </div>
       </b-form>
@@ -406,52 +453,52 @@ export default {
         .post('/accounts', payload)
         .then((resp) => {
           switch (resp.data.gkstatus) {
-            case 0:
-              {
-                self.displayToast(
-                  this.$gettext('Create Account Success'),
-                  this.$gettextInterpolate(
-                    this.$gettext(
-                      `Account: %{accountName} was created Successfully!`
-                    ),
-                    { accountName: self.form.name }
+          case 0:
+            {
+              self.displayToast(
+                this.$gettext('Create Account Success'),
+                this.$gettextInterpolate(
+                  this.$gettext(
+                    `Account: %{accountName} was created Successfully!`
                   ),
-                  'success'
-                );
+                  { accountName: self.form.name }
+                ),
+                'success'
+              );
 
-                const log = { activity: `${self.form.name} account created.` };
-                axios.post('/log', log);
+              const log = { activity: `${self.form.name} account created.` };
+              axios.post('/log', log);
 
-                self.resetForm();
-                self.$emit('account-created');
-              }
-              break;
-            case 1:
-              self.displayToast(
-                this.$gettext('Create Account Failed'),
-                this.$gettext(
-                  `Duplicate Entry, change account name and try again!`
-                ),
-                'warning'
-              );
-              break;
-            case 2:
-              self.displayToast(
-                this.$gettext('Create Account Failed'),
-                this.$gettext(
-                  `Unauthorized access, please sign in and try again!`
-                ),
-                'warning'
-              );
-              break;
-            default:
-              self.displayToast(
-                this.$gettext('Create Account Failed'),
-                this.$gettext(
-                  'Unable to Create Acccount, please try again later!'
-                ),
-                'danger'
-              );
+              self.resetForm();
+              self.$emit('account-created');
+            }
+            break;
+          case 1:
+            self.displayToast(
+              this.$gettext('Create Account Failed'),
+              this.$gettext(
+                `Duplicate Entry, change account name and try again!`
+              ),
+              'warning'
+            );
+            break;
+          case 2:
+            self.displayToast(
+              this.$gettext('Create Account Failed'),
+              this.$gettext(
+                `Unauthorized access, please sign in and try again!`
+              ),
+              'warning'
+            );
+            break;
+          default:
+            self.displayToast(
+              this.$gettext('Create Account Failed'),
+              this.$gettext(
+                'Unable to Create Acccount, please try again later!'
+              ),
+              'danger'
+            );
           }
           return resp.data.gkstatus;
         })

@@ -5,14 +5,23 @@
       class="card-header text-left py-2 bg-dark text-light"
     >
       <b v-translate>Contact Person Details</b>
-      <slot name="close-button"> </slot>
+      <slot name="close-button" />
     </div>
     <div class="card-body pb-2">
-      <b-form class="text-left" @submit.prevent="confirmOnSubmit">
+      <b-form
+        class="text-left"
+        @submit.prevent="confirmOnSubmit"
+      >
         <b-row>
           <b-col cols="12">
-            <b-form-group label-size="sm" label-cols="3" label="Type">
-              <template #label> <translate> Type </translate> </template>
+            <b-form-group
+              label-size="sm"
+              label-cols="3"
+              label="Type"
+            >
+              <template #label>
+                <translate> Type </translate>
+              </template>
               <b-form-radio-group
                 button-variant="outline-primary"
                 v-model="contactType"
@@ -56,9 +65,9 @@
                   @gstin_data="onGstinDataFetched"
                   @verified="onGstinVerified"
                   v-model="form.gstin.gstin"
-                  :showValidation="2"
-                  valButtonText="Validate & Autofill"
-                ></gk-gstin>
+                  :show-validation="2"
+                  val-button-text="Validate & Autofill"
+                />
               </b-form-group>
               <b-form-group
                 v-if="isGstValid"
@@ -78,8 +87,7 @@
                   v-model="form.gstin.regType"
                   :options="options.regTypes"
                   :disabled="!isGstValid"
-                >
-                </b-form-select>
+                />
               </b-form-group>
               <b-form-group
                 v-if="isGstValid && isGstReg"
@@ -98,8 +106,7 @@
                   size="sm"
                   v-model="form.gstin.partyType"
                   :options="options.partyTypes"
-                >
-                </b-form-select>
+                />
               </b-form-group>
               <div class="text-center text-small text-secondary mb-2">
                 (or)
@@ -112,7 +119,9 @@
               label-cols="3"
               label-class="required"
             >
-              <template #label> <translate> Name </translate> </template>
+              <template #label>
+                <translate> Name </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="ci-input-10"
@@ -120,7 +129,7 @@
                 v-model="form.name"
                 trim
                 required
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group
               label-size="sm"
@@ -128,15 +137,16 @@
               label-for="ci-input-40"
               label-cols="3"
             >
-              <template #label> <translate> Address </translate> </template>
+              <template #label>
+                <translate> Address </translate>
+              </template>
               <b-form-textarea
                 id="ci-input-40"
                 v-model="form.address"
                 size="sm"
                 rows="2"
                 max-rows="3"
-              >
-              </b-form-textarea>
+              />
             </b-form-group>
             <b-form-group
               v-if="isIndianContact"
@@ -145,14 +155,16 @@
               label-for="ci-input-20"
               label-cols="3"
             >
-              <template #label> <translate> State </translate> </template>
+              <template #label>
+                <translate> State </translate>
+              </template>
               <v-select
                 id="ci-input-20"
                 :options="options.states"
                 v-model="state"
                 label="name"
                 placeholder="Select a State"
-              ></v-select>
+              />
             </b-form-group>
             <b-form-group
               label-size="sm"
@@ -160,15 +172,16 @@
               label-for="ci-input-30"
               label-cols="3"
             >
-              <template #label> <translate> Postal Code </translate> </template>
+              <template #label>
+                <translate> Postal Code </translate>
+              </template>
               <b-form-input
                 size="sm"
                 id="ci-input-30"
                 v-model="form.pin"
                 no-wheel
                 debounce="500"
-              >
-              </b-form-input>
+              />
             </b-form-group>
             <b-form-group
               v-if="isIndianContact"
@@ -188,8 +201,7 @@
                 pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
                 title="Format: A B C D E 1 2 3 4 A"
                 debounce="500"
-              >
-              </b-form-input>
+              />
             </b-form-group>
             <b-form-group
               v-if="isIndianContact && isVatEnabled"
@@ -228,14 +240,16 @@
                 label-for="ci-input-50"
                 label-cols="3"
               >
-                <template #label> <translate> Email </translate> </template>
+                <template #label>
+                  <translate> Email </translate>
+                </template>
                 <b-form-input
                   size="sm"
                   id="ci-input-50"
                   v-model="form.email"
                   type="email"
                   trim
-                ></b-form-input>
+                />
               </b-form-group>
               <b-form-group
                 label-size="sm"
@@ -243,7 +257,9 @@
                 label-for="ci-input-60"
                 label-cols="3"
               >
-                <template #label> <translate> Phone </translate> </template>
+                <template #label>
+                  <translate> Phone </translate>
+                </template>
                 <b-form-input
                   size="sm"
                   id="ci-input-60"
@@ -252,7 +268,7 @@
                   no-wheel
                   v-model="form.contact"
                   trim
-                ></b-form-input>
+                />
               </b-form-group>
               <b-form-group
                 label-size="sm"
@@ -260,13 +276,15 @@
                 label-for="ci-input-70"
                 label-cols="3"
               >
-                <template #label> <translate> Fax </translate> </template>
+                <template #label>
+                  <translate> Fax </translate>
+                </template>
                 <b-form-input
                   size="sm"
                   id="ci-input-70"
                   v-model="form.fax"
                   trim
-                ></b-form-input>
+                />
               </b-form-group>
             </b-collapse>
           </b-col>
@@ -294,7 +312,7 @@
                   size="sm"
                   v-model="form.bank.ifsc"
                   @fill="ifscFill"
-                ></gk-ifsc>
+                />
               </b-form-group>
               <!-- bank name -->
               <b-form-group
@@ -303,14 +321,16 @@
                 label-for="ci-input-120"
                 label-cols="3"
               >
-                <template #label> <translate> Bank Name </translate> </template>
+                <template #label>
+                  <translate> Bank Name </translate>
+                </template>
                 <b-form-input
                   size="sm"
                   id="ci-input-120"
                   v-model="form.bank.name"
                   trim
                   :required="showBankDetails"
-                ></b-form-input>
+                />
               </b-form-group>
               <!-- branch -->
               <b-form-group
@@ -319,14 +339,16 @@
                 label-for="ci-input-130"
                 label-cols="3"
               >
-                <template #label> <translate> Branch </translate> </template>
+                <template #label>
+                  <translate> Branch </translate>
+                </template>
                 <b-form-input
                   size="sm"
                   id="ci-input-130"
                   v-model="form.bank.branch"
                   trim
                   :required="showBankDetails"
-                ></b-form-input>
+                />
               </b-form-group>
               <!-- account name -->
               <b-form-group
@@ -335,7 +357,9 @@
                 label-for="ci-input-140"
                 label-cols="3"
               >
-                <template #label> <translate> Account Number </translate> </template>
+                <template #label>
+                  <translate> Account Number </translate>
+                </template>
                 <b-form-input
                   size="sm"
                   id="ci-input-140"
@@ -343,12 +367,12 @@
                   trim
                   :required="showBankDetails"
                   pattern="[A-Z0-9]+"
-                ></b-form-input>
+                />
               </b-form-group>
             </b-collapse>
           </b-col>
         </b-row>
-        <hr class="my-2" />
+        <hr class="my-2">
         <div class="float-right">
           <b-button
             v-if="!hideBackButton"
@@ -361,8 +385,11 @@
               aria-hidden="true"
               class="align-middle mr-1"
               icon="arrow-left"
-            ></b-icon>
-            <span class="align-middle" v-translate>Back</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Back</span>
           </b-button>
           <b-button
             size="sm"
@@ -374,18 +401,32 @@
               aria-hidden="true"
               class="align-middle mr-1"
               icon="arrow-repeat"
-            ></b-icon>
-            <span class="align-middle" v-translate>Reset</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Reset</span>
           </b-button>
-          <b-button type="submit" size="sm" class="m-1" variant="success">
-            <b-spinner v-if="isLoading" small></b-spinner>
+          <b-button
+            type="submit"
+            size="sm"
+            class="m-1"
+            variant="success"
+          >
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Save</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Save</span>
           </b-button>
         </div>
       </b-form>
@@ -658,67 +699,67 @@ export default {
           this.isLoading = false;
 
           switch (response.data.gkstatus) {
-            case 7:
-              response.data?.error.forEach((field_err) => {
-                let location = field_err.loc.join(" at ");
-                let message = (location ? location+": " : "") + field_err.msg;
-                this.displayToast("Validation Error", message, "warning");
-              });
-              break;
-            case 0:
-              {
-                this.$bvToast.toast(
-                  this.$gettextInterpolate(
-                    this.$gettext(`%{formType} created successfully`),
-                    {
-                      formType: this.formType,
-                    }
-                  ),
+          case 7:
+            response.data?.error.forEach((field_err) => {
+              let location = field_err.loc.join(" at ");
+              let message = (location ? location+": " : "") + field_err.msg;
+              this.displayToast("Validation Error", message, "warning");
+            });
+            break;
+          case 0:
+            {
+              this.$bvToast.toast(
+                this.$gettextInterpolate(
+                  this.$gettext(`%{formType} created successfully`),
                   {
-                    title: this.$gettext('Create Customer Success!'),
-                    autoHideDelay: 3000,
-                    variant: 'success',
-                    appendToast: true,
-                    solid: true,
+                    formType: this.formType,
                   }
-                );
-
-                // === Server Log ===
-                let logdata = { activity: '' };
-                if (payload.csflag === 3) {
-                  logdata.activity = payload.custname + ' customer created';
-                } else {
-                  logdata.activity = payload.custname + ' supplier created';
+                ),
+                {
+                  title: this.$gettext('Create Customer Success!'),
+                  autoHideDelay: 3000,
+                  variant: 'success',
+                  appendToast: true,
+                  solid: true,
                 }
-                axios.post('/log', logdata);
+              );
 
-                // only reset form on success, otherwise leave it as is so that user may edit their input and try again
-                this.resetForm();
+              // === Server Log ===
+              let logdata = { activity: '' };
+              if (payload.csflag === 3) {
+                logdata.activity = payload.custname + ' customer created';
+              } else {
+                logdata.activity = payload.custname + ' supplier created';
               }
-              break;
-            case 2:
-              this.$bvToast.toast(
-                this.$gettext(`Unauthorized access, Please contact admin`),
-                {
-                  title: this.$gettext('Create Customer Error!'),
-                  autoHideDelay: 3000,
-                  variant: 'warning',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
-              break;
-            default:
-              this.$bvToast.toast(
-                `Unable to create ${this.formType}, Please try again`,
-                {
-                  title: this.$gettext('Create Customer Error!'),
-                  autoHideDelay: 3000,
-                  variant: 'warning',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
+              axios.post('/log', logdata);
+
+              // only reset form on success, otherwise leave it as is so that user may edit their input and try again
+              this.resetForm();
+            }
+            break;
+          case 2:
+            this.$bvToast.toast(
+              this.$gettext(`Unauthorized access, Please contact admin`),
+              {
+                title: this.$gettext('Create Customer Error!'),
+                autoHideDelay: 3000,
+                variant: 'warning',
+                appendToast: true,
+                solid: true,
+              }
+            );
+            break;
+          default:
+            this.$bvToast.toast(
+              `Unable to create ${this.formType}, Please try again`,
+              {
+                title: this.$gettext('Create Customer Error!'),
+                autoHideDelay: 3000,
+                variant: 'warning',
+                appendToast: true,
+                solid: true,
+              }
+            );
           } // end switch
           if (this.onSave) {
             this.onSave(response.data);
@@ -815,7 +856,7 @@ export default {
         .get(`/organisation`)
         .then((resp) => {
           if (resp.data.gkstatus === 0) {
-          const data = resp.data.gkdata;
+            const data = resp.data.gkdata;
             this.contactCountry = data.orgcountry;
             Object.assign(this.options.orgDetails, {
               country: data.orgcountry,

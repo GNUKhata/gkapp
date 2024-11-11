@@ -7,7 +7,7 @@
     <h3 class="text-center">
       Edit Invoice
     </h3>
-    <hr class="mb-2 mt-0" />
+    <hr class="mb-2 mt-0">
     <div class="mb-2">
       <b-form-radio-group
         v-model="form.type"
@@ -17,70 +17,78 @@
         buttons
         class="mx-1"
       >
-        <b-form-radio value="sale"> Sale </b-form-radio>
-        <b-form-radio value="purchase"> Purchase </b-form-radio>
+        <b-form-radio value="sale">
+          Sale
+        </b-form-radio>
+        <b-form-radio value="purchase">
+          Purchase
+        </b-form-radio>
       </b-form-radio-group>
-      <span id="edit-invoice-list" class="d-inline-block" v-if="!isCreate">
+      <span
+        id="edit-invoice-list"
+        class="d-inline-block"
+        v-if="!isCreate"
+      >
         <b-form-select
           size="sm"
           v-model="invoiceId"
           :options="editableInvoices"
-          @change="initForm()"
-        ></b-form-select>
+          @change="initForm"
+        />
       </span>
       <span class="float-right">
         <config
           v-if="user_role === -1"
           title="Invoice Page Configuration"
-          :getDefault="`${this.vuexNameSpace}/getDefaultInvoiceConfig`"
-          :setCustom="`${this.vuexNameSpace}/updateInvoiceConfig`"
-          :getCustom="`${this.vuexNameSpace}/getCustomInvoiceConfig`"
-          confirmMessage="Invoice page config will be applied organisation wide. Do you want to proceed?"
+          :get-default="`${this.vuexNameSpace}/getDefaultInvoiceConfig`"
+          :set-custom="`${this.vuexNameSpace}/updateInvoiceConfig`"
+          :get-custom="`${this.vuexNameSpace}/getCustomInvoiceConfig`"
+          confirm-message="Invoice page config will be applied organisation wide. Do you want to proceed?"
           @update="resetForm"
-        >
-        </config>
+        />
       </span>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </div>
     <b-form @submit.prevent="confirmOnSubmit">
-      <b-card-group class="d-block d-md-flex my-2" deck>
+      <b-card-group
+        class="d-block d-md-flex my-2"
+        deck
+      >
         <!-- Buyer/Seller Details -->
         <party-details
           :mode="form.type"
-          :parentData="form.party"
-          :gstFlag="isGst"
-          :vatFlag="isVat"
-          :invoiceParty="invoiceParty"
+          :parent-data="form.party"
+          :gst-flag="isGst"
+          :vat-flag="isVat"
+          :invoice-party="invoiceParty"
           :config="config.party"
-          :saleFlag="isSale"
-          :editInvoice="editInvoice"
+          :sale-flag="isSale"
+          :edit-invoice="editInvoice"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.party"
+          :update-counter="updateCounter.party"
           ref="party"
-        >
-        </party-details>
+        />
         <!-- Invoice Details -->
         <invoice-details
           :config="config.inv"
-          :saleFlag="isSale"
-          :parentData="form.inv"
+          :sale-flag="isSale"
+          :parent-data="form.inv"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.inv"
+          :update-counter="updateCounter.inv"
           ref="inv"
-        ></invoice-details>
+        />
         <!-- Shipping Details -->
         <ship-details
-          :gstFlag="isGst"
-          :vatFlag="isVat"
-          :saleFlag="isSale"
-          :billingDetails="form.party"
-          :organisationDetails="options.orgDetails"
-          :updateCounter="updateCounter.ship"
+          :gst-flag="isGst"
+          :vat-flag="isVat"
+          :sale-flag="isSale"
+          :billing-details="form.party"
+          :organisation-details="options.orgDetails"
+          :update-counter="updateCounter.ship"
           :config="config.ship"
-          :customDetails="options.shippingDetails"
+          :custom-details="options.shippingDetails"
           ref="ship"
-        >
-        </ship-details>
+        />
       </b-card-group>
       <div
         class="my-2"
@@ -92,75 +100,91 @@
           buttons
           v-model="form.taxType"
         >
-          <b-form-radio value="gst">GST</b-form-radio>
-          <b-form-radio value="vat">VAT</b-form-radio>
+          <b-form-radio value="gst">
+            GST
+          </b-form-radio>
+          <b-form-radio value="vat">
+            VAT
+          </b-form-radio>
         </b-form-radio-group>
       </div>
       <!-- Bill Table -->
       <bill-table
-        :gstFlag="isGst"
-        :cgstFlag="isCgst"
-        :vatFlag="isVat"
+        :gst-flag="isGst"
+        :cgst-flag="isCgst"
+        :vat-flag="isVat"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
-        :updateCounter="updateCounter.bill"
-        :parentData="form.bill"
+        :update-counter="updateCounter.bill"
+        :parent-data="form.bill"
         ref="bill"
-        :godownId="goid"
-        :saleFlag="isSale"
-        :blockEmptyStock="isSale"
-        :invDate="form.inv.date"
-        :taxState="form.inv?.taxState?.name"
-      ></bill-table>
+        :godown-id="goid"
+        :sale-flag="isSale"
+        :block-empty-stock="isSale"
+        :inv-date="form.inv.date"
+        :tax-state="form.inv?.taxState?.name"
+      />
       <div class="px-2">
         <!-- b-row has to be enclosed in a container tag with padding
          atleast 2, to avoid creating an offset to the right -->
-        <b-row class="mt-5" v-if="config.total">
-          <b-col cols="12" lg="6"> </b-col>
-          <b-col cols="12" lg="6">
+        <b-row
+          class="mt-5"
+          v-if="config.total"
+        >
+          <b-col
+            cols="12"
+            lg="6"
+          />
+          <b-col
+            cols="12"
+            lg="6"
+          >
             <total-table
               :config="config.total"
-              :gstFlag="isGst"
-              :cgstFlag="isCgst"
-              :vatFlag="isVat"
-              :billData="form.bill"
-              :updateCounter="updateCounter.totalTable"
+              :gst-flag="isGst"
+              :cgst-flag="isCgst"
+              :vat-flag="isVat"
+              :bill-data="form.bill"
+              :update-counter="updateCounter.totalTable"
               ref="totalTable"
-            ></total-table>
+            />
           </b-col>
         </b-row>
       </div>
-      <b-card-group class="d-block d-md-flex" deck>
+      <b-card-group
+        class="d-block d-md-flex"
+        deck
+      >
         <!-- Payment Details -->
         <payment-details
           ref="payment"
-          :updateCounter="updateCounter.payment"
+          :update-counter="updateCounter.payment"
           :config="config.payment"
-          :saleFlag="isSale"
-          :parentData="form.payment"
-          :optionsData="{
+          :sale-flag="isSale"
+          :parent-data="form.payment"
+          :options-data="{
             payModes: options.payModes,
           }"
           @details-updated="onComponentDataUpdate"
-        ></payment-details>
+        />
         <!-- Transport Details -->
         <transport-details
           ref="transport"
           :config="config.transport"
-          :updateCounter="updateCounter.transport"
-          :parentData="form.transport"
-          :invDate="form.inv.date"
+          :update-counter="updateCounter.transport"
+          :parent-data="form.transport"
+          :inv-date="form.inv.date"
           @details-updated="onComponentDataUpdate"
-        ></transport-details>
+        />
         <!-- Invoice Comments -->
         <comments
           :name="`Invoice`"
           ref="narration"
           :config="config.comments"
-          :updateCounter="updateCounter.comments"
-          :parentData="form.comments"
-          :placeHolder="defaultNarration"
-        ></comments>
+          :update-counter="updateCounter.comments"
+          :parent-data="form.comments"
+          :place-holder="defaultNarration"
+        />
       </b-card-group>
       <b-tooltip
         target="inv-submit"
@@ -170,7 +194,7 @@
       >
         <translate
           translate-comment="%{start} and %{end} are a variables, translation is not required for them. Enter them, as they are while translation."
-          :translate-params="{ start: yearStart, end: yearEnd }"
+          :translate-params="{start: yearStart, end: yearEnd}"
         >
           Date must be within the Financial Year, from %{start} to %{end}
         </translate>
@@ -178,11 +202,10 @@
       <attachments
         class="mt-2"
         ref="attachments"
-        :updateCounter="updateCounter.attachments"
-        :parentData="form.attachments"
-      >
-      </attachments>
-      <hr />
+        :update-counter="updateCounter.attachments"
+        :parent-data="form.attachments"
+      />
+      <hr>
       <div class="float-right">
         <b-button
           class="m-1"
@@ -194,8 +217,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-left"
-          ></b-icon>
-          <span class="align-middle" v-translate>Back</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Back</span>
         </b-button>
         <b-button
           class="m-1"
@@ -207,8 +233,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-repeat"
-          ></b-icon>
-          <span class="align-middle" v-translate>Reset</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Reset</span>
         </b-button>
         <b-button
           id="inv-submit"
@@ -219,29 +248,41 @@
           variant="success"
         >
           <span v-if="isCreate">
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Create</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Create</span>
           </span>
 
           <span v-else>
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="cloud-arrow-up"
-            ></b-icon>
-            <span class="align-middle" v-translate>Save Changes</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Save Changes</span>
           </span>
         </b-button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </b-form>
     <print-page
       :show="showPrintModal"
@@ -256,8 +297,7 @@
         useTriplicate: true,
       }"
       @hidden="showPrintModal = false"
-    >
-    </print-page>
+    />
   </b-container>
 </template>
 
@@ -511,8 +551,8 @@ export default {
     maxDate: (self) => new Date(self.yearEnd),
     isInvDateValid: (self) => {
       let currDate = new Date(self.form.inv.date).getTime(),
-        minDate = self.minDate.getTime(),
-        maxDate = self.maxDate.getTime();
+          minDate = self.minDate.getTime(),
+          maxDate = self.maxDate.getTime();
       return !isNaN(currDate)
         ? currDate >= minDate && currDate <= maxDate
         : null;
@@ -534,7 +574,7 @@ export default {
       if (
         self.isIndia && (
           parseInt(self.form.inv.state.id) ===
-            parseInt(self.form.inv.taxState.id)
+          parseInt(self.form.inv.taxState.id)
         )
       ) {
         return true;
@@ -596,52 +636,52 @@ export default {
     },
     onComponentDataUpdate(payload) {
       switch (payload.name) {
-        case 'invoice-details':
-          {
-            // debugger;
-            // if (payload.data.delNote !== this.form.inv.delNote) {
-            //   this.fetchDelNoteData(payload.data.delNote);
-            // } else {
-            //   }
+      case 'invoice-details':
+        {
+          // debugger;
+          // if (payload.data.delNote !== this.form.inv.delNote) {
+          //   this.fetchDelNoteData(payload.data.delNote);
+          // } else {
+          //   }
 
-            let oldInvNo = this.form.inv.no;
-            this.goid = payload.data.godown || -1;
-            Object.assign(this.form.inv, payload.data);
-            if (!this.isCreate) {
-              this.form.inv.no = oldInvNo;
-            }
-            // this.form.transport.date = this.form.inv.date;
-            const self = this;
-            self.updateCounter.transport++;
+          let oldInvNo = this.form.inv.no;
+          this.goid = payload.data.godown || -1;
+          Object.assign(this.form.inv, payload.data);
+          if (!this.isCreate) {
+            this.form.inv.no = oldInvNo;
           }
-          break;
-        case 'party-details':
-          {
-            this.options.partyDetails = payload;
+          // this.form.transport.date = this.form.inv.date;
+          const self = this;
+          self.updateCounter.transport++;
+        }
+        break;
+      case 'party-details':
+        {
+          this.options.partyDetails = payload;
 
-            this.setBankDetails();
-            this.form.party = Object.assign({}, this.form.party, payload.data);
+          this.setBankDetails();
+          this.form.party = Object.assign({}, this.form.party, payload.data);
 
-            this.updateCounter.ship++;
-            if (this.isCreate) {
-              this.form.inv.taxState = payload.data.state;
-              this.updateCounter.inv++;
-            }
-            this.updateDefaultNarration();
+          this.updateCounter.ship++;
+          if (this.isCreate) {
+            this.form.inv.taxState = payload.data.state;
+            this.updateCounter.inv++;
           }
-          break;
-        case 'bill-table':
-          Object.assign(this.form.bill, payload.data);
-          this.updateCounter.totalTable++;
           this.updateDefaultNarration();
-          break;
-        case 'transport-details':
-          Object.assign(this.form.transport, payload.data);
-          break;
-        case 'payment-details':
-          Object.assign(this.form.payment, payload.data);
-          this.updateDefaultNarration();
-          break;
+        }
+        break;
+      case 'bill-table':
+        Object.assign(this.form.bill, payload.data);
+        this.updateCounter.totalTable++;
+        this.updateDefaultNarration();
+        break;
+      case 'transport-details':
+        Object.assign(this.form.transport, payload.data);
+        break;
+      case 'payment-details':
+        Object.assign(this.form.payment, payload.data);
+        this.updateDefaultNarration();
+        break;
       }
     },
     updateDefaultNarration() {
@@ -654,14 +694,14 @@ export default {
       let toOrFrom = this.isSale ? 'to' : 'from';
       let payment = '';
       switch (this.form.payment.mode) {
-        case PAYMENT_TYPE['cash']:
-          payment = 'by cash';
-          break;
-        case PAYMENT_TYPE['credit']:
-          payment = 'on credit';
-          break;
-        case PAYMENT_TYPE['bank']:
-          payment = 'by cheque';
+      case PAYMENT_TYPE['cash']:
+        payment = 'by cash';
+        break;
+      case PAYMENT_TYPE['credit']:
+        payment = 'on credit';
+        break;
+      case PAYMENT_TYPE['bank']:
+        payment = 'by cheque';
       }
       this.defaultNarration = `${type} goods worth Rupees ${total.toFixed(2)} ${toOrFrom} ${party} ${payment}, ref invoice no. ${invNo}`;
     },
@@ -798,11 +838,11 @@ export default {
             let invState =
               data.inoutflag === 15 // if sale inv state will be source else it will destination
                 ? self.options.states.find(
-                    (state) => state.name === data.sourcestate
-                  )
+                  (state) => state.name === data.sourcestate
+                )
                 : self.options.states.find(
-                    (state) => state.name === data.destinationstate
-                  );
+                  (state) => state.name === data.destinationstate
+                );
             // set invoice details
             self.form.type = data.inoutflag === 15 ? 'sale' : 'purchase';
             self.form.inv = {
@@ -970,79 +1010,79 @@ export default {
           self.isLoading = false;
           if (resp.status === 200) {
             switch (resp.data.gkstatus) {
-              case 0:
-                {
-                  // success
-                  self.invoiceId = self.isCreate
-                    ? resp.data.gkresult
-                    : self.invoiceId;
-                  self.invModalId = self.invoiceId;
-                  self.displayToast(
-                    self.$gettextInterpolate(
-                      self.$gettext(`%{actionText} Invoice Successfull!`),
-                      { actionText: actionText }
-                    ),
-                    `Invoice saved with entry no. ${resp.data.invoiceid ||
-                      resp.data.gkresult ||
-                      resp.data.vchData.vchno ||
-                      this.invoiceId}`,
-                    'success'
-                  );
+            case 0:
+              {
+                // success
+                self.invoiceId = self.isCreate
+                  ? resp.data.gkresult
+                  : self.invoiceId;
+                self.invModalId = self.invoiceId;
+                self.displayToast(
+                  self.$gettextInterpolate(
+                    self.$gettext(`%{actionText} Invoice Successfull!`),
+                    { actionText: actionText }
+                  ),
+                  `Invoice saved with entry no. ${resp.data.invoiceid ||
+                    resp.data.gkresult ||
+                    resp.data.vchData.vchno ||
+                    this.invoiceId}`,
+                  'success'
+                );
 
-                  let log = {
-                    activity: `invoice ${
-                      self.isCreate ? 'created' : 'updated'
-                    }: ${self.form.inv.no}`,
-                  };
-                  axios.post('/log', log);
+                let log = {
+                  activity: `invoice ${
+                    self.isCreate ? 'created' : 'updated'
+                  }: ${self.form.inv.no}`,
+                };
+                axios.post('/log', log);
 
-                  if (self.isCreate) {
-                    self
-                      .updateInvNoCounter()
-                      .then(() => {
-                        self.resetForm();
-                        self.showPrintModal = true; // show print screen if sale and not if purchase
-                      })
-                      .catch(() => {
-                        self.showPrintModal = true; // show print screen if sale and not if purchase
-                      });
-                  } else {
-                    self.showPrintModal = true; // show print screen if sale and not if purchase
-                  }
+                if (self.isCreate) {
+                  self
+                    .updateInvNoCounter()
+                    .then(() => {
+                      self.resetForm();
+                      self.showPrintModal = true; // show print screen if sale and not if purchase
+                    })
+                    .catch(() => {
+                      self.showPrintModal = true; // show print screen if sale and not if purchase
+                    });
+                } else {
+                  self.showPrintModal = true; // show print screen if sale and not if purchase
                 }
-                break;
-              case 1:
-                // Duplicate entry
-                self.displayToast(
-                  self.$gettextInterpolate(
-                    self.$gettext(`%{actionText} Invoice Failed!`),
-                    { actionText: actionText }
-                  ),
-                  self.$gettext('Duplicate Entry, Check Invoice Id'),
-                  'warning'
-                );
-                break;
-              case 2:
-                // Unauthorized access
-                self.displayToast(
-                  self.$gettextInterpolate(
-                    self.$gettext(`%{actionText} Invoice Failed!`),
-                    { actionText: actionText }
-                  ),
-                  self.$gettext('Unauthorized Access, Contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-                // Connection failed, Check inputs and try again
-                self.displayToast(
-                  self.$gettextInterpolate(
-                    self.$gettext(`%{actionText} Invoice Failed!`),
-                    { actionText: actionText }
-                  ),
-                  self.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
+              }
+              break;
+            case 1:
+              // Duplicate entry
+              self.displayToast(
+                self.$gettextInterpolate(
+                  self.$gettext(`%{actionText} Invoice Failed!`),
+                  { actionText: actionText }
+                ),
+                self.$gettext('Duplicate Entry, Check Invoice Id'),
+                'warning'
+              );
+              break;
+            case 2:
+              // Unauthorized access
+              self.displayToast(
+                self.$gettextInterpolate(
+                  self.$gettext(`%{actionText} Invoice Failed!`),
+                  { actionText: actionText }
+                ),
+                self.$gettext('Unauthorized Access, Contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+              // Connection failed, Check inputs and try again
+              self.displayToast(
+                self.$gettextInterpolate(
+                  self.$gettext(`%{actionText} Invoice Failed!`),
+                  { actionText: actionText }
+                ),
+                self.$gettext('Please check your input and try again later'),
+                'danger'
+              );
             }
 
             if (resp.data.gkstatus !== 0) {
@@ -1338,7 +1378,7 @@ export default {
       }
 
       let method = 'post',
-        url = '/delchal';
+          url = '/delchal';
 
       if (!this.isCreate && this.dcId) {
         method = 'put';
@@ -1556,20 +1596,20 @@ export default {
       this.$store.dispatch(`${this.vuexNameSpace}/initInvoiceConfig`);
       let paymentMode;
       switch (this.defaultPaymentMode) {
-        case 'credit':
-          {
-            paymentMode = 15;
-          }
-          break;
-        case 'bank':
-          {
-            paymentMode = 2;
-          }
-          break;
-        case 'cash':
-        default: {
-          paymentMode = 3;
+      case 'credit':
+        {
+          paymentMode = 15;
         }
+        break;
+      case 'bank':
+        {
+          paymentMode = 2;
+        }
+        break;
+      case 'cash':
+      default: {
+        paymentMode = 3;
+      }
       }
       let type = this.form.type;
       this.form = {

@@ -2,7 +2,10 @@
   <div>
     <b-overlay :show="loading">
       <!-- HSN Input -->
-      <b-form-group :description="hsn.desc" class="mb-0">
+      <b-form-group
+        :description="hsn.desc"
+        class="mb-0"
+      >
         <b-input-group>
           <b-form-input
             type="text"
@@ -13,7 +16,7 @@
             :required="required"
             debounce="600"
             @update="checkHsn"
-          ></b-form-input>
+          />
           <!-- Search button -->
           <b-input-group-append v-if="hsn.isValid == null">
             <b-button
@@ -21,9 +24,10 @@
               variant="dark"
               :size="size"
               @click="searchHsn(hsn.code)"
-							:disabled="hsn.code.length < 1"
-              ><b-icon-search
-            /></b-button>
+              :disabled="hsn.code.length < 1"
+            >
+              <b-icon-search />
+            </b-button>
           </b-input-group-append>
         </b-input-group>
       </b-form-group>
@@ -42,12 +46,18 @@
         :items="hsn.suggestions"
       >
         <template #cell(hsn_code)="data">
-          <div @click="selectHsnSuggestion(data.item)" role="button">
+          <div
+            @click="selectHsnSuggestion(data.item)"
+            role="button"
+          >
             <small>{{ data.item.hsn_code }}</small>
           </div>
         </template>
         <template #cell(hsn_desc)="data">
-          <div @click="selectHsnSuggestion(data.item)" role="button">
+          <div
+            @click="selectHsnSuggestion(data.item)"
+            role="button"
+          >
             <small>{{ data.item.hsn_desc }}</small>
           </div>
         </template>
@@ -156,21 +166,21 @@ export default {
           .get(`/hsn?search=${hsn}`)
           .then((r) => {
             switch (r.data.gkstatus) {
-              case 0:
-                this.hsn.suggestions = r.data.gkresult;
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 6:
-                this.$bvToast.toast(this.$gettext('Proxy Server Error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.hsn.suggestions = r.data.gkresult;
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 6:
+              this.$bvToast.toast(this.$gettext('Proxy Server Error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
             this.loading = false;
           })

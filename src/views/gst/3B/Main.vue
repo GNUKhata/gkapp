@@ -12,8 +12,10 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
       class="mx-auto gkcard d-print-none"
     >
       <b-form @submit.prevent="getGst3rbJson">
-        <gk-period @update="onPeriodUpdate" @validity="updateValidity">
-        </gk-period>
+        <gk-period
+          @update="onPeriodUpdate"
+          @validity="updateValidity"
+        />
         <b-button
           type="submit"
           size="sm"
@@ -21,14 +23,19 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
           class="float-right"
           :disabled="!periodValidity || isLoading"
         >
-          <b-icon class="mr-1" icon="eye-fill"></b-icon> Show
+          <b-icon
+            class="mr-1"
+            icon="eye-fill"
+          /> Show
         </b-button>
       </b-form>
     </b-card>
 
     <div class="container-fluid mt-4">
       <div>
-        <h3 class="text-center">GSTR3B-Form</h3>
+        <h3 class="text-center">
+          GSTR3B-Form
+        </h3>
         <small>
           <b> GSTIN: {{ gstData.gstin }} </b>
         </small>
@@ -38,15 +45,15 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
         <gk-file-download
           class="float-right"
           :url="spreadSheetUrl"
-          fileName="GSTR-3B"
-          fileExtn="xlsx"
-          :addDate="true"
-          :addTimeStamp="true"
+          file-name="GSTR-3B"
+          file-extn="xlsx"
+          :add-date="true"
+          :add-time-stamp="true"
           name="Spreadsheet"
           :disabled="!datesValid || isLoading"
           icon="cloud-download"
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          :message-from-parent="parentMessage"
+        />
       </div>
 
       <small class="mb-1">
@@ -62,12 +69,24 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
           >
             <thead>
               <tr>
-                <th class="border-bottom-0">Nature Of Supplies</th>
-                <th class="border-bottom-0">Total Taxable value</th>
-                <th class="border-bottom-0">Integrated Tax</th>
-                <th class="border-bottom-0">Central Tax</th>
-                <th class="border-bottom-0">State/UT Tax</th>
-                <th class="border-bottom-0">Cess</th>
+                <th class="border-bottom-0">
+                  Nature Of Supplies
+                </th>
+                <th class="border-bottom-0">
+                  Total Taxable value
+                </th>
+                <th class="border-bottom-0">
+                  Integrated Tax
+                </th>
+                <th class="border-bottom-0">
+                  Central Tax
+                </th>
+                <th class="border-bottom-0">
+                  State/UT Tax
+                </th>
+                <th class="border-bottom-0">
+                  Cess
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -130,8 +149,8 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                 <td class="right">
                   {{ gstData.sup_details.osup_zero.iamt }}
                 </td>
-                <td class="disabled"></td>
-                <td class="disabled"></td>
+                <td class="disabled" />
+                <td class="disabled" />
                 <td class="right">
                   {{ gstData.sup_details.osup_zero.csamt }}
                 </td>
@@ -156,10 +175,10 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                 <td class="right">
                   {{ gstData.sup_details.osup_nil_exmp.txval }}
                 </td>
-                <td class="disabled"></td>
-                <td class="disabled"></td>
-                <td class="disabled"></td>
-                <td class="disabled"></td>
+                <td class="disabled" />
+                <td class="disabled" />
+                <td class="disabled" />
+                <td class="disabled" />
               </tr>
 
               <tr>
@@ -213,10 +232,10 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                 <td class="right">
                   {{ gstData.sup_details.osup_nongst.txval }}
                 </td>
-                <td class="disabled"></td>
-                <td class="disabled"></td>
-                <td class="disabled"></td>
-                <td class="disabled"></td>
+                <td class="disabled" />
+                <td class="disabled" />
+                <td class="disabled" />
+                <td class="disabled" />
               </tr>
             </tbody>
           </table>
@@ -236,22 +255,28 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
         >
           <thead>
             <tr>
-              <th class="border-bottom-0"></th>
-              <th class="border-bottom-0">Place Of Supply (State/UT)</th>
-              <th class="border-bottom-0">Total Taxable Value</th>
-              <th class="border-bottom-0">Amount of Integrated Tax</th>
+              <th class="border-bottom-0" />
+              <th class="border-bottom-0">
+                Place Of Supply (State/UT)
+              </th>
+              <th class="border-bottom-0">
+                Total Taxable Value
+              </th>
+              <th class="border-bottom-0">
+                Amount of Integrated Tax
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><b> Supplies made to Unregistered Persons </b></td>
-              <td colspan="3"></td>
+              <td colspan="3" />
             </tr>
             <tr
               v-for="(row, index) in gstData.inter_sup.unreg_details"
               :key="`${index}-unreg`"
             >
-              <td></td>
+              <td />
               <td class="right">
                 <b-button
                   variant="link"
@@ -261,7 +286,7 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                     openInvoicesTable(
                       'pos_unreg_comp_uin_igst',
                       row.pos,
-                      'unreg'
+                      'unreg',
                     )
                   "
                   v-if="
@@ -276,34 +301,50 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   {{ stateIdToName[row.pos] }}
                 </span>
               </td>
-              <td class="right">{{ row.txval }}</td>
-              <td class="right">{{ row.iamt }}</td>
+              <td class="right">
+                {{ row.txval }}
+              </td>
+              <td class="right">
+                {{ row.iamt }}
+              </td>
             </tr>
             <tr>
               <td><b> Supplies made to Composition Taxable Persons </b></td>
-              <td colspan="3"></td>
+              <td colspan="3" />
             </tr>
             <tr
               v-for="(row, index) in gstData.inter_sup.comp_details"
               :key="`${index}-comp`"
             >
-              <td></td>
-              <td class="right">{{ stateIdToName[row.pos] }}</td>
-              <td class="right">{{ row.txval }}</td>
-              <td class="right">{{ row.iamt }}</td>
+              <td />
+              <td class="right">
+                {{ stateIdToName[row.pos] }}
+              </td>
+              <td class="right">
+                {{ row.txval }}
+              </td>
+              <td class="right">
+                {{ row.iamt }}
+              </td>
             </tr>
             <tr>
               <td><b> Supplies made to UIN holders </b></td>
-              <td colspan="3"></td>
+              <td colspan="3" />
             </tr>
             <tr
               v-for="(row, index) in gstData.inter_sup.uin_details"
               :key="`${index}-uin`"
             >
-              <td></td>
-              <td class="right">{{ stateIdToName[row.pos] }}</td>
-              <td class="right">{{ row.txval }}</td>
-              <td class="right">{{ row.iamt }}</td>
+              <td />
+              <td class="right">
+                {{ stateIdToName[row.pos] }}
+              </td>
+              <td class="right">
+                {{ row.txval }}
+              </td>
+              <td class="right">
+                {{ row.iamt }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -316,11 +357,21 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
         >
           <thead>
             <tr>
-              <th class="border-bottom-0">Details</th>
-              <th class="border-bottom-0">Integrated Tax</th>
-              <th class="border-bottom-0">Central Tax</th>
-              <th class="border-bottom-0">State/UT tax</th>
-              <th class="border-bottom-0">Cess</th>
+              <th class="border-bottom-0">
+                Details
+              </th>
+              <th class="border-bottom-0">
+                Integrated Tax
+              </th>
+              <th class="border-bottom-0">
+                Central Tax
+              </th>
+              <th class="border-bottom-0">
+                State/UT tax
+              </th>
+              <th class="border-bottom-0">
+                Cess
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -330,10 +381,10 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   <b> (A) ITC Available (whether in full or part) </b>
                 </small>
               </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td />
+              <td />
+              <td />
+              <td />
             </tr>
             <tr>
               <td>
@@ -350,10 +401,18 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   (1) Import of goods
                 </span>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[0].iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[0].camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[0].samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[0].csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[0].iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[0].camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[0].samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[0].csamt }}
+              </td>
             </tr>
             <tr>
               <td>
@@ -370,10 +429,18 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   (2) Import of services
                 </span>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[1].iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[1].camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[1].samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[1].csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[1].iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[1].camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[1].samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[1].csamt }}
+              </td>
             </tr>
             <tr>
               <td>
@@ -392,10 +459,18 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   above)
                 </span>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[2].iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[2].camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[2].samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[2].csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[2].iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[2].camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[2].samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[2].csamt }}
+              </td>
             </tr>
             <tr>
               <td>
@@ -412,10 +487,18 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   (4) Inward supplies from ISD
                 </span>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[3].iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[3].camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[3].samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[3].csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[3].iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[3].camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[3].samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[3].csamt }}
+              </td>
             </tr>
             <tr>
               <td>
@@ -432,19 +515,27 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   (5) All other ITC
                 </span>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[4].iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[4].camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[4].samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_avl[4].csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[4].iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[4].camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[4].samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_avl[4].csamt }}
+              </td>
             </tr>
             <tr>
               <td>
                 <small> <b> (B) ITC Reversed </b> </small>
               </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td />
+              <td />
+              <td />
+              <td />
             </tr>
             <tr>
               <td>
@@ -461,10 +552,18 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   (1) As per rules 42 & 43 of CGST Rules
                 </span>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[0].iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[0].camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[0].samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[0].csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[0].iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[0].camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[0].samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[0].csamt }}
+              </td>
             </tr>
             <tr>
               <td>
@@ -481,28 +580,44 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
                   (2) Others
                 </span>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[1].iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[1].camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[1].samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_rev[1].csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[1].iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[1].camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[1].samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_rev[1].csamt }}
+              </td>
             </tr>
             <tr>
               <td>
                 <small> <b> (C) Net ITC Available(A) - (B) </b> </small>
               </td>
-              <td class="right">{{ gstData.itc_elg.itc_net.iamt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_net.camt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_net.samt }}</td>
-              <td class="right">{{ gstData.itc_elg.itc_net.csamt }}</td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_net.iamt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_net.camt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_net.samt }}
+              </td>
+              <td class="right">
+                {{ gstData.itc_elg.itc_net.csamt }}
+              </td>
             </tr>
             <tr>
               <td>
                 <small> <b> (D) Ineligible ITC </b> </small>
               </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td />
+              <td />
+              <td />
+              <td />
             </tr>
             <tr>
               <td>
@@ -575,9 +690,15 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
         >
           <thead>
             <tr>
-              <th class="border-bottom-0">Nature of Supplies</th>
-              <th class="border-bottom-0">Inter-State Supplies</th>
-              <th class="border-bottom-0">Intra-State Supplies</th>
+              <th class="border-bottom-0">
+                Nature of Supplies
+              </th>
+              <th class="border-bottom-0">
+                Inter-State Supplies
+              </th>
+              <th class="border-bottom-0">
+                Intra-State Supplies
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -636,8 +757,12 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
           </b>
         </small>
         <div class="float-right">
-          <b-button @click="copyJsonToClipboard" size="sm" variant="link">
-            <b-icon icon="files"></b-icon>
+          <b-button
+            @click="copyJsonToClipboard"
+            size="sm"
+            variant="link"
+          >
+            <b-icon icon="files" />
           </b-button>
           <b-link
             class="display-inline-block p-1"
@@ -645,7 +770,7 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
             download="GSTR_3B.json"
             :disabled="isLoading"
           >
-            <b-icon icon="cloud-download"></b-icon>
+            <b-icon icon="cloud-download" />
           </b-link>
         </div>
       </div>
@@ -668,7 +793,7 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
             rows="10"
             max-rows="20"
             readonly
-          ></b-form-textarea>
+          />
         </div>
       </b-overlay>
 
@@ -689,7 +814,7 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
             size="sm"
             v-model="invTableSearch"
             type="text"
-          ></b-form-input>
+          />
         </div>
         <b-table
           head-variant="dark"
@@ -707,7 +832,10 @@ License: GPLv3 (https://github.com/frappe/erpnext/blob/develop/license.txt)
         >
           <template #table-busy>
             <div class="text-center">
-              <b-spinner type="grow" class="align-middle"></b-spinner>
+              <b-spinner
+                type="grow"
+                class="align-middle"
+              />
               <strong> Fetching data</strong>
             </div>
           </template>
@@ -959,18 +1087,18 @@ export default {
       const invoices = this.options.invoices;
       let list = [];
       switch (this.taxGroup) {
-        case 'pos_unreg_comp_uin_igst':
-          {
-            let options = this.options.invOptions.pos_unreg_comp_uin_igst;
-            list =
-              invoices.pos_unreg_comp_uin_igst[options.type][options.stateCode];
-          }
-          break;
-        default:
+      case 'pos_unreg_comp_uin_igst':
+        {
+          let options = this.options.invOptions.pos_unreg_comp_uin_igst;
           list =
-            invoices[this.taxGroup] && invoices[this.taxGroup].length
-              ? invoices[this.taxGroup]
-              : [];
+            invoices.pos_unreg_comp_uin_igst[options.type][options.stateCode];
+        }
+        break;
+      default:
+        list =
+          invoices[this.taxGroup] && invoices[this.taxGroup].length
+            ? invoices[this.taxGroup]
+            : [];
       }
       return list;
     },
@@ -1101,7 +1229,7 @@ export default {
         if (resp[0].data.gkstatus === 0) {
           resp[0].data.gkresult.forEach((state) => {
             let name = Object.values(state)[0],
-              id = Object.keys(state)[0];
+                id = Object.keys(state)[0];
             stateMap[name] = id;
             stateIdToName[id] = `${name} (${id})`;
           });

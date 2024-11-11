@@ -5,7 +5,11 @@
 -->
 <template>
   <div class="align-form-label-right">
-    <div v-if="showMenu" class="card shadow" :style="{ 'min-width': '350px' }">
+    <div
+      v-if="showMenu"
+      class="card shadow"
+      :style="{'min-width': '350px'}"
+    >
       <div class="card-header bg-dark text-light">
         <translate> Create Organisation </translate>
       </div>
@@ -34,8 +38,7 @@
               debounce="500"
               @update="checkOrgName"
               :state="orgNameValidity"
-            >
-            </b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label-size="md"
@@ -71,8 +74,7 @@
               :options="states"
               v-model="orgState"
               id="select-1"
-            >
-            </v-select>
+            />
           </b-form-group>
           <!-- address -->
           <!-- <b-form-group
@@ -111,7 +113,7 @@
               button-variant="outline-dark"
               name="radios-btn-outline"
               buttons
-            ></b-form-radio-group>
+            />
           </b-form-group>
           <b-form-group
             id="input-group-2"
@@ -141,7 +143,7 @@
                       @input="setYearEnd"
                       v-model="yearStart"
                       id="yst"
-                    ></gk-date>
+                    />
                   </b-input-group>
                 </b-form-group>
               </div>
@@ -157,7 +159,10 @@
                     <translate> To </translate>
                   </template>
                   <b-input-group class="mb-3">
-                    <gk-date v-model="yearEnd" id="ynd"></gk-date>
+                    <gk-date
+                      v-model="yearEnd"
+                      id="ynd"
+                    />
                   </b-input-group>
                 </b-form-group>
               </div>
@@ -178,25 +183,37 @@
               ></b-icon>
               <span class="align-middle"> <translate>Back</translate></span>
             </b-button> -->
-            <b-button size="sm" type="submit" class="mr-2" variant="success">
-              <b-spinner v-if="isLoading" small></b-spinner>
+            <b-button
+              size="sm"
+              type="submit"
+              class="mr-2"
+              variant="success"
+            >
+              <b-spinner
+                v-if="isLoading"
+                small
+              />
               <b-icon
                 v-else
                 aria-hidden="true"
                 class="align-middle mr-1"
                 icon="plus-square"
-              ></b-icon>
+              />
               <span class="align-middle">
                 <translate>Create &amp; Login</translate>
               </span>
             </b-button>
           </div>
-          <div class="clearfix"></div>
+          <div class="clearfix" />
         </b-form>
       </div>
     </div>
-    <b-alert class="mt-5" :show="!showMenu" variant="danger"
-      ><b-icon icon="exclamation-triangle"></b-icon>
+    <b-alert
+      class="mt-5"
+      :show="!showMenu"
+      variant="danger"
+    >
+      <b-icon icon="exclamation-triangle" />
       <translate> Registrations are disabled on this server </translate>
     </b-alert>
   </div>
@@ -381,46 +398,46 @@ export default {
           // console.log(response)
           this.isLoading = false;
           switch (response.data.gkstatus) {
-            case 0:
+          case 0:
+            {
+              this.$store
+                .dispatch('setSessionStates', {
+                  orgCode: response.data.orgcode,
+                  authToken: response.data.token,
+                })
+                .then(() => {
+                  let log = {
+                    activity: `Organisation created: ${payload.orgdetails.orgname}`,
+                  };
+                  axios.post('/log', log);
+                });
+            }
+            break;
+          case 1:
+            this.$bvToast.toast(
+              this.$gettext(
+                `Duplicate Entry! Please Check the Organisation Name`
+              ),
               {
-                this.$store
-                  .dispatch('setSessionStates', {
-                    orgCode: response.data.orgcode,
-                    authToken: response.data.token,
-                  })
-                  .then(() => {
-                    let log = {
-                      activity: `Organisation created: ${payload.orgdetails.orgname}`,
-                    };
-                    axios.post('/log', log);
-                  });
+                title: this.$gettext('Create Account Error!'),
+                autoHideDelay: 3000,
+                variant: 'danger',
+                appendToast: true,
+                solid: true,
               }
-              break;
-            case 1:
-              this.$bvToast.toast(
-                this.$gettext(
-                  `Duplicate Entry! Please Check the Organisation Name`
-                ),
-                {
-                  title: this.$gettext('Create Account Error!'),
-                  autoHideDelay: 3000,
-                  variant: 'danger',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
-              break;
-            default:
-              this.$bvToast.toast(
-                this.$gettext(`Unable to create account, Please try again`),
-                {
-                  title: this.$gettext('Create Account Error!'),
-                  autoHideDelay: 3000,
-                  variant: 'danger',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
+            );
+            break;
+          default:
+            this.$bvToast.toast(
+              this.$gettext(`Unable to create account, Please try again`),
+              {
+                title: this.$gettext('Create Account Error!'),
+                autoHideDelay: 3000,
+                variant: 'danger',
+                appendToast: true,
+                solid: true,
+              }
+            );
           } // end switch
           this.onSave(response.data.gkstatus === 0);
         })

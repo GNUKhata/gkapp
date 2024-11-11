@@ -9,8 +9,11 @@
     @change="$emit('change', selectedState)"
   >
     <template #first>
-      <b-form-select-option value="" disabled
-        >-- Please select state --
+      <b-form-select-option
+        value=""
+        disabled
+      >
+        -- Please select state --
       </b-form-select-option>
     </template>
   </b-select>

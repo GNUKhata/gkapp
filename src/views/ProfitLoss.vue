@@ -10,21 +10,42 @@
           <gk-cardheader
             v-if="orgType == 'Profit Making'"
             :name="$gettext('Profit & Loss Statement')"
-          ></gk-cardheader>
+          />
           <gk-cardheader
             v-else
             name="Income & Expenditure"
-          ></gk-cardheader>
+          />
         </template>
         <b-form @submit.prevent="getReport">
-          <b-form-group label="From" label-align="right" content-cols="8">
-            <gk-date id="fromdate" v-model="fromDate"></gk-date>
+          <b-form-group
+            label="From"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="fromdate"
+              v-model="fromDate"
+            />
           </b-form-group>
-          <b-form-group label="To" label-align="right" content-cols="8">
-            <gk-date id="todate" v-model="toDate"></gk-date>
+          <b-form-group
+            label="To"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="todate"
+              v-model="toDate"
+            />
           </b-form-group>
-          <b-button variant="success" class="float-right" type="submit"
-            ><b-icon class="mr-1" icon="cloud-arrow-up"></b-icon>
+          <b-button
+            variant="success"
+            class="float-right"
+            type="submit"
+          >
+            <b-icon
+              class="mr-1"
+              icon="cloud-arrow-up"
+            />
             <translate>Get Details</translate>
           </b-button>
         </b-form>
@@ -32,11 +53,17 @@
       <!--     {{ result }} -->
       <report-header>
         <div class="text-center">
-          <b v-if="orgType == 'Profit Making'" v-translate>Profit & Loss</b>
-          <b v-else v-translate>Income & Expenditure</b>for the period
+          <b
+            v-if="orgType == 'Profit Making'"
+            v-translate
+          >Profit & Loss</b>
+          <b
+            v-else
+            v-translate
+          >Income & Expenditure</b>for the period
           {{ fromDate }} to
           {{ toDate }}
-          <br />
+          <br>
         </div>
       </report-header>
       <div
@@ -67,40 +94,50 @@
           variant="link"
           @click="printPage"
         >
-          <b-icon class="align-middle" icon="printer"></b-icon>
+          <b-icon
+            class="align-middle"
+            icon="printer"
+          />
         </b-button>
         <gk-file-download
           :url="downloadUrl"
-          :fileName="downloadFileName"
-          fileExtn=".xlsx"
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          :file-name="downloadFileName"
+          file-extn=".xlsx"
+          :message-from-parent="parentMessage"
+        />
       </div>
       <b-row class="row text-small">
-        <b-col cols="6" class="pr-0">
-          <ReportTableThreeCol
+        <b-col
+          cols="6"
+          class="pr-0"
+        >
+          <report-table-three-col
             :items="tradingLeft"
             :fields="reportFields"
-            :filterTable="filterTable"
-            :tableName="'trading'"
-            :divideThousand=divideThousand
-          >
-          </ReportTableThreeCol>
+            :filter-table="filterTable"
+            :table-name="'trading'"
+            :divide-thousand="divideThousand"
+          />
         </b-col>
-        <b-col cols="6" class="pl-0">
-          <ReportTableThreeCol
+        <b-col
+          cols="6"
+          class="pl-0"
+        >
+          <report-table-three-col
             :items="tradingRight"
             :fields="reportFields"
-            :filterTable="filterTable"
-            :tableName="'trading'"
-            :divideThousand=divideThousand
-          >
-          </ReportTableThreeCol>
+            :filter-table="filterTable"
+            :table-name="'trading'"
+            :divide-thousand="divideThousand"
+          />
         </b-col>
       </b-row>
 
       <b-row class="row text-small">
-        <b-col cols="6" class="pr-0">
+        <b-col
+          cols="6"
+          class="pr-0"
+        >
           <b-table
             borderless
             small
@@ -118,8 +155,7 @@
                 {{ data.value }}
               </div>
             </template>
-            <template #cell(colOne)="">
-            </template>
+            <template #cell(colOne)="" />
             <template #cell(colTwo)="data">
               <div class="border-dark border-2 border-top border-bottom font-weight-bold">
                 {{ parseFloat(data.item.amount / (divideThousand ? 1000 : 1)).toFixed(2) }}
@@ -127,7 +163,10 @@
             </template>
           </b-table>
         </b-col>
-        <b-col cols="6" class="pl-0">
+        <b-col
+          cols="6"
+          class="pl-0"
+        >
           <b-table
             borderless
             small
@@ -145,8 +184,7 @@
                 {{ data.value }}
               </div>
             </template>
-            <template #cell(colOne)="">
-            </template>
+            <template #cell(colOne)="" />
             <template #cell(colTwo)="data">
               <div class="border-dark border-2 border-top border-bottom font-weight-bold">
                 {{ parseFloat(data.item.amount / (divideThousand ? 1000 : 1)).toFixed(2) }}
@@ -156,30 +194,37 @@
         </b-col>
       </b-row>
       <b-row class="row text-small">
-        <b-col cols="6" class="pr-0">
-          <ReportTableThreeCol
+        <b-col
+          cols="6"
+          class="pr-0"
+        >
+          <report-table-three-col
             :items="pnlLeft"
             :fields="reportFields"
-            :filterTable="filterTable"
-            :tableName="'pnl'"
-            :divideThousand=divideThousand
-          >
-          </ReportTableThreeCol>
+            :filter-table="filterTable"
+            :table-name="'pnl'"
+            :divide-thousand="divideThousand"
+          />
         </b-col>
-        <b-col cols="6" class="pl-0">
-          <ReportTableThreeCol
+        <b-col
+          cols="6"
+          class="pl-0"
+        >
+          <report-table-three-col
             :items="pnlRight"
             :fields="reportFields"
-            :filterTable="filterTable"
-            :tableName="'pnl'"
-            :divideThousand=divideThousand
-          >
-          </ReportTableThreeCol>
+            :filter-table="filterTable"
+            :table-name="'pnl'"
+            :divide-thousand="divideThousand"
+          />
         </b-col>
       </b-row>
 
       <b-row class="row text-small">
-        <b-col cols="6" class="pr-0">
+        <b-col
+          cols="6"
+          class="pr-0"
+        >
           <b-table
             borderless
             small
@@ -197,8 +242,7 @@
                 {{ data.value }}
               </div>
             </template>
-            <template #cell(colOne)="">
-            </template>
+            <template #cell(colOne)="" />
             <template #cell(colTwo)="data">
               <div class="border-dark border-2 border-top border-bottom font-weight-bold">
                 {{ parseFloat(data.item.amount / (divideThousand ? 1000 : 1)).toFixed(2) }}
@@ -206,7 +250,10 @@
             </template>
           </b-table>
         </b-col>
-        <b-col cols="6" class="pl-0">
+        <b-col
+          cols="6"
+          class="pl-0"
+        >
           <b-table
             borderless
             small
@@ -224,8 +271,7 @@
                 {{ data.value }}
               </div>
             </template>
-            <template #cell(colOne)="">
-            </template>
+            <template #cell(colOne)="" />
             <template #cell(colTwo)="data">
               <div class="border-dark border-2 border-top border-bottom font-weight-bold">
                 {{ parseFloat(data.item.amount / (divideThousand ? 1000 : 1)).toFixed(2) }}
@@ -247,26 +293,26 @@ import ReportHeader from '../components/ReportHeader.vue';
 import ReportTableThreeCol from '../components/reports/ReportTableThreeCol.vue';
 import GkFileDownload from '../components/GkFileDownload.vue';
 export default {
-   components: { GkCardheader, GkDate, ReportHeader, GkFileDownload, ReportTableThreeCol },
-   name: 'BalanceSheet',
-   data() {
-     return {
-       parentMessage: '',
-       isLoading: false,
-       fromDate: null,
-       toDate: null,
-       hideZero: false,
-       divideThousand: false,
-       orgType: '',
+  components: { GkCardheader, GkDate, ReportHeader, GkFileDownload, ReportTableThreeCol },
+  name: 'BalanceSheet',
+  data() {
+    return {
+      parentMessage: '',
+      isLoading: false,
+      fromDate: null,
+      toDate: null,
+      hideZero: false,
+      divideThousand: false,
+      orgType: '',
 
-       // set level based fields
-       reportFields: [
-         {
-           key: 'name',
-           label: 'Particulars',
-           class: 'text-break col-6',
-         },
-         {
+      // set level based fields
+      reportFields: [
+        {
+          key: 'name',
+          label: 'Particulars',
+          class: 'text-break col-6',
+        },
+        {
           key: 'colOne',
           label: '',
           class: 'text-break text-right col-3',
@@ -320,25 +366,25 @@ export default {
         let isStock, isGroup, isSubGroup, isAccount, isPNL, isTotal, isParentSubgroup;
         let amount = parseFloat(item?.amount || 0).toFixed(2);
         switch (item.type) {
-          case "stock":
-            isStock = true;
-            break;
-          case "group":
-            isGroup = true;
-            break;
-          case "subgroup":
-            isSubGroup = true;
-            break;
-          case "account":
-            isAccount = true;
-            break;
-          case "pnl_str":
-            isPNL = true;
-            break;
-          case "total":
-            isTotal = true;
-            this.totals[reportName] = [{...item, "colOne": false, "colTwo": true, amount}];
-            break;
+        case "stock":
+          isStock = true;
+          break;
+        case "group":
+          isGroup = true;
+          break;
+        case "subgroup":
+          isSubGroup = true;
+          break;
+        case "account":
+          isAccount = true;
+          break;
+        case "pnl_str":
+          isPNL = true;
+          break;
+        case "total":
+          isTotal = true;
+          this.totals[reportName] = [{...item, "colOne": false, "colTwo": true, amount}];
+          break;
         }
         if (item?.subgroupcode) {
           isParentSubgroup = true;
@@ -421,42 +467,42 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                {
-                  self.orgType = r.data.gkresult.org_type;
-                  self.formatResponse(r.data.gkresult);
-                }
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              {
+                self.orgType = r.data.gkresult.org_type;
+                self.formatResponse(r.data.gkresult);
+              }
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           }
           this.isLoading = false;
@@ -474,6 +520,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .text-small {
   font-size: 0.9rem;

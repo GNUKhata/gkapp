@@ -15,9 +15,12 @@
           v-model="selectedUrl"
           :placeholder="this.$gettext('Search Menu')"
           label="name"
-        ></v-select>
+        />
       </div>
-      <div class="col-1 mt-1" role="button">
+      <div
+        class="col-1 mt-1"
+        role="button"
+      >
         <BIcon
           scale="1.3x"
           variant="danger"

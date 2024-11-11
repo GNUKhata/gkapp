@@ -1,7 +1,11 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="mb-3 clearfix d-print-none">
       <div class="float-right">
         <span>
@@ -12,16 +16,20 @@
             v-b-toggle.voucher-container
             v-if="!pdata.cancelledFlag"
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
               :to="{
-                  name: 'Workflow',
-                  params: {
-                    wfName: 'Transactions-DeliveryNote',
-                    wfId: this.dcid,
-                  },
-                }"
-              >View Delivery Note
+                name: 'Workflow',
+                params: {
+                  wfName: 'Transactions-DeliveryNote',
+                  wfId: this.dcid,
+                },
+              }"
+            >View Delivery Note
             </router-link>
           </b-button>
           <b-button
@@ -30,17 +38,28 @@
             variant="primary"
             v-b-toggle.voucher-container
           >
-            <b-icon icon="eye" class="mr-1"></b-icon>
+            <b-icon
+              icon="eye"
+              class="mr-1"
+            />
             <translate>View Voucher</translate>
           </b-button>
         </span>
       </div>
     </div>
     <b-row>
-      <b-col cols="12" md="6" class="my-2"> </b-col>
-      <b-col cols="12" md="6" class="text-md-right my-2">
+      <b-col
+        cols="12"
+        md="6"
+        class="my-2"
+      />
+      <b-col
+        cols="12"
+        md="6"
+        class="text-md-right my-2"
+      >
         <b v-translate>Cash Memo Details</b>
-        <br />
+        <br>
         <!-- Note Details Table -->
         <b-table-lite
           :fields="['title', 'value']"
@@ -50,7 +69,7 @@
           thead-class="d-none"
           fixed
           class="text-small table-border-dark"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <!-- Content Table -->
@@ -80,41 +99,67 @@
       <template #cell(qty)="data">
         {{ data.value }} <small> {{ data.item.uom }} </small>
       </template>
-      <template #cell(price)="data"> {{ data.value }} </template>
-      <template #cell(discount)="data"> {{ data.value }} </template>
+      <template #cell(price)="data">
+        {{ data.value }}
+      </template>
+      <template #cell(discount)="data">
+        {{ data.value }}
+      </template>
       <template #cell(cess)="data">
         {{ data.value.rate }} <small>%</small>
       </template>
-      <template #cell(total)="data"> {{ data.value }} </template>
+      <template #cell(total)="data">
+        {{ data.value }}
+      </template>
     </b-table-lite>
     <b-row>
-      <b-col class="my-2"> </b-col>
-      <b-col cols="12" md="8" class="my-2">
+      <b-col class="my-2" />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+      >
         <!-- Total Table -->
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            { key: 'title', label: 'Total', tdClass: '' },
-            { key: 'value', label: '₹', class: 'text-right' },
+            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'value', label: '₹', class: 'text-right'},
           ]"
           small
           fixed
           class="text-small"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="my-2"> </b-col>
-      <b-col cols="12" md="8" class="my-2">
+      <b-col class="my-2" />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+      >
         <div>
           <b v-translate>Payment Details</b>
-          <div v-if="invoice.payment.mode > 2" class="mb-3">
-            <span v-if="invoice.payment.mode === 3" v-translate>
+          <div
+            v-if="invoice.payment.mode > 2"
+            class="mb-3"
+          >
+            <span
+              v-if="invoice.payment.mode === 3"
+              v-translate
+            >
               Paid By Cash
             </span>
-            <span v-else v-translate> On Credit </span>
+            <span
+              v-else
+              v-translate
+            > On Credit </span>
           </div>
-          <div class="text-small" v-else>
+          <div
+            class="text-small"
+            v-else
+          >
             <translate> Paid By Bank Transfer </translate>
             <b-table-lite
               :items="bankDetails"
@@ -123,29 +168,37 @@
               bordered
               fixed
               thead-class="d-none"
-            >
-            </b-table-lite>
+            />
           </div>
         </div>
         <b v-translate> Narration: </b> {{ invoice.narration }}
       </b-col>
     </b-row>
-    <div class="clearfix"></div>
-    <b-collapse v-model="showVouchers" id="voucher-container">
+    <div class="clearfix" />
+    <b-collapse
+      v-model="showVouchers"
+      id="voucher-container"
+    >
       <b v-translate>Voucher:</b>
-      <b-card v-if="vouchers.length" body-class="p-1">
-        <div v-for="voucher in vouchers" :key="voucher.id">
+      <b-card
+        v-if="vouchers.length"
+        body-class="p-1"
+      >
+        <div
+          v-for="voucher in vouchers"
+          :key="voucher.id"
+        >
           <div class="text-center m-1 mb-2">
             <span class="float-left">
               Voucher No:
-                <router-link :to="`/Workflow/Transactions-Voucher/${voucher.id}`">
-                  {{voucher.no}}</router-link>
+              <router-link :to="`/Workflow/Transactions-Voucher/${voucher.id}`">
+                {{ voucher.no }}</router-link>
             </span>
             <span> {{ voucher.type }} </span>
             <span class="float-right">
               <translate
                 translate-comment="%{voucherDate} is a variable, translation is not required for it. Enter it, as it is while translation."
-                :translate-params="{ voucherDate: voucher.date }"
+                :translate-params="{voucherDate: voucher.date}"
               >
                 Date: %{voucherDate}
               </translate>
@@ -158,23 +211,22 @@
             :items="voucher.transactions"
             :tbody-tr-class="rowClass"
             fixed
-          >
-          </b-table-lite>
+          />
           <div>
             <translate
               translate-comment="%{narration} is a variable, translation is not required for it. Enter it, as it is while translation."
-              :translate-params="{ narration: voucher.narration }"
+              :translate-params="{narration: voucher.narration}"
             >
               Narration: %{narration}
             </translate>
           </div>
-          <br />
+          <br>
         </div>
       </b-card>
       <div v-else>
         <translate
           translate-comment="%{memoNo} is a variable, translation is not required for it. Enter it, as it is while translation."
-          :translate-params="{ memoNo: invoice.number }"
+          :translate-params="{memoNo: invoice.number}"
         >
           No vouchers were found for Cash Memo: %{memoNo}
         </translate>
@@ -502,52 +554,52 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0: {
-            let invData = response.data.gkresult;
-            this.formatInvoiceDetails(invData);
-            this.dcid = invData.dcid;
-            if (invData.dcid) {
-              this.getDelNoteDetails(invData.dcid).then((dnResponse) => {
-                let dndata = dnResponse.data.gkresult.delchaldata;
-                if (dndata) {
-                  this.dnote = {
-                    goid: dndata.goid,
-                  };
-                }
-              });
-            } else {
-              this.dnote = {
-                goid: '',
-              };
-            }
-            // this.output = response.data.gkresult;
-            break;
+        case 0: {
+          let invData = response.data.gkresult;
+          this.formatInvoiceDetails(invData);
+          this.dcid = invData.dcid;
+          if (invData.dcid) {
+            this.getDelNoteDetails(invData.dcid).then((dnResponse) => {
+              let dndata = dnResponse.data.gkresult.delchaldata;
+              if (dndata) {
+                this.dnote = {
+                  goid: dndata.goid,
+                };
+              }
+            });
+          } else {
+            this.dnote = {
+              goid: '',
+            };
           }
-          case 2:
-            this.$bvToast.toast(
-              this.$gettext(`Unauthorized access, Please contact admin`),
-              {
-                title: this.$gettext(`Fetch Cash Memo Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
-            break;
-          default:
-            this.$bvToast.toast(
-              this.$gettext(
-                `Unable to Fetch Cash Memo Details! Please Try after sometime.`
-              ),
-              {
-                title: this.$gettext(`Fetch Transaction Details Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
+          // this.output = response.data.gkresult;
+          break;
+        }
+        case 2:
+          this.$bvToast.toast(
+            this.$gettext(`Unauthorized access, Please contact admin`),
+            {
+              title: this.$gettext(`Fetch Cash Memo Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
+          break;
+        default:
+          this.$bvToast.toast(
+            this.$gettext(
+              `Unable to Fetch Cash Memo Details! Please Try after sometime.`
+            ),
+            {
+              title: this.$gettext(`Fetch Transaction Details Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
         } // end switch
       });
     },
@@ -583,6 +635,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .custom-link {
   color: white;

@@ -9,7 +9,11 @@
         class="mx-auto d-print-none"
       >
         <b-form @submit.prevent="check">
-          <b-form-group label="Product" label-align="right" label-cols="auto">
+          <b-form-group
+            label="Product"
+            label-align="right"
+            label-cols="auto"
+          >
             <!-- select product -->
             <b-form-select
               :options="productList"
@@ -17,46 +21,69 @@
               text-field="label"
               value-field="id"
               required
-            ><template #first>
-              <b-form-select-option :value="null">-- Please select a product --</b-form-select-option>
-            </template>
+            >
+              <template #first>
+                <b-form-select-option :value="null">
+                  -- Please select a product --
+                </b-form-select-option>
+              </template>
             </b-form-select>
           </b-form-group>
           <div class="row">
             <div class="col">
-              <b-form-group label="From" label-align="left">
+              <b-form-group
+                label="From"
+                label-align="left"
+              >
                 <gk-date
                   :required="true"
                   v-model="fromDate"
                   id="from"
                   class="mr-4"
-                ></gk-date>
+                />
               </b-form-group>
             </div>
             <div class="col">
-              <b-form-group label="To" label-align="left">
-                <gk-date :required="true" v-model="toDate" id="to"></gk-date>
+              <b-form-group
+                label="To"
+                label-align="left"
+              >
+                <gk-date
+                  :required="true"
+                  v-model="toDate"
+                  id="to"
+                />
               </b-form-group>
             </div>
           </div>
           <!-- Godown select -->
-          <b-form-group label="Godown" label-cols="auto">
+          <b-form-group
+            label="Godown"
+            label-cols="auto"
+          >
             <autocomplete
               placeholder="Search / Select a godown"
               v-model="godownId"
-              :godownData="godownId"
+              :godown-data="godownId"
               :options="godowns"
               :required="true"
-            ></autocomplete>
+            />
           </b-form-group>
-          <b-button type="submit" variant="success" class="float-right"
-            ><b-icon icon="eye-fill"></b-icon> View</b-button
+          <b-button
+            type="submit"
+            variant="success"
+            class="float-right"
           >
+            <b-icon icon="eye-fill" /> View
+          </b-button>
         </b-form>
       </b-card>
     </b-overlay>
     <!-- report -->
-    <div v-if="report.length > 0" class="mt-2">
+    <div
+      v-if="report.length > 0"
+      class="mt-2"
+    >
       <report-header>
         <template>
           <div class="text-center">
@@ -79,7 +106,7 @@
             class="border-dark"
             style="align-self: center"
             placeholder="search invoices"
-          ></b-form-input>
+          />
         </template>
         <!-- filters -->
         <gk-hovermenu>
@@ -91,35 +118,68 @@
             class=""
             v-model="invoiceFilter"
           >
-            <b-form-checkbox class="w-100" value="invoice"
-              ><b-icon icon="receipt"></b-icon> Invoice</b-form-checkbox
+            <b-form-checkbox
+              class="w-100"
+              value="invoice"
             >
-            <b-form-checkbox class="w-100" value="Rejection Note"
-              ><b-icon icon="journal-x" variant="danger"></b-icon> Rejection
-              Note</b-form-checkbox
+              <b-icon icon="receipt" /> Invoice
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="Rejection Note"
             >
-            <b-form-checkbox class="w-100" value="Debit Note"
-              ><b-icon icon="file-earmark-minus" variant="warning"></b-icon>
-              Debit Note</b-form-checkbox
+              <b-icon
+                icon="journal-x"
+                variant="danger"
+              /> Rejection
+              Note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="Debit Note"
             >
-            <b-form-checkbox class="w-100" value="Credit Note"
-              ><b-icon icon="file-earmark-plus" variant="info"></b-icon> Credit
-              Note</b-form-checkbox
+              <b-icon
+                icon="file-earmark-minus"
+                variant="warning"
+              />
+              Debit Note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="Credit Note"
             >
-            <b-form-checkbox class="w-100" value="transfer note"
-              ><b-icon icon="file-earmark-font" variant="info"></b-icon> Transfer
-              note</b-form-checkbox
+              <b-icon
+                icon="file-earmark-plus"
+                variant="info"
+              /> Credit
+              Note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="transfer note"
             >
-            <b-form-checkbox class="w-100" value="delchal"
-              ><b-icon icon="files-alt" variant="info"></b-icon> Delchal</b-form-checkbox
+              <b-icon
+                icon="file-earmark-font"
+                variant="info"
+              /> Transfer
+              note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="delchal"
             >
+              <b-icon
+                icon="files-alt"
+                variant="info"
+              /> Delchal
+            </b-form-checkbox>
           </b-form-checkbox-group>
         </gk-hovermenu>
         <!-- Report download -->
         <gk-file-download
           :url="
             `/spreadsheet/product-register?calculatefrom=${dateReverse(
-              this.fromDate
+              this.fromDate,
             )}&calculateto=${dateReverse(this.toDate)}&productcode=${
               productId
             }&productdesc=${productId.label}&godownflag=1&goid=${
@@ -127,13 +187,13 @@
             }&goname=${getGodownName(this.godownId)?.text}&goaddr=${
               getGodownName(this.godownId)?.text
             }&fystart=${dateReverse(this.yearStart)}&fyend=${dateReverse(
-              this.yearEnd
+              this.yearEnd,
             )}&orgname=${this.orgName}&orgtype=${this.orgType}`
           "
-          fileExtn="xlsx"
-          :commonParams="false"
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          file-extn="xlsx"
+          :common-params="false"
+          :message-from-parent="parentMessage"
+        />
       </gk-toolbar>
       <!-- result table -->
       <b-table
@@ -150,7 +210,7 @@
         <!-- Transaction type -->
         <template #cell(particulars)="data">
           <div v-if="data.item.trntype === 'invoice'">
-            <b-icon icon="receipt"></b-icon> {{ data.item.particulars }} :
+            <b-icon icon="receipt" /> {{ data.item.particulars }} :
             <b-link
               @click="updateRoute"
               :to="{
@@ -164,7 +224,10 @@
                 },
               }"
             >
-              <div class="d-inline" @click="updateRoute">
+              <div
+                class="d-inline"
+                @click="updateRoute"
+              >
                 {{ data.item.invno }}
               </div>
             </b-link>
@@ -181,13 +244,19 @@
                 },
               }"
             >
-              <div class="d-inline" @click="updateRoute">
+              <div
+                class="d-inline"
+                @click="updateRoute"
+              >
                 {{ data.item.dcno }}
               </div>
             </b-link>
           </div>
           <div v-else-if="data.item.trntype === 'Rejection Note'">
-            <b-icon variant="danger" icon="journal-x"></b-icon>
+            <b-icon
+              variant="danger"
+              icon="journal-x"
+            />
             {{ data.item.particulars }} :
             <b-link
               :to="{
@@ -198,13 +267,19 @@
                 },
               }"
             >
-              <div class="d-inline" @click="updateRoute">
+              <div
+                class="d-inline"
+                @click="updateRoute"
+              >
                 {{ data.item.rnno }}
               </div>
             </b-link>
           </div>
           <div v-else-if="data.item.trntype === 'Debit Note'">
-            <b-icon variant="warning" icon="file-earmark-minus"></b-icon>
+            <b-icon
+              variant="warning"
+              icon="file-earmark-minus"
+            />
             {{ data.item.particulars }} :
             <b-link
               :to="{
@@ -215,13 +290,19 @@
                 },
               }"
             >
-              <div class="d-inline" @click="updateRoute">
+              <div
+                class="d-inline"
+                @click="updateRoute"
+              >
                 {{ data.item.drcrno }}
               </div>
             </b-link>
           </div>
           <div v-else-if="data.item.trntype === 'Credit Note'">
-            <b-icon variant="info" icon="file-earmark-plus"></b-icon>
+            <b-icon
+              variant="info"
+              icon="file-earmark-plus"
+            />
             {{ data.item.particulars }} :
             <b-link
               :to="{
@@ -232,7 +313,10 @@
                 },
               }"
             >
-              <div class="d-inline" @click="updateRoute">
+              <div
+                class="d-inline"
+                @click="updateRoute"
+              >
                 {{ data.item.drcrno }}
               </div>
             </b-link>
@@ -247,21 +331,30 @@
                 },
               }"
             >
-              <div class="d-inline" @click="updateRoute">
+              <div
+                class="d-inline"
+                @click="updateRoute"
+              >
                 {{ data.item.tnno }}
               </div>
             </b-link>
           </div>
-          <div v-else class="font-weight-bold">
-            <div class="d-inline" @click="updateRoute">
+          <div
+            v-else
+            class="font-weight-bold"
+          >
+            <div
+              class="d-inline"
+              @click="updateRoute"
+            >
               {{ data.item.particulars }}
             </div>
           </div>
         </template>
         <template #cell(transactionType)="data">
           <div class="text-right">
-            <span v-if="data.item.particulars === 'opening stock'"></span>
-            <span v-if="data.item.particulars === 'Total'"></span>
+            <span v-if="data.item.particulars === 'opening stock'" />
+            <span v-if="data.item.particulars === 'Total'" />
             <span v-else>{{ data.item.trntype.charAt(0).toUpperCase() + data.item.trntype.slice(1) }}</span>
           </div>
         </template>
@@ -289,12 +382,16 @@
           </div>
         </template>
         <!-- balance -->
-        <template #cell(balance)="data"
-          ><div class="text-right">{{ data.item.balance }}</div>
+        <template
+          #cell(balance)="data"
+        >
+          <div class="text-right">
+            {{ data.item.balance }}
+          </div>
         </template>
       </b-table>
-  </div>
-   <div v-if="report.length == 0">
+    </div>
+    <div v-if="report.length == 0">
       <!-- Toolbar -->
       <gk-toolbar>
         <!-- search bar -->
@@ -309,45 +406,85 @@
             class=""
             v-model="invoiceFilter"
           >
-            <b-form-checkbox class="w-100" value="invoice"
-              ><b-icon icon="receipt"></b-icon> Invoice</b-form-checkbox
+            <b-form-checkbox
+              class="w-100"
+              value="invoice"
             >
-            <b-form-checkbox class="w-100" value="Rejection Note"
-              ><b-icon icon="journal-x" variant="danger"></b-icon> Rejection
-              Note</b-form-checkbox
+              <b-icon icon="receipt" /> Invoice
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="Rejection Note"
             >
-            <b-form-checkbox class="w-100" value="Debit Note"
-              ><b-icon icon="file-earmark-minus" variant="warning"></b-icon>
-              Debit Note</b-form-checkbox
+              <b-icon
+                icon="journal-x"
+                variant="danger"
+              /> Rejection
+              Note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="Debit Note"
             >
-            <b-form-checkbox class="w-100" value="Credit Note"
-              ><b-icon icon="file-earmark-plus" variant="info"></b-icon> Credit
-              Note</b-form-checkbox
+              <b-icon
+                icon="file-earmark-minus"
+                variant="warning"
+              />
+              Debit Note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="Credit Note"
             >
-             <b-form-checkbox class="w-100" value="transfer note"
-              ><b-icon icon="file-earmark-font" variant="info"></b-icon> Transfer
-              Note</b-form-checkbox
+              <b-icon
+                icon="file-earmark-plus"
+                variant="info"
+              /> Credit
+              Note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="transfer note"
             >
-            <b-form-checkbox class="w-100" value="delchal"
-              ><b-icon icon="files-alt" variant="info"></b-icon> Delchal </b-form-checkbox
+              <b-icon
+                icon="file-earmark-font"
+                variant="info"
+              /> Transfer
+              Note
+            </b-form-checkbox>
+            <b-form-checkbox
+              class="w-100"
+              value="delchal"
             >
+              <b-icon
+                icon="files-alt"
+                variant="info"
+              /> Delchal
+            </b-form-checkbox>
           </b-form-checkbox-group>
         </gk-hovermenu>
         <!-- Report download -->
       </gk-toolbar>
-    <b-table  small
+      <b-table
+        small
         class="table-border-dark"
         striped
         head-variant="dark"
-        responsive="sm" :fields="fields" show-empty>
-      <!-- Named slot "empty" for custom rendering when the table is empty -->
-      <template #empty>
-        <h4 style="text-align: center;">No result found.</h4>
-      </template>
-    </b-table>
+        responsive="sm"
+        :fields="fields"
+        show-empty
+      >
+        <!-- Named slot "empty" for custom rendering when the table is empty -->
+        <template #empty>
+          <h4 style="text-align: center;">
+            No result found.
+          </h4>
+        </template>
+      </b-table>
     </div>
   </section>
 </template>
+
 <script>
 import axios from 'axios';
 import GkDate from './GkDate.vue';
@@ -393,7 +530,7 @@ export default {
           key: 'particulars',
           label: 'Particulars',
         },
-         {
+        {
           key: 'transactionType',
           label: 'Trntype',
         },
@@ -459,53 +596,53 @@ export default {
           const data = r.data;
           if (r.status == 200) {
             switch (data.gkstatus) {
-              case 0:
-                {
-                  const r = data.gkresult.map((item) => {
-                    if (item.trntype === 'delchal&invoice') {
-                      item.trntype = 'invoice';
-                    }
-                    return item;
-                  });
-                  this.report = r;
-                  this.immutableReport = r;
-                }
-                break;
-              case 1:
-                this.gk_toast(
-                  this.$gettext('Alert'),
-                  this.$gettext('Duplicate Entry'),
-                  'warning'
-                );
-                break;
-              case 2:
-                this.gk_toast(
-                  this.$gettext('Unauthorised Access'),
-                  this.$gettext('Invalid user'),
-                  'danger'
-                );
-                break;
-              case 3:
-                this.gk_toast(
-                  this.$gettext('Data Error'),
-                  this.$gettext('Error in fetching the data'),
-                  'danger'
-                );
-                break;
-              case 4:
-                this.gk_toast(
-                  this.$gettext('Privilege Error'),
-                  this.$gettext('Your role does not have access to this data'),
-                  'danger'
-                );
-                break;
-              case 5:
-                this.gk_toast(
-                  this.$gettext('Integrity error'),
-                  this.$gettext('Something unexpected has happened'),
-                  'danger'
-                );
-                break;
+            case 0:
+              {
+                const r = data.gkresult.map((item) => {
+                  if (item.trntype === 'delchal&invoice') {
+                    item.trntype = 'invoice';
+                  }
+                  return item;
+                });
+                this.report = r;
+                this.immutableReport = r;
+              }
+              break;
+            case 1:
+              this.gk_toast(
+                this.$gettext('Alert'),
+                this.$gettext('Duplicate Entry'),
+                'warning'
+              );
+              break;
+            case 2:
+              this.gk_toast(
+                this.$gettext('Unauthorised Access'),
+                this.$gettext('Invalid user'),
+                'danger'
+              );
+              break;
+            case 3:
+              this.gk_toast(
+                this.$gettext('Data Error'),
+                this.$gettext('Error in fetching the data'),
+                'danger'
+              );
+              break;
+            case 4:
+              this.gk_toast(
+                this.$gettext('Privilege Error'),
+                this.$gettext('Your role does not have access to this data'),
+                'danger'
+              );
+              break;
+            case 5:
+              this.gk_toast(
+                this.$gettext('Integrity error'),
+                this.$gettext('Something unexpected has happened'),
+                'danger'
+              );
+              break;
             }
           } else {
             this.gk_toast(

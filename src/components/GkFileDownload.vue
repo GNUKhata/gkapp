@@ -20,7 +20,7 @@
         class="align-middle"
         :icon="icon"
         :font-scale="fontScale"
-      ></b-icon>
+      />
       {{ name }}
     </b-overlay>
   </b-button>

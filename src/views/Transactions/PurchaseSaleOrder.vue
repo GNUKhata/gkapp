@@ -6,10 +6,20 @@
   >
     <b-form @submit.prevent="confirmOnSubmit">
       <div class="text-center pt-2">
-        <h4 v-if="isSale" v-translate>Create Sale Order</h4>
-        <h4 v-else v-translate>Create Purchase Order</h4>
+        <h4
+          v-if="isSale"
+          v-translate
+        >
+          Create Sale Order
+        </h4>
+        <h4
+          v-else
+          v-translate
+        >
+          Create Purchase Order
+        </h4>
       </div>
-      <hr />
+      <hr>
       <div class="mb-2">
         <b-form-radio-group
           v-model="form.type"
@@ -29,50 +39,51 @@
         <span class="float-right">
           <config
             title="Invoice Page Configuration"
-            getDefault="getDefaultInvoiceConfig"
-            setCustom="updateInvoiceConfig"
-            getCustom="getCustomInvoiceConfig"
-          >
-          </config>
+            get-default="getDefaultInvoiceConfig"
+            set-custom="updateInvoiceConfig"
+            get-custom="getCustomInvoiceConfig"
+          />
         </span>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
       </div>
-      <b-card-group class="d-block d-md-flex my-2" deck>
+      <b-card-group
+        class="d-block d-md-flex my-2"
+        deck
+      >
         <!-- Buyer/Seller Details -->
         <party-details
           :mode="form.type"
-          :parentData="form.party"
-          :gstFlag="isGst"
-          :invoiceParty="invoiceParty"
+          :parent-data="form.party"
+          :gst-flag="isGst"
+          :invoice-party="invoiceParty"
           :config="config.party"
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.party"
+          :update-counter="updateCounter.party"
           ref="party"
-        >
-        </party-details>
+        />
         <!-- Purchase Sale Order Details -->
         <ps-order-details
           :config="config.psOrder"
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.psOrder"
+          :update-counter="updateCounter.psOrder"
           ref="psOrder"
-        ></ps-order-details>
+        />
         <!-- Shipping Details -->
         <ship-details
           :states="options.states"
-          :gstFlag="isGst"
-          :saleFlag="isSale"
-          :billingDetails="form.party"
-          :organisationDetails="options.orgDetails"
-          :updateCounter="updateCounter.ship"
+          :gst-flag="isGst"
+          :sale-flag="isSale"
+          :billing-details="form.party"
+          :organisation-details="options.orgDetails"
+          :update-counter="updateCounter.ship"
           :config="config.ship"
           ref="ship"
-        >
-        </ship-details>
+        />
       </b-card-group>
-      <div class="my-2"
+      <div
+        class="my-2"
         v-if="config.taxType && isGstEnabled && isVatEnabled"
       >
         <b-form-radio-group
@@ -81,76 +92,96 @@
           buttons
           v-model="form.taxType"
         >
-          <b-form-radio value="gst">GST</b-form-radio>
-          <b-form-radio value="vat">VAT</b-form-radio>
+          <b-form-radio value="gst">
+            GST
+          </b-form-radio>
+          <b-form-radio value="vat">
+            VAT
+          </b-form-radio>
         </b-form-radio-group>
       </div>
       <!-- Bill Table -->
       <bill-table
-        :invDate="form.psOrder.date"
-        :gstFlag="isGst"
-        :cgstFlag="isCgst"
-        :vatFlag="isVat"
-        :saleFlag="isSale"
-        :blockEmptyStock="isSale"
+        :inv-date="form.psOrder.date"
+        :gst-flag="isGst"
+        :cgst-flag="isCgst"
+        :vat-flag="isVat"
+        :sale-flag="isSale"
+        :block-empty-stock="isSale"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
-        :updateCounter="updateCounter.bill"
-        :parentData="form.bill"
-        :godownId="goid"
+        :update-counter="updateCounter.bill"
+        :parent-data="form.bill"
+        :godown-id="goid"
         ref="bill"
-      ></bill-table>
+      />
       <div class="px-2">
         <!-- b-row has to be enclosed in a container tag with padding
          atleast 2, to avoid creating an offset to the right -->
-        <b-row class="mt-5" v-if="config.total">
-          <b-col cols="12" lg="6" order-lg="1" order="2"> </b-col>
-          <b-col cols="12" lg="6" order-lg="2" order="1">
+        <b-row
+          class="mt-5"
+          v-if="config.total"
+        >
+          <b-col
+            cols="12"
+            lg="6"
+            order-lg="1"
+            order="2"
+          />
+          <b-col
+            cols="12"
+            lg="6"
+            order-lg="2"
+            order="1"
+          >
             <total-table
               :config="config.total"
-              :gstFlag="isGst"
-              :cgstFlag="isCgst"
-              :vatFlag="isVat"
-              :billData="form.bill"
-              :updateCounter="updateCounter.totalTable"
+              :gst-flag="isGst"
+              :cgst-flag="isCgst"
+              :vat-flag="isVat"
+              :bill-data="form.bill"
+              :update-counter="updateCounter.totalTable"
               ref="totalTable"
-            ></total-table>
+            />
           </b-col>
         </b-row>
       </div>
-      <b-card-group class="d-block d-md-flex" deck>
+      <b-card-group
+        class="d-block d-md-flex"
+        deck
+      >
         <!-- Payment Details -->
         <payment-details
           ref="payment"
-          :updateCounter="updateCounter.payment"
-          :parentData="form.payment"
+          :update-counter="updateCounter.payment"
+          :parent-data="form.payment"
           :config="config.payment"
-          :saleFlag="isSale"
-          :optionsData="{
+          :sale-flag="isSale"
+          :options-data="{
             payModes: [
-              { text: '-- Payment Mode --', value: null },
-              { text: 'Cash', value: 3 },
-              { text: 'Bank', value: 2 },
+              {text: '-- Payment Mode --', value: null},
+              {text: 'Cash', value: 3},
+              {text: 'Bank', value: 2},
             ],
           }"
-        ></payment-details>
+        />
         <!-- Transport Details -->
         <transport-details
           ref="transport"
           :config="config.transport"
-          :updateCounter="updateCounter.transport"
-          :parentData="form.transport"
-          :invDate="form.psOrder.date"
+          :update-counter="updateCounter.transport"
+          :parent-data="form.transport"
+          :inv-date="form.psOrder.date"
           @details-updated="onComponentDataUpdate"
-        ></transport-details>
+        />
         <!-- Invoice Comments -->
         <comments
           :name="`PurchaseSalesOrder`"
           ref="narration"
           :config="config.comments"
-          :updateCounter="updateCounter.comments"
-          :parentData="form.comments"
-        ></comments>
+          :update-counter="updateCounter.comments"
+          :parent-data="form.comments"
+        />
       </b-card-group>
       <b-tooltip
         target="inv-submit"
@@ -160,12 +191,12 @@
       >
         <translate
           translate-comment="%{start} and %{end} are a variables, translation is not required for them. Enter them, as they are while translation."
-          :translate-params="{ start: yearStart, end: yearEnd }"
+          :translate-params="{start: yearStart, end: yearEnd}"
         >
           Date must be within the Financial Year, from %{start} to %{end}
         </translate>
       </b-tooltip>
-      <hr />
+      <hr>
       <div class="float-right">
         <b-button
           class="m-1"
@@ -177,8 +208,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-left"
-          ></b-icon>
-          <span class="align-middle" v-translate>Back</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Back</span>
         </b-button>
         <b-button
           class="m-1"
@@ -190,8 +224,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-repeat"
-          ></b-icon>
-          <span class="align-middle" v-translate>Reset</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Reset</span>
         </b-button>
         <b-button
           id="inv-submit"
@@ -202,18 +239,24 @@
           variant="success"
         >
           <span>
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Create</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Create</span>
           </span>
         </b-button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </b-form>
     <print-page
       :show="showPrintModal"
@@ -222,8 +265,7 @@
       :id="orderId"
       :pdata="{}"
       @hidden="showPrintModal = false"
-    >
-    </print-page>
+    />
   </b-container>
 </template>
 
@@ -357,31 +399,31 @@ export default {
   methods: {
     onComponentDataUpdate(payload) {
       switch (payload.name) {
-        case 'ps-order-details':
-          {
-            Object.assign(this.form.psOrder, payload.data);
-            this.isInvDateValid = payload.options.isDateValid;
-            this.form.transport.date = this.form.psOrder.date;
+      case 'ps-order-details':
+        {
+          Object.assign(this.form.psOrder, payload.data);
+          this.isInvDateValid = payload.options.isDateValid;
+          this.form.transport.date = this.form.psOrder.date;
 
-            this.goid = payload.data.godown || -1;
+          this.goid = payload.data.godown || -1;
 
-            const self = this;
-            setTimeout(function() {
-              self.updateCounter.transport++;
-            });
-          }
-          break;
-        case 'party-details':
-          Object.assign(this.form.party, payload.data);
-          this.updateCounter.ship++;
-          break;
-        case 'bill-table':
-          Object.assign(this.form.bill, payload.data);
-          this.updateCounter.totalTable++;
-          break;
-        case 'transport-details':
-          Object.assign(this.form.transport, payload.data);
-          break;
+          const self = this;
+          setTimeout(function() {
+            self.updateCounter.transport++;
+          });
+        }
+        break;
+      case 'party-details':
+        Object.assign(this.form.party, payload.data);
+        this.updateCounter.ship++;
+        break;
+      case 'bill-table':
+        Object.assign(this.form.bill, payload.data);
+        this.updateCounter.totalTable++;
+        break;
+      case 'transport-details':
+        Object.assign(this.form.transport, payload.data);
+        break;
       }
     },
     collectComponentData() {
@@ -578,58 +620,58 @@ export default {
           self.isLoading = false;
           if (resp.status === 200) {
             switch (resp.data.gkstatus) {
-              case 0:
-                {
-                  // success
-                  this.displayToast(
-                    `Create ${orderType} Successfull!`,
-                    `${orderType} was successfully created`,
-                    'success'
-                  );
+            case 0:
+              {
+                // success
+                this.displayToast(
+                  `Create ${orderType} Successfull!`,
+                  `${orderType} was successfully created`,
+                  'success'
+                );
 
-                  let log = {
-                    activity: `${orderType.toLowerCase()} created: ${
-                      self.form.psOrder.no
-                    }`,
-                  };
-                  axios.post('/log', log);
-                  this.resetForm();
-                  this.showPrintModal = true;
-                  this.orderId = resp.data.gkresult;
-                }
-                break;
-              case 1:
-                // Duplicate entry
-                this.displayToast(
-                  `Create ${orderType} Failed!`,
-                  this.$gettext('Duplicate Entry, Check Id'),
-                  'warning'
-                );
-                break;
-              case 2:
-                // Unauthorized access
-                this.displayToast(
-                  `Create ${orderType} Failed!`,
-                  this.$gettext('Unauthorized Access, Contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-                // Connection failed, Check inputs and try again
-                this.displayToast(
-                  `Create ${orderType} Failed!`,
-                  this.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
-                break;
-              default:
-                // Connection failed, Check inputs and try again
-                this.displayToast(
-                  `Create ${orderType} Failed!`,
-                  this.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
-                break;
+                let log = {
+                  activity: `${orderType.toLowerCase()} created: ${
+                    self.form.psOrder.no
+                  }`,
+                };
+                axios.post('/log', log);
+                this.resetForm();
+                this.showPrintModal = true;
+                this.orderId = resp.data.gkresult;
+              }
+              break;
+            case 1:
+              // Duplicate entry
+              this.displayToast(
+                `Create ${orderType} Failed!`,
+                this.$gettext('Duplicate Entry, Check Id'),
+                'warning'
+              );
+              break;
+            case 2:
+              // Unauthorized access
+              this.displayToast(
+                `Create ${orderType} Failed!`,
+                this.$gettext('Unauthorized Access, Contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+              // Connection failed, Check inputs and try again
+              this.displayToast(
+                `Create ${orderType} Failed!`,
+                this.$gettext('Please check your input and try again later'),
+                'danger'
+              );
+              break;
+            default:
+              // Connection failed, Check inputs and try again
+              this.displayToast(
+                `Create ${orderType} Failed!`,
+                this.$gettext('Please check your input and try again later'),
+                'danger'
+              );
+              break;
             }
           }
         })
@@ -646,20 +688,20 @@ export default {
       this.showPrintModal = false;
       let paymentMode;
       switch (this.defaultPaymentMode) {
-        case 'credit':
-          {
-            paymentMode = 15;
-          }
-          break;
-        case 'bank':
-          {
-            paymentMode = 2;
-          }
-          break;
-        case 'cash':
-        default: {
-          paymentMode = 3;
+      case 'credit':
+        {
+          paymentMode = 15;
         }
+        break;
+      case 'bank':
+        {
+          paymentMode = 2;
+        }
+        break;
+      case 'cash':
+      default: {
+        paymentMode = 3;
+      }
       }
       let type = this.form.type;
       this.form = {

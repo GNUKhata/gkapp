@@ -25,11 +25,14 @@
           v-model="searchText"
           size="sm"
           style="align-self:center"
-        ></b-form-input>
+        />
       </template>
       <div>
-        <b-button variant="link" id="date-select">
-          <b-icon icon="funnel"></b-icon>
+        <b-button
+          variant="link"
+          id="date-select"
+        >
+          <b-icon icon="funnel" />
         </b-button>
         <!-- Filters -->
         <b-popover
@@ -40,7 +43,10 @@
         >
           <!-- Get logs by date range -->
           <b-form @submit.prevent="logsByDateRange">
-            <h6 class="bg-dark text-light p-1" v-text="'Date Range'"></h6>
+            <h6
+              class="bg-dark text-light p-1"
+              v-text="'Date Range'"
+            />
             <!-- date start -->
             <gk-date
               id="fd"
@@ -49,7 +55,7 @@
               :min="dateReverse(yearStart)"
               :max="dateReverse(yearEnd)"
               :required="true"
-            ></gk-date>
+            />
 
             <!-- date end -->
             <gk-date
@@ -60,15 +66,22 @@
               :max="dateReverse(yearEnd)"
               :required="true"
               class="mb-2 mt-2"
-            ></gk-date>
+            />
             <b-button-group size="sm">
-              <b-button variant="dark" type="submit"
-                ><translate>Submit</translate></b-button
+              <b-button
+                variant="dark"
+                type="submit"
               >
+                <translate>Submit</translate>
+              </b-button>
 
-              <b-button @click="$router.go()" variant="danger" class="ml-1"
-                ><translate>Clear</translate></b-button
+              <b-button
+                @click="$router.go()"
+                variant="danger"
+                class="ml-1"
               >
+                <translate>Clear</translate>
+              </b-button>
             </b-button-group>
           </b-form>
           <!-- <hr /> -->
@@ -86,7 +99,10 @@
           Audit Logs: From {{ dateReverse(dateRange.from) }} to
           {{ dateReverse(dateRange.to) }}
         </div>
-        <div v-else class="text-center">
+        <div
+          v-else
+          class="text-center"
+        >
           Audit Logs: From {{ dateReverse(yearStart) }} to
           {{ dateReverse(yearEnd) }}
         </div>
@@ -102,7 +118,10 @@
       show
       variant="warning"
     >
-      <b-icon icon="exclamation-triangle-fill" class="mr-1"></b-icon>
+      <b-icon
+        icon="exclamation-triangle-fill"
+        class="mr-1"
+      />
       <translate>No Logs Available</translate>
     </b-alert>
     <b-table
@@ -121,7 +140,10 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle" type="grow"></b-spinner>
+          <b-spinner
+            class="align-middle"
+            type="grow"
+          />
           <strong>
             <translate>Fetching Logs ...</translate>
           </strong>
@@ -131,14 +153,20 @@
         {{ data.item.username }}
       </template>
       <template #cell(time)="data">
-        <b-icon icon="calendar-event" class="mr-1"></b-icon>
+        <b-icon
+          icon="calendar-event"
+          class="mr-1"
+        />
         {{ data.item.time.split(' ')[0] }}
-        <b-icon icon="clock" class="mr-1"></b-icon
-        >{{ data.item.time.split(' ')[1] }}
+        <b-icon
+          icon="clock"
+          class="mr-1"
+        />{{ data.item.time.split(' ')[1] }}
       </template>
     </b-table>
   </section>
 </template>
+
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
@@ -174,29 +202,29 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.dateRange.isActive = true;
-                this.log = r.data.gkresult;
-                this.$root.$emit('bv::hide::popover', 'date-select');
-                this.isLoading = false;
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+            case 0:
+              this.dateRange.isActive = true;
+              this.log = r.data.gkresult;
+              this.$root.$emit('bv::hide::popover', 'date-select');
+              this.isLoading = false;
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                title: this.$gettext('Error'),
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(
+                this.$gettext('You have no permission to access'),
+                {
                   title: this.$gettext('Error'),
                   variant: 'danger',
                   solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(
-                  this.$gettext('You have no permission to access'),
-                  {
-                    title: this.$gettext('Error'),
-                    variant: 'danger',
-                    solid: true,
-                  }
-                );
-                break;
+                }
+              );
+              break;
             }
           }
         });
@@ -207,29 +235,29 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.log = r.data.gkresult.reverse();
-                this.isLoading = false;
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+            case 0:
+              this.log = r.data.gkresult.reverse();
+              this.isLoading = false;
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                title: this.$gettext('Error'),
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(
+                this.$gettext('You have no permission to access'),
+                {
                   title: this.$gettext('Error'),
                   variant: 'danger',
                   solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(
-                  this.$gettext('You have no permission to access'),
-                  {
-                    title: this.$gettext('Error'),
-                    variant: 'danger',
-                    solid: true,
-                  }
-                );
-                break;
-              default:
-                console.log(r.data.gkstatus);
+                }
+              );
+              break;
+            default:
+              console.log(r.data.gkstatus);
             }
           }
         })

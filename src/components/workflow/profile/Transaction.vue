@@ -1,8 +1,12 @@
 <template>
   <!--add custom data here  -->
   <div>
-    <component v-bind:is="name" :pdata="pdata" :id="id" :onUpdate="onUpdate">
-    </component>
+    <component
+      :is="name"
+      :pdata="pdata"
+      :id="id"
+      :on-update="onUpdate"
+    />
   </div>
 </template>
 

@@ -28,8 +28,8 @@
                     inv.icflag === 3
                       ? 'Transactions-CashMemo' : 
                         'Transactions-Invoice',
-                  wfId: inv.id
-                }
+                  wfId: inv.id,
+                },
               }"
             >{{ inv.icflag === 3 ? 'View Cash Memo' : 'View Invoice' }}
             </router-link>
@@ -144,7 +144,7 @@
           :items="totalDetails"
           :fields="[
             {key: 'title', label: 'Total', tdClass: ''},
-            {key: 'value', label: '₹', class: 'text-right'}
+            {key: 'value', label: '₹', class: 'text-right'},
           ]"
           small
           fixed

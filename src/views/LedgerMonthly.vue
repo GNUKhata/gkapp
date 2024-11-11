@@ -18,7 +18,7 @@
           :url="
             `/spreadsheet/ledger/monthly?accountcode=${this.accountCode}&accname=${this.accountName}&fystart=${this.yearStart}&fyend=${this.yearEnd}&orgname=${this.orgName}`
           "
-        ></gk-file-download>
+        />
       </gk-toolbar>
       <b-table
         :items="result"
@@ -32,7 +32,7 @@
         primary-key="particulars"
         :busy="loading"
         :fields="fields"
-      ></b-table>
+      />
     </b-overlay>
   </section>
 </template>
@@ -97,40 +97,40 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.result = r.data.gkresult;
-                this.accountName = r.data.accountname;
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.result = r.data.gkresult;
+              this.accountName = r.data.accountname;
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           }
           this.loading = false;

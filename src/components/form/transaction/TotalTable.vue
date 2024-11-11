@@ -2,60 +2,89 @@
   <b-table-simple responsive>
     <b-thead>
       <b-tr>
-        <b-th v-translate>Total</b-th>
-        <b-th :style="{ minWidth: '70px' }" class="text-right text-truncate"
-          >₹</b-th
+        <b-th v-translate>
+          Total
+        </b-th>
+        <b-th
+          :style="{minWidth: '70px'}"
+          class="text-right text-truncate"
         >
+          ₹
+        </b-th>
       </b-tr>
     </b-thead>
     <b-tbody>
       <template v-if="isIndia">
         <b-tr v-if="(gstFlag || vatFlag) && config.taxable">
-          <b-td v-translate>Taxable Amount</b-td>
-          <b-td class="text-right">{{ form.taxable || '-' }}</b-td>
+          <b-td v-translate>
+            Taxable Amount
+          </b-td>
+          <b-td class="text-right">
+            {{ form.taxable || '-' }}
+          </b-td>
         </b-tr>
         <b-tr v-if="gstFlag && cgstFlag && config.igst">
           <b-td>CGST</b-td>
-          <b-td class="text-right">{{ form.igst / 2 || '-' }}</b-td>
+          <b-td class="text-right">
+            {{ form.igst / 2 || '-' }}
+          </b-td>
         </b-tr>
         <b-tr v-if="gstFlag && cgstFlag && config.igst">
           <b-td>SGST</b-td>
-          <b-td class="text-right">{{ form.igst / 2 || '-' }}</b-td>
+          <b-td class="text-right">
+            {{ form.igst / 2 || '-' }}
+          </b-td>
         </b-tr>
         <b-tr v-if="gstFlag && !cgstFlag && config.igst">
           <b-td>IGST</b-td>
-          <b-td class="text-right">{{ form.igst || '-' }}</b-td>
+          <b-td class="text-right">
+            {{ form.igst || '-' }}
+          </b-td>
         </b-tr>
         <b-tr v-if="gstFlag && config.cess">
           <b-td>CESS</b-td>
-          <b-td class="text-right">{{ form.cess || '-' }}</b-td>
+          <b-td class="text-right">
+            {{ form.cess || '-' }}
+          </b-td>
         </b-tr>
         <b-tr v-if="vatFlag && config.vat">
           <b-td>VAT</b-td>
-          <b-td class="text-right">{{ form.vat || '-' }}</b-td>
+          <b-td class="text-right">
+            {{ form.vat || '-' }}
+          </b-td>
         </b-tr>
       </template>
       <b-tr v-if="config.discount">
-        <b-td v-translate>Discount</b-td>
-        <b-td class="text-right">{{ form.discount || '-' }}</b-td>
+        <b-td v-translate>
+          Discount
+        </b-td>
+        <b-td class="text-right">
+          {{ form.discount || '-' }}
+        </b-td>
       </b-tr>
       <b-tr v-if="config.value">
         <b-td>
           <span class="float-left">{{ transactionName }}</span>
         </b-td>
-        <b-td class="text-right">{{ form.amount || '-' }}</b-td>
+        <b-td class="text-right">
+          {{ form.amount || '-' }}
+        </b-td>
       </b-tr>
       <b-tr v-if="form.roundFlag && config.roundOff">
-        <b-td
-          >{{ transactionName }} <span v-translate> (Rounded Off) </span>
+        <b-td>
+          {{ transactionName }} <span v-translate> (Rounded Off) </span>
         </b-td>
-        <b-td class="text-right">{{ form.rounded || '-' }}</b-td>
+        <b-td class="text-right">
+          {{ form.rounded || '-' }}
+        </b-td>
       </b-tr>
       <b-tr v-if="config.valueText">
-        <b-td
-          >{{ transactionName }} <span v-translate> (in words) </span>
+        <b-td>
+          {{ transactionName }} <span v-translate> (in words) </span>
         </b-td>
-        <b-td class="text-right"> {{ totalText }}</b-td>
+        <b-td class="text-right">
+          {{ totalText }}
+        </b-td>
       </b-tr>
       <b-tr>
         <b-td>
@@ -70,7 +99,7 @@
             <translate> Round Off Total Value </translate>
           </b-form-checkbox>
         </b-td>
-        <b-td></b-td>
+        <b-td />
       </b-tr>
     </b-tbody>
   </b-table-simple>

@@ -6,8 +6,12 @@
     border-variant="secondary"
     no-body
   >
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="p-2 p-md-3">
       <div>
         <b>
@@ -27,10 +31,13 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
-      <div class="mt-3" :class="{ 'd-md-block': true, 'd-none': !isCollapsed }">
+      <div
+        class="mt-3"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
+      >
         <b-form-group>
           <b-form-radio-group
             button-variant="outline-secondary"
@@ -55,8 +62,14 @@
           label-size="sm"
         >
           <template #label>
-            <span v-if="isCredit" v-translate> Cr Note No. </span>
-            <span v-else v-translate> Dr Note No. </span>
+            <span
+              v-if="isCredit"
+              v-translate
+            > Cr Note No. </span>
+            <span
+              v-else
+              v-translate
+            > Dr Note No. </span>
           </template>
           <b-form-input
             size="sm"
@@ -64,7 +77,7 @@
             v-model="form.no"
             trim
             required
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           id="dcd-input-group-1"
@@ -75,8 +88,14 @@
           label-size="sm"
         >
           <template #label>
-            <span v-if="isCredit" v-translate> Cr Note Date </span>
-            <span v-else v-translate> Dr Note Date </span>
+            <span
+              v-if="isCredit"
+              v-translate
+            > Cr Note Date </span>
+            <span
+              v-else
+              v-translate
+            > Dr Note Date </span>
           </template>
           <gk-date
             v-model="form.date"
@@ -86,7 +105,7 @@
             id="dcd-date-1"
             @validity="setDateValidity"
             :required="true"
-          ></gk-date>
+          />
         </b-form-group>
         <!-- <b-form-group
           label="GSTIN"
@@ -111,7 +130,9 @@
           label-cols-lg="3"
           label-cols="4"
         >
-          <template #label> <translate> Purpose </translate> </template>
+          <template #label>
+            <translate> Purpose </translate>
+          </template>
           <b-form-select
             size="sm"
             id="dcd-input-20"
@@ -121,16 +142,21 @@
             @input="onUpdateDetails"
             :options="options.drcrModes"
             @change="onDropdownChange"
-          >
-          </b-form-select>
+          />
         </b-form-group>
         <b-form-group v-if="isCredit && isReturn && saleFlag">
-          <b-form-checkbox v-model="form.badQuality" size="sm">
+          <b-form-checkbox
+            v-model="form.badQuality"
+            size="sm"
+          >
             <translate> Bad Quality Goods </translate>
           </b-form-checkbox>
         </b-form-group>
         <b-form-group>
-          <b-form-checkbox v-model="form.referenceFlag" size="sm">
+          <b-form-checkbox
+            v-model="form.referenceFlag"
+            size="sm"
+          >
             <translate> Reference (If received) </translate>
           </b-form-checkbox>
         </b-form-group>
@@ -143,8 +169,14 @@
           label-size="sm"
         >
           <template #label>
-            <span v-if="isCredit" v-translate> Dr Note No. </span>
-            <span v-else v-translate> Cr Note No. </span>
+            <span
+              v-if="isCredit"
+              v-translate
+            > Dr Note No. </span>
+            <span
+              v-else
+              v-translate
+            > Cr Note No. </span>
           </template>
           <b-form-input
             size="sm"
@@ -152,7 +184,7 @@
             v-model="form.ref.no"
             trim
             required
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           v-if="form.referenceFlag"
@@ -164,8 +196,14 @@
           label-size="sm"
         >
           <template #label>
-            <span v-if="isCredit" v-translate> Dr Note Date </span>
-            <span v-else v-translate> Cr Note Date </span>
+            <span
+              v-if="isCredit"
+              v-translate
+            > Dr Note Date </span>
+            <span
+              v-else
+              v-translate
+            > Cr Note Date </span>
           </template>
           <gk-date
             v-model="form.ref.date"
@@ -175,12 +213,13 @@
             id="dcd-date-2"
             @validity="setDateValidity"
             :required="true"
-          ></gk-date>
+          />
         </b-form-group>
       </div>
     </div>
   </b-card>
 </template>
+
 <script>
 import axios from 'axios';
 // import { mapState } from 'vuex';

@@ -1,13 +1,24 @@
 <template>
   <section class="container-fluid mt-2">
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
-    <b-container fluid v-if="activeWorkflow.index === null">
-      <b-card-group role="tab" deck class="mt-5">
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
+    <b-container
+      fluid
+      v-if="activeWorkflow.index === null"
+    >
+      <b-card-group
+        role="tab"
+        deck
+        class="mt-5"
+      >
         <b-card
           tabindex="0"
           v-for="(tab, tabName, index) in options.tabs"
-          v-on:keyup.enter="setActiveWorkflow(index, tabName, tab.icon)"
+          @keyup.enter="setActiveWorkflow(index, tabName, tab.icon)"
           :key="index"
           @click.prevent="setActiveWorkflow(index, tabName, tab.icon)"
           class="text-center"
@@ -23,13 +34,18 @@
               :variant="tab.color"
               class="mt-4"
               :icon="tab.icon"
-            ></b-icon>
+            />
           </b-card-text>
-          <b-card-text class="mt-4">{{ tabName }}</b-card-text>
+          <b-card-text class="mt-4">
+            {{ tabName }}
+          </b-card-text>
         </b-card>
       </b-card-group>
     </b-container>
-    <b-row v-else no-gutters>
+    <b-row
+      v-else
+      no-gutters
+    >
       <!-- Left Pane: Workflow Selection & Corresponding Data list -->
       <b-col
         cols="12"
@@ -39,9 +55,17 @@
         class="d-none d-md-block d-block"
       >
         <b-card no-body>
-          <b-overlay :show="isLoading" blur no-wrap rounded="lg"></b-overlay>
+          <b-overlay
+            :show="isLoading"
+            blur
+            no-wrap
+            rounded="lg"
+          />
           <!-- Workflow Selection & Filter -->
-          <b-card-header ref="leftHeader" class="px-2">
+          <b-card-header
+            ref="leftHeader"
+            class="px-2"
+          >
             <!-- Drop down 1: Worflow selection -->
             <b-dropdown
               :variant="activeWorkflow.color"
@@ -56,7 +80,7 @@
                   class="d-inline-block text-truncate float-left mr-1"
                   style="max-width: 150px"
                 >
-                  <b-icon :icon="activeWorkflow.icon"></b-icon>
+                  <b-icon :icon="activeWorkflow.icon" />
                   {{
                     activeWorkflow.name.includes('-')
                       ? activeWorkflow.tabName
@@ -68,7 +92,7 @@
                 v-for="(tab, tabName, index1) in options.tabs"
                 :key="index1"
                 @click.prevent="setActiveWorkflow(index1, tabName, tab.icon)"
-                :link-class="{ 'p-0': tab.tabs }"
+                :link-class="{'p-0': tab.tabs}"
               >
                 <!-- Option with Sub Menu -->
                 <b-dropdown
@@ -84,7 +108,7 @@
                   no-flip
                 >
                   <template #button-content>
-                    <b-icon :icon="tab.icon"></b-icon> {{ tabName }}
+                    <b-icon :icon="tab.icon" /> {{ tabName }}
                   </template>
                   <b-dropdown-item
                     v-for="(tab2, tabName2, index2) in tab.tabs"
@@ -92,17 +116,17 @@
                     @click.prevent="
                       setActiveWorkflow(
                         index2,
-                        { parent: tabName, child: tabName2 },
-                        tab2.icon
+                        {parent: tabName, child: tabName2},
+                        tab2.icon,
                       )
                     "
                   >
-                    <b-icon :icon="tab2.icon"></b-icon> {{ tabName2 }}
+                    <b-icon :icon="tab2.icon" /> {{ tabName2 }}
                   </b-dropdown-item>
                 </b-dropdown>
                 <!-- Option without Sub Menu -->
                 <span v-else>
-                  <b-icon :icon="tab.icon"></b-icon> {{ tabName }}
+                  <b-icon :icon="tab.icon" /> {{ tabName }}
                 </span>
               </b-dropdown-item>
             </b-dropdown>
@@ -118,13 +142,12 @@
                 class="align-middle"
                 :font-scale="1"
                 icon="three-dots-vertical"
-              ></b-icon
-              ><span class="sr-only">Options</span>
+              /><span class="sr-only">Options</span>
             </b-button>
             <b-collapse v-model="isOptionsOpen">
               <b-button-group
                 class="float-right"
-                :class="{ 'mt-2': isOptionsOpen }"
+                :class="{'mt-2': isOptionsOpen}"
               >
                 <b-button
                   class="px-1"
@@ -136,20 +159,19 @@
                     class="align-middle"
                     :font-scale="1"
                     icon="funnel"
-                  ></b-icon
-                  ><span class="sr-only">Filter</span>
+                  /><span class="sr-only">Filter</span>
                 </b-button>
                 <print-helper
                   class="px-md-1 px-2"
-                  :contentId="`list-${activeWorkflow.tabName}`"
-                  :fontScale="1"
-                  iconName="file-earmark-arrow-down"
+                  :content-id="`list-${activeWorkflow.tabName}`"
+                  :font-scale="1"
+                  icon-name="file-earmark-arrow-down"
                   variant="outline-dark"
-                  :fileName="fileName.list"
-                  :toggleFlag="toggleFlag"
+                  :file-name="fileName.list"
+                  :toggle-flag="toggleFlag"
                   title="Download Pdf"
-                  :messageFromParent="parentMessage"
-                ></print-helper>
+                  :message-from-parent="parentMessage"
+                />
                 <!-- product / service spreadsheet -->
                 <gk-file-download
                   variant="outline-dark"
@@ -161,9 +183,9 @@
                     `/spreadsheet?pslist&fystart=${this.yearStart}&fyend=${this.yearEnd}&orgname=${this.orgName}`
                   "
                   title="Download Product Service List"
-                  :toggleFlag="toggleFlag"
-                  :messageFromParent="parentMessage"
-                ></gk-file-download>
+                  :toggle-flag="toggleFlag"
+                  :message-from-parent="parentMessage"
+                />
                 <!-- Invoice spreadsheet -->
                 <gk-file-download
                   variant="outline-dark"
@@ -179,9 +201,9 @@
                     `/spreadsheet?invoice-list&fystart=${this.yearStart}&fyend=${this.yearEnd}&orgname=${this.orgName}&fromdate=${this.filters.range.from}&todate=${this.filters.range.to}&flag=0&type=invoice_list`
                   "
                   title="Download All Invoice List"
-                  :toggleFlag="toggleFlag"
-                  :messageFromParent="parentMessage"
-                ></gk-file-download>
+                  :toggle-flag="toggleFlag"
+                  :message-from-parent="parentMessage"
+                />
                 <!-- Cancelled Invoice spreadsheet -->
                 <gk-file-download
                   variant="outline-dark"
@@ -197,9 +219,9 @@
                     `/spreadsheet?invoice-cancelled&fystart=${this.yearStart}&fyend=${this.yearEnd}&orgname=${this.orgName}&fromdate=${this.filters.range.from}&todate=${this.filters.range.to}&flag=0&type=invoice_list`
                   "
                   title="Download Cancelled Invoice Spreadsheet"
-                   :toggleFlag="toggleFlag"
-                  :messageFromParent="parentMessage"
-                ></gk-file-download>
+                  :toggle-flag="toggleFlag"
+                  :message-from-parent="parentMessage"
+                />
                 <!-- Credit Invoice Spreadsheet -->
                 <gk-file-download
                   variant="outline-dark"
@@ -214,14 +236,14 @@
                   :font-scale="1"
                   :url="
                     `/spreadsheet?invoice-outstanding&fromdate=${dateReverse(
-                      this.filters.range.from
+                      this.filters.range.from,
                     )}&todate=${dateReverse(
-                      this.filters.range.to
+                      this.filters.range.to,
                     )}&inoutflag=15&orderflag=1&typeflag=4`
                   "
-                  :toggleFlag="toggleFlag"
-                  :messageFromParent="parentMessage"
-                ></gk-file-download>
+                  :toggle-flag="toggleFlag"
+                  :message-from-parent="parentMessage"
+                />
                 <!-- Transfer Note Spreadsheet -->
                 <gk-file-download
                   variant="outline-dark"
@@ -231,13 +253,13 @@
                   :font-scale="1"
                   :url="
                     `/spreadsheet?transfer-notes&startdate=${this.dateReverse(
-                      this.filters.range.from
+                      this.filters.range.from,
                     )}&enddate=${this.dateReverse(this.filters.range.to)}`
                   "
                   title="Download Transfer Notes Spreadsheet"
-                  :toggleFlag="toggleFlag"
-                  :messageFromParent="parentMessage"
-                ></gk-file-download>
+                  :toggle-flag="toggleFlag"
+                  :message-from-parent="parentMessage"
+                />
                 <!-- Unbilled Delivery Note Spreadsheet -->
                 <gk-file-download
                   variant="outline-dark"
@@ -253,9 +275,9 @@
                   :url="
                     `/spreadsheet?delivery-challan-unbilled&inputdate=${this.filters.range.to}&inout=9&del_unbilled_type=All`
                   "
-                  :toggleFlag="toggleFlag"
-                  :messageFromParent="parentMessage"
-                ></gk-file-download>
+                  :toggle-flag="toggleFlag"
+                  :message-from-parent="parentMessage"
+                />
                 <!-- Cancelled Delivery Note Spreadsheet -->
                 <gk-file-download
                   variant="outline-dark"
@@ -271,9 +293,9 @@
                   :url="
                     `/spreadsheet?delivery-challan-cancelled&inputdate=${this.filters.range.to}&inout=15&del_cancelled_type=All`
                   "
-                  :toggleFlag="toggleFlag"
-                  :messageFromParent="parentMessage"
-                ></gk-file-download>
+                  :toggle-flag="toggleFlag"
+                  :message-from-parent="parentMessage"
+                />
                 <!-- Column settings -->
                 <b-button
                   class="px-1"
@@ -285,8 +307,7 @@
                     class="align-middle"
                     :font-scale="1"
                     icon="gear"
-                  ></b-icon
-                  ><span class="sr-only">Column Settings</span>
+                  /><span class="sr-only">Column Settings</span>
                 </b-button>
               </b-button-group>
             </b-collapse>
@@ -302,7 +323,7 @@
               >
                 <b-card-body class="p-2">
                   <b v-translate> List Settings </b>
-                  <hr class="mx-0 my-1" />
+                  <hr class="mx-0 my-1">
                   <div class="container">
                     <b-row>
                       <b-col class="px-1">
@@ -311,7 +332,7 @@
                           text-field="label"
                           :options="activeTabOptions.options.columns"
                           placeholder="Column 1"
-                        ></b-form-select>
+                        />
                       </b-col>
                       <b-col class="px-0">
                         <b-form-select
@@ -319,8 +340,7 @@
                           text-field="label"
                           :options="activeTabOptions.options.columns"
                           placeholder="Column 2"
-                        >
-                        </b-form-select>
+                        />
                       </b-col>
                       <b-col class="px-1">
                         <b-form-select
@@ -328,8 +348,7 @@
                           text-field="label"
                           :options="activeTabOptions.options.columns"
                           placeholder="Column 3"
-                        >
-                        </b-form-select>
+                        />
                       </b-col>
                     </b-row>
                   </div>
@@ -356,16 +375,16 @@
               >
                 <b-card-body class="p-2">
                   <b v-translate> Filter By </b>
-                  <hr class="mx-0 my-1" />
+                  <hr class="mx-0 my-1">
                   <div class="my-2 ml-1">
-                  <b-form-checkbox
-                    v-model="allSelected"
-                    aria-describedby="flavours"
-                    aria-controls="flavours"
-                    @change="toggleAll"
-                  >
-                    All
-                  </b-form-checkbox>
+                    <b-form-checkbox
+                      v-model="allSelected"
+                      aria-describedby="flavours"
+                      aria-controls="flavours"
+                      @change="toggleAll"
+                    >
+                      All
+                    </b-form-checkbox>
                     <b-form-checkbox-group
                       id="checkbox-group-2"
                       v-model="filters.active"
@@ -385,7 +404,7 @@
                           "
                           :icon="filter.icon.name"
                           class="mr-1"
-                        ></b-icon>
+                        />
                         {{ filter.text }}
                       </b-form-checkbox>
                     </b-form-checkbox-group>
@@ -396,7 +415,7 @@
                       size="sm"
                       variant="primary"
                     >
-                      <b-icon icon="arrow-clockwise"></b-icon>
+                      <b-icon icon="arrow-clockwise" />
                     </b-button>
                   </div>
                   <b-form-group
@@ -415,7 +434,7 @@
                               type="text"
                               placeholder="YYYY-MM-DD"
                               autocomplete="off"
-                            ></b-form-input>
+                            />
                             <b-input-group-append>
                               <b-form-datepicker
                                 button-only
@@ -425,7 +444,7 @@
                                 :min="yearStart"
                                 :max="yearEnd"
                                 locale="en-IN"
-                              ></b-form-datepicker>
+                              />
                             </b-input-group-append>
                           </b-input-group>
                         </b-col>
@@ -438,7 +457,7 @@
                               type="text"
                               placeholder="YYYY-MM-DD"
                               autocomplete="off"
-                            ></b-form-input>
+                            />
                             <b-input-group-append>
                               <b-form-datepicker
                                 button-only
@@ -448,7 +467,7 @@
                                 :min="filters.range.from"
                                 :max="yearEnd"
                                 locale="en-IN"
-                              ></b-form-datepicker>
+                              />
                             </b-input-group-append>
                           </b-input-group>
                         </b-col>
@@ -465,7 +484,7 @@
           <div
             v-for="(tab, tabName) in allTabs"
             :key="tabName"
-            :class="{ 'd-none': activeWorkflow.tabName !== tabName }"
+            :class="{'d-none': activeWorkflow.tabName !== tabName}"
           >
             <b-table
               striped
@@ -478,7 +497,7 @@
               :sticky-header="`${listHeight}px`"
               :fields="activeTabOptions.fields"
               :items="activeTabOptions.data"
-              :style="{ 'min-height': `${listHeight}px` }"
+              :style="{'min-height': `${listHeight}px`}"
               selectable
               select-mode="single"
               @row-selected="setSelectedEntity"
@@ -486,7 +505,7 @@
               :id="`list-${tabName}`"
               :filter="
                 activeTabOptions.data.length &&
-                activeWorkflow.tabName === tabName
+                  activeWorkflow.tabName === tabName
                   ? 'a'
                   : null
               "
@@ -494,18 +513,20 @@
               sort-by="dateObj"
               :sort-desc="true"
             >
-              <template #cell(dateObj)="data"> {{ data.item.date }} </template>
+              <template #cell(dateObj)="data">
+                {{ data.item.date }}
+              </template>
             </b-table>
 
             <!-- Add New Workflow Data Item -->
             <span v-if="tab.createNewPath?.name !== 'Delivery_Note'">
               <b-button
-              :to="tab.createNewPath"
-              class="btn shadow position-absolute"
-              :style="{ bottom: '30px', right: '30px', zIndex: 2 }"
-              id="add-item"
+                :to="tab.createNewPath"
+                class="btn shadow position-absolute"
+                :style="{bottom: '30px', right: '30px', zIndex: 2}"
+                id="add-item"
               >
-                <b-icon icon="plus-circle"></b-icon>
+                <b-icon icon="plus-circle" />
               </b-button>
             </span>
           </div>
@@ -513,12 +534,18 @@
         </b-card>
       </b-col>
       <!-- Right Pane: Selected Workflow item's Data  -->
-      <b-col cols="12" md="8" lg="9" ref="col-right" class="d-none d-md-block">
+      <b-col
+        cols="12"
+        md="8"
+        lg="9"
+        ref="col-right"
+        class="d-none d-md-block"
+      >
         <!-- Customer / Supplier profile -->
         <b-card
           no-body
           border-variant="dark"
-          :style="{ height: '100%', overflowY: 'auto' }"
+          :style="{height: '100%', overflowY: 'auto'}"
           class="ml-md-2 border-0"
           v-if="
             selectedEntity &&
@@ -526,32 +553,41 @@
               activeWorkflow.name === 'Contacts'
           "
         >
-          <template #header v-if="selectedEntity !== null">
-            <b-button @click.prevent="unsetSelectedEntity" class="d-md-none"
-              ><b-icon icon="arrow-left"></b-icon
-            ></b-button>
+          <template
+            #header
+            v-if="selectedEntity !== null"
+          >
+            <b-button
+              @click.prevent="unsetSelectedEntity"
+              class="d-md-none"
+            >
+              <b-icon icon="arrow-left" />
+            </b-button>
             <h5 class="m-2 d-inline-block">
-              <b-icon class="mr-1" :icon="selectedEntity.icon"></b-icon>
+              <b-icon
+                class="mr-1"
+                :icon="selectedEntity.icon"
+              />
               {{ selectedEntity.custname }}'s Profile
             </h5>
           </template>
           <b-card-body
             class="p-0"
-            :style="{ height: rightPaneHeight + 'px', overflowY: 'auto' }"
+            :style="{height: rightPaneHeight + 'px', overflowY: 'auto'}"
             v-if="selectedEntity !== null"
           >
             <contact-profile
               :customer="selectedEntity"
               :key="selectedEntity.custid"
-              :onUpdate="onSelectedEntityUpdate"
-            ></contact-profile>
+              :on-update="onSelectedEntityUpdate"
+            />
           </b-card-body>
         </b-card>
         <!-- Goods / Services Profile -->
         <b-card
           no-body
           border-variant="dark"
-          :style="{ height: '100%', overflowY: 'auto' }"
+          :style="{height: '100%', overflowY: 'auto'}"
           class="ml-md-2 border-0"
           v-if="
             selectedEntity &&
@@ -559,25 +595,34 @@
               activeWorkflow.name === 'Business'
           "
         >
-          <template #header v-if="selectedEntity !== null">
-            <b-button @click.prevent="unsetSelectedEntity" class="d-md-none"
-              ><b-icon icon="arrow-left"></b-icon
-            ></b-button>
+          <template
+            #header
+            v-if="selectedEntity !== null"
+          >
+            <b-button
+              @click.prevent="unsetSelectedEntity"
+              class="d-md-none"
+            >
+              <b-icon icon="arrow-left" />
+            </b-button>
             <h5 class="m-2 d-inline-block">
-              <b-icon class="mr-1" :icon="selectedEntity.icon"></b-icon>
+              <b-icon
+                class="mr-1"
+                :icon="selectedEntity.icon"
+              />
               {{ selectedEntity.productdesc }} Details
             </h5>
           </template>
           <b-card-body
             class="p-0"
-            :style="{ height: rightPaneHeight + 'px', overflowY: 'auto' }"
+            :style="{height: rightPaneHeight + 'px', overflowY: 'auto'}"
             v-if="selectedEntity !== null"
           >
             <business-profile
               :name="selectedEntity"
               :key="selectedEntity.srno"
-              :onUpdate="onSelectedEntityUpdate"
-            ></business-profile>
+              :on-update="onSelectedEntityUpdate"
+            />
           </b-card-body>
         </b-card>
         <!-- Invoices Profile -->
@@ -591,17 +636,24 @@
           "
           header-class="p-2 d-flex align-items-center justify-content-between"
         >
-          <template #header v-if="selectedEntity !== null">
+          <template
+            #header
+            v-if="selectedEntity !== null"
+          >
             <b-button
               @click.prevent="unsetSelectedEntity"
               class="d-md-none float-left"
               size="sm"
-              ><b-icon icon="arrow-left"></b-icon
-            ></b-button>
+            >
+              <b-icon icon="arrow-left" />
+            </b-button>
             <h5 class="ml-3 mb-0">
-              <b-icon class="mr-1" :icon="selectedEntity.icon"></b-icon>
+              <b-icon
+                class="mr-1"
+                :icon="selectedEntity.icon"
+              />
               {{ selectedEntity.noteName }} :
-              <br class="d-none d-lg-inline-block" />
+              <br class="d-none d-lg-inline-block">
               {{ selectedEntity.no }}
             </h5>
             <div v-if="usePrintTriplicate">
@@ -615,60 +667,59 @@
                   aria-hidden="true"
                   class="align-middle"
                   icon="printer"
-                ></b-icon>
+                />
                 <span class="sr-only">Print</span>
               </b-button>
-              <div class="clearfix"></div>
+              <div class="clearfix" />
               <b-collapse id="p-collapse">
                 <print-helper
-                  contentId="transaction-profile-wrapper"
+                  content-id="transaction-profile-wrapper"
                   variant="link"
-                  textMode="Original"
-                  :pageTitle="getInvoiceTitle('orginal')"
-                  fileName="Tax_Invoice_For_Recipient"
-                  :messageFromParent="printMessage"
-                ></print-helper>
+                  text-mode="Original"
+                  :page-title="getInvoiceTitle('orginal')"
+                  file-name="Tax_Invoice_For_Recipient"
+                  :message-from-parent="printMessage"
+                />
                 <print-helper
-                  contentId="transaction-profile-wrapper"
+                  content-id="transaction-profile-wrapper"
                   variant="link"
-                  textMode="Duplicate"
-                  :pageTitle="getInvoiceTitle('duplicate')"
-                  fileName="Tax_Invoice_For_Transporter"
-                  :messageFromParent="printMessage"
-                ></print-helper>
+                  text-mode="Duplicate"
+                  :page-title="getInvoiceTitle('duplicate')"
+                  file-name="Tax_Invoice_For_Transporter"
+                  :message-from-parent="printMessage"
+                />
                 <print-helper
-                  contentId="transaction-profile-wrapper"
+                  content-id="transaction-profile-wrapper"
                   variant="link"
-                  textMode="Triplicate"
-                  :pageTitle="getInvoiceTitle('triplicate')"
-                  fileName="Tax_Invoice_For_Supplier"
-                  :messageFromParent="printMessage"
-                ></print-helper>
+                  text-mode="Triplicate"
+                  :page-title="getInvoiceTitle('triplicate')"
+                  file-name="Tax_Invoice_For_Supplier"
+                  :message-from-parent="printMessage"
+                />
               </b-collapse>
             </div>
             <print-helper
               v-else
-              contentId="transaction-profile-wrapper"
+              content-id="transaction-profile-wrapper"
               variant="link"
-              :pageTitle="selectedEntity.noteName"
-              :fileName="selectedEntity.noteName"
-              :messageFromParent="printMessage"
-            ></print-helper>
+              :page-title="selectedEntity.noteName"
+              :file-name="selectedEntity.noteName"
+              :message-from-parent="printMessage"
+            />
           </template>
           <b-card-body
             class="px-0"
-            :style="{ height: rightPaneHeight + 'px', overflowY: 'auto' }"
+            :style="{height: rightPaneHeight + 'px', overflowY: 'auto'}"
             v-if="selectedEntity !== null"
           >
             <div id="transaction-profile-wrapper">
-              <report-header class="mb-4"> </report-header>
+              <report-header class="mb-4" />
               <transaction-profile
                 :name="activeWorkflow.tabName"
                 :id="selectedEntity.id"
                 :pdata="profileData"
-                :onUpdate="onSelectedEntityUpdate"
-              >
-              </transaction-profile>
+                :on-update="onSelectedEntityUpdate"
+              />
             </div>
           </b-card-body>
         </b-card>
@@ -824,7 +875,7 @@ export default {
     };
   },
   watch: {
-   'filters.active': {
+    'filters.active': {
       handler() {
         this.updateIndeterminate();
       },
@@ -854,8 +905,8 @@ export default {
     ...mapGetters('global', ['isIndia', 'isGstEnabled', 'isVatEnabled']),
     invoiceTitleText: (self) => (
       (self.isGstEnabled || self.isVatEnabled)
-      ? 'Tax Invoice'
-      : 'Invoice'
+        ? 'Tax Invoice'
+        : 'Invoice'
     ),
     usePrintTriplicate: (self) =>
       ['Invoice', 'CashMemo', 'DeliveryNote'].indexOf(
@@ -872,34 +923,34 @@ export default {
       let data = {};
       let entity = self.selectedEntity;
       switch (self.activeWorkflow.tabName) {
-        case 'Invoice':
-          data = {
-            onCreditFlag: entity.onCreditFlag,
-            rectifyFlag: entity.rectifyFlag,
-            cancelFlag: !!entity.cancelflag,
-            deletedFlag: entity.deletedFlag,
-          };
-          break;
-        case 'CashMemo':
-          break;
-        case 'DebitCreditNote':
-          break;
-        case 'DeliveryNote':
-          data = {
-            cancelledFlag: entity.cancelledFlag,
-            unbilledFlag: entity.unbilledFlag,
-            invLinkedFlag: entity.invLinkedFlag,
-          };
-          break;
-        case 'PurchaseSalesOrder':
-          break;
-        case 'RejectionNote':
-          break;
-        case 'TransferNote':
-          break;
-        case 'Voucher':
-          data = self.selectedEntity;
-          break;
+      case 'Invoice':
+        data = {
+          onCreditFlag: entity.onCreditFlag,
+          rectifyFlag: entity.rectifyFlag,
+          cancelFlag: !!entity.cancelflag,
+          deletedFlag: entity.deletedFlag,
+        };
+        break;
+      case 'CashMemo':
+        break;
+      case 'DebitCreditNote':
+        break;
+      case 'DeliveryNote':
+        data = {
+          cancelledFlag: entity.cancelledFlag,
+          unbilledFlag: entity.unbilledFlag,
+          invLinkedFlag: entity.invLinkedFlag,
+        };
+        break;
+      case 'PurchaseSalesOrder':
+        break;
+      case 'RejectionNote':
+        break;
+      case 'TransferNote':
+        break;
+      case 'Voucher':
+        data = self.selectedEntity;
+        break;
       }
       return data;
     },
@@ -1015,7 +1066,7 @@ export default {
         if (isString) {
           sorted = data.sort((A, B) => {
             let a = A[sortBy].toLowerCase(),
-              b = B[sortBy].toLowerCase();
+                b = B[sortBy].toLowerCase();
             if (a < b) {
               return min;
             }
@@ -1295,96 +1346,96 @@ export default {
      */
     onSelectedEntityUpdate(updatedData) {
       switch (this.activeWorkflow.name) {
-        case 'Transactions':
-          {
-            if (updatedData.gkstatus === 0) {
-              // if the invoice exists after update, gkstatus will be 0
-              this.selectedEntity.onCreditFlag = !updatedData.gkresult
-                .billentrysingleflag;
-            } else {
-              // If the invoice was deleted as an update, then gkstatus will be 3 or something else
-              this.activeTabOptions.data.splice(this.selectedEntityIndex, 1);
-              this.unsetSelectedEntity();
-            }
+      case 'Transactions':
+        {
+          if (updatedData.gkstatus === 0) {
+            // if the invoice exists after update, gkstatus will be 0
+            this.selectedEntity.onCreditFlag = !updatedData.gkresult
+              .billentrysingleflag;
+          } else {
+            // If the invoice was deleted as an update, then gkstatus will be 3 or something else
+            this.activeTabOptions.data.splice(this.selectedEntityIndex, 1);
+            this.unsetSelectedEntity();
           }
-          break;
-        case 'Transactions-Voucher':
-          {
-            if (updatedData.type === 'delete') {
-              this.displayToast(
-                `Voucher Delete success!`,
-                `${this.selectedEntity.noteName} : ${this.selectedEntity.no}, deleted successfully.`,
-                'success'
-              );
-              let id = this.selectedEntity.id;
-              let index = this.activeTabOptions.data.findIndex(
-                (voucher) => voucher.id === id
-              );
-              this.unsetSelectedEntity();
-              this.activeTabOptions.data.splice(index, 1);
-            }
-          }
-          break;
-        case 'Transactions-DeliveryNote':
-          {
-            if (updatedData.type === 'delete') {
-              this.displayToast(
-                `Delivery Note Delete success!`,
-                `Delivery Note : ${this.selectedEntity.no}, deleted successfully.`,
-                'success'
-              );
-              let id = this.selectedEntity.id;
-              let index = this.activeTabOptions.data.findIndex(
-                (delNote) => delNote.id === id
-              );
-              this.unsetSelectedEntity();
-              this.activeTabOptions.data.splice(index, 1);
-            }
-          }
-          break;
-        case 'Contacts':
-          {
-            if (updatedData.type === 'update') {
-              Object.assign(this.selectedEntity, updatedData.data);
-            } else if (updatedData.type === 'delete') {
-              let id = this.selectedEntity.custid;
-              let index = this.activeTabOptions.data.findIndex(
-                (item) => item.custid === id
-              );
-              this.displayToast(
-                `Contact Delete success!`,
-                `Contact : ${this.selectedEntity.custname}, deleted successfully.`,
-                'success'
-              );
-              this.unsetSelectedEntity();
-              this.activeTabOptions.data.splice(index, 1);
-            }
-          }
-          break;
-        case 'Business': {
-          if (updatedData.type === 'update') {
-            Object.assign(this.selectedEntity, updatedData.data);
-          } else if (updatedData.type === 'delete') {
+        }
+        break;
+      case 'Transactions-Voucher':
+        {
+          if (updatedData.type === 'delete') {
             this.displayToast(
-              `Business Item Delete success!`,
-              `Business Item : ${this.selectedEntity.productdesc}, deleted successfully.`,
+              `Voucher Delete success!`,
+              `${this.selectedEntity.noteName} : ${this.selectedEntity.no}, deleted successfully.`,
               'success'
             );
-            let id = this.selectedEntity.productcode;
+            let id = this.selectedEntity.id;
             let index = this.activeTabOptions.data.findIndex(
-              (item) => item.productcode === id
+              (voucher) => voucher.id === id
             );
             this.unsetSelectedEntity();
             this.activeTabOptions.data.splice(index, 1);
           }
         }
         break;
-        case 'Transactions-Invoice': {
-          if (updatedData.gkstatus === 3) {
-              // if the invoice cancel after update, gkstatus will be 3
-              this.selectedEntity.deletedFlag = true;
-          } 
+      case 'Transactions-DeliveryNote':
+        {
+          if (updatedData.type === 'delete') {
+            this.displayToast(
+              `Delivery Note Delete success!`,
+              `Delivery Note : ${this.selectedEntity.no}, deleted successfully.`,
+              'success'
+            );
+            let id = this.selectedEntity.id;
+            let index = this.activeTabOptions.data.findIndex(
+              (delNote) => delNote.id === id
+            );
+            this.unsetSelectedEntity();
+            this.activeTabOptions.data.splice(index, 1);
+          }
         }
+        break;
+      case 'Contacts':
+        {
+          if (updatedData.type === 'update') {
+            Object.assign(this.selectedEntity, updatedData.data);
+          } else if (updatedData.type === 'delete') {
+            let id = this.selectedEntity.custid;
+            let index = this.activeTabOptions.data.findIndex(
+              (item) => item.custid === id
+            );
+            this.displayToast(
+              `Contact Delete success!`,
+              `Contact : ${this.selectedEntity.custname}, deleted successfully.`,
+              'success'
+            );
+            this.unsetSelectedEntity();
+            this.activeTabOptions.data.splice(index, 1);
+          }
+        }
+        break;
+      case 'Business': {
+                         if (updatedData.type === 'update') {
+                           Object.assign(this.selectedEntity, updatedData.data);
+                         } else if (updatedData.type === 'delete') {
+                           this.displayToast(
+                             `Business Item Delete success!`,
+                             `Business Item : ${this.selectedEntity.productdesc}, deleted successfully.`,
+                             'success'
+                           );
+                           let id = this.selectedEntity.productcode;
+                           let index = this.activeTabOptions.data.findIndex(
+                             (item) => item.productcode === id
+                           );
+                           this.unsetSelectedEntity();
+                           this.activeTabOptions.data.splice(index, 1);
+                         }
+                       }
+                       break;
+      case 'Transactions-Invoice': {
+        if (updatedData.gkstatus === 3) {
+          // if the invoice cancel after update, gkstatus will be 3
+          this.selectedEntity.deletedFlag = true;
+        } 
+      }
       }
     },
     displayToast(title, message, variant) {
@@ -1472,6 +1523,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .bg-light-gray {
   background-color: #f1f1f1;

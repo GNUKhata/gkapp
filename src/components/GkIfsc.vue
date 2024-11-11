@@ -9,7 +9,7 @@
           :size="size"
           v-model="bankIfsCode"
           trim
-        ></b-form-input>
+        />
         <!-- Validate button -->
         <b-input-group-append>
           <b-button
@@ -18,7 +18,7 @@
             size="sm"
             variant="dark"
           >
-            <b-icon icon="search"></b-icon>
+            <b-icon icon="search" />
           </b-button>
         </b-input-group-append>
       </b-input-group>
@@ -35,9 +35,13 @@
       v-if="ifscData"
     >
       <template #modal-footer>
-        <b-button variant="dark" size="sm" @click="autoFill">
-          <translate> Auto fill</translate></b-button
+        <b-button
+          variant="dark"
+          size="sm"
+          @click="autoFill"
         >
+          <translate> Auto fill</translate>
+        </b-button>
       </template>
       <b-form-group
         label-align="right"
@@ -45,7 +49,10 @@
         label-cols="3"
         :label="$gettext('Bank')"
       >
-        <b-form-input v-model="ifscData.BANK" size="sm"> </b-form-input>
+        <b-form-input
+          v-model="ifscData.BANK"
+          size="sm"
+        />
       </b-form-group>
       <b-form-group
         label-align="right"
@@ -53,7 +60,10 @@
         label-cols="3"
         :label="$gettext('Branch')"
       >
-        <b-form-input size="sm" v-model="ifscData.BRANCH"> </b-form-input>
+        <b-form-input
+          size="sm"
+          v-model="ifscData.BRANCH"
+        />
       </b-form-group>
 
       <b-form-group
@@ -62,7 +72,10 @@
         label-cols="3"
         :label="$gettext('Center')"
       >
-        <b-form-input size="sm" v-model="ifscData.CENTRE"> </b-form-input>
+        <b-form-input
+          size="sm"
+          v-model="ifscData.CENTRE"
+        />
       </b-form-group>
       <b-form-group
         label-align="right"
@@ -70,7 +83,10 @@
         label-cols="3"
         :label="$gettext('City')"
       >
-        <b-form-input size="sm" v-model="ifscData.CITY"> </b-form-input>
+        <b-form-input
+          size="sm"
+          v-model="ifscData.CITY"
+        />
       </b-form-group>
       <b-form-group
         label-align="right"
@@ -78,7 +94,10 @@
         label-cols="3"
         :label="$gettext('Address')"
       >
-        <b-form-input size="sm" v-model="ifscData.ADDRESS"> </b-form-input>
+        <b-form-input
+          size="sm"
+          v-model="ifscData.ADDRESS"
+        />
       </b-form-group>
       <b-form-group
         label-align="right"
@@ -86,7 +105,10 @@
         label-cols="3"
         :label="$gettext('State')"
       >
-        <b-form-input size="sm" v-model="ifscData.STATE"> </b-form-input>
+        <b-form-input
+          size="sm"
+          v-model="ifscData.STATE"
+        />
       </b-form-group>
       <b-form-group
         label-align="right"
@@ -94,7 +116,10 @@
         label-cols="3"
         :label="$gettext('Contact')"
       >
-        <b-form-input size="sm" v-model="ifscData.CONTACT"> </b-form-input>
+        <b-form-input
+          size="sm"
+          v-model="ifscData.CONTACT"
+        />
       </b-form-group>
       <b-form-group
         label-align="right"
@@ -102,32 +127,46 @@
         label-cols="3"
         :label="$gettext('MICR')"
       >
-        <b-form-input size="sm" v-model="ifscData.MICR"> </b-form-input>
+        <b-form-input
+          size="sm"
+          v-model="ifscData.MICR"
+        />
       </b-form-group>
-      <b-badge class="mr-2" :variant="ifscData.UPI ? 'success' : 'danger'"
-        ><b-icon
-          :icon="ifscData.UPI ? 'check-circle-fill' : 'x-circle-fill'"
-        ></b-icon>
-        UPI</b-badge
+      <b-badge
+        class="mr-2"
+        :variant="ifscData.UPI ? 'success' : 'danger'"
       >
-      <b-badge class="mr-2" :variant="ifscData.RTGS ? 'success' : 'danger'"
-        ><b-icon
+        <b-icon
           :icon="ifscData.UPI ? 'check-circle-fill' : 'x-circle-fill'"
-        ></b-icon>
-        RTGS</b-badge
+        />
+        UPI
+      </b-badge>
+      <b-badge
+        class="mr-2"
+        :variant="ifscData.RTGS ? 'success' : 'danger'"
       >
-      <b-badge class="mr-2" :variant="ifscData.NEFT ? 'success' : 'danger'"
-        ><b-icon
+        <b-icon
           :icon="ifscData.UPI ? 'check-circle-fill' : 'x-circle-fill'"
-        ></b-icon>
-        NEFT</b-badge
+        />
+        RTGS
+      </b-badge>
+      <b-badge
+        class="mr-2"
+        :variant="ifscData.NEFT ? 'success' : 'danger'"
       >
-      <b-badge :variant="ifscData.IMPS ? 'success' : 'danger'"
-        ><b-icon
+        <b-icon
           :icon="ifscData.UPI ? 'check-circle-fill' : 'x-circle-fill'"
-        ></b-icon>
-        IMPS</b-badge
+        />
+        NEFT
+      </b-badge>
+      <b-badge
+        :variant="ifscData.IMPS ? 'success' : 'danger'"
       >
+        <b-icon
+          :icon="ifscData.UPI ? 'check-circle-fill' : 'x-circle-fill'"
+        />
+        IMPS
+      </b-badge>
     </b-modal>
   </div>
 </template>
@@ -188,47 +227,47 @@ export default {
         .get(`/ifsc?check=${this.bankIfsCode}`)
         .then((r) => {
           switch (r.data.gkstatus) {
-            case 0:
-              this.ifscData = r.data.gkresult;
-              this.$emit('change', this.bankIfsCode);
-              this.$bvModal.show('ifsc-info');
-              break;
-            case 1:
-              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                variant: 'warning',
-                solid: true,
-              });
-              break;
-            case 2:
-              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 3:
-              this.$bvToast.toast(this.$gettext('Invalid IFSC Code'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 4:
-              this.$bvToast.toast(this.$gettext('No Privilege'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 5:
-              this.$bvToast.toast(this.$gettext('Integrity error'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 6:
-              this.$bvToast.toast(this.$gettext('Proxy Server Error'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
+          case 0:
+            this.ifscData = r.data.gkresult;
+            this.$emit('change', this.bankIfsCode);
+            this.$bvModal.show('ifsc-info');
+            break;
+          case 1:
+            this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+              variant: 'warning',
+              solid: true,
+            });
+            break;
+          case 2:
+            this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 3:
+            this.$bvToast.toast(this.$gettext('Invalid IFSC Code'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 4:
+            this.$bvToast.toast(this.$gettext('No Privilege'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 5:
+            this.$bvToast.toast(this.$gettext('Integrity error'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 6:
+            this.$bvToast.toast(this.$gettext('Proxy Server Error'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
           }
           this.loading = false;
         })

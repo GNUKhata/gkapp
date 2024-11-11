@@ -12,13 +12,27 @@
             <gk-cardheader
               :name="$gettext('View Trial Balance')"
               :help-body="showHelpBody"
-            ></gk-cardheader>
+            />
           </template>
-          <b-form-group label="From" label-align="right" content-cols="8">
-            <gk-date id="fromdate" v-model="fromDate"></gk-date>
+          <b-form-group
+            label="From"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="fromdate"
+              v-model="fromDate"
+            />
           </b-form-group>
-          <b-form-group label="To" label-align="right" content-cols="8">
-            <gk-date id="todate" v-model="toDate"></gk-date>
+          <b-form-group
+            label="To"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="todate"
+              v-model="toDate"
+            />
           </b-form-group>
           <b-button
             variant="success"
@@ -26,7 +40,10 @@
             class="float-right"
             type="submit"
           >
-            <b-icon class="mr-1" icon="cloud-arrow-down"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="cloud-arrow-down"
+            />
             <translate>Get Details</translate>
           </b-button>
         </b-card>
@@ -39,7 +56,10 @@
           {{ dateReverse(this.yearEnd) }}
         </div>
       </report-header>
-      <div class="mt-3" v-if="result !== null">
+      <div
+        class="mt-3"
+        v-if="result !== null"
+      >
         <!-- Toolbar -->
         <gk-toolbar>
           <template #left>
@@ -50,7 +70,7 @@
               type="text"
               :placeholder="$gettext('Search trial balance')"
               style="align-self: center"
-            ></b-form-input>
+            />
           </template>
           <!-- Select balance type buttons -->
           <gk-hovermenu>
@@ -62,47 +82,53 @@
               v-model="trialBalanceType"
               name="radio-options"
             >
-              <b-form-radio value="Net"
-                ><translate> Net</translate>
+              <b-form-radio
+                value="Net"
+              >
+                <translate> Net</translate>
 
                 <gk-tooltip
                   class="ml-1"
                   icon="info-circle"
-                  :helpTitle="$gettext('Net Trial Balance')"
+                  :help-title="$gettext('Net Trial Balance')"
                   :help-body="
                     $gettext(
-                      'The Net Trial Balance will provide the closing balances (or current balance as on selected end date)'
+                      'The Net Trial Balance will provide the closing balances (or current balance as on selected end date)',
                     )
                   "
-                ></gk-tooltip>
+                />
               </b-form-radio>
-              <b-form-radio value="Gross"
-                ><translate>Gross</translate>
+              <b-form-radio
+                value="Gross"
+              >
+                <translate>Gross</translate>
 
                 <gk-tooltip
                   class="ml-1"
                   icon="info-circle"
-                  :helpTitle="$gettext('Gross Trial Balance')"
+                  :help-title="$gettext('Gross Trial Balance')"
                   :help-body="
                     $gettext(
-                      'The Gross Trial Balance shows for each account the total Drs and Crs along with Closing Balances'
+                      'The Gross Trial Balance shows for each account the total Drs and Crs along with Closing Balances',
                     )
                   "
-                ></gk-tooltip>
+                />
               </b-form-radio>
-              <b-form-radio value="Extended"
-                ><translate>Extended</translate>
+              <b-form-radio
+                value="Extended"
+              >
+                <translate>Extended</translate>
 
                 <gk-tooltip
                   class="ml-1"
                   icon="info-circle"
-                  :helpTitle="$gettext('Extended Trial Balance')"
+                  :help-title="$gettext('Extended Trial Balance')"
                   :help-body="
                     $gettext(
-                      'The extended version shows all gross & net trial balances with Opening Balances'
+                      'The extended version shows all gross & net trial balances with Opening Balances',
                     )
                   "
-                ></gk-tooltip>
+                />
               </b-form-radio>
             </b-form-radio-group>
           </gk-hovermenu>
@@ -112,34 +138,31 @@
             :url="
               `/spreadsheet/trial-balance?calculateto=${this.toDate}&trialbalancetype=1&fystart=${this.yearStart}&fyend=${this.yearEnd}&&orgname=${this.orgName}`
             "
-            :commonParams="false"
-            fileSuffix="NetTrialBalance"
+            :common-params="false"
+            file-suffix="NetTrialBalance"
             title="Download Net Trial Balance Spreadsheet"
-            :messageFromParent="parentMessage"
-          >
-          </gk-file-download>
+            :message-from-parent="parentMessage"
+          />
           <gk-file-download
             v-if="trialBalanceType == 'Gross'"
             :url="
               `/spreadsheet/trial-balance?calculateto=${this.toDate}&trialbalancetype=2&fystart=${this.yearStart}&fyend=${this.yearEnd}&&orgname=${this.orgName}`
             "
-            :commonParams="false"
-            fileSuffix="NetTrialBalance"
+            :common-params="false"
+            file-suffix="NetTrialBalance"
             title="Download Net Trial Balance Spreadsheet"
-            :messageFromParent="parentMessage"
-          >
-          </gk-file-download>
+            :message-from-parent="parentMessage"
+          />
           <gk-file-download
             v-if="trialBalanceType == 'Extended'"
             :url="
               `/spreadsheet/trial-balance?calculateto=${this.toDate}&trialbalancetype=3&&fystart=${this.yearStart}&fyend=${this.yearEnd}&&orgname=${this.orgName}`
             "
-            :commonParams="false"
-            fileSuffix="ExtendedTrialBalance"
+            :common-params="false"
+            file-suffix="ExtendedTrialBalance"
             title="Download Extended Trial Balance Spreadsheet"
-            :messageFromParent="parentMessage"
-          >
-          </gk-file-download>
+            :message-from-parent="parentMessage"
+          />
         </gk-toolbar>
         <!-- Tables -->
         <!-- Net trial balance -->
@@ -164,7 +187,9 @@
             >
               {{ data.item.accountname }}
             </router-link>
-            <div v-else>{{ data.item.accountname }}</div>
+            <div v-else>
+              {{ data.item.accountname }}
+            </div>
           </template>
         </b-table>
         <!-- Gross Trial Balance -->
@@ -188,7 +213,9 @@
             >
               {{ data.item.accountname }}
             </router-link>
-            <div v-else>{{ data.item.accountname }}</div>
+            <div v-else>
+              {{ data.item.accountname }}
+            </div>
           </template>
         </b-table>
         <!-- Extended Trial Balance -->
@@ -212,7 +239,9 @@
             >
               {{ data.item.accountname }}
             </router-link>
-            <div v-else>{{ data.item.accountname }}</div>
+            <div v-else>
+              {{ data.item.accountname }}
+            </div>
           </template>
         </b-table>
       </div>
@@ -387,42 +416,42 @@ export default {
         .then((r) => {
           if (r[0].status === 200) {
             switch (r[0].data.gkstatus) {
-              case 0:
-                this.balance.net = r[0].data.gkresult;
-                this.balance.gross = r[1].data.gkresult;
-                this.balance.extended = r[2].data.gkresult;
-                this.result = this.balance.net;
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.balance.net = r[0].data.gkresult;
+              this.balance.gross = r[1].data.gkresult;
+              this.balance.extended = r[2].data.gkresult;
+              this.result = this.balance.net;
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           }
           this.isLoading = false;
@@ -478,6 +507,7 @@ export default {
   },
 };
 </script>
+
 <style>
 tr[data-pk='Total'] {
   font-weight: bold;

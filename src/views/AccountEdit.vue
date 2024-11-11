@@ -1,18 +1,38 @@
 <template>
   <div class="d-flex justify-content-center mt-4 mx-2 align-form-label-right">
-    <div class="d-inline-block" style="min-width: 300px">
+    <div
+      class="d-inline-block"
+      style="min-width: 300px"
+    >
       <div class="card">
-        <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-        </b-overlay>
+        <b-overlay
+          :show="isPreloading"
+          variant="secondary"
+          no-wrap
+          blur
+        />
         <div class="card-header text-left py-2">
-          <b class="text-capitalize" v-translate>Edit Account</b>
-          <slot name="close-button"> </slot>
+          <b
+            class="text-capitalize"
+            v-translate
+          >Edit Account</b>
+          <slot name="close-button" />
         </div>
         <div class="card-body pb-2">
-          <b-alert class="p-1" v-if="alertText" show variant="warning">{{
-            alertText
-          }}</b-alert>
-          <b-form class="text-left" @submit.prevent="confirmOnSubmit">
+          <b-alert
+            class="p-1"
+            v-if="alertText"
+            show
+            variant="warning"
+          >
+            {{
+              alertText
+            }}
+          </b-alert>
+          <b-form
+            class="text-left"
+            @submit.prevent="confirmOnSubmit"
+          >
             <b-form-group
               label="Group"
               label-for="acc-input-10"
@@ -20,7 +40,9 @@
               label-size="sm"
               label-class="required"
             >
-              <template #label> <translate> Group </translate> </template>
+              <template #label>
+                <translate> Group </translate>
+              </template>
               <v-select
                 id="acc-input-10"
                 v-model="form.group"
@@ -30,7 +52,7 @@
                 @input="fetchSubGroups"
                 required
                 :disabled="disableFields.group"
-              ></v-select>
+              />
             </b-form-group>
             <b-form-group
               label="Sub-Group"
@@ -38,7 +60,9 @@
               label-cols="3"
               label-size="sm"
             >
-              <template #label> <translate> Sub-Group </translate> </template>
+              <template #label>
+                <translate> Sub-Group </translate>
+              </template>
               <v-select
                 id="acc-input-20"
                 v-model="form.subGroup"
@@ -52,7 +76,7 @@
                     flags.newSubGroup ||
                     disableFields.subGroup
                 "
-              ></v-select>
+              />
             </b-form-group>
             <b-card
               body-class="p-2"
@@ -69,7 +93,10 @@
               >
                 <translate> Add New Sub-Group </translate>
               </b-form-checkbox>
-              <b-collapse id="acc-collapse-10" v-model="showAddSubGroup">
+              <b-collapse
+                id="acc-collapse-10"
+                v-model="showAddSubGroup"
+              >
                 <b-form-group
                   label="Sub-Group Name"
                   label-for="acc-input-30"
@@ -84,7 +111,7 @@
                     size="sm"
                     id="acc-input-30"
                     v-model="newSubGroup"
-                  ></b-form-input>
+                  />
                 </b-form-group>
               </b-collapse>
             </b-card>
@@ -102,8 +129,9 @@
               class="mb-2"
               :disabled="disableFields.default"
               v-model="form.defaultFlag"
-              >Set default for {{ defaultGroupName }}</b-form-checkbox
             >
+              Set default for {{ defaultGroupName }}
+            </b-form-checkbox>
             <b-form-group
               label="Account Name"
               label-for="acc-input-40"
@@ -120,7 +148,7 @@
                 required
                 v-model="form.name"
                 :readonly="disableFields.name"
-              ></b-form-input>
+              />
             </b-form-group>
             <b-form-group
               label="Opening Balance"
@@ -139,16 +167,23 @@
                   step="0.01"
                   @update="onOBalanceUpdate"
                   debounce="600"
-                ></b-form-input>
+                />
                 <template #append>
-                  <b-form-select v-model="form.crdr" size="sm">
-                    <b-form-select-option :value="1">Dr</b-form-select-option>
-                    <b-form-select-option :value="-1">Cr</b-form-select-option>
+                  <b-form-select
+                    v-model="form.crdr"
+                    size="sm"
+                  >
+                    <b-form-select-option :value="1">
+                      Dr
+                    </b-form-select-option>
+                    <b-form-select-option :value="-1">
+                      Cr
+                    </b-form-select-option>
                   </b-form-select>
                 </template>
               </b-input-group>
             </b-form-group>
-            <hr class="my-2" />
+            <hr class="my-2">
             <div class="float-right">
               <b-button
                 size="sm"
@@ -160,7 +195,7 @@
                   aria-hidden="true"
                   class="align-middle mr-1"
                   icon="arrow-left"
-                ></b-icon>
+                />
                 <span class="align-middle">
                   <translate>Back</translate>
                 </span>
@@ -175,19 +210,27 @@
                   aria-hidden="true"
                   class="align-middle mr-1"
                   icon="arrow-repeat"
-                ></b-icon>
+                />
                 <span class="align-middle">
                   <translate>Reset</translate>
                 </span>
               </b-button>
-              <b-button size="sm" type="submit" class="m-1" variant="success">
-                <b-spinner v-if="isLoading" small></b-spinner>
+              <b-button
+                size="sm"
+                type="submit"
+                class="m-1"
+                variant="success"
+              >
+                <b-spinner
+                  v-if="isLoading"
+                  small
+                />
                 <b-icon
                   v-else
                   aria-hidden="true"
                   class="align-middle mr-1"
                   icon="cloud-arrow-up"
-                ></b-icon>
+                />
                 <span class="align-middle">
                   <translate>Update</translate>
                 </span>

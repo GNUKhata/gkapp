@@ -21,11 +21,14 @@
               :options="orgList"
               required
             >
-              <b-form-select-option disabled value="null"
-                ><translate
-                  >-- Select an Organisation --</translate
-                ></b-form-select-option
+              <b-form-select-option
+                disabled
+                value="null"
               >
+                <translate>
+                  -- Select an Organisation --
+                </translate>
+              </b-form-select-option>
             </b-form-select>
           </b-overlay>
         </b-form-group>
@@ -44,7 +47,7 @@
               type="text"
               required
               :disabled="disableUserName"
-            ></b-form-input>
+            />
           </b-overlay>
         </b-form-group>
         <!-- security question -->
@@ -60,16 +63,15 @@
               v-model="form.userquestion"
               type="text"
               disabled
-            ></b-form-input>
+            />
             <template #overlay>
               <div class="text-center">
                 <b-icon
                   icon="cloud-arrow-down"
                   font-scale="2"
                   animation="throb"
-                >
-                </b-icon>
-                <br />
+                />
+                <br>
                 <small>
                   <translate>Getting Security Question</translate>
                 </small>
@@ -84,7 +86,10 @@
           label-align="right"
           :label="$gettext('Answer')"
         >
-          <b-form-input v-model="form.useranswer" required></b-form-input>
+          <b-form-input
+            v-model="form.useranswer"
+            required
+          />
         </b-form-group>
         <!--New Password -->
         <b-form-group
@@ -94,7 +99,7 @@
           :label="$gettext('New Password')"
         >
           <!-- <b-form-input v-model="form.userpassword" required></b-form-input> -->
-          <password v-model="form.userpassword"></password>
+          <password v-model="form.userpassword" />
         </b-form-group>
         <!-- Confirm Password -->
         <b-form-group
@@ -107,7 +112,7 @@
             :state="matchingPwd"
             required
             v-model="password2"
-          ></b-form-input>
+          />
           <b-form-valid-feedback>
             <translate>Passwords Match</translate>
           </b-form-valid-feedback>
@@ -122,8 +127,15 @@
           variant="success"
           class="float-right"
         >
-          <b-icon class="mr-1" v-if="!submitting" icon="key-fill"></b-icon>
-          <b-spinner v-if="submitting" small></b-spinner>
+          <b-icon
+            class="mr-1"
+            v-if="!submitting"
+            icon="key-fill"
+          />
+          <b-spinner
+            v-if="submitting"
+            small
+          />
           <translate>Reset Password</translate>
         </b-button>
       </b-form>
@@ -232,16 +244,16 @@ export default {
           if (r.status == 200) {
             let usr = r.data.gkresult;
             switch (r.data.gkstatus) {
-              case 0:
-                this.form.userquestion = usr.userquestion;
-                this.uid = usr.userid;
-                break;
-              default:
-                this.$bvToast.toast('Invalid Username', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.form.userquestion = '';
+            case 0:
+              this.form.userquestion = usr.userquestion;
+              this.uid = usr.userid;
+              break;
+            default:
+              this.$bvToast.toast('Invalid Username', {
+                variant: 'danger',
+                solid: true,
+              });
+              this.form.userquestion = '';
             }
           } else {
             console.log(r.status);
@@ -269,34 +281,34 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.$bvModal
-                  .msgBoxOk(
-                    this.$gettext(
-                      'Password Change Successful, Memorize it well this time 😉'
-                    ),
-                    {
-                      title: this.$gettext('Success'),
-                      headerTextVariant: 'light',
-                      headerBgVariant: 'success',
-                      okVariant: 'success',
-                    }
-                  )
-                  .then((res) => {
-                    if (res == true) {
-                      this.$router.push('/');
-                    }
-                  });
-                break;
-              default:
-                this.$bvToast.toast(
-                  this.$gettext('Invalid answer, Please try again'),
+            case 0:
+              this.$bvModal
+                .msgBoxOk(
+                  this.$gettext(
+                    'Password Change Successful, Memorize it well this time 😉'
+                  ),
                   {
-                    variant: 'danger',
-                    solid: true,
+                    title: this.$gettext('Success'),
+                    headerTextVariant: 'light',
+                    headerBgVariant: 'success',
+                    okVariant: 'success',
                   }
-                );
-                this.submitting = false;
+                )
+                .then((res) => {
+                  if (res == true) {
+                    this.$router.push('/');
+                  }
+                });
+              break;
+            default:
+              this.$bvToast.toast(
+                this.$gettext('Invalid answer, Please try again'),
+                {
+                  variant: 'danger',
+                  solid: true,
+                }
+              );
+              this.submitting = false;
             }
           } else {
             this.$bvToast.toast(

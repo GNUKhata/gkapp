@@ -1,17 +1,30 @@
 <template>
-  <div class="card" :style="{ minWidth: '300px' }">
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+  <div
+    class="card"
+    :style="{minWidth: '300px'}"
+  >
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="card-header bg-dark text-left text-light py-2">
       <b v-translate>Business Item Details</b>
-      <slot name="close-button"> </slot>
+      <slot name="close-button" />
     </div>
     <div class="card-body pb-2 px-1 px-md-3">
-      <b-form class="text-left px-2" @submit.prevent="confirmOnSubmit">
+      <b-form
+        class="text-left px-2"
+        @submit.prevent="confirmOnSubmit"
+      >
         <b-row>
           <b-col class="mb-3 px-3">
             <b-row>
-              <b-col cols="5" class="mb-3">
+              <b-col
+                cols="5"
+                class="mb-3"
+              >
                 <b-form-radio-group
                   button-variant="outline-dark"
                   v-model="type"
@@ -28,7 +41,10 @@
                   </b-form-radio>
                 </b-form-radio-group>
               </b-col>
-              <b-col cols="12" sm="7">
+              <b-col
+                cols="12"
+                sm="7"
+              >
                 <b-form-group
                   label-size="sm"
                   label="Name"
@@ -36,7 +52,9 @@
                   label-cols="auto"
                   label-class="required"
                 >
-                  <template #label> <translate> Name </translate> </template>
+                  <template #label>
+                    <translate> Name </translate>
+                  </template>
                   <b-form-input
                     size="sm"
                     id="bi-input-1"
@@ -44,12 +62,15 @@
                     v-model="form.name"
                     trim
                     required
-                  ></b-form-input>
+                  />
                 </b-form-group>
               </b-col>
             </b-row>
             <!-- price card -->
-            <b-card border-variant="dark" no-body>
+            <b-card
+              border-variant="dark"
+              no-body
+            >
               <b-card-body class="p-2 mb-2">
                 <b b-translate>Price</b>
                 <b-form-group
@@ -62,7 +83,10 @@
                   <template #label>
                     <translate> Cost Price </translate>
                   </template>
-                  <b-input-group size="sm" append="₹">
+                  <b-input-group
+                    size="sm"
+                    append="₹"
+                  >
                     <b-form-input
                       id="bi-input-4"
                       placeholder=""
@@ -70,7 +94,7 @@
                       type="number"
                       no-wheel
                       step="0.01"
-                    ></b-form-input>
+                    />
                   </b-input-group>
                 </b-form-group>
                 <b-form-group
@@ -85,7 +109,10 @@
                     </span>
                     Sale Price
                   </template>
-                  <b-input-group append="₹" size="sm">
+                  <b-input-group
+                    append="₹"
+                    size="sm"
+                  >
                     <b-form-input
                       size="sm"
                       id="bi-input-5"
@@ -94,7 +121,7 @@
                       type="number"
                       no-wheel
                       step="0.01"
-                    ></b-form-input>
+                    />
                   </b-input-group>
                 </b-form-group>
                 <b-form-group
@@ -108,7 +135,10 @@
                   </template>
                   <b-row>
                     <b-col class="pr-1">
-                      <b-input-group append="₹" size="sm">
+                      <b-input-group
+                        append="₹"
+                        size="sm"
+                      >
                         <b-form-input
                           size="sm"
                           id="bi-input-6"
@@ -117,11 +147,14 @@
                           type="number"
                           no-wheel
                           step="0.01"
-                        ></b-form-input>
+                        />
                       </b-input-group>
                     </b-col>
                     <b-col class="pl-1">
-                      <b-input-group append="%" size="sm">
+                      <b-input-group
+                        append="%"
+                        size="sm"
+                      >
                         <b-form-input
                           size="sm"
                           id="bi-input-11"
@@ -130,7 +163,7 @@
                           type="number"
                           no-wheel
                           step="0.01"
-                        ></b-form-input>
+                        />
                       </b-input-group>
                     </b-col>
                   </b-row>
@@ -168,7 +201,7 @@
                         :required="!uom"
                         v-bind="attributes"
                         v-on="events"
-                      />
+                      >
                     </template>
                   </v-select>
                 </b-form-group>
@@ -182,7 +215,10 @@
                   <template #label>
                     <translate> Opening Stock </translate>
                   </template>
-                  <b-input-group :append="form.uomCode" size="sm">
+                  <b-input-group
+                    :append="form.uomCode"
+                    size="sm"
+                  >
                     <b-form-input
                       size="sm"
                       id="bi-input-3"
@@ -191,7 +227,7 @@
                       type="number"
                       no-wheel
                       step="0.01"
-                    ></b-form-input>
+                    />
                   </b-input-group>
                 </b-form-group>
                 <b-card no-body>
@@ -214,7 +250,7 @@
                       >
                         <translate> + Godown </translate>
                       </b-button>
-                      <div class="clearfix"></div>
+                      <div class="clearfix" />
                     </div>
                     <div v-if="form.stock.godownFlag">
                       <b-input-group
@@ -231,9 +267,8 @@
                             :options="options.godowns"
                             :required="!!godownItems.qty"
                             :readonly="!index"
-                            @change="warnDuplicateGodown()"
-                          >
-                          </b-form-select>
+                            @change="warnDuplicateGodown"
+                          />
                         </b-input-group-prepend>
                         <b-form-input
                           size="sm"
@@ -242,7 +277,7 @@
                           no-wheel
                           step="0.01"
                           placeholder="Stock Qty"
-                        ></b-form-input>
+                        />
                         <b-form-input
                           size="sm"
                           v-model="godown.rate"
@@ -250,7 +285,7 @@
                           no-wheel
                           step="0.01"
                           placeholder="Stock Value (Cost Price x Stock Qty)"
-                        ></b-form-input>
+                        />
                         <b-input-group-append>
                           <b-button
                             size="sm"
@@ -258,7 +293,10 @@
                             :disabled="!index"
                             variant="danger"
                           >
-                            <B-Icon icon="trash" variant="light" />
+                            <B-Icon
+                              icon="trash"
+                              variant="light"
+                            />
                           </b-button>
                         </b-input-group-append>
                       </b-input-group>
@@ -275,7 +313,10 @@
             lg="6"
             class="mb-3"
           >
-            <b-card no-body border-variant="dark">
+            <b-card
+              no-body
+              border-variant="dark"
+            >
               <b-card-body cla="p-2">
                 <b>Tax</b>
                 <b-row>
@@ -291,7 +332,7 @@
                         <gk-hsn
                           v-model="form.hsn"
                           :required="isHsnRequired"
-                        ></gk-hsn>
+                        />
                       </b-form-group>
 
                       <!-- GST -->
@@ -302,14 +343,17 @@
                         label-cols="3"
                         class="mb-0"
                       >
-                        <b-input-group append="%" size="sm">
+                        <b-input-group
+                          append="%"
+                          size="sm"
+                        >
                           <b-form-select
                             size="sm"
                             id="bi-input-7"
                             v-model="form.tax.gsts[0].rate"
                             :options="gstRates"
                             :disabled="form.tax.gstFlag"
-                          ></b-form-select>
+                          />
                         </b-input-group>
                       </b-form-group>
                       <b-form-checkbox
@@ -324,14 +368,17 @@
                           </translate>
                         </small>
                       </b-form-checkbox>
-                      <div class="clearfix"></div>
+                      <div class="clearfix" />
                       <b-form-group
                         label-size="sm"
                         label="CESS"
                         label-for="bi-input-8"
                         label-cols="3"
                       >
-                        <b-input-group append="%" size="sm">
+                        <b-input-group
+                          append="%"
+                          size="sm"
+                        >
                           <b-form-input
                             size="sm"
                             id="bi-input-8"
@@ -340,12 +387,15 @@
                             type="number"
                             no-wheel
                             step="0.01"
-                          ></b-form-input>
+                          />
                         </b-input-group>
                       </b-form-group>
                       <b-collapse v-model="form.tax.gstFlag">
                         <b-card no-body>
-                          <b-card-body class="p-2" style="min-height: 50px">
+                          <b-card-body
+                            class="p-2"
+                            style="min-height: 50px"
+                          >
                             <div class="mb-2">
                               <b>GST</b>
                               <b-button
@@ -365,9 +415,9 @@
                               tbody-tr-class="gk-vertical-row"
                               :items="form.tax.gsts"
                               :fields="[
-                                { key: 'rate', label: 'Rate %' },
-                                { key: 'from', label: 'Applicable From' },
-                                { key: 'edit', label: '' },
+                                {key: 'rate', label: 'Rate %'},
+                                {key: 'from', label: 'Applicable From'},
+                                {key: 'edit', label: ''},
                               ]"
                             >
                               <template #cell(rate)="data">
@@ -376,20 +426,20 @@
                                   id="bi-input-7"
                                   v-model="form.tax.gsts[data.index].rate"
                                   :options="gstRates"
-                                ></b-form-select>
+                                />
                               </template>
                               <template #cell(from)="data">
                                 <gk-date
                                   v-model="form.tax.gsts[data.index].from"
                                   :id="`gst-from-${data.index}`"
-                                  :inputStyle="{ 'max-width': '120px' }"
+                                  :input-style="{'max-width': '120px'}"
                                   :min="form.tax.gsts[data.index].min"
                                   @validity="
-                                  updateGstDateValidity($event, data.index)
+                                    updateGstDateValidity($event, data.index)
                                   "
                                   @input="updateGst"
                                   :readonly="!data.index"
-                                ></gk-date>
+                                />
                               </template>
                               <template #cell(edit)="data">
                                 <b-button
@@ -413,7 +463,10 @@
                       label-for="bi-input-9"
                       label-cols="3"
                     >
-                      <b-input-group append="%" size="sm">
+                      <b-input-group
+                        append="%"
+                        size="sm"
+                      >
                         <b-form-input
                           size="sm"
                           id="bi-input-9"
@@ -422,7 +475,7 @@
                           type="number"
                           no-wheel
                           step="0.01"
-                        ></b-form-input>
+                        />
                       </b-input-group>
                     </b-form-group>
                     <b-card
@@ -430,7 +483,10 @@
                       no-body
                       class="mt-2 mb-2"
                     >
-                      <b-card-body class="px-2 pb-3" style="min-height: 50px">
+                      <b-card-body
+                        class="px-2 pb-3"
+                        style="min-height: 50px"
+                      >
                         <div class="mb-2">
                           <b>VAT</b>
                           <b-button
@@ -455,8 +511,7 @@
                               v-model="vat.state"
                               :options="options.states"
                               :required="!!vat.rate"
-                            >
-                            </b-form-select>
+                            />
                           </b-input-group-prepend>
                           <b-form-input
                             size="sm"
@@ -465,7 +520,7 @@
                             no-wheel
                             step="0.01"
                             placeholder="VAT %"
-                          ></b-form-input>
+                          />
                           <b-input-group-append>
                             <b-button
                               size="sm"
@@ -492,7 +547,7 @@
             </b-card>
           </b-col>
         </b-row>
-        <hr class="my-2" />
+        <hr class="my-2">
         <div>
           <div class="float-right">
             <b-button
@@ -506,8 +561,11 @@
                 aria-hidden="true"
                 class="align-middle mr-1"
                 icon="arrow-left"
-              ></b-icon>
-              <span class="align-middle" v-translate>Back</span>
+              />
+              <span
+                class="align-middle"
+                v-translate
+              >Back</span>
             </b-button>
             <b-button
               size="sm"
@@ -519,8 +577,11 @@
                 aria-hidden="true"
                 class="align-middle mr-1"
                 icon="arrow-repeat"
-              ></b-icon>
-              <span class="align-middle" v-translate>Reset</span>
+              />
+              <span
+                class="align-middle"
+                v-translate
+              >Reset</span>
             </b-button>
             <b-button
               size="sm"
@@ -529,14 +590,20 @@
               variant="success"
               :disabled="gstDateValidity === false"
             >
-              <b-spinner v-if="isLoading" small></b-spinner>
+              <b-spinner
+                v-if="isLoading"
+                small
+              />
               <b-icon
                 v-else
                 aria-hidden="true"
                 class="align-middle mr-1"
                 icon="plus-square"
-              ></b-icon>
-              <span class="align-middle" v-translate>Save</span>
+              />
+              <span
+                class="align-middle"
+                v-translate
+              >Save</span>
             </b-button>
           </div>
         </div>
@@ -553,10 +620,10 @@
       hide-header
     >
       <godown
-        :hideBackButton="true"
+        :hide-back-button="true"
         mode="create"
-        :inOverlay="true"
-        :onSave="onGodownSave"
+        :in-overlay="true"
+        :on-save="onGodownSave"
       >
         <template #close-button>
           <b-button
@@ -568,8 +635,9 @@
                 showGodownForm = false;
               }
             "
-            ><b-icon icon="x-circle"></b-icon
-          ></b-button>
+          >
+            <b-icon icon="x-circle" />
+          </b-button>
         </template>
       </godown>
     </b-modal>
@@ -831,124 +899,124 @@ export default {
           this.isLoading = false;
           let productCode, taxPayload, taxRequests;
           switch (response.data.gkstatus) {
-            case 7:
-              response.data?.error.forEach((field_err) => {
-                let location = field_err.loc.join(" at ");
-                let message = (location ? location+": " : "") + field_err.msg;
-                this.displayToast("Validation Error", message, "warning");
-              });
-              break;
-            case 0:
+          case 7:
+            response.data?.error.forEach((field_err) => {
+              let location = field_err.loc.join(" at ");
+              let message = (location ? location+": " : "") + field_err.msg;
+              this.displayToast("Validation Error", message, "warning");
+            });
+            break;
+          case 0:
             this.$emit('childValueUpdate', !this.invalidProduct);
-              {
-                // store the tax when the product has been created successfully
-                productCode = response.data.gkresult;
-                taxPayload = {};
-                taxRequests = payload.tax.map((item) => {
-                  taxPayload = {
-                    taxname: item.taxname,
-                    taxrate: item.taxrate,
-                    productcode: productCode,
-                    taxfromdate: item.taxfromdate,
-                    state: item.taxname === 'VAT' ? item.state : '',
-                  };
-                  return axios.post('/tax', taxPayload);
-                });
-                Promise.all(taxRequests).then(() => {
-                  // console.log(responses)
-                });
+            {
+              // store the tax when the product has been created successfully
+              productCode = response.data.gkresult;
+              taxPayload = {};
+              taxRequests = payload.tax.map((item) => {
+                taxPayload = {
+                  taxname: item.taxname,
+                  taxrate: item.taxrate,
+                  productcode: productCode,
+                  taxfromdate: item.taxfromdate,
+                  state: item.taxname === 'VAT' ? item.state : '',
+                };
+                return axios.post('/tax', taxPayload);
+              });
+              Promise.all(taxRequests).then(() => {
+                // console.log(responses)
+              });
 
-                // === Server Log ===
-                let logdata = { activity: '' };
-                let name = '';
-                if (payload.product.godownflag === true) {
-                  let godownIds = Object.keys(payload.product.godetails);
-                  // comma separated godown names
-                  this.options.godowns.forEach((gdn) => {
-                    if (godownIds.includes(gdn.value + '')) {
-                      name += ' ' + gdn.text + ',';
-                    }
-                  });
-
-                  logdata.activity =
-                    payload.product.productdetails.productdesc +
-                    ' product created in ' +
-                    name +
-                    ' godowns';
-                } else {
-                  logdata.activity =
-                    payload.product.productdetails.productdesc +
-                    ' product created';
-                }
-                axios.post('/log', logdata);
-
-                let message = `${this.formType} created successfully`;
-
-                if (name) {
-                  message += ' in ' + name + ' Godowns.';
-                }
-
-                this.$bvToast.toast(message, {
-                  title: `${this.formMode} ${this.formType} Success!`,
-                  autoHideDelay: 3000,
-                  variant: 'success',
-                  appendToast: true,
-                  solid: true,
+              // === Server Log ===
+              let logdata = { activity: '' };
+              let name = '';
+              if (payload.product.godownflag === true) {
+                let godownIds = Object.keys(payload.product.godetails);
+                // comma separated godown names
+                this.options.godowns.forEach((gdn) => {
+                  if (godownIds.includes(gdn.value + '')) {
+                    name += ' ' + gdn.text + ',';
+                  }
                 });
 
-                // only reset form on success, otherwise leave it as is so that user may edit their input and try again
-                this.resetForm();
+                logdata.activity =
+                  payload.product.productdetails.productdesc +
+                  ' product created in ' +
+                  name +
+                  ' godowns';
+              } else {
+                logdata.activity =
+                  payload.product.productdetails.productdesc +
+                  ' product created';
               }
-              break;
-            case 1:
-            this.$emit('childValueUpdate', this.invalidProduct);
-              this.$bvToast.toast(
-                this.$gettextInterpolate(
-                  this.$gettext(
-                    `%{formType} entry already exists! (Please check Name, FAX or PAN)`
-                  ),
-                  { formType: this.formType }
-                ),
-                {
-                  title: `${this.formMode} ${this.formType} Error!`,
-                  autoHideDelay: 3000,
-                  variant: 'warning',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
+              axios.post('/log', logdata);
+
+              let message = `${this.formType} created successfully`;
+
+              if (name) {
+                message += ' in ' + name + ' Godowns.';
+              }
+
+              this.$bvToast.toast(message, {
+                title: `${this.formMode} ${this.formType} Success!`,
+                autoHideDelay: 3000,
+                variant: 'success',
+                appendToast: true,
+                solid: true,
+              });
+
+              // only reset form on success, otherwise leave it as is so that user may edit their input and try again
               this.resetForm();
-              break;
-            case 2:
+            }
+            break;
+          case 1:
             this.$emit('childValueUpdate', this.invalidProduct);
-              this.$bvToast.toast(
-                this.$gettext(`Unauthorized access, Please contact admin`),
-                {
-                  title: `${this.formMode} ${this.formType} Error!`,
-                  autoHideDelay: 3000,
-                  variant: 'warning',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
-              break;
-            default:
-              this.$bvToast.toast(
-                this.$gettextInterpolate(
-                  this.$gettext(
-                    `Unable to create %{formType}, Please try again`
-                  ),
-                  { formType: this.formType }
+            this.$bvToast.toast(
+              this.$gettextInterpolate(
+                this.$gettext(
+                  `%{formType} entry already exists! (Please check Name, FAX or PAN)`
                 ),
-                {
-                  title: `${this.formMode} ${this.formType} Error!`,
-                  autoHideDelay: 3000,
-                  variant: 'danger',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
-              this.resetForm();
+                { formType: this.formType }
+              ),
+              {
+                title: `${this.formMode} ${this.formType} Error!`,
+                autoHideDelay: 3000,
+                variant: 'warning',
+                appendToast: true,
+                solid: true,
+              }
+            );
+            this.resetForm();
+            break;
+          case 2:
+            this.$emit('childValueUpdate', this.invalidProduct);
+            this.$bvToast.toast(
+              this.$gettext(`Unauthorized access, Please contact admin`),
+              {
+                title: `${this.formMode} ${this.formType} Error!`,
+                autoHideDelay: 3000,
+                variant: 'warning',
+                appendToast: true,
+                solid: true,
+              }
+            );
+            break;
+          default:
+            this.$bvToast.toast(
+              this.$gettextInterpolate(
+                this.$gettext(
+                  `Unable to create %{formType}, Please try again`
+                ),
+                { formType: this.formType }
+              ),
+              {
+                title: `${this.formMode} ${this.formType} Error!`,
+                autoHideDelay: 3000,
+                variant: 'danger',
+                appendToast: true,
+                solid: true,
+              }
+            );
+            this.resetForm();
           } // end switch
           if (this.onSave) {
             this.onSave(response.data);

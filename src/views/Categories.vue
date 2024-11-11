@@ -2,8 +2,11 @@
   <section class="m-2">
     <b-input-group class="mb-3 container-sm gksearch">
       <template #prepend>
-        <b-button variant="outline-primary" to="/categories/add"
-          ><b-icon icon="tag"></b-icon> <translate> Add Category </translate>
+        <b-button
+          variant="outline-primary"
+          to="/categories/add"
+        >
+          <b-icon icon="tag" /> <translate> Add Category </translate>
         </b-button>
       </template>
 
@@ -11,25 +14,25 @@
         type="text"
         placeholder="Search Categories"
         v-model="searchText"
-      ></b-form-input>
+      />
     </b-input-group>
     <gk-toolbar>
       <gk-file-download
         file-suffix="CategoryList"
         :url="
           `/spreadsheet?all-categories&fystart=${this.dateReverse(
-            this.yearStart
+            this.yearStart,
           )}&fyend=${this.dateReverse(this.yearEnd)}&orgname=${this.orgName}`
         "
-        :messageFromParent="parentMessage"
-      ></gk-file-download>
+        :message-from-parent="parentMessage"
+      />
     </gk-toolbar>
     <b-table
       :filter="searchText"
       :fields="[
-        { key: 'categoryname', label: 'Category' },
-        { key: 'parentcategory', label: 'Parent Category' },
-        { key: 'options', label: '', class: 'text-center' },
+        {key: 'categoryname', label: 'Category'},
+        {key: 'parentcategory', label: 'Parent Category'},
+        {key: 'options', label: '', class: 'text-center'},
       ]"
       :items="allCategories"
       striped
@@ -43,7 +46,10 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle" type="grow"></b-spinner>
+          <b-spinner
+            class="align-middle"
+            type="grow"
+          />
           <strong v-translate> Fetching Categories ... </strong>
         </div>
       </template>
@@ -56,15 +62,15 @@
             size="sm"
             :to="{
               name: 'Edit_Category',
-              params: { id: data.item.categorycode },
+              params: {id: data.item.categorycode},
             }"
           >
             <b-icon
               font-scale="0.85"
               class="align-middle"
               icon="pencil"
-            ></b-icon
-          ></b-button>
+            />
+          </b-button>
           <!-- delete spec -->
           <b-button
             v-if="data.item.categorystatus === 'Inactive'"
@@ -80,7 +86,7 @@
               @click="
                 deleteCategory(data.item.categoryname, data.item.categorycode)
               "
-            ></b-icon>
+            />
           </b-button>
         </b-button-group>
       </template>
@@ -179,6 +185,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 table {
   width: 70%;

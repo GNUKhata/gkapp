@@ -33,7 +33,7 @@ Vue.use(GetTextPlugin, {
   silent: true,
 });
 
-Vue.component('v-select', vSelect);
+Vue.component('VSelect', vSelect);
 
 Vue.prototype.$reload = () => location.reload();
 

@@ -12,7 +12,7 @@
         type="text"
         placeholder="Search Products/Services"
         v-model="searchText"
-      ></b-form-input>
+      />
     </div>
     <div class="d-flex justify-content-center mb-2">
       Sort by:
@@ -32,7 +32,11 @@
       >
         Products
       </b-form-checkbox>
-      <b-form-checkbox @change="applyFilter" v-model="status" value="19">
+      <b-form-checkbox
+        @change="applyFilter"
+        v-model="status"
+        value="19"
+      >
         Services
       </b-form-checkbox>
     </div>
@@ -51,19 +55,24 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle" type="grow"></b-spinner>
+          <b-spinner
+            class="align-middle"
+            type="grow"
+          />
           <strong> Fetching Products ... </strong>
         </div>
       </template>
       <template #cell(productdesc)="data">
         <b-link
           @click="$router.push(`/workflow/Business/${data.item.productcode}`)"
-          >{{ data.item.productdesc }}</b-link
         >
+          {{ data.item.productdesc }}
+        </b-link>
       </template>
     </b-table>
   </section>
 </template>
+
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
@@ -122,27 +131,27 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.productList = r.data.gkresult;
-                this.applyFilter();
-                this.isLoading = false;
-                break;
-              case 2:
-                this.$bvToast.toast('Unauthorised Access', {
-                  title: 'Error',
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast('You have no permission to access', {
-                  title: 'Error',
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              default:
-                console.log(r.data.gkstatus);
+            case 0:
+              this.productList = r.data.gkresult;
+              this.applyFilter();
+              this.isLoading = false;
+              break;
+            case 2:
+              this.$bvToast.toast('Unauthorised Access', {
+                title: 'Error',
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast('You have no permission to access', {
+                title: 'Error',
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            default:
+              console.log(r.data.gkstatus);
             }
           }
         })

@@ -6,9 +6,11 @@
   >
     <b-form @submit.prevent="confirmOnSubmit">
       <div class="text-center pt-2">
-        <h4 v-translate>Create Rejection Note</h4>
+        <h4 v-translate>
+          Create Rejection Note
+        </h4>
       </div>
-      <hr class="" />
+      <hr class="">
       <div class="mb-2">
         <b-form-radio-group
           v-model="form.type"
@@ -25,7 +27,10 @@
             <translate> Purchase Rejection </translate>
           </b-form-radio>
         </b-form-radio-group>
-        <span id="edit-invoice-list" class="d-inline-block mt-2 mt-sm-0">
+        <span
+          id="edit-invoice-list"
+          class="d-inline-block mt-2 mt-sm-0"
+        >
           <b-form-select
             id="input-8-2"
             v-model="invIndex"
@@ -35,87 +40,105 @@
             label="text"
             :reduce="(invdata) => invdata.value"
             style="min-width: 200px"
-            :resetOnOptionsChange="true"
+            :reset-on-options-change="true"
           >
-          <template #first>
+            <template #first>
               <b-form-select-option value="null">-- Please select an invoice --</b-form-select-option>
-          </template>
+            </template>
           </b-form-select>
         </span>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
       </div>
-      <b-card-group class="d-block d-md-flex my-2" deck>
+      <b-card-group
+        class="d-block d-md-flex my-2"
+        deck
+      >
         <!-- Rejection Note Details -->
         <rejection-note-details
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           :config="config.rnote"
-          :invDate="form.invoice.date"
+          :inv-date="form.invoice.date"
           ref="rnote"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.rnote"
-        ></rejection-note-details>
+          :update-counter="updateCounter.rnote"
+        />
         <!-- Invoice Details -->
         <invoice-details
           :config="config.inv"
-          :saleFlag="isSale"
-          :parentData="form.invoice"
+          :sale-flag="isSale"
+          :parent-data="form.invoice"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.invoice"
+          :update-counter="updateCounter.invoice"
           ref="invoice"
-        ></invoice-details>
+        />
         <!-- Buyer/Seller Details -->
         <party-details
           :mode="form.type"
-          :parentData="form.party"
-          :gstFlag="isGst"
-          :invoiceParty="invoiceParty"
+          :parent-data="form.party"
+          :gst-flag="isGst"
+          :invoice-party="invoiceParty"
           :config="config.party"
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.party"
+          :update-counter="updateCounter.party"
           ref="party"
-        >
-        </party-details>
+        />
       </b-card-group>
       <!-- Bill Table -->
       <bill-table
-        :gstFlag="isGst"
+        :gst-flag="isGst"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
-        :updateCounter="updateCounter.bill"
-        :parentData="form.bill"
-        :onRowSelected="onRowSelected"
+        :update-counter="updateCounter.bill"
+        :parent-data="form.bill"
+        :on-row-selected="onRowSelected"
         ref="bill"
-        :invDate="form.invoice.date"
-        :cgstFlag="isCgst"
-        :godownId="-1"
-        :saleFlag="isSale"
-        :blockEmptyStock="isSale"
-      ></bill-table>
+        :inv-date="form.invoice.date"
+        :cgst-flag="isCgst"
+        :godown-id="-1"
+        :sale-flag="isSale"
+        :block-empty-stock="isSale"
+      />
       <div class="px-2">
         <!-- b-row has to be enclosed in a container tag with padding
          atleast 2, to avoid creating an offset to the right -->
-        <b-row class="mt-5" v-if="config.total">
-          <b-col cols="12" lg="6" order-lg="1" order="2">
-            <b-card-group class="d-block d-md-flex" deck>
+        <b-row
+          class="mt-5"
+          v-if="config.total"
+        >
+          <b-col
+            cols="12"
+            lg="6"
+            order-lg="1"
+            order="2"
+          >
+            <b-card-group
+              class="d-block d-md-flex"
+              deck
+            >
               <!-- Invoice Comments -->
               <comments
                 :name="`Rejection Note`"
                 ref="narration"
                 :config="config.comments"
-                :updateCounter="updateCounter.comments"
-                :parentData="form.comments"
-              ></comments>
+                :update-counter="updateCounter.comments"
+                :parent-data="form.comments"
+              />
             </b-card-group>
           </b-col>
-          <b-col cols="12" lg="6" order-lg="2" order="1">
+          <b-col
+            cols="12"
+            lg="6"
+            order-lg="2"
+            order="1"
+          >
             <total-table
               :config="config.total"
-              :gstFlag="isGst"
-              :billData="form.bill"
-              :updateCounter="updateCounter.totalTable"
+              :gst-flag="isGst"
+              :bill-data="form.bill"
+              :update-counter="updateCounter.totalTable"
               ref="totalTable"
-            ></total-table>
+            />
           </b-col>
         </b-row>
       </div>
@@ -127,12 +150,12 @@
       >
         <translate
           translate-comment="%{start} and %{end} are a variables, translation is not required for them. Enter them, as they are while translation."
-          :translate-params="{ start: yearStart, end: yearEnd }"
+          :translate-params="{start: yearStart, end: yearEnd}"
         >
           Date must be within the Financial Year, from %{start} to %{end}
         </translate>
       </b-tooltip>
-      <hr />
+      <hr>
       <div class="float-right">
         <b-button
           class="m-1"
@@ -144,8 +167,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-left"
-          ></b-icon>
-          <span class="align-middle" v-translate>Back</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Back</span>
         </b-button>
         <b-button
           class="m-1"
@@ -157,8 +183,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-repeat"
-          ></b-icon>
-          <span class="align-middle" v-translate>Reset</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Reset</span>
         </b-button>
         <b-button
           id="inv-submit"
@@ -169,23 +198,31 @@
           variant="danger"
         >
           <span>
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="x-circle"
-            ></b-icon>
-            <span v-if="isSale" class="align-middle" v-translate
-              >Reject Sale</span
+            />
+            <span
+              v-if="isSale"
+              class="align-middle"
+              v-translate
+            >Reject Sale</span>
+            <span
+              v-else
+              class="align-middle"
+              v-translate
             >
-            <span v-else class="align-middle" v-translate>
-              Reject Purchase</span
-            >
+              Reject Purchase</span>
           </span>
         </b-button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </b-form>
     <print-page
       :show="showPrintModal"
@@ -193,12 +230,11 @@
       title="Rejection Note"
       :id="rnoteId"
       :pdata="{
-        printTitle: { page: 'Tax RejectionNote', file: 'tax_rejectionNote' },
+        printTitle: {page: 'Tax RejectionNote', file: 'tax_rejectionNote'},
         useTriplicate: false,
       }"
       @hidden="showPrintModal = false"
-    >
-    </print-page>
+    />
   </b-container>
 </template>
 
@@ -305,11 +341,11 @@ export default {
       if (newConf) {
         newConf.bill.footer.headingColspan =
           !!newConf.bill.index +
-            !!newConf.bill.product +
-            !!newConf.bill.hsn +
-            !!newConf.bill.qty +
-            !!newConf.bill.rejectedQty +
-            !!newConf.bill.rate || 1;
+          !!newConf.bill.product +
+          !!newConf.bill.hsn +
+          !!newConf.bill.qty +
+          !!newConf.bill.rejectedQty +
+          !!newConf.bill.rate || 1;
 
         if (newConf.inv.class) {
           newConf.inv.class = {
@@ -397,18 +433,18 @@ export default {
   methods: {
     onComponentDataUpdate(payload) {
       switch (payload.name) {
-        case 'rejection-note-details':
-          Object.assign(this.form.rnote, payload.data);
-          this.isInvDateValid = payload.options.isDateValid;
-          break;
-        case 'party-details':
-          Object.assign(this.form.party, payload.data);
-          this.updateCounter.ship++;
-          break;
-        case 'bill-table':
-          Object.assign(this.form.bill, payload.data);
-          this.updateCounter.totalTable++;
-          break;
+      case 'rejection-note-details':
+        Object.assign(this.form.rnote, payload.data);
+        this.isInvDateValid = payload.options.isDateValid;
+        break;
+      case 'party-details':
+        Object.assign(this.form.party, payload.data);
+        this.updateCounter.ship++;
+        break;
+      case 'bill-table':
+        Object.assign(this.form.bill, payload.data);
+        this.updateCounter.totalTable++;
+        break;
       }
     },
     collectComponentData() {
@@ -507,47 +543,47 @@ export default {
           self.isLoading = false;
           if (resp.status === 200) {
             switch (resp.data.gkstatus) {
-              case 0:
-                {
-                  // success
-                  this.displayToast(
-                    this.$gettext(`Create Rejection Note Successfull!`),
-                    `Rejection Note #${self.form.rnote.no} was successfully created`,
-                    'success'
-                  );
+            case 0:
+              {
+                // success
+                this.displayToast(
+                  this.$gettext(`Create Rejection Note Successfull!`),
+                  `Rejection Note #${self.form.rnote.no} was successfully created`,
+                  'success'
+                );
 
-                  let log = {
-                    activity: `rejection note created: ${self.form.rnote.no}`,
-                  };
-                  axios.post('/log', log);
-                  this.resetForm(true);
-                  this.showPrintModal = true;
-                  this.rnoteId = resp.data.gkresult;
-                }
-                break;
-              case 1:
-                // Duplicate entry
-                this.displayToast(
-                  this.$gettext(`Create Rejection Note Failed!`),
-                  this.$gettext('Duplicate Entry, Check No.'),
-                  'warning'
-                );
-                break;
-              case 2:
-                // Unauthorized access
-                this.displayToast(
-                  this.$gettext(`Create Rejection Note Failed!`),
-                  this.$gettext('Unauthorized Access, Contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-                // Connection failed, Check inputs and try again
-                this.displayToast(
-                  this.$gettext(`Create Rejection Note Failed!`),
-                  this.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
+                let log = {
+                  activity: `rejection note created: ${self.form.rnote.no}`,
+                };
+                axios.post('/log', log);
+                this.resetForm(true);
+                this.showPrintModal = true;
+                this.rnoteId = resp.data.gkresult;
+              }
+              break;
+            case 1:
+              // Duplicate entry
+              this.displayToast(
+                this.$gettext(`Create Rejection Note Failed!`),
+                this.$gettext('Duplicate Entry, Check No.'),
+                'warning'
+              );
+              break;
+            case 2:
+              // Unauthorized access
+              this.displayToast(
+                this.$gettext(`Create Rejection Note Failed!`),
+                this.$gettext('Unauthorized Access, Contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+              // Connection failed, Check inputs and try again
+              this.displayToast(
+                this.$gettext(`Create Rejection Note Failed!`),
+                this.$gettext('Please check your input and try again later'),
+                'danger'
+              );
             }
           }
         })
@@ -579,9 +615,9 @@ export default {
       return Promise.all(requests).then(([resp1]) => {
         if (resp1.data.gkstatus === 0) {
           let saleData = [],
-            purchaseData = [],
-            sale = [],
-            purchase = [];
+              purchaseData = [],
+              sale = [],
+              purchase = [];
           resp1.data.gkresult.forEach((inv) => {
             if (inv.inoutflag === 15) {
               saleData.push(inv);
