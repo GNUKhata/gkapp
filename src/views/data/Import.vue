@@ -85,7 +85,7 @@
                 </h6>
                 <ol>
                   <li
-                    class="text-sm text-monospace text-muted"
+                    class="text-monospace text-muted text-sm"
                     v-for="item in section"
                     :key="item"
                     v-text="item"
@@ -134,47 +134,47 @@ export default {
         .post(`/import/overwrite-organisation`, fd, { headers: { gktoken: this.authToken } })
         .then((r) => {
           switch (r.data.gkstatus) {
-            case 0:
-              this.$bvToast.toast(this.$gettext('Import Successful'), {
-                variant: 'success',
-                solid: true,
-              });
-              if (this.file.type == 'application/json') {
-                this.json_info = r.data.gkresult;
-                this.$bvModal.show('response-modal');
-              }
-              this.$emit('refresh');
-              break;
-            case 1:
-              this.$bvToast.toast('Duplicate Entry, organisation with same name and financial year already exists.', {
-                variant: 'warning',
-                solid: true,
-              });
-              break;
-            case 2:
-              this.$bvToast.toast('Unauthorised Access', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 3:
-              this.$bvToast.toast('Data error', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 4:
-              this.$bvToast.toast('No Privilege', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 5:
-              this.$bvToast.toast('Integrity error', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
+          case 0:
+            this.$bvToast.toast(this.$gettext('Import Successful'), {
+              variant: 'success',
+              solid: true,
+            });
+            if (this.file.type == 'application/json') {
+              this.json_info = r.data.gkresult;
+              this.$bvModal.show('response-modal');
+            }
+            this.$emit('refresh');
+            break;
+          case 1:
+            this.$bvToast.toast('Duplicate Entry, organisation with same name and financial year already exists.', {
+              variant: 'warning',
+              solid: true,
+            });
+            break;
+          case 2:
+            this.$bvToast.toast('Unauthorised Access', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 3:
+            this.$bvToast.toast('Data error', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 4:
+            this.$bvToast.toast('No Privilege', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 5:
+            this.$bvToast.toast('Integrity error', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
           }
         });
     },
