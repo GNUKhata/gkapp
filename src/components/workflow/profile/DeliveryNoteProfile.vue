@@ -474,11 +474,12 @@ export default {
         designation: noteData.designation || '',
       };
 
+      const { contact } = details.immutable_data ?? {};
       let party = {
-        name: details.custSupDetails.custname,
-        addr: details.custSupDetails.custaddr,
-        state: details.custSupDetails.custsupstate,
-        pin: details.custSupDetails.pincode,
+        name: contact.custname,
+        addr: contact.custaddr,
+        state: contact.custsupstate,
+        pin: contact.pincode,
       };
 
       let shipData = noteData.consignee || {};
@@ -490,24 +491,25 @@ export default {
         gstin: shipData.gstinconsignee || '',
       };
 
-      let godown = {
-        name: noteData.goname,
-        addr: noteData.goaddr,
-        state: noteData.gostate,
+      const { godown } = details.immutable_data ?? {};
+      const _godown = {
+        name: godown.goname,
+        addr: godown.goaddr,
+        state: godown.gostate,
       };
 
       if (noteData.inoutflag === 15) {
-        this.delnote.from = godown;
+        this.delnote.from = _godown;
         this.delnote.to = shipTo.name ? shipTo : party;
       } else {
         this.delnote.from = party;
-        this.delnote.to = godown;
+        this.delnote.to = _godown;
       }
 
       for (const name in details.delchalContents) {
         const item = details.delchalContents[name];
         this.delnote.contents.push({
-          name: item.proddesc,
+          name: details.immutable_data?.products[item.productCode].productdesc,
           qty: item.qty,
           rate: item.priceperunit,
           discount: item.discount,
