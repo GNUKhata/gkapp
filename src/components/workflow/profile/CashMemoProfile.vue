@@ -520,7 +520,7 @@ export default {
             (key) => {
               product = {
                 id: key,
-                name: details.invcontents[key].proddesc,
+                name: details.immutable_data?.products[key].productdesc,
                 uom: details.invcontents[key].uom,
                 qty: details.invcontents[key].qty,
                 freeQty: details.invcontents[key].freeQty,
