@@ -283,25 +283,27 @@ export default {
         transportMode: details.transportationmode,
       };
 
+      const fromGodown = details.immutable_data?.godowns[details.fromgodownid];
       this.godown.from = {
-        name: details.fromgodown,
-        addr: details.fromgodownaddr,
-        id: details.fromgodownid,
-        state: details.fromgodownstate,
+        name: fromGodown.goname,
+        addr: fromGodown.goaddr,
+        id: fromGodown.goid,
+        state: fromGodown.state,
       };
 
+      const toGodown = details.immutable_data?.godowns[details.togodownid];
       this.godown.to = {
-        name: details.togodown,
-        addr: details.togodownaddr,
-        id: details.togodownid,
-        state: details.togodownstate,
+        name: toGodown.goname,
+        addr: toGodown.goaddr,
+        id: toGodown.goid,
+        state: toGodown.state,
       };
 
       this.tnote.products = [];
       for (const name in details.productdetails) {
         const item = details.productdetails[name];
         this.tnote.products.push({
-          name: item.productdesc,
+          name: details.immutable_data?.products[item.productcode].productdesc,
           qty: item.qty,
           unit: item.unitname,
           goid: item.goid,
