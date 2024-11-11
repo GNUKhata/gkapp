@@ -383,10 +383,10 @@ export default {
         bankDetails: details.bankdetails,
       };
 
-      let godown =
-        details.goname && details.goaddr
-          ? `${details.goname} (${details.goaddr})`
-          : '';
+      let { godown } = details.immutable_data ?? {};
+      godown = godown.goname && godown.goaddr
+        ? `${godown.goname} (${godown.goaddr})`
+        : '';
       this.psorder = {
         isGst: this.isGstEnabled && ['GST', 'IGST', 'CGST', 'SGST'].includes(details.taxname),
         isVat: this.isVatEnabled && details.taxname === 'VAT',
@@ -404,14 +404,14 @@ export default {
         vehicleNo: details.vehicleno,
       };
 
-      let cust = details.custSupDetails;
+      let cust = details.immutable_data?.contact ?? {};
       this.party = {
         name: cust.custname,
         addr: cust.custaddr,
         state: cust.custsupstate,
         pin: cust.pincode,
         isCustomer: cust.csflag === 3,
-        gstin: cust.custgstin,
+        gstin: Object.values(cust?.gstin || {}).join(", "),
       };
 
       let shipping = details.consignee;
@@ -426,7 +426,7 @@ export default {
       for (const name in details.schedule) {
         const item = details.schedule[name];
         this.psorder.contents.push({
-          name: item.proddesc,
+          name: details.immutable_data?.products[item.productCode],
           qty: item.qty,
           rate: item.priceperunit,
           discount: item.discount,
