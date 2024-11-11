@@ -644,7 +644,7 @@ export default {
       }
 
       res.push({
-        title: self.$gettext('Godown'), value: self.dnote.goname || ''
+        title: self.$gettext('Godown'), value: details.goname || ''
       });
 
       if (self.isIndia && self.isIndianParty) {
@@ -881,10 +881,10 @@ export default {
      */
     formatInvoiceDetails(details) {
       if (details) {
-        let party = details.custSupDetails || {};
+        let party = details.immutable_data?.contact || {};
         let gstinList =
-          party.custgstinlist && typeof party.custgstinlist === 'object'
-            ? Object.values(party.custgstinlist)
+          party.gstin && typeof party.gstin === 'object'
+            ? Object.values(party.gstin)
             : [];
         let gstin = gstinList.length ? gstinList[0] : '';
         this.invoice = {
@@ -895,6 +895,7 @@ export default {
           dcno: details.dcno || '',
           dcid: details.dcid || '',
           taxState: this.states[details.taxstatecode],
+          goname: details.immutable_data?.godown.goname,
           eway:
             details.ewaybillno !== 'undefined' && !!details.ewaybillno
               ? details.ewaybillno
@@ -945,7 +946,7 @@ export default {
               let cgst = taxrate.toFixed(2);
               product = {
                 id: key,
-                name: details.invcontents[key].proddesc,
+                name: details.immutable_data?.products[key],
                 uom: details.invcontents[key].uom,
                 qty: details.invcontents[key].qty,
                 freeQty: details.invcontents[key].freeQty,
