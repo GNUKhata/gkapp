@@ -125,13 +125,13 @@ export default {
       }
     },
 
-    upload(url) {
+    upload() {
       // create a form object as api demands it
       let fd = new FormData();
       fd.append('gkfile', this.file);
 
       axios
-        .post(`/import/${url}`, fd, { headers: { gktoken: this.authToken } })
+        .post(`/import/overwrite-organisation`, fd, { headers: { gktoken: this.authToken } })
         .then((r) => {
           switch (r.data.gkstatus) {
           case 0:
