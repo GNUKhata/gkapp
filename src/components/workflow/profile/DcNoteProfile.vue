@@ -461,12 +461,13 @@ export default {
           sale: details.invdata.inoutflag === 15,
         };
 
+        const { contact } = details.immutable_data ?? {};
         this.party = {
-          name: details.custSupDetails.custname,
-          addr: details.custSupDetails.custaddr,
-          pincode: details.custSupDetails.pincode,
-          gstin: Object.values(details.custSupDetails?.gstin || {}).join(", "),
-          tin: details.custSupDetails.tin,
+          name: contact.custname,
+          addr: contact.custaddr,
+          pincode: contact.pincode,
+          gstin: Object.values(contact?.gstin || {}).join(", "),
+          tin: contact.tin,
         };
         this.inv = {
           no: details.invdata.invoiceno,
@@ -485,7 +486,7 @@ export default {
             let item = details.drcrcontents[id];
             this.dcNote.dcItems.push({
               id: id,
-              name: item.proddesc,
+              name: details.immutable_data?.products[id],
               rate: item.reductionval,
               qty: item.qty,
               dcValue: item.reductionval,
