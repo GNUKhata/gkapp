@@ -867,7 +867,7 @@ import GkFileDownload from '@/components/GkFileDownload.vue';
 import GkPeriod from '@/components/GkPeriod.vue';
 export default {
   components: { GkFileDownload, GkPeriod },
-  name: 'Main',
+  name: '3B',
   data() {
     return {
       parentMessage: '',

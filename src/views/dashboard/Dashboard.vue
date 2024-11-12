@@ -74,7 +74,7 @@ export default {
     IncomeAssetsChart,
     EasyVoucher,
   },
-  name: 'Main',
+  name: 'Dashboard',
   data() {
     return {
       dashboardData: {},
