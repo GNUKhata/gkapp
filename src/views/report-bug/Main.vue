@@ -85,6 +85,7 @@
 import routes from '../../router/index';
 import GkCardHeader from '@/components/GkCardHeader.vue';
 export default {
+  name: 'ReportBug',
   components: { GkCardHeader },
   data() {
     return {

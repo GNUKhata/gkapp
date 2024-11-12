@@ -51,7 +51,7 @@ import { mapState } from 'vuex';
 export default {
   props: {
     show: {
-      value: [String, Boolean],
+      type: [String, Boolean],
       default: false,
     },
   },

@@ -138,8 +138,8 @@
 export default {
   name: 'ReportTableThreeCol',
   props: {
-    items: [], // Vue bootstrap table items
-    fields: [], // Vue bootstrap table fields
+    items: {type: Array}, // Vue bootstrap table items
+    fields: {type: Array}, // Vue bootstrap table fields
     tableName: String, // Table name (used to show/hide table head)
     divideThousand: Boolean,
     filterTable: { // Vue bootstrap filter-function

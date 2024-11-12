@@ -43,6 +43,7 @@ globalMixins.data = function() {
 };
 Vue.mixin(globalMixins);
 
+/* eslint-disable vue/require-name-property */
 window.gkVue = new Vue({
   router,
   store,

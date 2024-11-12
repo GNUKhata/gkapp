@@ -41,12 +41,12 @@ export default {
   props: {
     size: String,
     passwordHint: {
-      value: Boolean,
+      type: Boolean,
       required: false,
       default: true,
     },
     placeholder: {
-      value: String,
+      type: String,
       required: false,
     },
   },

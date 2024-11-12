@@ -42,7 +42,12 @@
 import axios from 'axios';
 export default {
   name: 'CostCenterEdit',
-  props: ['id'],
+  props: {
+    id: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
       loading: false,

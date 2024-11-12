@@ -26,6 +26,7 @@ export default {
   name: 'SinglePost',
   props: {
     id: {
+      type: Number,
       required: true,
     },
   },

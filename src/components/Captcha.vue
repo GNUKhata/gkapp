@@ -45,10 +45,12 @@ export default {
       note: 'this prop gets the answer',
     },
     width: {
+      type: Number,
       default: 90,
       note: 'Canvas Width (optional). Default is 90',
     },
     height: {
+      type: Number,
       default: 30,
       note: 'Canvas height (optional), Default is 30',
     },
