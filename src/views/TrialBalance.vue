@@ -9,7 +9,7 @@
           header-text-variant="light"
         >
           <template #header>
-            <gk-cardheader
+            <gk-card-header
               :name="$gettext('View Trial Balance')"
               :help-body="showHelpBody"
             />
@@ -252,7 +252,7 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 import GkDate from '../components/GkDate.vue';
 import ReportHeader from '../components/ReportHeader.vue';
 import GkTooltip from '../components/GkTooltip.vue';
@@ -261,7 +261,7 @@ import GkFileDownload from '../components/GkFileDownload.vue';
 import GkHovermenu from '@/components/GkHovermenu.vue';
 export default {
   components: {
-    GkCardheader,
+    GkCardHeader,
     GkDate,
     ReportHeader,
     GkTooltip,

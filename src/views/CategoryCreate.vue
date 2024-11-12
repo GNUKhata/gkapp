@@ -243,7 +243,7 @@ import axios from 'axios';
 import Autocomplete from '../components/Autocomplete.vue';
 export default {
   components: { Autocomplete },
-  name: 'CreateCategory',
+  name: 'CategoryCreate',
   data() {
     return {
       form: {

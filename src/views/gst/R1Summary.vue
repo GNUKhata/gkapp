@@ -274,7 +274,7 @@ import ReportHeader from '@/components/ReportHeader.vue';
 import GkFileDownload from '@/components/GkFileDownload.vue';
 export default {
   components: { ReportHeader, GkFileDownload },
-  name: 'R1Detailed',
+  name: 'R1Summary',
   data() {
     return {
       parentMessage: '',

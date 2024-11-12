@@ -121,7 +121,7 @@ import GkFileDownload from '../components/GkFileDownload.vue';
 import GkHover from '../components/GkHovermenu.vue';
 export default {
   components: { ReportHeader, GkToolbar, GkFileDownload, GkHover },
-  name: 'LedgerMonthly',
+  name: 'LedgerFull',
   data() {
     return {
       parentMessage: '',

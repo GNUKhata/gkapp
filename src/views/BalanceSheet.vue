@@ -16,7 +16,7 @@
         header-text-variant="light"
       >
         <template #header>
-          <gk-cardheader
+          <gk-card-header
             v-if="orgType == 'Profit Making'"
             :name="$gettext('Balance Sheet Statement')"
             help-body="Statement of Affairs / Balance Sheet
@@ -31,7 +31,7 @@ All these organizations must be of the same Type and must have the same Financia
 Note that this is a consolidated report generated from organizations which are separately created in GNUKhata and no changes in the accounts of these organizations will take place. Operators cannot view this report."
           />
 
-          <gk-cardheader
+          <gk-card-header
             v-else
             name="Statement Of Affairs"
             help-body="Statement of Affairs / Balance Sheet
@@ -345,12 +345,12 @@ Note that this is a consolidated report generated from organizations which are s
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 import GkDate from '../components/GkDate.vue';
 import ReportHeader from '../components/ReportHeader.vue';
 import GkFileDownload from '@/components/GkFileDownload.vue';
 export default {
-  components: { GkCardheader, GkDate, ReportHeader, GkFileDownload },
+  components: { GkCardHeader, GkDate, ReportHeader, GkFileDownload },
   name: 'BalanceSheet',
   data() {
     return {

@@ -21,7 +21,7 @@ import TransferNote from './TransferNoteProfile.vue';
 import Voucher from './VoucherProfile.vue';
 import { mapState } from 'vuex';
 export default {
-  name: 'TransactionProfile',
+  name: 'Transaction',
   components: {
     Invoice,
     CashMemo,

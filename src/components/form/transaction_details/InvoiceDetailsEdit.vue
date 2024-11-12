@@ -334,7 +334,7 @@ import trnDetailsMixin from '@/mixins/transactionProfile.js';
 import { EventBus } from '@/js/eventBus';
 
 export default {
-  name: 'InvoiceDetails',
+  name: 'InvoiceDetailsEdit',
   components: { GkDate },
   mixins: [trnDetailsMixin],
   props: {

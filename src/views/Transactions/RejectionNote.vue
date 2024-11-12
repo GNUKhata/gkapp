@@ -258,7 +258,7 @@ import PrintPage from '../../components/workflow/PrintPage.vue';
 import { reverseDate } from '../../js/utils';
 
 export default {
-  name: '',
+  name: 'RejectionNote',
   components: {
     // Config,
 

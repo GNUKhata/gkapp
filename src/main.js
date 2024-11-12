@@ -3,6 +3,7 @@ import 'mutationobserver-shim';
 import Vue from 'vue';
 import './plugins/axios';
 import './plugins/bootstrap-vue';
+import './plugins/v-select';
 import App from './App.vue';
 import router from './router';
 import wb from './registerServiceWorker';
@@ -10,8 +11,6 @@ import store from './store';
 import '@/scss/main.scss';
 import GetTextPlugin from 'vue-gettext';
 import translations from './locales/translations.json';
-import vSelect from 'vue-select';
-import 'vue-select/dist/vue-select.css';
 import globalMixins from '@/mixins/global.js';
 import gkConfig from '@/js/config/gkConfig';
 
@@ -32,8 +31,6 @@ Vue.use(GetTextPlugin, {
   autoAddKeyAttributes: true,
   silent: true,
 });
-
-Vue.component('VSelect', vSelect);
 
 Vue.prototype.$reload = () => location.reload();
 

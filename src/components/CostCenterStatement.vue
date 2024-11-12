@@ -141,7 +141,7 @@ import GkToolbar from '@/components/GkToolbar.vue';
 
 export default {
   components: { Autocomplete, GkDate, ReportHeader, GkFileDownload, GkToolbar },
-  name: 'ProductRegister',
+  name: 'CostCenterStatement',
   data() {
     return {
       parentMessage: '',

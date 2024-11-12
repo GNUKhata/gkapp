@@ -7,11 +7,11 @@
         header-text-variant="light"
       >
         <template #header>
-          <gk-cardheader
+          <gk-card-header
             v-if="orgType == 'Profit Making'"
             :name="$gettext('Profit & Loss Statement')"
           />
-          <gk-cardheader
+          <gk-card-header
             v-else
             name="Income & Expenditure"
           />
@@ -287,14 +287,14 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 import GkDate from '../components/GkDate.vue';
 import ReportHeader from '../components/ReportHeader.vue';
 import ReportTableThreeCol from '../components/reports/ReportTableThreeCol.vue';
 import GkFileDownload from '../components/GkFileDownload.vue';
 export default {
-  components: { GkCardheader, GkDate, ReportHeader, GkFileDownload, ReportTableThreeCol },
-  name: 'BalanceSheet',
+  components: { GkCardHeader, GkDate, ReportHeader, GkFileDownload, ReportTableThreeCol },
+  name: 'ProfitLoss',
   data() {
     return {
       parentMessage: '',

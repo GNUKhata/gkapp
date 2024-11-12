@@ -142,7 +142,7 @@ import PrintPage from '../../components/workflow/PrintPage.vue';
 import TransferNoteConfig from '../../js/config/transaction/transferNote.js';
 
 export default {
-  name: '',
+  name: 'TransferNote',
   components: {
     // Config,
 

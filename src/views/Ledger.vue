@@ -7,7 +7,7 @@
         header-text-variant="light"
       >
         <template #header>
-          <gk-cardheader
+          <gk-card-header
             :name="$gettext('View Ledger')"
             :help-body="
               $gettext(`Single
@@ -106,12 +106,12 @@ When a Ledger Account appears on the screen, press Shift + Alt + l to view anoth
 
 <script>
 import axios from 'axios';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 import Autocomplete from '../components/Autocomplete.vue';
 import { mapState } from 'vuex';
 import GkDate from '../components/GkDate.vue';
 export default {
-  components: { GkCardheader, Autocomplete, GkDate },
+  components: { GkCardHeader, Autocomplete, GkDate },
   name: 'Ledger',
   data() {
     return {

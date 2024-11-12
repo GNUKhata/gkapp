@@ -326,7 +326,7 @@ import Config from '../../components/Config.vue';
 import invoiceConfig from '../../js/config/transaction/invoiceConfig';
 
 export default {
-  name: 'Invoice',
+  name: 'InvoiceEdit',
   components: {
     Config,
 

@@ -60,7 +60,7 @@ import MostSoldPS from './MostSoldPS.vue';
 import SalePurchaseInvoiceGraph from './SalePurchaseInvoiceGraph.vue';
 import MakeRecievePayment from './MakeRecievePayment.vue';
 import IncomeAssetsChart from './IncomeAssetsChart.vue';
-import EasyVoucher from '@/components/form/VoucherEasy.vue';
+import EasyVoucher from '@/components/form/EasyVoucher.vue';
 
 export default {
   components: {

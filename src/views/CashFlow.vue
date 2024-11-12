@@ -7,7 +7,7 @@
         header-text-variant="light"
       >
         <template #header>
-          <gk-cardheader
+          <gk-card-header
             :name="$gettext('Cash Flow Statement')"
             :help-body="
               $gettext(`Receipt & Payment Account or Cash Flow
@@ -137,14 +137,14 @@ All users can view this report`)
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 import GkDate from '../components/GkDate.vue';
 import ReportHeader from '../components/ReportHeader.vue';
 import GkToolbar from '../components/GkToolbar.vue';
 import GkFileDownload from '../components/GkFileDownload.vue';
 export default {
-  components: { GkCardheader, GkDate, ReportHeader, GkToolbar, GkFileDownload },
-  name: 'ProfitLoss',
+  components: { GkCardHeader, GkDate, ReportHeader, GkToolbar, GkFileDownload },
+  name: 'CashFlow',
   data() {
     return {
       parentMessage: '',

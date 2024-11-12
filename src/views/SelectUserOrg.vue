@@ -391,7 +391,7 @@ export default {
     CreateUser,
     ChangePwd,
   },
-  name: 'SelectOrg',
+  name: 'SelectUserOrg',
   data() {
     return {
       isLoading: false,

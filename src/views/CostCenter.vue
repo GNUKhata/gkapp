@@ -102,7 +102,7 @@ import CostCenterCreate from './CostCenterCreate.vue';
 import CostCenterEdit from './CostCenterEdit.vue';
 export default {
   components: { CostCenterCreate, CostCenterEdit },
-  name: 'Godowns',
+  name: 'CostCenter',
   data() {
     return {
       loading: false,

@@ -244,7 +244,7 @@ import axios from 'axios';
 import Autocomplete from '../components/Autocomplete.vue';
 export default {
   components: { Autocomplete },
-  name: 'EditCategory',
+  name: 'CategoryEdit',
   data() {
     return {
       form: {

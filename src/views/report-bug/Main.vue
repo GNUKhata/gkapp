@@ -8,7 +8,7 @@
     >
       <!-- card header -->
       <template #header>
-        <gk-cardheader
+        <gk-card-header
           name="Report Bug"
           :help-body="
             $gettext(
@@ -83,9 +83,9 @@
 
 <script>
 import routes from '../../router/index';
-import GkCardheader from '@/components/GkCardheader.vue';
+import GkCardHeader from '@/components/GkCardHeader.vue';
 export default {
-  components: { GkCardheader },
+  components: { GkCardHeader },
   data() {
     return {
       selectedModule: '',

@@ -138,7 +138,7 @@ import GkDate from '../components/GkDate.vue';
 import { mapState } from 'vuex';
 import ReportHeader from '../components/ReportHeader.vue';
 export default {
-  name: 'StockOnHand',
+  name: 'CategorywiseStockOnHand',
   components: { Autocomplete, GkDate, ReportHeader },
   data() {
     return {

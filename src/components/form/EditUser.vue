@@ -191,7 +191,7 @@ import Password from '../Password.vue';
 
 export default {
   components: { SecurityQuestions, Password },
-  name: 'UserManagement',
+  name: 'EditUser',
   data() {
     return {
       id: Number,

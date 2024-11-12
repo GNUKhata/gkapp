@@ -288,7 +288,7 @@ import PrintPage from '../../components/workflow/PrintPage.vue';
 import psOrderConfig from '../../js/config/transaction/purchaseSalesOrder';
 
 export default {
-  name: '',
+  name: 'PurchaseSaleOrder',
   components: {
     Config,
 

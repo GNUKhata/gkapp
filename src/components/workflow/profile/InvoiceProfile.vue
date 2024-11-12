@@ -479,7 +479,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters, mapState } from 'vuex';
-import EasyVoucher from '@/components/form/VoucherEasy.vue';
+import EasyVoucher from '@/components/form/EasyVoucher.vue';
 import { numberToWords } from '../../../js/utils.js';
 
 export default {

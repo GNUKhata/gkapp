@@ -13,7 +13,7 @@
         blur
       />
       <template #header>
-        <gk-cardheader
+        <gk-card-header
           :name="$gettext('GNUKhata Server Setup')"
           help-body="This menu helps you to select gkcore server to use with this webapp. The default server is <code>localhost:6543</code><br>You can also set your custom gkcore server address."
         />
@@ -72,9 +72,9 @@
 
 <script>
 import axios from 'axios';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 export default {
-  components: { GkCardheader },
+  components: { GkCardHeader },
   name: 'ServerSetup',
   data() {
     return {
