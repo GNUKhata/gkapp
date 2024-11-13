@@ -634,7 +634,6 @@ export default {
       const self = this;
       axios.get(`/delchal/${dcid}`).then((resp) => {
         if (resp.data.gkstatus === 0) {
-          // debugger;
           self.options.dnData = resp.data.gkresult.delchaldata;
           self.form.invoice.godown = resp.data.gkresult.delchaldata.goid;
           self.form.invoice.dnNo = resp.data.gkresult.delchaldata.dcno;

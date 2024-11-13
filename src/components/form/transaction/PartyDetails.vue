@@ -592,8 +592,6 @@ export default {
               );
             }
             self.isPreloading = false;
-            // debugger;
-            // self.setShippingDetails(); // updates shipping details as well if flag is set
           })
           .catch((error) => {
             this.displayToast(
@@ -774,7 +772,6 @@ export default {
       let self = this;
       return Promise.all(requests)
         .then(([resp1, resp2]) => {
-          // debugger;
           // === Customer List ===
           if (resp1.status === 200) {
             if (resp1.data.gkstatus === 0) {
@@ -839,7 +836,6 @@ export default {
       });
     },
     initPartyEdit() {
-      // debugger;
       this.editFlag = true;
       this.editMode = {
         addr: this.form.addr,

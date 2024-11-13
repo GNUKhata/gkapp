@@ -636,7 +636,6 @@ export default {
           }
         }
       } else {
-        // debugger;
         if (!this.form.gstin.gstin) {
           this.form.state = '';
           this.form.pan = null;

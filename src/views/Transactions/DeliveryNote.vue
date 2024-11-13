@@ -348,7 +348,6 @@ export default {
   },
   computed: {
     taxState: (self) => {
-      // debugger;
       return self.form.delNote.taxState ? self.form.delNote.taxState.name : '';
     },
     // config : Gets the custom config from the invoiceConfig Vuex module and
@@ -478,7 +477,6 @@ export default {
       switch (payload.name) {
       case 'delivery-note-details':
         {
-          // debugger;
           Object.assign(this.form.delNote, payload.data);
           this.form.transport.date = this.form.delNote.date;
           setTimeout(function() {
@@ -487,7 +485,6 @@ export default {
         }
         break;
       case 'party-details':
-        // debugger;
         Object.assign(this.form.party, payload.data);
         this.updateCounter.ship++;
         this.form.delNote.taxState = payload.data.state;

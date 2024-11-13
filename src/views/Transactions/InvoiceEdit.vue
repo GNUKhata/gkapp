@@ -638,12 +638,6 @@ export default {
       switch (payload.name) {
       case 'invoice-details':
         {
-          // debugger;
-          // if (payload.data.delNote !== this.form.inv.delNote) {
-          //   this.fetchDelNoteData(payload.data.delNote);
-          // } else {
-          //   }
-
           let oldInvNo = this.form.inv.no;
           this.goid = payload.data.godown || -1;
           Object.assign(this.form.inv, payload.data);
@@ -709,7 +703,6 @@ export default {
       const self = this;
       return axios.get(`/delchal/${dcid}`).then((resp) => {
         if (resp.data.gkstatus === 0) {
-          // debugger;
           let dcData = resp.data.gkresult.delchaldata;
           self.options.dcData = dcData;
           self.form.inv.godown = dcData.goid;
@@ -916,7 +909,6 @@ export default {
               this.updateCounter.party++;
             });
 
-            // debugger;
             this.$nextTick().then(() => {});
 
             // set bill items
@@ -1153,7 +1145,6 @@ export default {
         invnarration: this.form.narration || this.defaultNarration,
       };
 
-      // debugger;
       // === Delivery Note ===
       if (this.dcId) {
         invoice.dcid = this.dcId;

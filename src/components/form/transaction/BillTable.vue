@@ -703,7 +703,6 @@ export default {
           ? self.$gettext('Credited Value')
           : self.$gettext('Debited Value')
       );
-      // debugger;
       if (self.isIndia) {
         if (self.gstFlag) {
           remove('vat');
@@ -775,7 +774,6 @@ export default {
   },
   watch: {
     updateCounter() {
-      // debugger;
       let updateBillTable = !(
         this.parentData.length &&
         typeof this.parentData[0].product === 'object' &&

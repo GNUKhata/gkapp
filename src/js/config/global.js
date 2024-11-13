@@ -202,7 +202,6 @@ export default {
       return Promise.all(dispatches).then(([respContacts, respGodown]) => {
         let conf = state.customConf;
         let callUpdate = false;
-        // debugger;
         if (respContacts) {
           const contacts = conf.transaction.default.contacts;
           if (contacts) {

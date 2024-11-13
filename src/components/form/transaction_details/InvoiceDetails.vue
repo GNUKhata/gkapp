@@ -648,7 +648,6 @@ export default {
       }
       const self = this;
       return this.getLastDelNoteNo().then((no) => {
-        // debugger;
         let code = self.saleFlag ? codes.out : codes.in;
         this.form.dnNo =
           isNaN(no) || no === -1

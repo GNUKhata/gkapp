@@ -630,7 +630,6 @@ export default {
         this.details.orgpan = pan;
       } else {
         this.gstinValid = false;
-        // debugger;
         if (!this.gstin) {
           this.stateCode = '';
           this.details.orgpan = '';
@@ -1014,7 +1013,6 @@ export default {
         Promise.all(codeRequests).then((accCodes) => {
           let codes = accCodes.map((accCode) => accCode.data.accountcode);
           codes.map((accCode) => {
-            // debugger;
             return axios.delete(`/accounts`, {
               data: { accountcode: accCode },
             });

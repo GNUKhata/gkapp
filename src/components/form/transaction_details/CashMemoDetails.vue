@@ -385,7 +385,6 @@ export default {
 
       const self = this;
       return this.fetchDelNoteCounter().then((no) => {
-        // debugger;
         let code = self.saleFlag ? codes.out : codes.in;
         let dnNo =
           isNaN(no) || no === -1

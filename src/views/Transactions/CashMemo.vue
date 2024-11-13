@@ -383,7 +383,6 @@ export default {
     isVat: (self) => self.isVatEnabled && self.form.taxType === 'vat',
     isGst: (self) => self.isGstEnabled && self.form.taxType === 'gst',
     isCgst: (self) => {
-      // debugger;
       if (
         self.isIndia &&
         self.form.memo.state &&
@@ -429,7 +428,6 @@ export default {
         {
           Object.assign(this.form.memo, payload.data);
           this.isInvDateValid = payload.options.isDateValid;
-          // debugger;
           if (payload.options.bankDetails) {
             this.options.orgDetails.bankDetails = payload.options.bankDetails;
             this.setBankDetails();

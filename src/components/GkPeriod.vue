@@ -191,7 +191,6 @@ export default {
       let periods = [];
 
       while (startTime < endTime) {
-        // debugger;
         let current = {
           day: startDate.getDate(),
           month: startDate.getMonth(),

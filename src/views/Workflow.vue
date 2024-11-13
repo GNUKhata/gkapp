@@ -965,7 +965,6 @@ export default {
       return tabs;
     },
     activeTabOptions: (self) => {
-      // debugger;
       if (self.activeWorkflow.name.includes('-')) {
         const name = self.activeWorkflow.name.split('-');
         return self.options.tabs[name[0]].tabs[name[1]];
@@ -1010,7 +1009,6 @@ export default {
      * Description: Updates the left pane column config to localhost for persistence
      */
     updateListSettings() {
-      // debugger;
       let colMap = this.activeTabOptions.options.columnMap;
       let sortBy = this.listSettings.columns
         .filter((column) => {
@@ -1203,7 +1201,6 @@ export default {
           .then((resp) => {
             activeWorkflow.data = resp;
             self.isLoading = false;
-            // debugger;
             if (parseInt(self.activeWorkflow.id) == -1) {
               self.selectFirstListItem();
               self.updateUrl();

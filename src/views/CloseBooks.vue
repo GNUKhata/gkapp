@@ -419,7 +419,6 @@ export default {
           switch (resp.data.gkstatus) {
           case 0:
             {
-              // debugger;
               axios.defaults.baseURL = this.gkCoreUrl;
               axios.defaults.headers = { gktoken: resp.data.token };
               let finYears = this.finYears;
@@ -463,7 +462,6 @@ export default {
                     lang: this.$language,
                   })
                   .then(() => {
-                    // debugger;
                     // redirect to workflow on login
                     this.$router
                       .push('/workflow/Transactions-Invoice/-1')

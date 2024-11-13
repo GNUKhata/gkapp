@@ -188,7 +188,6 @@ const config = {
         // Deleted Invoices
         if (resp[2].data.gkstatus === 0) {
           const deletedInv = resp[2].data.gkresult.map((item) => {
-            // debugger;
             return Object.assign(
               {
                 id: item.invid,
@@ -228,7 +227,6 @@ const config = {
 };
 
 function initColumns() {
-  // debugger;
   let columns = [];
   axios.get('/config?conftype=user').then((resp) => {
     if (resp.data.gkstatus === 0) {

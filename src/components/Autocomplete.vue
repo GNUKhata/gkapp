@@ -405,7 +405,6 @@ export default {
      * 2. When the program assigns a value via v-model to the component
      */
     value(newVal) {
-      // debugger;
       const self = this;
       if (!this.optionsB) {
         return;

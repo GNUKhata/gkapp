@@ -251,7 +251,6 @@ export default {
                   lang: this.$language,
                 })
                 .then(() => {
-                  // debugger;
                   // redirect to workflow on login
                   location.reload();
                 });
