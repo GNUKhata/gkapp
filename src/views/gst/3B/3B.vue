@@ -931,10 +931,8 @@ export default {
                 thStyle: 'width: 175px',
                 tdClass: 'text-truncate',
               },
-              // {key: "custname", label: 'Customer'},
               { key: 'netamt', label: 'Taxable Value' },
               { key: 'taxamt', label: 'Integrated Tax' },
-              // { key: 'grossamt', label: 'Inv Amt' },
             ],
             length: 0,
           },
@@ -1073,14 +1071,9 @@ export default {
           tdClass: 'text-truncate',
           sortable: true,
         },
-        // {key: "custname", label: 'Customer'},
         { key: 'netamt', label: 'Taxable Value', sortable: true },
         { key: 'taxamt', label: 'Integrated Tax', sortable: true },
-        // { key: 'grossamt', label: 'Inv Total' },
       ];
-      // if (this.taxGroup) {
-      //   this.options.invOptions[this.taxGroup].fields;
-      // }
       return fields;
     },
     invList: function() {
@@ -1260,8 +1253,6 @@ export default {
     },
   },
   mounted() {
-    // this.fromDate = this.yearStart;
-    // this.toDate = this.yearEnd;
     this.getOrgDetails().then(() => {
       this.getGst3rbJson();
     });
@@ -1281,13 +1272,8 @@ export default {
 .right {
   text-align: right;
 }
-
 #textarea {
   font-size: 0.8em;
-}
-
-.modal-content {
-  /* height: 550px; */
 }
 .modal-backdrop {
   height: 100%;

@@ -107,22 +107,6 @@
             :required="true"
           />
         </b-form-group>
-        <!-- <b-form-group
-          label="GSTIN"
-          label-for="dcd-input-20"
-          label-cols-lg="3"
-          label-cols="4"
-          label-size="sm"
-        >
-          <b-form-input
-            size="sm"
-            id="dcd-input-20"
-            v-model="form.gstin"
-            trim
-            required
-            readonly
-          ></b-form-input>
-        </b-form-group> -->
         <b-form-group
           label="Purpose"
           label-for="dcd-input-20"
@@ -222,7 +206,6 @@
 
 <script>
 import axios from 'axios';
-// import { mapState } from 'vuex';
 import GkDate from '../../GkDate.vue';
 import trnDetailsMixin from '@/mixins/transactionProfile.js';
 import { DR_CR_MODE } from '@/js/enum.js';

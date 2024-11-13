@@ -68,7 +68,6 @@
 
 <script>
 import axios from 'axios';
-// import { mapGetters } from 'vuex';
 export default {
   name: 'GkHsn',
   model: {
@@ -135,7 +134,6 @@ export default {
       axios.get(`/hsn?validate=${hsn}`).then((r) => {
         if (r.data.gkstatus != 0) {
           this.hsn.isValid = null;
-          // this.searchHsn(hsn);
           this.$emit('change', this.hsn.code);
         } else {
           this.hsn.isValid = true;

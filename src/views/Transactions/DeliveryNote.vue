@@ -255,8 +255,6 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-// import Config from '../../components/Config.vue';
-
 import PartyDetails from '../../components/form/transaction/PartyDetails.vue';
 import ShipDetails from '../../components/form/transaction/ShipDetails.vue';
 import BillTable from '../../components/form/transaction/BillTable.vue';
@@ -272,8 +270,6 @@ import PrintPage from '../../components/workflow/PrintPage.vue';
 export default {
   name: 'DeliveryNote',
   components: {
-    // Config,
-
     PartyDetails,
     ShipDetails,
     BillTable,
@@ -281,7 +277,6 @@ export default {
     TransportDetails,
     Comments,
     DeliveryNoteDetails,
-
     PrintPage,
   },
   props: {
@@ -302,7 +297,6 @@ export default {
       showPrintModal: false,
       delNoteId: 0,
       vuexNameSpace: '',
-      // config: {},
       updateCounter: {
         party: 0,
         delNote: 0,
@@ -383,7 +377,6 @@ export default {
         if (newConf.transport.class) {
           newConf.transport.class = {
             'mr-md-1': !!newConf.comments,
-            // 'ml-md-1': !!newConf.payment,
           };
         }
 
@@ -594,7 +587,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -748,48 +740,32 @@ export default {
       // === Bill data ===
       let contents = {};
       let stock = {
-        // items: {},
         inout: delchal.inoutflag,
         goid: this.form.delNote.godown,
       };
       let pricedetails = [];
       let tax = {};
       let cess = {};
-      // let av = {
-      //   product: {},
-      //   prodData: {},
-      //   taxpayment: 0,
-      //   totaltaxable: 0,
-      // };
       let freeqty = {};
       let discount = {};
       this.form.bill.forEach((item) => {
-        // let taxable = item.total * item.qty - item.discount.amount;
-
         if (contents[item.product.id] === undefined) {
           contents[item.product.id] = {};
         }
 
         contents[item.product.id][item.rate] = parseFloat(item.qty).toFixed(2);
-        // stock.items[item.product.id] = parseFloat(item.qty).toFixed(2);
 
         if (this.isGst) {
           tax[item.product.id] = parseFloat(item.igst.rate).toFixed(2);
           cess[item.product.id] = parseFloat(item.cess.rate).toFixed(2);
-          // // av.avtax = { GSTName: 'IGST', CESSName: 'CESS' };
         } else {
           tax[item.product.id] = parseFloat(item.vat.rate).toFixed(2);
-          // av.taxpayment += taxable;
         }
 
         freeqty[item.product.id] = isNaN(parseFloat(item.fqty))
           ? 0
           : parseFloat(item.fqty).toFixed(2);
         discount[item.product.id] = parseFloat(item.discount.total).toFixed(2);
-
-        // av.product[item.product.name] = parseFloat(taxable).toFixed(2);
-        // av.prodData[item.product.id] = parseFloat(taxable).toFixed(2);
-        // av.totaltaxable += taxable;
 
         pricedetails.push({
           custid: this.form.party.name.id || '',
@@ -799,28 +775,13 @@ export default {
         });
       });
 
-      // // av.taxpayment = parseFloat(av.taxpayment).toFixed(2);
-      // // av.totaltaxable = parseFloat(av.totaltaxable).toFixed(2);
-
       Object.assign(delchal, {
         contents,
-        // pricedetails,
         tax,
         cess,
-        // av,
         freeqty,
         discount,
       });
-
-      // // === payment details, mode = 2 ===
-      // if (this.form.payment.mode === 2) {
-      //   delchal.bankdetails = {
-      //     accountno: this.form.payment.bank.no,
-      //     bankname: this.form.payment.bank.name,
-      //     ifsc: this.form.payment.bank.ifsc,
-      //     branch: this.form.payment.bank.branch,
-      //   };
-      // }
 
       if (this.form.transport.mode === 'Road') {
         delchal.vehicleno = this.form.transport.vno;
@@ -830,16 +791,6 @@ export default {
         delchal.dateofsupply = this.form.transport.date;
       }
 
-      // if (this.formMode === 'edit') {
-      //   const av = Object.assign({}, invoice.av);
-      //   invoice.invid = parseInt(this.invoiceId);
-
-      //   delete invoice.av;
-      //   delete invoice.pincode;
-      //   delete invoice.discflag;
-
-      //   return { invoice, stock, av };
-      // }
       return { delchaldata: delchal, stockdata: stock };
     },
     resetForm() {

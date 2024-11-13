@@ -495,7 +495,6 @@ export default {
     },
     updateUrl() {
       let url = window.location.href.split('#')[0];
-      // += `#/accounts/${gid}/${sgid}/${aid}`;
       url+="#/voucher/create/receipt/-1";
       history.replaceState(null, '', url); // replace state method allows us to update the last history instance inplace,
       // instead of creating a new history instances for every entity selected
@@ -514,12 +513,10 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
           if (val) {
-            // return;
             axios
               .delete('/transaction', {
                 data: {
@@ -572,7 +569,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {

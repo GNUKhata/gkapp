@@ -533,10 +533,6 @@ export default {
       if (parseInt(this.budId) < 0) {
         return;
       }
-      if (this.options.reports[this.budId]) {
-        // use the existing report
-        // return;
-      }
       this.loading = true;
       let type = this.isTypeCash ? 'cashReport' : 'profitlossReport';
       let startDate = this.dateReverse(this.fromDate);
@@ -664,8 +660,6 @@ export default {
     },
   },
   mounted() {
-    // this.fromDate = this.dateReverse(this.yearStart);
-    // this.toDate = this.dateReverse(this.yearEnd);
     const self = this;
     this.preloadData().then(() => {
       self.budgetType = self.type;

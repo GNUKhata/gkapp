@@ -114,10 +114,6 @@
           label-cols="3"
           :label="$gettext('New Password')"
         >
-          <!-- <b-form-input
-               v-model="form.userpassword"
-               type="password"
-               ></b-form-input> -->
           <password
             size="sm"
             v-model="form.userpassword"
@@ -329,9 +325,7 @@ export default {
           let allGodowns = val[1].data.gkresult;
           let i, u;
           for (i in allGodowns) {
-            //
             for (u in userGodowns) {
-              //
               if (userGodowns[u].goid === allGodowns[i].goid) {
                 allGodowns[i].checked = 'accepted';
               }

@@ -280,11 +280,6 @@ export default {
       trialBalanceType: 'Net',
       balance: Object,
       result: null,
-      // options: [
-      //   { text: 'Net Trial Balance', value: 'Net' },
-      //   { text: 'Gross Trial Balance', value: 'Gross' },
-      //   { text: 'Extended Trial Balance', value: 'Extended' },
-      // ],
       netfields: [
         {
           key: 'srno',
@@ -320,18 +315,6 @@ export default {
           key: 'accountname',
           label: this.$gettext('Account Name'),
         },
-
-        // {
-        //   key: 'ttlRunDr',
-        //   label: this.$gettext('Debit'),
-        //   class: 'text-right',
-        // },
-        // {
-        //   key: 'ttlRunCr',
-        //   label: this.$gettext('Credit'),
-        //   class: 'text-right',
-        // },
-
         {
           key: 'Dr balance',
           label: this.$gettext('Dr Balance'),

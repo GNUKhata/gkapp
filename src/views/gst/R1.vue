@@ -30,7 +30,6 @@
 
 <script>
 import GkPeriod from '@/components/GkPeriod.vue';
-// import { mapState } from 'vuex';
 export default {
   components: { GkPeriod },
   name: 'R1',
@@ -45,14 +44,6 @@ export default {
         data: null,
         selected: '',
         summary: null,
-        // list: [
-        //   { value: 'b2b', text: 'B2B' },
-        //   { value: 'b2cl', text: 'B2CL' },
-        //   { value: 'b2cs', text: 'B2CS' },
-        //   { value: 'cdnr', text: 'CDNR' },
-        //   { value: 'cdnur', text: 'CDNUR' },
-        //   { value: 'hsn1', text: 'HSN' },
-        // ],
       },
     };
   },
@@ -81,9 +72,6 @@ export default {
         );
       }
     },
-  },
-  mounted() {
-    // this.calculateTimePeriods();
   },
 };
 </script>

@@ -366,8 +366,6 @@ export default {
     };
   },
   computed: {
-    // taxState: (self) =>
-    //   self.form.inv.taxState ? self.form.inv.taxState.name : '',
     defaultPaymentMode: (self) =>
       self.$store.getters['global/getDefaultPaymentMode'],
     party: (self) =>
@@ -457,7 +455,6 @@ export default {
         taxflag = 22;
       }
       let orderData = {
-        // dcid: null, // Has to be filled when Delivery Note is implemented. If no Deliver Note is available skip this property
         orderno: this.form.psOrder.no,
         orderdate: this.form.psOrder.date,
         creditperiod: this.form.psOrder.creditPeriod,
@@ -530,8 +527,6 @@ export default {
       let freeqty = {};
       let discount = {};
       this.form.bill.forEach((item) => {
-        // let taxable = item.total * item.qty - item.discount.amount;
-
         schedule[item.product.id] = {};
         schedule[item.product.id]['quantity'] = parseFloat(item.qty).toFixed(2);
         schedule[item.product.id]['packages'] = parseFloat(
@@ -596,7 +591,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -608,10 +602,7 @@ export default {
     onSubmit() {
       let self = this;
       this.isLoading = true;
-
       const payload = this.initPayload();
-      // return;
-      // const method = this.formMode === 'create' ? 'post' : 'put';
       const orderType = this.isSale ? 'Sale Order' : 'Purchase Order';
       axios
         .post('/purchaseorder', payload)
@@ -845,9 +836,6 @@ export default {
             pin: resp6.data.gkdata.orgpincode,
             bankDetails: resp6.data.gkdata.bankdetails,
           };
-          // setTimeout(() => {
-          //   self.setOrgDetails();
-          // }, 1);
         }
 
         if (preloadErrorList !== '') {

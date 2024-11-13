@@ -410,7 +410,6 @@ export default {
           return error;
         }),
         this.fetchUserData(),
-        // this.fetchLastDelChalNo(),
       ];
       const self = this;
       return Promise.all(requests)

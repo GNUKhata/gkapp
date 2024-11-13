@@ -407,7 +407,6 @@ export default {
         this.logOut();
       }
       console.log(yearData);
-      // const userAuthToken = localStorage.getItem('userAuthToken');
       let selectedYear = yearData;
       let payload = {
         orgcode: selectedYear.code,
@@ -437,8 +436,6 @@ export default {
                 yend, // dd-mm-yyyy
                 ystart, // dd-mm-yyyy
               });
-
-              // localStorage.setItem('orgCodeChoice', selectedYear.code);
 
               // Initiate vuex store
               this.$store.dispatch('setSessionStates', {

@@ -621,7 +621,6 @@ export default {
           {
             taxrate: 0,
             taxfromdate: null,
-            // max: this.dateReverse(to),
           },
         ],
         delGst: [],
@@ -895,7 +894,6 @@ export default {
     addGstEntry() {
       let gsts = this.tax.gst;
       let min = '';
-      //   to = this.yearEnd;
       if (gsts.length && gsts[gsts.length - 1].taxfromdate) {
         let lastDate = new Date(gsts[gsts.length - 1].taxfromdate);
         let minDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
@@ -907,7 +905,6 @@ export default {
         taxfromdate: null,
         min: min,
         dateValidity: true,
-        // max: this.dateReverse(to),
       });
     },
     /** Remove GST entry from the GST list, from the given position */
@@ -930,14 +927,6 @@ export default {
       this.tax.gst[index].dateValidity = validity;
     },
     updateGst() {
-      // let gsts = this.tax.gst;
-      // if (gsts.length > 1) {
-      //   for (let i = 1, l = gsts.length; i < l; i++) {
-      //     let min = gsts[i-1].taxtodate, max = this.yearEnd;
-      //     gsts[i].min = this.dateReverse(min);
-      //     gsts[i].max = this.dateReverse(max);
-      //   }
-      // }
       let prev = null;
       if (this.tax.gst.length) {
         this.tax.gst.forEach((item) => {

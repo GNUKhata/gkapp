@@ -448,9 +448,6 @@ export default {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
         case 0:
-          // this.invoice = response.data.gkresult;
-          // this.formatInvoiceDetails(response.data.gkresult);
-          // this.output = response.data.gkresult;
           this.formatDetails(response.data.gkresult);
           break;
         case 2:

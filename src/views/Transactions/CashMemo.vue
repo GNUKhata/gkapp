@@ -47,19 +47,6 @@
           @details-updated="onComponentDataUpdate"
           :sale-flag="isSale"
         />
-        <!-- Buyer/Seller Details -->
-        <!-- <party-details
-          :mode="form.type"
-          :parentData="form.party"
-          :gstFlag="isGst"
-          :invoiceParty="invoiceParty"
-          :config="config.party"
-          :saleFlag="isSale"
-          @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.party"
-          ref="party"
-        >
-        </party-details> -->
         <!-- Payment Details -->
         <payment-details
           ref="payment"
@@ -133,25 +120,6 @@
           </b-col>
         </b-row>
       </div>
-      <!-- <b-card-group class="d-block d-md-flex" deck> -->
-      <!-- Transport Details -->
-      <!-- <transport-details
-          ref="transport"
-          :config="config.transport"
-          :updateCounter="updateCounter.transport"
-          :parentData="form.transport"
-          :invDate="form.memo.date"
-          @details-updated="onComponentDataUpdate"
-        ></transport-details> -->
-      <!-- Invoice Comments -->
-      <!-- <comments
-          :name="`Cash Memo`"
-          ref="narration"
-          :config="config.comments"
-          :updateCounter="updateCounter.comments"
-          :parentData="form.comments"
-        ></comments> -->
-      <!-- </b-card-group> -->
       <b-tooltip
         target="inv-submit"
         :show="showErrorToolTip"
@@ -248,10 +216,6 @@ import CashMemoDetails from '@/components/form/transaction_details/CashMemoDetai
 import BillTable from '@/components/form/transaction/BillTable.vue';
 import PaymentDetails from '@/components/form/transaction/PaymentDetails.vue';
 import TotalTable from '@/components/form/transaction/TotalTable.vue';
-// import PartyDetails from '@/components/form/transaction/PartyDetails.vue';
-// import Comments from '@/components/form/transaction/Comments.vue';
-// import TransportDetails from '@/components/form/transaction/TransportDetails.vue';
-
 import cashMemoConfig from '../../js/config/transaction/cashMemo';
 
 import PrintPage from '@/components/workflow/PrintPage.vue';
@@ -263,9 +227,6 @@ export default {
     Config,
     PaymentDetails,
     TotalTable,
-    // PartyDetails,
-    // Comments,
-    // TransportDetails,
     PrintPage,
   },
   data() {
@@ -289,10 +250,6 @@ export default {
           taxState: { id: null },
         },
         bill: [],
-        // party: {
-        //   state: { id: null },
-        // },
-        // transport: {},
         narration: null,
       },
       options: {
@@ -304,9 +261,6 @@ export default {
         bill: 0,
         totalTable: 0,
         payment: 0,
-        // party: 0,
-        // transport: 0,
-        // comments: 0,
       },
     };
   },
@@ -418,9 +372,6 @@ export default {
       this.updateCounter.bill++;
       this.updateCounter.totalTable++;
       this.updateCounter.payment++;
-      // this.updateCounter.party++;
-      // this.updateCounter.transport++;
-      // this.updateCounter.comments++;
     },
     onComponentDataUpdate(payload) {
       switch (payload.name) {
@@ -432,32 +383,14 @@ export default {
             this.options.orgDetails.bankDetails = payload.options.bankDetails;
             this.setBankDetails();
           }
-
-          // this.form.transport.date = this.form.memo.date;
-
           this.goid = payload.data.godown || -1;
-
-          // this.updateCounter.transport++;
           this.$forceUpdate();
         }
         break;
-      // case 'party-details':
-      //   this.options.partyDetails = payload;
-      //   Object.assign(this.form.party, payload.data);
-
-      //   this.form.memo.taxState = payload.data.state;
-      //   this.setBankDetails();
-      //   // this.updateCounter.ship++;
-      //   this.updateCounter.memo++;
-      //   break;
       case 'bill-table': {
         Object.assign(this.form.bill, payload.data);
         this.updateCounter.totalTable++;
       }
-        // break;
-        // case 'transport-details':
-        //   Object.assign(this.form.transport, payload.data);
-        //   break;
       }
     },
     setBankDetails() {
@@ -488,7 +421,6 @@ export default {
         taxflag = 22;
       }
       let invoice = {
-        // dcid: null, // Has to be filled when Delivery Note is implemented. If no Deliver Note is available skip this property
         invoiceno: this.form.memo.no,
         invoicedate: this.form.memo.date,
         orgstategstin: this.form.memo.gstin || null,
@@ -523,7 +455,6 @@ export default {
       // === Bill data ===
       let contents = {};
       let stock = { items: {}, inout: invoice.inoutflag };
-      // let pricedetails = [];
       let tax = {};
       let cess = {};
       let av = {
@@ -564,13 +495,6 @@ export default {
         av.product[item.product.name] = parseFloat(taxable).toFixed(2);
         av.prodData[item.product.id] = parseFloat(taxable).toFixed(2);
         av.totaltaxable += taxable;
-
-        // pricedetails.push({
-        //   custid: this.form.party.name.id || '',
-        //   productcode: item.product.id,
-        //   inoutflag: invoice.inoutflag,
-        //   lastprice: item.rate,
-        // });
       });
 
       av.taxpayment = parseFloat(av.taxpayment).toFixed(2);
@@ -578,7 +502,6 @@ export default {
 
       Object.assign(invoice, {
         contents,
-        // pricedetails,
         tax,
         cess,
         av,
@@ -645,19 +568,6 @@ export default {
       // === Total Invoice price data ===
       delchal.delchaltotal = this.form.total.amount;
       delchal.totalinword = this.form.total.text;
-
-      // === Consignee data ===
-      // if (this.form.ship.name) {
-      //   delchal.consignee = {
-      //     consigneename: this.form.party.name || '',
-      //     tinconsignee: this.form.party.tin || '',
-      //     gstinconsignee: this.form.party.gstin || '',
-      //     consigneeaddress: this.form.party.addr || '',
-      //     consigneestate: this.form.party.state.name || null,
-      //     consigneestatecode: this.form.party.state.id || null,
-      //     consigneepincode: this.form.party.pin || '',
-      //   };
-      // }
 
       // === Bill data ===
       let contents = {};
@@ -727,7 +637,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -816,11 +725,6 @@ export default {
               this.delNote.id = resp.data.gkresult || null;
             }
             return resp.data.gkresult;
-          } else if (resp.data.gkstatus === 1) {
-            // let no = payload.delchaldata.dcno;
-            // let
-            // this.form.inv.delNoteNo = parseInt(no.split('/')[0])++;
-            // this.createDelNote();
           }
         })
         .catch(() => {
@@ -836,8 +740,6 @@ export default {
           if (resp.data.gkstatus === 0) {
             self.issuer = resp.data.gkresult.username;
             self.role = resp.data.gkresult.userroleName;
-          } else {
-            // User data not available, check again
           }
         })
         .catch((error) => {
@@ -949,10 +851,6 @@ export default {
     });
   },
   mounted() {
-    // Using non props to store these props, as these can be edited in the future
-    // this.formMode = this.mode;
-    // this.invoiceId = this.invid;
-    // this.initForm();
     this.fetchUserData();
     this.resetForm();
     this.form.taxType = this.defaultTaxMode;

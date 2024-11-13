@@ -307,8 +307,6 @@ import { mapGetters, mapState } from 'vuex';
 
 import { PAGES, CONFIGS, PAYMENT_TYPE } from '@/js/enum.js';
 
-// import { getBase64 } from '../../js/utils.js';
-
 import PartyDetails from '../../components/form/transaction/PartyDetails.vue';
 import ShipDetails from '../../components/form/transaction/ShipDetails.vue';
 import BillTable from '../../components/form/transaction/BillTable.vue';
@@ -343,13 +341,6 @@ export default {
     PrintPage,
   },
   props: {
-    // mode: {
-    //   type: String,
-    //   validator: function(value) {
-    //     return ['create', 'edit'].indexOf(value) !== -1;
-    //   },
-    //   required: true,
-    // },
     invid: {
       type: [String, Number],
       required: true,
@@ -357,7 +348,6 @@ export default {
   },
   data() {
     return {
-      // config: {},
       posFlag: true,
       showPrintModal: false,
       vuexNameSpace: '',
@@ -396,7 +386,6 @@ export default {
         totalRoundFlag: false,
         attachments: [],
       },
-      // attachments: [],
       isLoading: false,
       isPreloading: false,
       showContactForm: false,
@@ -601,7 +590,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -615,7 +603,6 @@ export default {
       Object.assign(this.form.inv, this.$refs.inv.form);
       Object.assign(this.form.party, this.$refs.party.form);
       Object.assign(this.form.ship, this.$refs.ship.form);
-      // Object.assign(this.form.bill, this.$refs.bill.form);
       this.form.bill = this.$refs.bill.form;
       Object.assign(this.form.payment, this.$refs.payment.form);
       Object.assign(this.form.total, this.$refs.totalTable.form);
@@ -644,7 +631,6 @@ export default {
           if (!this.isCreate) {
             this.form.inv.no = oldInvNo;
           }
-          // this.form.transport.date = this.form.inv.date;
           const self = this;
           self.updateCounter.transport++;
         }
@@ -713,13 +699,9 @@ export default {
       });
     },
     fetchAttachments() {
-      // if (this.form.attachments.length) {
-      //   return;
-      // }
-      // this.isAttachmentLoading = true;
       axios.get(`/invoice/attachment/${this.invoiceId}`).then((resp) => {
         this.form.attachments = resp.data.gkresult;
-        this.updateComponentData(); // this.isAttachmentLoading = false;
+        this.updateComponentData();
       });
     },
     setBankDetails() {
@@ -841,7 +823,7 @@ export default {
                 .split('-')
                 .reverse()
                 .join('-'),
-              delNote: null, /////////////////////////
+              delNote: null,
               ebn: data.ewaybillno || null,
               addr: data.address,
               pin: data.pincode,
@@ -905,7 +887,6 @@ export default {
                 self.options.shippingDetails = {};
                 Object.assign(self.options.shippingDetails, ship);
               }
-              // self.updateComponentData();
               this.updateCounter.party++;
             });
 
@@ -913,11 +894,9 @@ export default {
 
             // set bill items
             self.form.bill = [];
-            // let bills = [];
             for (const itemCode in data.invcontents) {
               let item = data.invcontents[itemCode];
               let billItem = {
-                // product: item.proddesc,
                 product: { id: itemCode, name: item.proddesc },
                 discount: { amount: parseFloat(item.discount) },
                 qty: parseFloat(item.qty),
@@ -1128,8 +1107,6 @@ export default {
         consignee: {},
 
         roundoffflag: this.form.total.roundFlag ? 1 : 0,
-        // invtotal: this.getTotal('total'),
-        // invtotalword: null,
 
         taxflag: null,
         taxstate: null,
@@ -1469,54 +1446,38 @@ export default {
       // === Bill data ===
       let contents = {};
       let stock = {
-        // items: {},
         inout: delchal.inoutflag,
         goid: this.form.inv.godown,
       };
       let pricedetails = [];
       let tax = {};
       let cess = {};
-      // let av = {
-      //   product: {},
-      //   prodData: {},
-      //   taxpayment: 0,
-      //   totaltaxable: 0,
-      // };
       let freeqty = {};
       let discount = {};
 
       const self = this;
       billItems.forEach((item) => {
-        // let taxable = item.total * item.qty - item.discount.amount;
-
         if (contents[item.product.id] === undefined) {
           contents[item.product.id] = {};
         }
 
         contents[item.product.id][item.rate] = parseFloat(item.qty).toFixed(2);
-        // stock.items[item.product.id] = parseFloat(item.qty).toFixed(2);
 
         if (self.isGst) {
           tax[item.product.id] = parseFloat(item.igst.rate).toFixed(2);
           cess[item.product.id] = parseFloat(item.cess.rate).toFixed(2);
-          // // av.avtax = { GSTName: 'IGST', CESSName: 'CESS' };
         } else {
           let vat = { rate: 0, amount: 0 };
           if (self.taxState && item.vatMap && item.vatMap[self.taxState]) {
             vat = item.vatMap[self.taxState];
           }
           tax[item.product.id] = parseFloat(vat.rate).toFixed(2);
-          // av.taxpayment += taxable;
         }
 
         freeqty[item.product.id] = isNaN(parseFloat(item.fqty))
           ? 0
           : parseFloat(item.fqty).toFixed(2);
         discount[item.product.id] = parseFloat(item.discount.total).toFixed(2);
-
-        // av.product[item.product.name] = parseFloat(taxable).toFixed(2);
-        // av.prodData[item.product.id] = parseFloat(taxable).toFixed(2);
-        // av.totaltaxable += taxable;
 
         pricedetails.push({
           custid: self.form.party.name.id || '',
@@ -1526,28 +1487,13 @@ export default {
         });
       });
 
-      // // av.taxpayment = parseFloat(av.taxpayment).toFixed(2);
-      // // av.totaltaxable = parseFloat(av.totaltaxable).toFixed(2);
-
       Object.assign(delchal, {
         contents,
-        // pricedetails,
         tax,
         cess,
-        // av,
         freeqty,
         discount,
       });
-
-      // // === payment details, mode = 2 ===
-      // if (this.form.payment.mode === 2) {
-      //   delchal.bankdetails = {
-      //     accountno: this.form.payment.bank.no,
-      //     bankname: this.form.payment.bank.name,
-      //     ifsc: this.form.payment.bank.ifsc,
-      //     branch: this.form.payment.bank.branch,
-      //   };
-      // }
 
       if (this.form.transport.mode === 'Road') {
         delchal.vehicleno = this.form.transport.vno;
@@ -1556,17 +1502,6 @@ export default {
       if (this.form.transport.date) {
         delchal.dateofsupply = this.form.transport.date;
       }
-
-      // if (!this.isCreate) {
-      //   const av = Object.assign({}, invoice.av);
-      //   invoice.invid = parseInt(this.invoiceId);
-
-      //   delete invoice.av;
-      //   delete invoice.pincode;
-      //   delete invoice.discflag;
-
-      //   return { invoice, stock, av };
-      // }
 
       return { delchaldata: delchal, stockdata: stock };
     },
@@ -1695,16 +1630,8 @@ export default {
         solid: true,
       });
     },
-    /** Update the URL based on form mode selected (Create/Edit) */
-    // updateUrl() {
-    //   let url = window.location.href.split('#')[0];
-    //   url += `#/invoice/${this.formMode}/0`;
-    //   history.replaceState(null, '', url); // replace state method allows us to update the last history instance inplace,
-    //   // instead of creating a new history instances for every entity selected
-    // },
     initForm() {
       let self = this;
-      //   this.updateUrl();
       this.resetForm();
       this.preloadData().then(() => {
         let bd = self.options.orgDetails.bankDetails || {};
@@ -1723,7 +1650,6 @@ export default {
               self.updateComponentData();
             });
           });
-          // self.fetchDelNoteData();
         });
       });
     },

@@ -76,26 +76,6 @@
               id="select-1"
             />
           </b-form-group>
-          <!-- address -->
-          <!-- <b-form-group
-            label-size="md"
-            id="input-group-11"
-            label="Address"
-            label-for="input-11"
-            label-cols="3"
-          >
-            <template #label>
-              <translate> Address </translate>
-            </template>
-            <b-form-input
-              size="md"
-              id="input-11"
-              type="text"
-              placeholder="Address"
-              v-model.trim="orgAddr"
-            >
-            </b-form-input>
-          </b-form-group> -->
           <b-form-group
             label-size="md"
             label="Type"
@@ -168,21 +148,7 @@
               </div>
             </div>
           </b-form-group>
-          <!-- <hr /> -->
           <div class="float-right">
-            <!-- <b-button
-              size="sm"
-              class="mr-2"
-              variant="danger"
-              @click="$router.go(-1)"
-            >
-              <b-icon
-                aria-hidden="true"
-                class="align-middle mr-1"
-                icon="arrow-left"
-              ></b-icon>
-              <span class="align-middle"> <translate>Back</translate></span>
-            </b-button> -->
             <b-button
               size="sm"
               type="submit"
@@ -243,7 +209,6 @@ export default {
   },
   data() {
     return {
-      // gkCoreUrl: 'https://satheerthan.site:6543', // 'http://localhost:6543',
       isLoading: false,
       options: {
         countries,

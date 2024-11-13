@@ -338,10 +338,6 @@ export default {
   components: { GkDate },
   mixins: [trnDetailsMixin],
   props: {
-    // editFlag: {
-    //   type: Boolean,
-    //   required: true,
-    // },
     saleFlag: {
       type: Boolean,
       required: true,
@@ -507,14 +503,6 @@ export default {
           self.isPreloading = false;
         });
     },
-    // saleFlag() {
-    //   this.setInvoiceNo();
-    //   this.updateDelNoteNo();
-    //   this.form.godown = '';
-    //   this.$nextTick().then(() => {
-    //     this.form.godown = this.$store.getters['global/getDefaultGodown'];
-    //   });
-    // },
   },
   created() {
     EventBus.$on('dropdown-change', this.handleDropdownChange);
@@ -684,7 +672,6 @@ export default {
           return error;
         }),
         this.fetchUserData(),
-        // this.fetchDelNotes(),
       ];
       const self = this;
       return Promise.all(requests)
@@ -725,9 +712,6 @@ export default {
         this.form.state = '';
       }
       this.form.date = !this.disabled.date ? this.getNoteDate() : '';
-      if (!this.disabled.no) {
-        // requests.push(this.setInvoiceNo(true));
-      }
       this.form.godown = '';
       this.$nextTick().then(() => {
         if (self.form.godown === '') {
@@ -740,7 +724,6 @@ export default {
       if (raiseUpdateEvent) {
         this.onUpdateDetails();
       }
-      //   requests.push(this.updateDelNoteNo(true));
       return Promise.all(requests);
     },
   },

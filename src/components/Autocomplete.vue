@@ -30,7 +30,6 @@
       v-if="optionsShown && !readonly"
       :style="{minWidth: dropDownWidth}"
     >
-      <!--  -->
       <b-list-group-item
         button
         class="gk-autocomplete-item"
@@ -211,12 +210,9 @@ export default {
           this.selected = this.filteredOptions[0];
         }
         this.setHovered(0);
-      } else {
-        // this.selectOption(null);
       }
       this.isSelected = false;
       this.filterOptions();
-      // this.$emit("filter", this.searchFilter);
     },
     /** Filter the given options based on the query string */
     filterOptions() {
@@ -253,7 +249,6 @@ export default {
         }
 
         this.selected = option;
-        // this.optionsShown = false;
         if ((this.searchFilter !== this.selected.text) && !this.searchFilter) {
           this.searchFilter = this.selected.text;
         }
@@ -447,7 +442,6 @@ export default {
           }
         }
       }
-      // this.filterOptions();
     },
     searchFilter() {
       if (!this.optionsB) {
@@ -484,23 +478,13 @@ export default {
   display: block;
   margin: auto;
   .gk-autocomplete-input {
-    // background: #fff;
-    // border: 1px solid #ced4da;
-    // border: 1px solid #e7ecf5;
-    // border-radius: 0.25rem;
-    // color: #333;
     display: block;
-    // font-size: 0.8em;
     padding: 6px;
-    // min-width: 250px;
-    // max-width: 250px;
   }
   .gk-autocomplete-content {
     position: absolute;
     background-color: #fff;
-    // min-width: 248px;
     width: 100%;
-    // max-width: 248px;
     max-height: 200px;
     border: 1px solid #e7ecf5;
     box-shadow: 0px -8px 34px 0px rgba(0, 0, 0, 0.05);

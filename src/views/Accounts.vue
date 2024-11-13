@@ -501,7 +501,6 @@ export default {
             okVariant: 'danger',
             headerClass: 'p-0 border-bottom-0',
             footerClass: 'border-top-0', // p-1
-            // bodyClass: 'p-2',
             centered: true,
           })
           .then((val) => {
@@ -726,14 +725,12 @@ export default {
       if (accCode) {
         let account = this.accounts.filter((acc) => acc.value === accCode)[0];
         if (account) {
-          // this.closeAllCards();
           this.hideAllCards();
           this.openCard(account.group, account.subGroup, accCode);
         }
       } else if (sgCode) {
         let subGroup = this.subGroups.filter((sg) => sg.value === sgCode)[0];
         if (subGroup) {
-          // this.closeAllCards();
           this.hideAllCards();
           this.openCard(subGroup.group, sgCode);
         }

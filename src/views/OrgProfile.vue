@@ -1,7 +1,3 @@
-<!--
-  Todo:
-  Add CESS accounts
--->
 <template>
   <section class="container-fluid mt-2">
     <b-form @submit.prevent="confirm('update')">
@@ -623,7 +619,6 @@ export default {
       this.details.orgpan = pan;
     },
     onGstinUpdate({ validity, stateCode, pan }) {
-      // , checksum
       if (validity.format) {
         this.gstinValid = true;
         this.stateCode = stateCode;
@@ -637,13 +632,8 @@ export default {
         }
       }
     },
-    onGstinVerified() {
-      // verifiedStatus
-      // this.form.gstin.regType = verifiedStatus
-      //   ? GST_REG_TYPE['regular']
-      //   : GST_REG_TYPE['unregistered'];
-    },
     /**GSTIN methods end */
+
     /**
      * Confirmation for actions
      */
@@ -794,7 +784,6 @@ export default {
         return axios.post('/accounts', payload);
       };
 
-      // let editAccount = function () {};
       let self = this;
       return this.getCreateCessData().then((meta) => {
         if (!meta) {
@@ -876,7 +865,6 @@ export default {
             acc.indexOf('CESSIN') >= 0
               ? acc.split('@')[0].split('CESSIN_')[1]
               : acc.split('@')[0].split('CESSOUT_')[1]
-          // CESS State
         );
 
       // if gstin state is edited, delete that state associated with all the cess values
@@ -1126,7 +1114,6 @@ export default {
                 solid: true,
               }
             );
-            // this.getOrgImage();
             this.$store.dispatch('initOrgAddress');
             this.$store.dispatch('initOrgImg');
             if (!this.orgGstin) {
@@ -1307,10 +1294,9 @@ export default {
     },
     /** Callback for the Add/Update button in the CESS modal*/
     onCessModalOk() {
+      // CESS rate accounts can't be edited, they can only be deleted if not used in any transactions
       if (this.cessModal.mode === 'create') {
         this.addCess();
-      } else {
-        // CESS rate accounts can't be edited, they can only be deleted if not used in any transactions
       }
     },
     /** Initialize the CESS modal after clicking the Add CESS button */

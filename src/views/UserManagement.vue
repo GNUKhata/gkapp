@@ -249,14 +249,6 @@ export default {
         .get('/organisation/gkusers')
         .then((resp) => {
           if (resp.status == 200 && resp.data.gkstatus == 0) {
-            // let usr = resp.data.gkresult.map((data) => {
-            //   return {
-            //     user: data.username,
-            //     role: data.userrolename,
-            //     roleid: data.userrole,
-            //     userid: data.userid,
-            //   };
-            // });
             this.userList = [];
             this.invitedUsers = [];
             resp.data.gkresult.forEach((item) => {
@@ -275,7 +267,6 @@ export default {
                 });
               }
             });
-            // this.userList = usr;
           }
         })
         .catch((e) => {

@@ -177,7 +177,6 @@ list of all the props, methods, computed and data items not defined in this file
 import axios from 'axios';
 import voucherMixin from '@/mixins/voucher.js';
 import GkDate from '@/components/GkDate.vue';
-// import { mapState } from 'vuex';
 export default {
   name: 'EasyVoucher',
   mixins: [voucherMixin],
@@ -289,7 +288,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {

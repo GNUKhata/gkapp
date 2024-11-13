@@ -84,12 +84,6 @@
               </b-button>
             </b-button-group>
           </b-form>
-          <!-- <hr /> -->
-          <!-- <h6 v-text="this.$gettext('Filter by Role:')" /> -->
-          <!-- <b-select -->
-          <!--   :options="['admin', 'manager', 'accountant', 'godown incharge']" -->
-          <!-- ></b-select> -->
-          <!-- <b-button size="sm" class="mt-2">Submit</b-button> -->
         </b-popover>
       </div>
     </gk-toolbar>

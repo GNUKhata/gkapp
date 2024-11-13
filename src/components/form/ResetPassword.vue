@@ -46,7 +46,6 @@
         variant="success"
         class="float-right"
       >
-        <!-- <b-icon class="mr-1" v-if="!submitting" icon="question-circle"></b-icon> -->
         <b-spinner
           v-if="submitting"
           small
@@ -104,7 +103,6 @@
           class="float-right"
           type="submit"
         >
-          <!-- <b-icon class="mr-1" v-if="!submitting" icon="question-circle"></b-icon> -->
           <b-spinner
             v-if="submitting"
             small
@@ -120,7 +118,6 @@
           label-align="right"
           :label="$gettext('New Password')"
         >
-          <!-- <b-form-input v-model="form.userpassword" required></b-form-input> -->
           <password v-model="form.userpassword" />
         </b-form-group>
         <!-- Confirm Password -->

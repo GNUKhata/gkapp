@@ -33,13 +33,9 @@
             <translate> GNUKhata </translate>
           </div>
         </div>
-        <!-- <b-badge class="m-0" variant="danger" pill>{{ app_version }}</b-badge> -->
       </template>
       <hr class="m-0">
       <template>
-        <!-- <div class="ml-2 mr-2">
-               <b-input size="sm" placeholder="search"></b-input>
-               </div> -->
         <b-nav class="text-small text-dark col">
           <div
             v-if="userRole == -1"
@@ -168,14 +164,6 @@
               <b-nav-item to="/bank-recon">
                 <b-icon icon="journals" /><translate> Bank Reconciliation</translate>
               </b-nav-item>
-              <!-- <b-nav-item to="/data/export"> -->
-              <!--   <b-icon icon="file-arrow-down"></b-icon> -->
-              <!--   <translate> Export Data</translate> -->
-              <!-- </b-nav-item> -->
-              <!-- <b-nav-item to="/data/import"> -->
-              <!--   <b-icon icon="file-arrow-up"></b-icon> -->
-              <!--   <translate> Import Data</translate> -->
-              <!-- </b-nav-item> -->
               <b-nav-item to="/settings">
                 <b-icon icon="gear" /> <translate> Settings</translate>
               </b-nav-item>

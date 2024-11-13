@@ -1,6 +1,5 @@
 <template>
   <section class="container-fluid">
-    <!-- <b-overlay :show="isLoading" no-wrap> </b-overlay> -->
     <report-header>
       <div class="text-center mb-2 d-none d-print-block">
         <i>Customer / Supplier List</i>

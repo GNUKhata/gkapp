@@ -119,11 +119,6 @@ export default {
       accountsList: [],
       costCenterList: [],
       showMonthlyLedger: false,
-      //       ledgerOptions: [],
-      // checkboxes: [
-      //   { text: 'Narration', value: 'narration' },
-      //   { text: 'Billwise Details', value: 'billwise' },
-      // ],
       accountCode: null,
       projectCode: null,
       fromDate: null,

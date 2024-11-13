@@ -334,27 +334,11 @@ export default {
         acc[cr.account] = cr.amount;
         return acc;
       }, {});
-      // payload.drs[this.form.voucher.dr.account] = this.form.amount;
-      // payload.crs[this.form.voucher.cr.account] = this.form.amount;
 
       if (this.form.vno) {
         payload.vouchernumber = this.form.vno; // doubt on how to obtain this vno
       }
 
-      /**
-       * 
-       * Needs to be added for edit and easy modes separately
-      if (!this.isCreateMode) {
-        payload.projectcode = null;
-        payload.vouchercode = this.vid;
-        const vdata = this.options.vdata;
-        if (vdata.vouchertype === 'sale' || vdata.vouchertype === 'purchase') {
-          payload.invid = vdata.invid ? vdata.invid : null;
-        }
-      } else if (this.isReceiptOrPayment && !this.inOverlay) {
-        payload.invid = `${this.form.inv}` || null;
-      }
-      */
       return payload;
     },
     displayToast(title, message, variant) {

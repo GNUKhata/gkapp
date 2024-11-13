@@ -171,7 +171,6 @@ const config = {
 
         // Invoice in credit
         if (resp[1].data.gkstatus === 0) {
-          // let data = transactionTab['Invoice'].data;
           if (resp[1].data.gkstatus === 0 && list.length) {
             let index = '';
             resp[1].data.invoices.forEach((inv) => {
@@ -202,7 +201,6 @@ const config = {
                 onCreditFlag: false,
                 rectifyFlag: false, // can be rectified or not
                 deletedFlag: true,
-                // dateObj is invoicedate stored in a format that can be logically compared, used by sorters and filters.
                 dateObj: Date.parse(
                   item.invoicedate
                     .split('-')

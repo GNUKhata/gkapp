@@ -347,10 +347,6 @@ export default {
   components: { GkDate },
   mixins: [trnDetailsMixin],
   props: {
-    // editFlag: {
-    //   type: Boolean,
-    //   required: true,
-    // },
     saleFlag: {
       type: Boolean,
       required: true,
@@ -748,7 +744,6 @@ export default {
           return error;
         }),
         this.fetchUserData(),
-        // this.fetchDelNotes(),
       ];
       const self = this;
       return Promise.all(requests)

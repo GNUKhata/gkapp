@@ -262,13 +262,9 @@ import axios from 'axios';
 import { mapState } from 'vuex';
 import { reverseDate } from '../../js/utils';
 import { DR_CR_MODE } from '@/js/enum.js';
-// import Config from '../../components/Config.vue';
-
 import PartyDetails from '../../components/form/transaction/PartyDetails.vue';
-// import ShipDetails from '../../components/form/transaction/ShipDetails.vue';
 import BillTable from '../../components/form/transaction/BillTable.vue';
 import TotalTable from '../../components/form/transaction/TotalTable.vue';
-// import TransportDetails from '../../components/form/transaction/TransportDetails.vue';
 import Comments from '../../components/form/transaction/Comments.vue';
 import InvoiceDetails from '../../components/form/transaction_details/InvoiceDetailsEdit.vue';
 import DcNoteDetails from '../../components/form/transaction_details/DcNoteDetails.vue';
@@ -280,14 +276,10 @@ import dcNoteConfig from '../../js/config/transaction/debitCreditNote.js';
 export default {
   name: 'DebitCreditNote',
   components: {
-    // Config,
-
     PartyDetails,
-    // ShipDetails,
     DcNoteDetails,
     BillTable,
     TotalTable,
-    // TransportDetails,
     Comments,
     InvoiceDetails,
     PrintPage,
@@ -441,7 +433,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -918,7 +909,6 @@ export default {
     },
     initForm() {
       this.preloadData();
-      // this.resetForm();
     },
     displayToast(title, message, variant) {
       this.$bvToast.toast(message, {

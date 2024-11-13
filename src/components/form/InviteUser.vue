@@ -36,7 +36,6 @@
               @click="validateUser"
               size="sm"
             >
-              <!-- <b-icon class="mr-1" type="submit" icon="search"></b-icon> -->
               <translate>Validate</translate>
             </b-button>
             <b-form-invalid-feedback id="input-live-feedback">
@@ -112,7 +111,6 @@
               <b-td>{{ godown.goname }}</b-td>
               <b-td>{{ godown.state }}</b-td>
               <b-td>{{ godown.goaddr }}</b-td>
-              <!-- <b-td>{{ godown.checked }}</b-td> -->
             </b-tr>
           </b-tbody>
         </b-table-simple>

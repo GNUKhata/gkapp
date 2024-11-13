@@ -72,25 +72,6 @@
             :required="true"
           />
         </b-form-group>
-        <!-- <b-form-group
-          label="Transaction Type"
-          label-for="rnd-input-30"
-          label-cols-md="4"
-          label-cols="3"
-          label-size="sm"
-        >
-          <template #label>
-            <translate> Transaction Type </translate>
-          </template>
-          <b-form-select
-            id="rnd-input-30"
-            v-model="form.type"
-            size="sm"
-            :options="options.transactionTypes"
-            :disabled="true"
-          >
-          </b-form-select>
-        </b-form-group> -->
         <b-form-group
           label="Issuer"
           label-for="rnd-input-40"
@@ -138,9 +119,6 @@
 
 <script>
 import axios from 'axios';
-// import { mapState } from 'vuex';
-
-// import GkDate from '../../GkDate.vue';
 import GkDate from '../../GkDate.vue';
 import trnDetailsMixin from '@/mixins/transactionProfile.js';
 export default {

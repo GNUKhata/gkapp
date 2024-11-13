@@ -84,8 +84,6 @@
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-navbar>
-      <!-- Color bar -->
-      <!-- <color-bar></color-bar> -->
     </header>
     <main
       role="main"
@@ -124,7 +122,6 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-// import ColorBar from '@/components/ColorBar.vue';
 import Sidebar from './components/Sidebar.vue';
 import TitleBar from './components/TitleBar.vue';
 import GoTo from './components/GoTo.vue';
@@ -183,7 +180,6 @@ export default {
     upgradeAppToLatestVersion() {
       if (this.gkConfig.fetch_latest_version) {
         this.$workbox.addEventListener('waiting', () => {
-          // this.showUpdateUI = true;
           // notify the user before updating the app
           this.$bvToast.toast(`Updating app to the latest version`, {
             title: 'New Update Available!',

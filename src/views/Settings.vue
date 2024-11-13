@@ -10,7 +10,6 @@
           title="General"
           active
         >
-          <!-- <b-card-text>Tab contents 1</b-card-text> -->
           <b-form @submit.prevent="saveConfig">
             <b-form-group
               label="Date Format"
@@ -65,7 +64,6 @@
           </b-form>
         </b-tab>
         <b-tab :title="$gettext('Transaction')">
-          <!-- <b-card-text>Tab contents 2</b-card-text> -->
           <b-form @submit.prevent="saveConfig">
             <b-form-group
               label="Payment Mode"
@@ -188,7 +186,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import { mapState } from 'vuex';
 import { debounceEvent } from '../js/utils.js';
 

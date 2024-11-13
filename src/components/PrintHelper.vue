@@ -102,12 +102,6 @@ export default {
       }
     },
     splitTable() {
-      // const pdf = new jsPDF({
-      //   format: 'a4',
-      // });
-      // const pdfWidth = pdf.internal.pageSize.getWidth();
-      // const pdfContentWidth = pdfWidth - (25 + 25);
-      // const pdfHeight = pdf.internal.pageSize.getHeight();
       let pageHeight = window.innerWidth > window.innerHeight ? 1600 : 1500;
       let contentDom = document.getElementById(this.contentId);
 
@@ -141,7 +135,6 @@ export default {
       if (this.messageFromParent == "toggleFlagTrue") {
         this.toggleFlag();
       }
-      // const self = this;
       let tableFlag = false;
       this.$emit('before-print');
       let contentDom = document.getElementById(this.contentId);

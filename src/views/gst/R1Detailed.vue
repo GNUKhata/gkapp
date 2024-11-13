@@ -40,21 +40,6 @@
           <strong> Fetching data</strong>
         </div>
       </template>
-      <!-- <template #cell(invoice_value)="data">
-        <div class="text-right">
-          {{ data.item.invoice_value }}
-        </div>
-      </template>
-      <template #cell(rate)="data">
-        <div class="text-right">
-          {{ data.item.rate }}
-        </div>
-      </template>
-      <template #cell(refund_voucher_value)="data">
-        <div class="text-right">
-          {{ data.item.refund_voucher_value }}
-        </div>
-      </template> -->
       <template #cell(invoice_number)="data">
         <router-link
           v-if="data.item.icflag && data.item.icflag === 3"
@@ -76,11 +61,6 @@
           {{ data.item.voucher_number }}
         </router-link>
       </template>
-      <!-- <template #cell(taxable_value)="data">
-        <div class="text-right">
-          {{ data.item.taxable_value }}
-        </div>
-      </template> -->
     </b-table>
   </section>
 </template>
@@ -132,14 +112,6 @@ export default {
                   CESSamt: true,
                 };
 
-                // if (
-                //   this.params.type === 'b2b' ||
-                //   this.params.type === 'cdnr' ||
-                //   this.params.type === 'cdnur' ||
-                //   this.params.type === 'b2cs' ||
-                //   this.params.type === 'b2cl'
-                // ) {
-                //   }
                 // remove ids from display as they will be used for drop down purposes with respective document no.
                 let index = this.fields.findIndex(
                   (field) => field === 'invid'

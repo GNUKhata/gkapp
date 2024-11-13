@@ -8,10 +8,7 @@
         ({{ dateReverse(params.fd) }} to {{ dateReverse(params.td) }})
       </h5>
     </div>
-    <div class="gkcard mx-auto">
-      <!-- <b-form-input type="text" v-model="search" placeholder="Search">
-             </b-form-input> -->
-    </div>
+    <div class="gkcard mx-auto" />
     <!-- report  -->
     <b-table
       class="mt-3"
@@ -71,8 +68,6 @@ export default {
     ...mapState(['orgName']),
   },
   methods: {
-    // formatTable(data) {
-    //     for(data.igst)
     getGstSummary() {
       this.loading = true;
       axios

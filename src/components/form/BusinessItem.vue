@@ -789,14 +789,6 @@ export default {
       this.form.tax.vat.splice(index, 1);
     },
     updateGst() {
-      // let gsts = this.form.tax.gsts;
-      // if (gsts.length > 1) {
-      //   for (let i = 1, l = gsts.length; i < l; i++) {
-      //     let min = gsts[i-1].to, max = this.yearEnd;
-      //     gsts[i].min = this.dateReverse(min);
-      //     gsts[i].max = this.dateReverse(max);
-      //   }
-      // }
       let prev = null;
       let gsts = this.form.tax.gsts;
       if (gsts.length) {
@@ -817,7 +809,6 @@ export default {
     addGst() {
       let gsts = this.form.tax.gsts;
       let min = '';
-      //   to = this.yearEnd;
       if (gsts.length && gsts[gsts.length - 1].from) {
         let lastDate = new Date(gsts[gsts.length - 1].from);
         let minDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
@@ -828,7 +819,6 @@ export default {
         from: null,
         min: min,
         dateValidity: true,
-        // max: this.dateReverse(to),
       });
     },
     deleteGst(index) {
@@ -879,7 +869,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -1084,15 +1073,6 @@ export default {
       }
 
       const tax = [];
-
-      // GST
-      // if (this.form.tax.gst > 0) {
-      //   tax.push({
-      //     taxname: 'IGST',
-      //     state: '',
-      //     taxrate: parseFloat(this.form.tax.gst) || 0,
-      //   });
-      // }
 
       // CESS
       if (this.form.tax.cess > 0) {

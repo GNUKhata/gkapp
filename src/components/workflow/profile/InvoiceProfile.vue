@@ -94,7 +94,6 @@
             size="sm"
             variant="success"
           >
-            <!-- <b-icon class="mr-1" icon="clipboard-check"></b-icon> -->
             <translate>{{ invoice.isSale ? 'Receive Payment' : 'Make Payment' }}
             </translate>
           </b-button>
@@ -570,9 +569,6 @@ export default {
     isIndianParty: (self) =>
       !self.invoice.party.country || self.invoice.party.country === 'India',
     tableFields: (self) => {
-      // let designation = self.invoice.designation
-      //   ? `(${self.invoice.designation})`
-      //   : '';
       let fields = [
         {
           key: 'name',
@@ -625,10 +621,6 @@ export default {
         label: self.$gettext('Total (₹)'),
         tdClass: 'gk-currency-sm',
       });
-      // fields.push({
-      //   title: 'Issued By',
-      //   value: `${self.invoice.issuer}  ${designation}`,
-      // });
       return fields;
     },
     invoiceData: (self) => {
@@ -861,7 +853,6 @@ export default {
       });
     },
     getDetails() {
-      // let type = this.deletedFlag ? 'deletedsingle' : 'single';
       let url = this.deletedFlag
         ? `/invoice/cancel/${this.id}`
         : `/invoice/${this.id}`;
@@ -1045,7 +1036,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -1068,7 +1058,6 @@ export default {
         switch (response.data.gkstatus) {
         case 0:
           {
-            // this.invoice = response.data.gkresult;
             let invData = response.data.gkresult;
             this.formatInvoiceDetails(invData);
             if (invData.dcid) {

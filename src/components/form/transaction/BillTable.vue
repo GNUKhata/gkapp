@@ -617,7 +617,6 @@ export default {
       allRowsSelected: false,
       skipAllRowSelect: false,
       taxInclusiveFlag: false,
-      // fields: [],
       form: [
         {
           index: 0,
@@ -814,7 +813,6 @@ export default {
           });
         }
       });
-      // this.$forceUpdate();
       this.$nextTick().then(() => {
         this.$refs.billTable.refresh();
         if (products.length) {
@@ -851,7 +849,6 @@ export default {
       });
     },
     godownId() {
-      // this.fetchStockOnHandData();
       this.fetchAllStockOnHand();
     },
     invDate() {
@@ -915,8 +912,6 @@ export default {
      */
     checkProductValidity(product) {
       let id = product.id;
-      // let prodOptions = this.options.products;
-
       let valid = true;
       if (
         this.options.productData[id] &&
@@ -1472,7 +1467,6 @@ export default {
           return;
         } else if (this.options.godownStock[this.godownId] && !forceFetch) {
           this.options.stock = this.options.godownStock[this.godownId];
-          // this.setStockStatus();
           return;
         }
       }
@@ -1493,20 +1487,14 @@ export default {
           self.options.stock = {};
           let stock = self.options.stock;
           let godownStock = {};
-          // let prodOptions = self.options.products;
           let id;
           if (resp.data.gkstatus === 0) {
             resp.data.gkresult.forEach((soh) => {
               id = soh.productcode;
               stock[id] = parseFloat(soh.balance);
-              // option is marked active if stock is greater than 1 or its a service (gsflag=19)
-              // if(productMap[id]) {
-              //   productMap[id].active = stock[id] > 0;
-              // }
               godownStock[id] = stock[id];
             });
             self.options.godownStock[self.godownId] = godownStock;
-            // self.setStockStatus();
             self.isPreloading = false;
           }
         })
@@ -1567,7 +1555,6 @@ export default {
                 }
               });
               if (!self.allowNegativeStock) {
-                // self.fetchStockOnHandData();
                 self.fetchAllStockOnHand(true);
               }
             } else {

@@ -48,13 +48,6 @@
           </b-button>
         </template>
       </b-table>
-      <!-- <template #footer>
-           <b-button
-           @click="$router.push('/business-details/create')"
-           variant="dark float-right"
-           ><translate>Add product/Service</translate></b-button
-           >
-           </template> -->
     </b-card>
     <!-- Receive Payment -->
     <b-card class="shadow">
@@ -101,13 +94,6 @@
           </b-button>
         </template>
       </b-table>
-      <!-- <template #footer>
-           <b-button
-           @click="$router.push('/contact-details/create')"
-           variant="dark float-right"
-           ><translate>Add Supplier</translate></b-button
-           >
-           </template> -->
     </b-card>
   </b-card-group>
 </template>

@@ -236,30 +236,6 @@ export default {
                 solid: true,
               });
               break;
-              // case 2:
-              //   this.$bvToast.toast('Unauthorised Access', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
-              // case 3:
-              //   this.$bvToast.toast('Data error', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
-              // case 4:
-              //   this.$bvToast.toast('No Privilege', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
-              // case 5:
-              //   this.$bvToast.toast('Integrity error', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
             }
           }
         });

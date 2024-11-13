@@ -168,7 +168,6 @@ export default {
     updateCustomPeriod() {
       this.custom.from = this.period.from;
       this.custom.to = this.period.to;
-      // this.$emit('update', true);
       this.validity = {
         from: true,
         to: true

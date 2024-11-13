@@ -415,7 +415,6 @@ export default {
         { label: 'No.', key: 'index', stickyColumn: true },
         { label: 'Name', key: 'name', stickyColumn: true },
         'role',
-        // 'year',
         'action',
       ],
       invOrgFields: [
@@ -819,7 +818,6 @@ export default {
                         .push('/dashboard')
                         .then(() => {
                           this.isLoading = false;
-                          // window.location.reload();
                         })
                         .catch((e) => {
                           console.error(e);

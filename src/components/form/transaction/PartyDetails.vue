@@ -284,31 +284,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Create Contact Item modal -->
-    <!-- <b-modal
-      size="lg"
-      v-if="config"
-      centered
-      static
-      body-class="p-0"
-      id="contact-item-modal"
-      hide-footer
-      header-bg-variant="dark"
-      title="Create Contact"
-      header-text-variant="light"
-      header-class="p-2"
-    >
-      <contact-item
-        :hideBackButton="true"
-        :onSave="onContactSave"
-        mode="create"
-        :type="form.type"
-        :inOverlay="true"
-        :showHeader="false"
-      >
-      </contact-item>
-    </b-modal> -->
   </b-card>
 </template>
 
@@ -316,11 +291,9 @@
 import axios from 'axios';
 import { mapGetters } from 'vuex';
 import GkGstin from '../../GkGstin.vue';
-// import ContactItem from '../ContactItem.vue';
 export default {
   name: 'PartyDetails',
   components: {
-    // ContactItem,
     GkGstin,
   },
   props: {
@@ -477,7 +450,6 @@ export default {
         party = this.options.suppliers.find((sup) => sup.name === partyName);
       }
       if (party) {
-        // this.isPreloading = true;
         this.form.name = party;
         this.onPartyNameSelect(this.form.name);
       }
@@ -496,7 +468,6 @@ export default {
     onGstinDataFetched({ name, addr, pincode, pan, statecode }) {
       this.form.name.name = name;
       this.form.addr = addr;
-      //       this.form.state= {};
       this.form.pin = pincode;
       this.form.pan = pan;
       if (statecode) {
@@ -533,7 +504,6 @@ export default {
         checksum: '',
         editFlag: false,
       });
-      // this.setShippingDetails();
     },
     /**
      * setPartyGst()
@@ -684,7 +654,6 @@ export default {
           tin: null,
           pin: null,
         });
-        // this.setShippingDetails();
         this.onUpdateDetails();
       }
     },
@@ -804,8 +773,6 @@ export default {
 
           // If coming from Contact's page, autofill invoice party details from store
           if (self.invoiceParty.id !== null) {
-            // self.form.inv.type =
-            //   self.invoiceParty.type === 'customer' ? 'sale' : 'purchase';
             self.form = Object.assign({}, self.form, {
               type: self.invoiceParty.type,
               name: {

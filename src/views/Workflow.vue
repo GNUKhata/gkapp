@@ -724,7 +724,6 @@
           </b-card-body>
         </b-card>
         <!-- Body -->
-        <!-- <div :style="{ height: listHeight + 'px', overflowY: 'auto' }"></div> -->
       </b-col>
     </b-row>
   </section>
@@ -850,26 +849,7 @@ export default {
           Contacts: ContactConf,
           Business: BusinessConf,
           Transactions: TransactionConf,
-        }, // Reports: {
-        //   icon: 'journals',
-        //   color: 'danger',
-        //   data: [],
-        //   key: '',
-        //   uidKey: '',
-        //   filterBy: {
-        //     value: [],
-        //     range: [],
-        //   },
-        //   fields: [],
-        //   initListColumns: () => {},
-        //   loadList: async () => {
-        //     return new Promise((resolve) => {
-        //       resolve();
-        //     }).then(() => {
-        //       return [];
-        //     });
-        //   },
-        // },
+        },
       },
     };
   },
@@ -896,7 +876,6 @@ export default {
         } else {
           self.leftHeaderHeight.max = 0;
         }
-        // this.updateListHeight();
       }, 650);
     },
   },
@@ -1018,7 +997,6 @@ export default {
           return colMap[column];
         });
       if (sortBy.length) {
-        // this.activeTabOptions.sortBy = sortBy;
         this.activeTabOptions.setListColumns(sortBy).then((resp) => {
           if (resp.gkstatus === 0) {
             this.$bvToast.toast('Update column config success!', {
@@ -1045,7 +1023,6 @@ export default {
             : this.leftHeaderHeight.min)); // 70 is the sum of sortable heading height + remaining vertical space in the screen
     },
     callSortData(data, props) {
-      // this.sort.isActive = true;
       if (this.sort.props.key === props.key) {
         props.isAsc = !props.isAsc;
       }
@@ -1101,17 +1078,6 @@ export default {
           this.activeTabOptions.filterBy.range[0].props || {}
         );
       }
-
-      // sets the first sortBy in the sortBy array
-      // if (this.activeTabOptions.sortBy.length) {
-      //   this.sort.props = Object.assign(
-      //     {},
-      //     this.activeTabOptions.sortBy[0].props
-      //   );
-      // }
-
-      // if (this.activeTabOptions.filterBy.range.length) {
-      // }
     },
     filterByValue(data, filters) {
       return filters.reduce(
@@ -1184,9 +1150,6 @@ export default {
         id: skipUpdate ? this.activeWorkflow.id : -1,
       };
       this.resetFilter();
-      // if (!skipUpdate) {
-      //   this.updateUrl();
-      // }
       const self = this;
       if (!activeWorkflow.data.length) {
         this.isLoading = true;
@@ -1267,9 +1230,6 @@ export default {
       }
     },
     setSelectedEntity(entity) {
-      // remove selected class from the last selected item
-      // if (selectedDom) selectedDom.classList.remove('selected-data-list');
-
       if (!entity[0]) return;
 
       this.selectedEntity = entity[0];
@@ -1304,8 +1264,6 @@ export default {
           name: 'Workflow',
           params: { wfName: wfName, wfId: wfId },
         });
-        // history.replaceState(null, '', url); // replace state method allows us to update the last history instance inplace,
-        // instead of creating a new history instances for every entity selected
       }
     },
     unsetSelectedEntity() {

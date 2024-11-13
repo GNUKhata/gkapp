@@ -571,7 +571,6 @@ export default {
               goid: '',
             };
           }
-          // this.output = response.data.gkresult;
           break;
         }
         case 2:

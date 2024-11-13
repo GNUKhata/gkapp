@@ -418,10 +418,6 @@
           label-for="cp-bank-ifsc"
           label-cols="3"
         >
-          <!-- <b-form-input
-                 id="cp-bank-ifsc"
-                 v-model="bankDetails.ifsc"
-                 ></b-form-input> -->
           <gk-ifsc
             v-model="bankDetails.ifsc"
             @fill="autofillIfsc"

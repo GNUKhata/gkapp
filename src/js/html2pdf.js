@@ -278,12 +278,7 @@ async function html2PDF(dom, opts = {}) {
         opts.watermarkImg = watermarkImg;
       }
       pdfInstance.pdf = addWaterMark(pdfInstance.pdf, opts);
-      // save pdf
-      // opts.success.call(opts, pdfInstance.pdf);
     });
-  } else {
-    // save pdf
-    // opts.success.call(opts, pdfInstance.pdf);
   }
 
   return pdfInstance.pdf;

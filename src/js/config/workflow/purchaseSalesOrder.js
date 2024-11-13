@@ -98,10 +98,6 @@ const config = {
                 noteName: `Order`,
                 text1: item.customer,
                 text2: item.orderno,
-                // csflag: custSupMap[item.customer] ? 3 : 19,
-                // icon: custSupMap[item.customer]
-                //   ? 'cash-stack'
-                //   : 'basket3',
                 // dateObj is invoicedate stored in a format that can be logically compared, used by sorters and filters.
                 date: item.orderdate,
                 dateObj: Date.parse(

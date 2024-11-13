@@ -242,13 +242,10 @@
 import axios from 'axios';
 import { mapState } from 'vuex';
 
-// import Config from '../../components/Config.vue';
-
 import PartyDetails from '../../components/form/transaction/PartyDetails.vue';
 import RejectionNoteDetails from '../../components/form/transaction_details/RejectionNoteDetails.vue';
 import BillTable from '../../components/form/transaction/BillTable.vue';
 import TotalTable from '../../components/form/transaction/TotalTable.vue';
-// import TransportDetails from '../../components/form/transaction/TransportDetails.vue';
 import Comments from '../../components/form/transaction/Comments.vue';
 import InvoiceDetails from '../../components/form/transaction_details/InvoiceDetailsEdit.vue';
 
@@ -260,13 +257,10 @@ import { reverseDate } from '../../js/utils';
 export default {
   name: 'RejectionNote',
   components: {
-    // Config,
-
     PartyDetails,
     RejectionNoteDetails,
     BillTable,
     TotalTable,
-    // TransportDetails,
     Comments,
     InvoiceDetails,
     PrintPage,
@@ -353,11 +347,6 @@ export default {
             'ml-md-1': !!newConf.rnote,
           };
         }
-        // if (newConf.ship.class) {
-        //   newConf.ship.class = {
-        //     'ml-md-1': !!(newConf.inv || newConf.party),
-        //   };
-        // }
         if (newConf.party.class) {
           newConf.party.class = {
             'ml-md-1': !!(newConf.inv || newConf.rnote),
@@ -369,12 +358,6 @@ export default {
             'mr-md-1': !!(newConf.inv || newConf.party),
           };
         }
-
-        // if (newConf.comments.class) {
-        //   newConf.comments.class = {
-        //     'ml-md-1': !!(newConf.transport || newConf.payment),
-        //   };
-        // }
       } else {
         // In Hot Module Reloading during dev, the dynamic Vuex module does not get loaded and errors are printed in console.
         // This is because during HMR, the Invoice component gets loaded before old one can be destroyed, causing an error (https://github.com/vuejs/vue/issues/6518)
@@ -521,7 +504,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -759,7 +741,6 @@ export default {
         total: {},
       });
       this.updateComponentData(resetNoteDetails);
-      // this.invIndex = 0;
     },
     initForm() {
       this.preloadData();

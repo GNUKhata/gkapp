@@ -132,8 +132,6 @@
 import axios from 'axios';
 import { mapState } from 'vuex';
 
-// import Config from '../../components/Config.vue';
-
 import BillTable from '../../components/form/transaction/BillTable.vue';
 import TransportDetails from '../../components/form/transaction/TransportDetails.vue';
 import TransferNoteDetails from '../../components/form/transaction_details/TransferNoteDetails.vue';
@@ -144,8 +142,6 @@ import TransferNoteConfig from '../../js/config/transaction/transferNote.js';
 export default {
   name: 'TransferNote',
   components: {
-    // Config,
-
     BillTable,
     TransportDetails,
     TransferNoteDetails,
@@ -233,7 +229,6 @@ export default {
       this.updateCounter.bill++;
     },
     confirmOnSubmit() {
-      // this.updateCounter.transferNote++;
       const self = this;
       let text = `Create Transfer (${this.form.transferNote.no}) from Godown <b>${this.godownFrom}</b> to <b>${this.godownTo}</b>?`;
       let textDom = this.$createElement('div', {
@@ -248,7 +243,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -262,8 +256,6 @@ export default {
       this.isLoading = true;
 
       const payload = this.initPayload();
-      // return;
-      // const method = this.formMode === 'create' ? 'post' : 'put';
       axios
         .post('/transfernote', payload)
         .then((resp) => {

@@ -221,7 +221,6 @@
 
 <script>
 import axios from 'axios';
-// import { mapState } from 'vuex';
 import GkDate from '../../GkDate.vue';
 
 import trnDetailsMixin from '@/mixins/transactionProfile.js';

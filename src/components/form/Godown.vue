@@ -10,10 +10,6 @@
       no-wrap
       blur
     />
-    <!-- <div class="card-header text-left py-2">
-         <b>Create Godown</b>
-         <slot name="close-button"> </slot>
-         </div> -->
     <b-card
       header-bg-variant="dark"
       header-text-variant="light"
@@ -247,7 +243,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
