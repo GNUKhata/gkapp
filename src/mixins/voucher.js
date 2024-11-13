@@ -234,21 +234,11 @@ export default {
 
       let requests = [
         axios.get(`/accountsbyrule?type=${type}&side=Dr`).catch((error) => {
-          // this.displayToast(
-          //   this.$gettext('Fetch State Data Failed!'),
-          //   error.message,
-          //   'danger'
-          // );
-          console.log('Fetch Dr accounts failed');
+          console.error('Fetch Dr accounts failed', error);
           return error;
         }),
         axios.get(`/accountsbyrule?type=${type}&side=Cr`).catch((error) => {
-          // this.displayToast(
-          //   this.$gettext('Fetch State Data Failed!'),
-          //   error.message,
-          //   'danger'
-          // );
-          console.log('Fetch Cr accounts failed');
+          console.error('Fetch Cr accounts failed');
           return error;
         }),
       ];
@@ -256,12 +246,7 @@ export default {
       if (this.isReceiptOrPayment) {
         requests.push(
           axios.get(`billwise?type=all`).catch((error) => {
-            // this.displayToast(
-            //   this.$gettext('Fetch State Data Failed!'),
-            //   error.message,
-            //   'danger'
-            // );
-            console.log('Fetch billwise accounts failed');
+            console.error('Fetch billwise accounts failed');
             return error;
           })
         );

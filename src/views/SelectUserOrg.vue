@@ -822,13 +822,13 @@ export default {
                           // window.location.reload();
                         })
                         .catch((e) => {
-                          console.log(e);
+                          console.error(e);
                           this.isLoading = false;
                         });
                     });
                 })
                 .catch((e) => {
-                  console.log(e);
+                  console.error(e);
                 });
             }
             break;

@@ -213,7 +213,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
     // get product list from the api

@@ -563,7 +563,6 @@ export default {
       const self = this;
       this.isLoading = true;
       const payload = this.initPayload();
-      // console.log(payload);
       let formMode = 'Create',
           method = 'post';
       if (this.isEditMode) {
@@ -572,7 +571,6 @@ export default {
       }
       axios({ method: method, url: '/budget', data: payload })
         .then((response) => {
-          // console.log(response)
           self.isLoading = false;
           switch (response.data.gkstatus) {
           case 0:
@@ -759,7 +757,6 @@ export default {
         .then((resp) => {
           if (resp.data.gkstatus === 0) {
             let details = resp.data.gkresult;
-            console.log(details);
             this.displayToast(
               this.$gettext(`Success!`),
               this.$gettext('Fetched Budget Details!'),

@@ -916,8 +916,6 @@ export default {
     onSubmit() {
       this.isLoading = true;
       this.createInvoice();
-      // console.log(this.initDelNotePayload());
-      // console.log(this.initPayload());
     },
     createInvoice() {
       const self = this;
@@ -1204,18 +1202,6 @@ export default {
         invoice.attachmentcount = this.form.attachments.length;
       }
 
-      // if (!this.isCreate) {
-      //   const av = Object.assign({}, invoice.av);
-      //   invoice.invid = parseInt(this.invoiceId);
-
-      //   delete invoice.av;
-      //   delete invoice.pincode;
-      //   delete invoice.discflag;
-
-      //   return { invoice, stock, av };
-      // }
-
-      // console.log({ invoice, stock });
       return { invoice, stock };
     },
     updateInvNoCounter() {

@@ -585,10 +585,7 @@ export default {
     onSubmit() {
       this.isLoading = true;
       const self = this;
-
       const payload = this.initPayload();
-      // console.log(payload);
-      // return;
 
       if (!payload.invid || payload.invid == null) {
         delete payload.invid;

@@ -258,13 +258,10 @@ export default {
     },
     onSubmit() {
       this.isLoading = true;
-      // console.log('in submit')
       const payload = this.initPayload();
-      // console.log(payload);
       axios
         .post('/godown', payload)
         .then((response) => {
-          // console.log(response)
           this.isLoading = false;
           switch (response.data.gkstatus) {
           case 0:

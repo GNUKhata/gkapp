@@ -490,7 +490,6 @@ export default {
   watch: {
     id: function(id) {
       if (id && parseInt(id) > -1) {
-        console.log(`Fetch id = ${id}`);
         this.isPreloading = true;
         this.fetchAndUpdateData()
           .then(() => {

@@ -302,11 +302,7 @@ export default {
     onSubmit() {
       this.isLoading = true;
       const self = this;
-
       const payload = this.initPayload();
-      //   console.log(payload);
-      //   return;
-
       const method = 'post';
       const failTitle = this.$gettext('Create Voucher Failure!'),
             failMessage = this.$gettext('Voucher Creation Failed!');

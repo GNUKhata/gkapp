@@ -45,12 +45,11 @@ export default {
             localStorage.setItem('gstNewsCount', this.newsItems.length);
           } else {
             this.$bvToast.toast('Unable to fetch API');
-            console.log(r.data);
           }
           this.loading = false;
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
   },

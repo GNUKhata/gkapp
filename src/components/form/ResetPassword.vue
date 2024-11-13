@@ -408,12 +408,10 @@ export default {
             this.uid = r.data.gkdata[0].orgcode;
             this.disableUserName = false;
             this.userNameIsLoading = false;
-          } else {
-            console.log('Unable to fetch org years');
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
     /* Get user's security question */
@@ -438,8 +436,6 @@ export default {
               });
               this.form.userquestion = '';
             }
-          } else {
-            console.log(r.status);
           }
           this.isLoading = false;
           this.cardLoading = false;

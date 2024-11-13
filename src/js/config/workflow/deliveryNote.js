@@ -192,7 +192,7 @@ const config = {
         return dnotes;
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   },
   initListColumns: initColumns,

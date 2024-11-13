@@ -185,7 +185,6 @@ export default {
       this.showModal = true;
       this.formattedConfig = {};
       this.customConfig = JSON.stringify(this.getCustomConfig, undefined, 2);
-      // console.log(this.getCustomConfig)
       this.isFormatError = false;
       this.isFormatSuccess = false;
       this.isFormatting = false;
@@ -269,7 +268,7 @@ export default {
       } catch (error) {
         this.isFormatError = true;
         this.isFormatSuccess = false;
-        console.log('JSON format is not correct');
+        console.error('JSON format is not correct');
         custom = {};
         this.formattedConfig = JSON.stringify({}, undefined, 2);
       }

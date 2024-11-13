@@ -149,7 +149,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
     /* As per Indian GST laws, A custom unit should be mapped to a officially valid unit */

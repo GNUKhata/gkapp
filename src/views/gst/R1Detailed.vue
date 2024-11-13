@@ -246,7 +246,6 @@ export default {
 
                 if (this.params.type === 'hsn1') {
                   this.list['hsn1'].forEach((item) => {
-                    // console.log(item.hsnsac)
                     if (item.hsnsac && typeof item.hsnsac === 'object') {
                       let hsn = JSON.parse(item.hsnsac || '{}');
                       if (typeof hsn === 'object') {
@@ -289,8 +288,6 @@ export default {
               });
               break;
             }
-          } else {
-            console.log(r);
           }
           this.loading = false;
         })

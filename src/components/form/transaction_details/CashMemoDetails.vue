@@ -407,7 +407,6 @@ export default {
           return -1;
         })
         .catch(() => {
-          // console.log(error);
           return -1;
         });
     },

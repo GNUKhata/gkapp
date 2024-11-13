@@ -358,8 +358,6 @@ export default {
         }
         payload.golist = list;
       }
-      // console.log(payload)
-      // return;
       axios
         .post('/invite', payload)
         .then((resp) => {

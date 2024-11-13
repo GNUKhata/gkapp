@@ -129,7 +129,6 @@ export default {
       this.form.attachments.splice(index, 1);
     },
     onAttachementPreviewLoad(e) {
-      // console.log(e)
       if (e.target) {
         let height = e.target.height;
         let width = e.target.width;

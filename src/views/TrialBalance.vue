@@ -391,7 +391,6 @@ export default {
      * Return appropriate trial balance code for generating spreadsheet
      */
     trialBalanceCode() {
-      console.log(this.trialBalanceType);
       if (this.trialBalanceType == 'Net') {
         return 1;
       } else if (this.trialBalanceType == 'Gross') {
@@ -457,7 +456,7 @@ export default {
           this.isLoading = false;
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           this.isLoading = false;
         });
     },

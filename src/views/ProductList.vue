@@ -150,13 +150,11 @@ export default {
                 solid: true,
               });
               break;
-            default:
-              console.log(r.data.gkstatus);
             }
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           this.$bvToast.toast(e.message, {
             title: e.message,
             variant: 'danger',

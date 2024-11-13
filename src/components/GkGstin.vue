@@ -315,7 +315,6 @@ export default {
       });
     },
     useGstinData() {
-      // console.log(this.gstinData.pan);
       this.$emit('gstin_data', {
         name: this.gstinData.tradeName,
         addr: this.gstinData.addr,
@@ -400,7 +399,6 @@ export default {
      * Validates the gstin and emits a payload with validity status and checksum, pan and state code
      *  */
     validateGstin(gstin) {
-      // console.log(1);
       this.validity = this.isValidGstin(gstin);
       let payload = {
         validity: this.validity,

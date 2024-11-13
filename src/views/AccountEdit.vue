@@ -470,11 +470,7 @@ export default {
     onSubmit() {
       const self = this;
       const payload = this.initEditPayload();
-      // console.log(payload);
-
       this.isLoading = true;
-      console.log(payload);
-      // return;
 
       if (payload.gkdata.groupcode === 'New') {
         this.createSubGroup({

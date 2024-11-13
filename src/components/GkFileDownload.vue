@@ -137,7 +137,6 @@ export default {
       axios
         .get(url, { responseType: 'blob' })
         .then((resp) => {
-          console.log(resp.data.gkstatus);
           if (resp.data.gkstatus === 0 || resp.data.gkstatus === undefined) {
             let blob = resp.data;
             if (this.filePath) {
@@ -172,7 +171,7 @@ export default {
           this.loading = false;
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           this.loading = false;
         });
     },

@@ -776,7 +776,6 @@ export default {
   watch: {
     updateCounter() {
       // debugger;
-      // console.log(1);
       let updateBillTable = !(
         this.parentData.length &&
         typeof this.parentData[0].product === 'object' &&
@@ -824,7 +823,6 @@ export default {
           let requests = [];
           products.forEach((product, index) => {
             self.form[index] = product;
-            // console.log(product);
             requests.push(
               self.fetchProductDetails(self.form[index].product.id, index)
             );
@@ -908,7 +906,6 @@ export default {
       if (this.form.length) {
         result = this.form;
       }
-      // console.log(JSON.stringify(result));
       return result;
     },
     /**
@@ -1113,7 +1110,7 @@ export default {
             }
           }
         } else {
-          console.log(resp1.message);
+          console.error(resp1.message);
         }
 
         // Tax details
@@ -1123,7 +1120,7 @@ export default {
             this.updateTaxDetails(index);
           }
         } else {
-          console.log(resp2.message);
+          console.error(resp2.message);
         }
         self.updateTaxAndTotal(index);
 
@@ -1517,7 +1514,7 @@ export default {
         })
         .catch((error) => {
           self.isPreloading = false;
-          console.log(error);
+          console.error(error);
           return error;
         });
     },
@@ -1529,7 +1526,6 @@ export default {
         id = product.productcode;
         // option is marked active if stock is greater than 1 or its a service (gsflag=19)
         prodOptions[index].active = self.options.stock[id] > 0;
-        // console.log(`${self.options.stock[id]} - ${prodOptions[index].active}`)
         if (product.gsflag === 19) {
           prodOptions[index].active = true;
         }

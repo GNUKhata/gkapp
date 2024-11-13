@@ -303,7 +303,6 @@ export default {
      */
     formatVoucherDetails(details) {
       if (details) {
-        // console.log(details);
         this.no = details.vouchernumber;
         this.type = details.vouchertype;
         this.voucher.narration = details.narration;

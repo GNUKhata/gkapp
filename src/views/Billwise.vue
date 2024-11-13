@@ -385,15 +385,11 @@ export default {
         });
     },
     onSubmit() {
-      // console.log('in submit')
       this.isLoading = true;
       const payload = this.initPayload();
-      // return;
-      // console.log(payload);
       axios
         .post('/billwise', payload)
         .then((response) => {
-          // console.log(response)
           this.isLoading = false;
           switch (response.data.gkstatus) {
           case 0:
@@ -439,7 +435,6 @@ export default {
       };
 
       this.options.invoices.forEach((inv) => {
-        // console.log(inv);
         inv.adjusted = parseFloat(inv.adjusted);
         inv.balanceamount = parseFloat(inv.balanceamount);
         if (inv.adjusted > 0) {
@@ -459,7 +454,6 @@ export default {
     /**Fetch Invoices that are still in credit for a given Customer/Supplier and
      * the list of vouchers that can adjust them */
     fetchUnadjustedItems() {
-      // console.log(this.custid)
       this.options.vouchers = [];
       this.options.invoices = [];
       this.vcode = '';

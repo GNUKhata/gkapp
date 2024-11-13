@@ -576,7 +576,6 @@ export default {
         orderData.vehicleno = this.form.transport.vno;
       }
 
-      // console.log({ invoice, stock });
       return orderData;
     },
     confirmOnSubmit() {

@@ -145,7 +145,6 @@ export default {
             this.uomList = uomList;
             this.uqcList = uqcList;
           } else {
-            console.log(r.data.gkstatus);
             this.$bvToast.toast(
               'Unable to fetch UOM list, Please reload the page',
               { variant: 'danger' }

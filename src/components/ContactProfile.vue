@@ -661,7 +661,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err.message);
+          console.error(err.message);
         });
     },
     /**
@@ -863,19 +863,18 @@ export default {
                     accountcode: accList[i].accountcode, // Get account code
                   },
                 })
-                .then((res) => {
-                  console.log('account delete status', res.data.gkstatus);
+                .then(() => {
                   // Add a log about the delete status
                   this.addLog();
                 })
                 .catch((e) => {
-                  console.log(e);
+                  console.error(e);
                 });
             }
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
     /**Update the account associated with this contact when the contact name is changed*/
@@ -915,11 +914,8 @@ export default {
       };
       axios
         .post(`${this.gkCoreUrl}/log`, payload, config)
-        .then((res) => {
-          console.log('log status ', res.data.gkstatus, payload);
-        })
         .catch((e) => {
-          console.log('log ', e);
+          console.error('log ', e);
         });
     },
     /** Splits the GSTIN into state code, pan and checksum */
@@ -937,7 +933,6 @@ export default {
       }
       if (!gstinUpdated) {
         this.gstin.stateCode = this.options.stateMap[this.details.state] || '';
-        // console.log(this.options.stateMap[this.details.state])
         this.gstin.pan = this.details.custpan || '';
       }
     },

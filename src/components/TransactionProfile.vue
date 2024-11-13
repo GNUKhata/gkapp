@@ -228,7 +228,6 @@ export default {
             }
           );
         }
-        // console.log(this.invoice.invItems);
       }
     },
     cancelInvoice() {
@@ -366,7 +365,6 @@ export default {
     },
   },
   mounted() {
-    // console.log("mounted")
     if (this.invid && parseInt(this.invid) > -1) {
       this.fetchAndUpdateData();
     }

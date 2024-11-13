@@ -533,10 +533,7 @@ export default {
     onSubmit() {
       const self = this;
       this.isLoading = true;
-
       const payload = this.initPayload();
-      // console.log(payload);
-      // const method = this.formMode === 'create' ? 'post' : 'put';
       axios
         .post('/rejectionnote', payload)
         .then((resp) => {

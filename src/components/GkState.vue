@@ -57,7 +57,7 @@ export default {
         if (r.status == 200) {
           this.states = r.data.gkresult;
         } else {
-          console.log('failed to fetch states');
+          console.error('Failed to fetch states');
         }
       });
     },

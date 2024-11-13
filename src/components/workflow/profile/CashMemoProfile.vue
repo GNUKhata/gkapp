@@ -454,7 +454,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
     /**
@@ -524,7 +524,6 @@ export default {
             }
           );
         }
-        // console.log(this.invoice.invItems);
       }
     },
     getDetails() {

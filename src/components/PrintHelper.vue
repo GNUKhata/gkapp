@@ -109,7 +109,6 @@ export default {
       // const pdfContentWidth = pdfWidth - (25 + 25);
       // const pdfHeight = pdf.internal.pageSize.getHeight();
       let pageHeight = window.innerWidth > window.innerHeight ? 1600 : 1500;
-      // console.log(`Page height: ${pageHeight}`);
       let contentDom = document.getElementById(this.contentId);
 
       let pages = [];
@@ -121,9 +120,6 @@ export default {
         (rows.length * rows[0].offsetHeight) / pageHeight
       );
       let rowCount = Math.floor(pageHeight / rows[0].offsetHeight);
-      // console.log(
-      //   `row count = ${rowCount}, page count = ${tableCount}, rows = ${rows.length}`
-      // );
       let rowIterator = 0;
       for (let i = 0; i < tableCount; i++) {
         let table = contentDom.cloneNode();

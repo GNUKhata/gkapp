@@ -68,8 +68,6 @@ export default {
             this.form.projectname = data.projectname;
             this.form.sanctionedamount = data.sanctionedamount;
             this.form.projectcode = data.projectcode;
-          } else {
-            console.log(r.status);
           }
           this.loading = false;
         })

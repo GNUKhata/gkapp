@@ -44,13 +44,11 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             this.post = r.data.gkresult;
-          } else {
-            console.log(r.data);
           }
           this.loading = false;
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           this.loading = false;
         });
     },

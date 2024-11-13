@@ -812,12 +812,10 @@ export default {
                     solid: true,
                   });
                   break;
-                default:
-                  console.log('product update status ', res.data.gkstatus);
                 }
               })
               .catch((e) => {
-                console.log('update details ', e.message);
+                console.error(e.message);
               })
               .then(() => {
                 this.isLoading = false;
@@ -1036,7 +1034,7 @@ export default {
                 }
               })
               .catch((e) => {
-                console.log('delete err ', e);
+                console.error(e);
               });
           }
         });
@@ -1065,7 +1063,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log('godown fetch error ', e);
+          console.error(e);
         });
     },
     /** Fetch tax details for selected product */
@@ -1220,7 +1218,6 @@ export default {
         .then((resp) => {
           if (resp.status === 200) {
             if (resp.data.gkstatus === 0) {
-              // console.log(resp.data.gkresult);
               resp.data.gkresult.sort((a, b) => a.goid - b.goid); // sorting the godown list based on goid, to order it in creation order
               self.options.godowns = resp.data.gkresult.map((item) => {
                 return {

@@ -783,7 +783,6 @@ export default {
       required: true,
       default: null,
       validator: function() {
-        // console.log(value)
         return true;
       },
     },
@@ -971,7 +970,6 @@ export default {
         const name = self.activeWorkflow.name.split('-');
         return self.options.tabs[name[0]].tabs[name[1]];
       }
-      console.log(self.options.tabs[self.activeWorkflow.name])
       return self.options.tabs[self.activeWorkflow.name];
     },
     // headerHeight is the height of the top nav bar
@@ -993,7 +991,6 @@ export default {
     },
     toggleAll() {
       if (this.allSelected) {
-        console.log(this.activeTabOptions)
         this.filters.active = this.activeTabOptions.filterBy.value.map((_, index) => index);
       } else {
         this.filters.active = [];
@@ -1162,7 +1159,6 @@ export default {
      * Also initializes the filters and sorts, after that.
      */
     setActiveWorkflow(index, name, icon, skipUpdate) {
-      // console.log('In manual set active workflow, ' + skipUpdate);
       let color, tabName;
       let activeWorkflow = name.parent
         ? this.options.tabs[name.parent].tabs[name.child]
@@ -1178,7 +1174,6 @@ export default {
         color = this.options.tabs[name].color;
         tabName = name;
       }
-      // console.log(this.activeWorkflow.id);
       this.isFilterOpen = false;
       this.leftHeaderHeight.max = 0;
       this.unsetSelectedEntity();
@@ -1209,8 +1204,6 @@ export default {
             activeWorkflow.data = resp;
             self.isLoading = false;
             // debugger;
-            // select first item only if wfId = -1, i.e. nothing is selected
-            // console.log(self.activeWorkflow.id);
             if (parseInt(self.activeWorkflow.id) == -1) {
               self.selectFirstListItem();
               self.updateUrl();
@@ -1218,12 +1211,11 @@ export default {
             return true;
           })
           .catch((e) => {
-            console.log(e.message);
+            console.error(e);
             self.isLoading = false;
           });
       } else {
         // select first item only if wfId = -1, i.e. nothing is selected
-        // console.log(self.activeWorkflow.id);
         if (parseInt(self.activeWorkflow.id) == -1) {
           self.selectFirstListItem();
           self.updateUrl();
@@ -1232,7 +1224,6 @@ export default {
     },
     /** Sets the active workflow based on the URL props */
     autoSetActiveWorkflow() {
-      // console.log('In auto select active workflow');
       let self = this;
       let tab, index;
       let setActiveWorkflow;
@@ -1268,13 +1259,11 @@ export default {
       }
     },
     selectFirstListItem() {
-      // console.log('In select first item method');
       if (!this.is_mobile()) {
         const self = this;
         this.$forceUpdate();
         this.$nextTick().then(() => {
           if (self.$refs[`list-${self.activeWorkflow.tabName}`]) {
-            // console.log('Selecting the first row as active');
             self.$refs[`list-${self.activeWorkflow.tabName}`][0].selectRow(0);
           }
         });
@@ -1308,12 +1297,10 @@ export default {
     },
     /** Update the URL based on current entity selected */
     updateUrl() {
-      // console.log("Url Update")
       let url = window.location.href.split('#')[0];
       let wfName = this.activeWorkflow.name;
       let key = this.activeTabOptions.uidKey;
       let wfId = this.selectedEntity ? this.selectedEntity[key] || -1 : -1;
-      // console.log(wfId);
       url += `#/workflow/${wfName}/${wfId}`;
       if (url != window.location.href) {
         this.$router.replace({
@@ -1457,7 +1444,7 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     // filter products & services list & store them seperately
@@ -1471,7 +1458,6 @@ export default {
       }
     },
     onDropdownHide(event) {
-      // console.log(`${event.componentId} is closing`);
       if (event.componentId === 'sub-menu') {
         this.isSubMenuOpen = false;
         this.$refs.mainMenu.hide();

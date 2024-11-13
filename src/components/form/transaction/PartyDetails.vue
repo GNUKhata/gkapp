@@ -875,7 +875,7 @@ export default {
             }
           })
           .catch((e) => {
-            console.log(e);
+            console.error(e);
           })
           .finally(() => {
             this.form.loading = false;

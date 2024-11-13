@@ -735,7 +735,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
     // change url query params when user clicks on one of result

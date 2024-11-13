@@ -826,11 +826,8 @@ export default {
       return axios
         .get(`/invoice/${this.invoiceId}`)
         .then((resp) => {
-          // self.isPreloading = false;
           if (resp.data.gkstatus === 0) {
             let data = resp.data.gkresult;
-            // console.log(resp.data);
-
             let taxState = self.options.states.find(
               (state) => state.id == data.taxstatecode
             );
@@ -897,7 +894,6 @@ export default {
               data.custSupDetails.csflag === 3 ? 'customer' : 'supplier';
             self.$nextTick().then(() => {
               self.form.party.name = data.custSupDetails.custname;
-              // console.log(self.form.party.name);
               // set shipping details
               if (!self.form.ship.copyFlag) {
                 let ship = {
@@ -947,9 +943,6 @@ export default {
               }
               self.form.bill.push(billItem);
             }
-            // self.form.bill = bills;
-            // console.log(self.form.party.name, 'Name');
-            // self.updateComponentData(); // will be called in update delnote godown
             self.updateCounter.bill++;
             if (data.attachmentcount > 0) {
               this.fetchAttachments();
@@ -978,8 +971,6 @@ export default {
         }
         this.createInvoice();
       });
-      // console.log(this.initDelNotePayload());
-      // console.log(this.initPayload());
     },
     createInvoice() {
       const self = this;
@@ -994,7 +985,6 @@ export default {
         this.deleteDelNote(this.dcId);
         return;
       }
-      // console.log(payload);
       let method, actionText, url;
       if (this.isCreate) {
         method = 'post';
@@ -1328,7 +1318,6 @@ export default {
         return { invoice, stock, av };
       }
 
-      // console.log({ invoice, stock });
       return { invoice, stock };
     },
     updateInvNoCounter() {
@@ -1588,7 +1577,6 @@ export default {
       //   return { invoice, stock, av };
       // }
 
-      // console.log({ invoice, stock });
       return { delchaldata: delchal, stockdata: stock };
     },
     resetForm() {

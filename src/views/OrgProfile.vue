@@ -1045,29 +1045,7 @@ export default {
         });
         delete this.details.logo;
       }
-      // this.getBase64(this.details.logo)
-      //   .then((r) => {
-      //     console.log(r);
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
-      //
     },
-    // compressImage(file) {
-    //   let output;
-    //   new Compressor(file, {
-    //     quality: 0.6,
-    //     success(result) {
-    //       output = result;
-    //       console.log('img compressed');
-    //     },
-    //     error(err) {
-    //       console.log(err);
-    //     },
-    //   });
-    //   return output;
-    // },
     /**
      * Update organisation details
      */
@@ -1205,7 +1183,6 @@ export default {
       axios
         .delete(`/organisation`)
         .then((r) => {
-          console.trace(r);
           if (r.status == '200' && r.data.gkstatus == 0) {
             this.$bvToast.toast(`${this.details.orgname} Deleted`, {
               title: 'Success',
@@ -1282,7 +1259,7 @@ export default {
           });
         })
         .catch((e) => {
-          console.log('failed to get states', e.message);
+          console.error('Failed to get states', e.message);
         });
     },
     /** The ADD/Update BUtton callback for the GSTIN modal */

@@ -580,14 +580,11 @@ export default {
       const payload = this.isEditMode
         ? this.initEditPayload()
         : this.initPayload();
-      // console.log(payload);
 
       // the method to call based on the current mode of the form (create/edit)
       const submitMethod = this.isEditMode ? 'editAccount' : 'createAccount';
       const mode = this.isEditMode ? 'Edit' : 'Create';
       this.isLoading = true;
-      console.log(payload);
-      // return;
 
       if (payload.gkdata.groupcode === 'New') {
         this.createSubGroup({

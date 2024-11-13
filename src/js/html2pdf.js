@@ -157,7 +157,6 @@ function onCanvasRendered(canvas, pdfInstance, opts) {
       pdfContentWidth,
       imgHeight
     );
-    // console.log(`Height: ${imgHeight} , Width: ${pdfContentWidth}`);
     // add margin top/bottom
     pdf.setFillColor(255, 255, 255);
     pdf.rect(0, 0, pdfWidth, margin.top, 'F');
@@ -231,7 +230,7 @@ function addWaterMark(pdf, opts) {
       opts.watermark.call(opts, param);
     }
   } else {
-    console.warn(
+    console.error(
       '[jspdf-html2canvas] "watermark" option should be either "string" or "function" type.'
     );
   }

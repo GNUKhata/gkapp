@@ -521,7 +521,6 @@ export default {
           isOpen: true,
         });
       }
-      // console.log(result);
       return result;
     },
     onBudgetFilterUpdate() {

@@ -293,7 +293,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
 
       this.getAdmins();
@@ -310,12 +310,10 @@ export default {
         .then((r) => {
           if (r.status === 200 && r.data.gkstatus === 0) {
             this.admins = r.data.gkresult;
-          } else {
-            console.log('failed to get admins list');
           }
         })
         .catch((e) => {
-          console.log('admin list fetch: ', e.message);
+          console.error(e.message);
         });
     },
     /**

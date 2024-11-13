@@ -592,7 +592,6 @@ export default {
     id: function(id) {
       if (id && parseInt(id) > -1) {
         this.isPreloading = true;
-        // console.log(`Fetch id = ${id}`);
         this.fetchAndUpdateData()
           .then(() => {
             this.isPreloading = false;

@@ -124,39 +124,6 @@ export default {
     },
   },
   methods: {
-    /* Get user's details from api */
-    /* getUserInfo() {
-      this.isLoading = true;
-      axios
-        .get(`${this.gkCoreUrl}/gkuser`, {
-          headers: {
-            gktoken: this.authToken,
-          },
-        })
-        .then((r) => {
-          if (r.status == 200) {
-            let info = r.data.gkresult;
-            switch (r.data.gkstatus) {
-              case 0:
-                this.form.userid = info.userid;
-                this.isLoading = false;
-                break;
-              default:
-                this.$bvToast.toast('Request failed', {
-                  title: `status code ${r.data.gkstatus}`,
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-            }
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-          this.isLoading = false;
-        });
-    }, */
-
     /* Check if user's password is valid */
     validatePwd() {
       this.isLoading = true;

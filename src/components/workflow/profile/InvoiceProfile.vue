@@ -770,7 +770,6 @@ export default {
       this.refresh();
     },
     onAttachementPreviewLoad(e) {
-      // console.log(e)
       if (e.target) {
         let height = e.target.height;
         let width = e.target.width;
@@ -851,7 +850,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
     getPaymentData() {
@@ -1190,7 +1189,6 @@ export default {
   },
   mounted() {
     this.toDate = this.currentDate();
-    // console.log("mounted")
     if (this.id && parseInt(this.id) > -1) {
       this.isPreloading = true;
       Promise.all([

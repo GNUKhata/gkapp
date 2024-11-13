@@ -454,8 +454,6 @@ export default {
       const self = this;
       this.isLoading = true;
       const payload = this.initPayload();
-      // console.log(payload);
-      // return;
       const noteType = this.isCredit ? 'Credit' : 'Debit';
       axios
         .post('/drcrnote', payload)

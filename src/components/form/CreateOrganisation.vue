@@ -354,7 +354,6 @@ export default {
       });
     },
     setYearEnd() {
-      // console.log('On date change')
       if (this.yearStart !== null && this.yearStart) {
         const ONE_DAY = 86400000;
         let startDate = new Date(this.yearStart.split('-').join('/'));
@@ -395,7 +394,6 @@ export default {
           },
         })
         .then((response) => {
-          // console.log(response)
           this.isLoading = false;
           switch (response.data.gkstatus) {
           case 0:
@@ -500,7 +498,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
   },

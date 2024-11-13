@@ -176,7 +176,7 @@ export default {
           this.loading = false;
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
     updateGodownInfo() {
@@ -276,8 +276,7 @@ export default {
                   headers: { gktoken: this.authToken },
                 }
               )
-              .then((r) => {
-                console.log(r);
+              .then(() => {
                 this.$emit('godownupdate');
                 this.$bvModal.hide('edit-godown');
                 this.loading = false;

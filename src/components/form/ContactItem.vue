@@ -684,7 +684,6 @@ export default {
         });
     },
     onSubmit() {
-      // console.log('in submit')
       this.isLoading = true;
       if (this.contactCountry !== 'India') {
         this.state = '';
@@ -695,7 +694,6 @@ export default {
       axios
         .post('/customer', payload)
         .then((response) => {
-          // console.log(response)
           this.isLoading = false;
 
           switch (response.data.gkstatus) {
@@ -819,7 +817,6 @@ export default {
           branchname: this.form.bank.branch,
         };
       }
-      // console.log(payload);
       return payload;
     },
     resetForm() {

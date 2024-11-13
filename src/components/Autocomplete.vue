@@ -177,13 +177,11 @@ export default {
   methods: {
     /** Creates a local copy of Options prop in a desired format, {text: , value:} */
     initOptions() {
-      // console.log("in optionsB");
       let options = [];
       if (this.options.length) {
         let val;
         this.options.forEach((option) => {
           val = null;
-          // console.log(JSON.stringify(option))
           if (typeof option === 'object') {
             val = option;
             val.text = option[this.textField];
@@ -208,8 +206,6 @@ export default {
       this.optionsB = options;
     },
     onInput() {
-      // console.log("In search filter");
-      // console.log(this.filteredOptions)
       if (this.isSelected || this.searchFilter) {
         if (this.filteredOptions.length > 0) {
           this.selected = this.filteredOptions[0];
@@ -225,7 +221,6 @@ export default {
     /** Filter the given options based on the query string */
     filterOptions() {
       if (typeof this.searchFilter === 'string') {
-        // console.log("In FilteredOptions");
         const filtered = [];
         let searchText = this.searchFilter.toLowerCase();
         let optionText = '';
@@ -257,13 +252,11 @@ export default {
           this.updateDisabledStatus(option);
         }
 
-        // console.log("In select option")
         this.selected = option;
         // this.optionsShown = false;
         if ((this.searchFilter !== this.selected.text) && !this.searchFilter) {
           this.searchFilter = this.selected.text;
         }
-        // console.log(this.selected.value)
         this.$emit('input', this.selected.value);
       }
     },
@@ -278,7 +271,6 @@ export default {
     },
     /** Perform required inits and Display the dropdown menu */
     showOptions() {
-      // console.log("In showOptions");
       if (!this.searchFilter) {
         this.searchFilter = '';
       }
@@ -306,8 +298,6 @@ export default {
     },
     /** When the component loses focus, update the component and hide the drop down menu */
     exit() {
-      // console.log("In Exit");
-      // console.log(this.selected.value)
       if (this.selected.value) {
         this.searchFilter = this.selected.text;
       } else {
@@ -416,8 +406,6 @@ export default {
      */
     value(newVal) {
       // debugger;
-      // console.log('In Value');
-      // console.log(newVal);
       const self = this;
       if (!this.optionsB) {
         return;

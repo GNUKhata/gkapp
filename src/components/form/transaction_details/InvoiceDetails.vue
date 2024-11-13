@@ -671,12 +671,7 @@ export default {
           return -1;
         })
         .catch((error) => {
-          console.log(error);
-          // this.displayToast(
-          //   'Fetch Delivery Challan No. Failed!',
-          //   error.message,
-          //   'danger'
-          // );
+          console.error(error);
           return -1;
         });
     },

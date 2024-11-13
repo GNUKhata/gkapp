@@ -231,7 +231,6 @@ export default {
             this.uomList = uomList;
             this.uqcList = uqcList;
           } else {
-            console.log(r.data.gkstatus);
             this.$bvToast.toast(
               'Unable to fetch UOM list, Please reload the page',
               { variant: 'danger' }
@@ -248,7 +247,6 @@ export default {
      * Update UOM details
      */
     updateUOM() {
-      console.log(this.form);
       this.isLoading = true;
       axios
         .put(`${this.gkCoreUrl}/unitofmeasurement`, this.form, {

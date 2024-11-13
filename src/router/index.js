@@ -816,7 +816,6 @@ router.beforeEach((to, _from, next) => {
     if (userOrgAuthStatus !== "true") {
       next({ name: "User Login" });
     } else {
-      // console.log('Auth succeeded')
       next();
     }
   } else {

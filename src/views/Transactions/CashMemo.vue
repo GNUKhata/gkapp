@@ -598,7 +598,6 @@ export default {
         };
       }
 
-      // console.log({ invoice, stock });
       return { invoice, stock };
     },
     initDelNotePayload() {

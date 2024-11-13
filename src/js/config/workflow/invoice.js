@@ -220,7 +220,7 @@ const config = {
         return list;
       })
       .catch((e) => {
-        console.log(e.message);
+        console.error(e.message);
       });
   },
   initListColumns: initColumns,

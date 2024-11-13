@@ -889,13 +889,11 @@ export default {
         });
     },
     onSubmit() {
-      // console.log('in submit')
       this.isLoading = true;
       const payload = this.initPayload();
       axios
         .post('/product', payload.product)
         .then((response) => {
-          // console.log(response)
           this.isLoading = false;
           let productCode, taxPayload, taxRequests;
           switch (response.data.gkstatus) {
@@ -923,7 +921,6 @@ export default {
                 return axios.post('/tax', taxPayload);
               });
               Promise.all(taxRequests).then(() => {
-                // console.log(responses)
               });
 
               // === Server Log ===
@@ -1155,8 +1152,6 @@ export default {
         });
       }
 
-      // console.log(tax);
-      // console.log(product);
       // product and tax details will be used by separate API's
       return { product, tax };
     },
@@ -1214,7 +1209,6 @@ export default {
         .then((resp) => {
           if (resp.status === 200) {
             if (resp.data.gkstatus === 0) {
-              // console.log(resp.data.gkresult);
               resp.data.gkresult.sort((a, b) => a.goid - b.goid); // sorting the godown list based on goid, to order it in creation order
               self.options.godowns = resp.data.gkresult.map((item) => {
                 return {
@@ -1285,7 +1279,6 @@ export default {
               };
             });
             self.uom = self.options.uom.filter((uom) => uom.code === 'PCS')[0];
-            // console.log(resp1.data.gkresult)
           } else {
             preloadErrorList += ' Unit of Measurement List, ';
           }

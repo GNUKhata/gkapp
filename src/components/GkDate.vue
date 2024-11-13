@@ -140,9 +140,7 @@ export default {
   },
   watch: {
     input(newInput) {
-      // console.log('In input');
       if (this.validateFormat(newInput, this.format)) {
-        // newInput.length ===
         const newDate = this.toInternalFormat(newInput);
         if (this.date !== newDate) {
           this.date = newDate;
@@ -160,30 +158,23 @@ export default {
       }
     },
     date(newDate) {
-      // console.log('In Date');
       let loop = 1000;
       while (loop--) {
         if (this.validateFormat(newDate, 'yyyy-mm-dd')) {
-          // console.log('date valid');
           const newInput = this.toExternalFormat(newDate);
           if (this.input !== newInput) {
             this.input = newInput;
             this.onDateUpdate(newDate); // emit internal format for v-model
             this.setDateValidity(this.validateDate(newDate)); // must use internal format for validation
-          } else {
-            // console.log('input exists');
           }
           loop = false;
         } else if (!newDate) {
-          // console.log('date not valid but empty');
           // "input" is not updated here, as the user may want
           // to update the faulty date via input field
           this.$emit('input', '');
           this.setDateValidity(null);
           loop = false;
         } else {
-          // console.log('Date not valid and not empty');
-          // console.log(newDate);
           newDate = this.toInternalFormat(newDate);
         }
       }
