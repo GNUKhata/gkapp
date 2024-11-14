@@ -144,11 +144,6 @@ export default {
           key: 'vouchernumber',
           label: this.$gettext('Voucher No.'),
         },
-
-        {
-          key: 'status',
-          label: this.$gettext('Status'),
-        },
         {
           key: 'vouchertype',
           label: this.$gettext('Type'),

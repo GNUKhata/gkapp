@@ -93,6 +93,12 @@
             <span class="mr-1" v-translate>Expanded Table</span>
           </div>
         </template>
+        <gk-file-download
+          :url="downloadUrl"
+          :fileName="downloadFileName"
+          fileExtn=".xlsx"
+          :messageFromParent="parentMessage"
+        ></gk-file-download>
       </gk-toolbar>
       <b-table
         caption-top
@@ -107,7 +113,7 @@
         :fields="fields"
         sticky-header="500px"
       >
-        <template #cell(v_no)="voucher">
+        <template #cell(document_no)="voucher">
           <b-link
             :to="{
               name: 'Workflow',
@@ -117,7 +123,7 @@
               },
             }"
           >
-            {{ voucher.item.v_no }} {{ voucher.item.doc_no }}
+            {{ voucher.item.v_no }} {{ voucher.item.document_no }}
           </b-link>
         </template>
       </b-table>
@@ -130,9 +136,11 @@ import GkDate from '../components/GkDate.vue';
 import axios from 'axios';
 import ReportHeader from '../components/ReportHeader.vue';
 import GkToolbar from '@/components/GkToolbar.vue';
+import GkFileDownload from '../components/GkFileDownload.vue';
+
 export default {
   name: 'Registers',
-  components: { GkDate, ReportHeader, GkToolbar },
+  components: { GkDate, ReportHeader, GkToolbar, GkFileDownload },
   data() {
     return {
       loading: false,
@@ -157,14 +165,14 @@ export default {
         let obj = {
           v_no: voucher.vouchernumber,
           v_id: voucher.vouchercode,
-          doc_no: voucher.document_no,
+          document_no: voucher.document_no,
           narration: voucher.narration,
-          date: voucher.voucherdate,
-          name: voucher.custname,
-          GSTIN: voucher.gstin,
-          TIN: voucher.custtin,
-          v_amount: parseFloat(voucher.amount).toFixed(2),
-          taxed_amount: parseFloat(voucher.taxed).toFixed(2),
+          voucherdate: voucher.voucherdate,
+          custname: voucher.custname,
+          gstin: voucher.gstin,
+          custtin: voucher.custtin,
+          amount: parseFloat(voucher.amount).toFixed(2),
+          taxed: parseFloat(voucher.taxed).toFixed(2),
         };
         voucher.tax_data.forEach((taxItem) => {
           if (taxItem) {
@@ -176,9 +184,9 @@ export default {
         return obj;
       });
       let totalRow = {
-        name: 'Total',
-        v_amount: parseFloat(data.voucher_total).toFixed(2),
-        taxed_amount: parseFloat(data.taxed_total).toFixed(2),
+        custname: 'Total',
+        amount: parseFloat(data.voucher_total).toFixed(2),
+        taxed: parseFloat(data.taxed_total).toFixed(2),
       };
       data.tax_strings.forEach((taxCol) => {
         if (data.tax_totals[taxCol]) {
@@ -192,21 +200,21 @@ export default {
       this.tmp_report = newdata;
       if (this.expandedTable) {
         this.fields = [
-          { key: 'v_no', label: 'Voucher No.', stickyColumn: true },
-          { key: 'name', label: 'Customer' },
+          { key: 'document_no', label: 'Voucher No.', stickyColumn: true },
+          { key: 'custname', label: 'Customer' },
           { key: 'narration', label: 'Narration', stickyColumn: true },
-          { key: 'date', label: 'Voucher Date' },
+          { key: 'voucherdate', label: 'Voucher Date' },
         ];
 
         if (this.isGstEnabled) {
-          this.fields.push({ key: 'GSTIN', label: 'GSTIN' });
+          this.fields.push({ key: 'gstin', label: 'GSTIN' });
         }
         if (this.isVatEnabled) {
-          this.fields.push({ key: 'TIN', label: 'TIN' });
+          this.fields.push({ key: 'custtin', label: 'TIN' });
         }
 
         this.fields.push(
-          { key: 'v_amount', label: 'Voucher Amount', tdClass: 'text-right' },
+          { key: 'amount', label: 'Voucher Amount', tdClass: 'text-right' },
         );
 
         if (this.isIndia)  {
@@ -220,7 +228,7 @@ export default {
           );
         }
 
-        this.fields.push({ key: 'taxed_amount', label: 'Total', tdClass: 'text-right' });
+        this.fields.push({ key: 'taxed', label: 'Total', tdClass: 'text-right' });
       } else {
         this.conciseTableRows();
       }
@@ -230,11 +238,11 @@ export default {
     // this method get's triggered when the user toggles the table view switch
     conciseTableRows() {
       this.fields = [
-        { key: 'v_no', label: 'Voucher No.', stickyColumn: true },
-        { key: 'name', label: 'Customer' },
-        { key: 'date', label: 'Voucher Date' },
-        { key: 'v_amount', label: 'Voucher Amount', tdClass: 'text-right' },
-        { key: 'taxed_amount', label: 'Total', tdClass: 'text-right' },
+        { key: 'document_no', label: 'Voucher No.', stickyColumn: true },
+        { key: 'custname', label: 'Customer' },
+        { key: 'voucherdate', label: 'Voucher Date' },
+        { key: 'amount', label: 'Voucher Amount', tdClass: 'text-right' },
+        { key: 'taxed', label: 'Total', tdClass: 'text-right' },
       ];
     },
     getRegisters() {
@@ -324,6 +332,11 @@ export default {
     },
   },
   computed: {
+    downloadUrl: (self) => {
+      return `/spreadsheet/view-register?title=Register as&from=${self.fromDate}&to=${self.toDate}&fields=${JSON.stringify(self.fields)}`
+    },
+    downloadFileName: (self) =>
+      `Profit_Loss_${self.fromDate}_to_${self.toDate}`,
     ...mapState(['yearStart', 'yearEnd', 'orgName']),
     ...mapGetters('global', ['isIndia', 'isGstEnabled', 'isVatEnabled']),
   },

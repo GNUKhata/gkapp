@@ -291,21 +291,14 @@ export default {
   },
   computed: {
     downloadUrl: (self) => {
-      let orgChoice = (localStorage.getItem('orgChoice') || '').split(' (');
-      let orgType = '';
-      if (orgChoice.length) {
-        orgType = orgChoice[orgChoice.length - 1].split(')')[0];
-      } else {
-        orgType = 'Organisation';
-      }
-      return `/spreadsheet/balance-sheet?calculateto=${self.toDate}&calculatefrom=${self.fromDate}&fystart=${self.yearStart}&orgname=${self.orgName}&fyend=${self.yearEnd}&orgtype=${orgType}&baltype=1`;
+      return `/spreadsheet/profit-loss?from=${self.fromDate}&to=${self.toDate}`
     },
     downloadFileName: (self) =>
-      `Balance_Sheet_${self.fromDate}_to_${self.toDate}`,
+      `Profit_Loss_${self.fromDate}_to_${self.toDate}`,
     hideZeroFilter: (self) => (self.hideZero ? 'a' : null),
     ...mapState(['yearStart', 'yearEnd', 'orgName', 'orgType']),
   },
-  methods: {
+   methods: {
     printPage() {
       window.print();
     },

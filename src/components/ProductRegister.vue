@@ -61,7 +61,7 @@
         <template>
           <div class="text-center">
             Product Register:
-            <b>{{ productId.label }}</b>
+            <b>{{ productName }}</b>
             | From
             <b>{{ dateReverse(fromDate) }}</b>
             to
@@ -122,7 +122,7 @@
               this.fromDate
             )}&calculateto=${dateReverse(this.toDate)}&productcode=${
               productId
-            }&productdesc=${productId.label}&godownflag=1&goid=${
+            }&productdesc=${this.productName}&godownflag=1&goid=${
               this.godownId
             }&goname=${getGodownName(this.godownId)?.text}&goaddr=${
               getGodownName(this.godownId)?.text
@@ -642,8 +642,17 @@ export default {
         }
       });
     },
+    /**
+     * Fetch product name from product ID
+     */
+    productName: function () {
+      let product = this.productList.find(obj => {
+        return obj.id == this.productId;
+      });
+      return product.label;
+    },
   },
-  created() {
+   created() {
     this.getProductList();
     this.getGodownList()
       .then(() => {
