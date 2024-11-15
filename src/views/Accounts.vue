@@ -23,7 +23,7 @@
           :message-from-parent="parentMessage"
         />
         <b-button
-          v-b-modal.account-create
+          @click="$bvModal.show('account-create')"
           variant="outline-primary"
           size="sm"
         >
@@ -137,7 +137,7 @@
                     hide-footer
                   >
                     <Account
-                      @account-edited="hideEditAccount('account-edit' + data.value)"
+                      @account-edited="onModalSubmit('account-edit' + data.value)"
                       :groups-subgroups="groupsSubgroups"
                       :account-details="data.item"
                     >
@@ -145,7 +145,7 @@
                         <b-button
                           size="sm"
                           class="float-right py-0"
-                          @click="hideEditAccount('account-edit' + data.value)"
+                          @click="hideModal('account-edit' + data.value)"
                         >
                           x
                         </b-button>
@@ -164,20 +164,19 @@
       static
       body-class="p-0"
       id="account-create"
-      v-model="showCreateAccount"
       hide-footer
       hide-header
     >
       <Account
         v-if="Object.values(groupsSubgroups).length"
-        @account-created="hideCreateAccount"
+        @account-created="onModalSubmit('account-create')"
         :groups-subgroups="groupsSubgroups"
       >
         <template #close-button>
           <b-button
             size="sm"
             class="float-right py-0"
-            @click="showCreateAccount = !showCreateAccount"
+            @click="hideModal('account-create')"
           >
             x
           </b-button>
@@ -224,8 +223,6 @@ export default {
       groups: [],
       groupsSubgroups: {},
       filter: null,
-      showCreateAccount: false,
-      showEditAccount: {},
       parentMessage: '',
     };
   },
@@ -234,21 +231,20 @@ export default {
   },
   methods: {
     /**
-     * hideCreateAccount
+     * hideModal
      *
-     * Actions: Hides create account modal form and updates accout list.
+     * Actions: Hides modal form.
      */
-    hideCreateAccount() {
-      this.showCreateAccount = false;
-      this.getAccountsList();
+    hideModal(modalId) {
+      this.$bvModal.hide(modalId);
     },
     /**
-     * hideEditAccount
+     * onModalSubmit
      *
-     * Actions: Hides edit account modal form and updates accout list.
+     * Actions: Hides modal form and updates the list.
      */
-    hideEditAccount(modalId) {
-      this.$bvModal.hide(modalId);
+    onModalSubmit(modalId) {
+      this.hideModal(modalId);
       this.getAccountsList();
     },
     /**
