@@ -186,6 +186,11 @@ export default {
       );
     },
   },
+  watch: {
+    accountDetails(newAccountDetails) {
+      this.loadAccountData(newAccountDetails);
+    },
+  },
   methods: {
     /**
      * loadAccountData
