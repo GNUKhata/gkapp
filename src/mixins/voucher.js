@@ -413,7 +413,6 @@ export default {
       this.addRow('cr');
       this.addRow('dr');
       this.updateDate();
-      this.preloadData(true);
       return this.updateAccounts(skipVtype, !!refreshFlag);
     },
     updateDate() {
