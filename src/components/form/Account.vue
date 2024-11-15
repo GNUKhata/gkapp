@@ -207,14 +207,12 @@ export default {
         defaultFlag: accountData?.defaultflag, // [FIXME] check if it is needed here
       });
     },
-
     /**
-     * setForm
+     * resetForm
      *
-     * Actions: Clean form and and load form data from accountDetails
-     * if it is edit mode.
+     * Actions: Resets form data
      */
-    setForm() {
+    resetForm() {
       this.form = Object.assign({}, this.form, {
         id: null,
         name: '',
@@ -223,6 +221,15 @@ export default {
         openingBalance: null,
         defaultFlag: false,
       });
+    },
+    /**
+     * setForm
+     *
+     * Actions: Clean form and and load form data from accountDetails
+     * if it is edit mode.
+     */
+    setForm() {
+      this.resetForm();
       if (this.isEditMode) {
         this.loadAccountData(this.accountDetails);
       }
@@ -416,14 +423,6 @@ export default {
           self.displayToast(`${mode} Account Failed`, e.message, 'warning');
           self.isLoading = false;
         });
-    },
-    /**
-     * resetForm
-     *
-     * Actions: Resets form data
-     */
-    resetForm() {
-      this.setForm();
     },
     /**
      * displayToast
