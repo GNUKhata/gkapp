@@ -191,13 +191,6 @@
             </b-nav-item>
             <b-nav-item
               v-if="userRole == -1 || 0"
-              to="/costcenter"
-            >
-              <b-icon icon="cash-stack" /><translate> Cost Center</translate>
-            </b-nav-item>
-
-            <b-nav-item
-              v-if="userRole == -1 || 0"
               to="/categories"
             >
               <b-icon icon="tags" /><translate> Categories</translate>
@@ -232,9 +225,6 @@
             >
               <b-nav-item to="/product-register">
                 <b-icon icon="box-seam" /><translate> Product Register</translate>
-              </b-nav-item>
-              <b-nav-item to="/cost-center-statement">
-                <b-icon icon="cash" /><translate> Cost Center Statement</translate>
               </b-nav-item>
               <b-nav-item to="/registers">
                 <b-icon icon="receipt" /><translate> View Registers</translate>

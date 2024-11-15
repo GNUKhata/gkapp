@@ -13,7 +13,7 @@
               $gettext(`Single
 Select name of the account to be viewed. The default option is Monthly Ledger.
 Press Space Bar to view it or press Enter or Tab key to escape it and view report for any period.
-The report could be viewed with or without narration. This report gives Date, V. No., Status, Type of Voucher, Name of the corresponding account, Narration, Amount and running balance of account. The locked records are marked by a sign of *** in the Status column. Drill Down facility is available where you can double click or press enter key on any transaction to view it and/or modify it. After any modification the ledger report immediately reflects the chnages. It can be viewed in entirety or for a Project or Cost Center. You can view only Debit transactions or Credit Transactions of a Ledger account. Dual Ledgers
+The report could be viewed with or without narration. This report gives Date, V. No., Status, Type of Voucher, Name of the corresponding account, Narration, Amount and running balance of account. The locked records are marked by a sign of *** in the Status column. Drill Down facility is available where you can double click or press enter key on any transaction to view it and/or modify it. After any modification the ledger report immediately reflects the chnages. You can view only Debit transactions or Credit Transactions of a Ledger account. Dual Ledgers
 When a Ledger Account appears on the screen, press Shift + Alt + l to view another Ledger Account simultaneously. Select another Ledger account, choose period and press Enter. You can view the same account side by side but for a different period. Drill Down facility is available for both the accounts. Each Ledger Account of the dual ledgers has a separate Quick Search facility. All users can view this report. This report is unique to GNUKhata.`)
             "
           />
@@ -65,27 +65,6 @@ When a Ledger Account appears on the screen, press Shift + Alt + l to view anoth
               />
             </b-form-group>
           </div>
-          <b-form-group
-            class="mt-2"
-            :label="$gettext('Cost Center')"
-            label-size="sm"
-            label-cols="auto"
-          >
-            <autocomplete
-              :required="false"
-              :placeholder="$gettext('select Cost Center')"
-              v-model="projectCode"
-              :options="costCenterList"
-              text-field="projectname"
-              value-field="projectcode"
-            />
-            <router-link
-              to="/costcenter"
-              class="float-right mt-2"
-            >
-              + <translate>add cost center</translate>
-            </router-link>
-          </b-form-group>
         </fieldset>
         <b-button
           type="submit"
@@ -117,7 +96,6 @@ export default {
     return {
       loading: false,
       accountsList: [],
-      costCenterList: [],
       showMonthlyLedger: false,
       accountCode: null,
       projectCode: null,
@@ -130,7 +108,6 @@ export default {
   },
   mounted() {
     this.getAccounts();
-    this.getCostCenterList();
     this.fromDate = this.yearStart;
     this.toDate = this.yearEnd;
   },
@@ -143,33 +120,6 @@ export default {
           `/ledger/${this.accountCode}&${this.projectCode}&${this.fromDate}&${this.toDate}`
         );
       }
-    },
-    async getCostCenterList() {
-      this.loading = true;
-      axios
-        .get(`/projects`)
-        .then((r) => {
-          if (r.status == 200) {
-            this.costCenterList = r.data.gkresult;
-          } else {
-            this.$bvToast.toast(
-              this.$gettext('Failed to fetch cost center items'),
-              {
-                variant: 'danger',
-                solid: true,
-              }
-            );
-          }
-          this.loading = false;
-        })
-        .catch((e) => {
-          this.$bvToast.toast(e.message, {
-            title: this.$gettext('failed'),
-            variant: 'danger',
-            solid: true,
-          });
-          this.loading = false;
-        });
     },
     async getAccounts() {
       axios.get('/accounts').then((r) => {

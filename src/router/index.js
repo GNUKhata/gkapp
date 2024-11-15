@@ -216,21 +216,6 @@ const routes = [
   },
   {
     meta: {
-      title: "Cost Center Statement",
-      requiresOrgAuth: true,
-    },
-    path: "/cost-center-statement",
-    name: "Cost Center Statement",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(
-        /* webpackChunkName: "costcenterstatement" */ "../components/CostCenterStatement.vue"
-      ),
-  },
-  {
-    meta: {
       title: "Product Register",
       requiresOrgAuth: true,
     },
@@ -243,19 +228,6 @@ const routes = [
       import(
         /* webpackChunkName: "productregister" */ "../components/ProductRegister.vue"
       ),
-  },
-  {
-    meta: {
-      title: "Cost Center",
-      requiresOrgAuth: true,
-    },
-    path: "/costcenter",
-    name: "Cost Center",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "costcenter" */ "../views/CostCenter.vue"),
   },
   {
     meta: {
