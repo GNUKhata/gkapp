@@ -7,7 +7,7 @@
         header-text-variant="light"
       >
         <template #header>
-          <gk-cardheader
+          <gk-card-header
             :name="$gettext('Cash Flow Statement')"
             :help-body="
               $gettext(`Receipt & Payment Account or Cash Flow
@@ -15,22 +15,39 @@ This report can be viewed for any period.
 Drill Down facility is available. You can double click or press enter key on any row to see the ledger for that account.
 All users can view this report`)
             "
-          ></gk-cardheader>
+          />
         </template>
         <b-form @submit.prevent="getProfitLossData">
-          <b-form-group label="From" label-align="right" content-cols="8">
-            <gk-date id="fromdate" v-model="fromDate"></gk-date>
+          <b-form-group
+            label="From"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="fromdate"
+              v-model="fromDate"
+            />
           </b-form-group>
-          <b-form-group label="To" label-align="right" content-cols="8">
-            <gk-date id="todate" v-model="toDate"></gk-date>
+          <b-form-group
+            label="To"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="todate"
+              v-model="toDate"
+            />
           </b-form-group>
           <b-button
             variant="success"
             class="float-right"
-            @click="updateRoute()"
+            @click="updateRoute"
             type="submit"
           >
-            <b-icon class="mr-1" icon="cloud-arrow-down"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="cloud-arrow-down"
+            />
             <translate>Get Details</translate>
           </b-button>
         </b-form>
@@ -43,16 +60,19 @@ All users can view this report`)
         </div>
       </report-header>
       <gk-toolbar class="mt-5">
-        <GkFileDownload
+        <gk-file-download
           v-if="result1 !== null"
           :url="
             `/spreadsheet?cash-flow&from=${this.fromDate}&to=${this.toDate}&orgtype=${orgType}&fystart=${this.yearStart}&fyend=${this.yearEnd}&orgname=${this.orgName}`
           "
-          :commonParams="false"
-          :messageFromParent="parentMessage"
+          :common-params="false"
+          :message-from-parent="parentMessage"
         />
       </gk-toolbar>
-      <div class="row" v-if="result1 !== null">
+      <div
+        class="row"
+        v-if="result1 !== null"
+      >
         <div class="col">
           <b-table
             :fields="fields1"
@@ -70,7 +90,8 @@ All users can view this report`)
                 :to="
                   `/ledger/${data.item.accountcode}&null&${fromDate}&${toDate}`
                 "
-              >{{ data.item.particulars }}
+              >
+                {{ data.item.particulars }}
               </router-link>
               <b v-else>{{ data.item.particulars }}</b>
             </template>
@@ -97,7 +118,8 @@ All users can view this report`)
                 :to="
                   `/ledger/${data.item.accountcode}&null&${fromDate}&${toDate}`
                 "
-              >{{ data.item.particulars }}
+              >
+                {{ data.item.particulars }}
               </router-link>
               <b v-else>{{ data.item.particulars }}</b>
             </template>
@@ -115,14 +137,14 @@ All users can view this report`)
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 import GkDate from '../components/GkDate.vue';
 import ReportHeader from '../components/ReportHeader.vue';
 import GkToolbar from '../components/GkToolbar.vue';
 import GkFileDownload from '../components/GkFileDownload.vue';
 export default {
-  components: { GkCardheader, GkDate, ReportHeader, GkToolbar, GkFileDownload },
-  name: 'ProfitLoss',
+  components: { GkCardHeader, GkDate, ReportHeader, GkToolbar, GkFileDownload },
+  name: 'CashFlow',
   data() {
     return {
       parentMessage: '',
@@ -173,46 +195,46 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.result1 = r.data.rcgkresult;
-                this.result2 = r.data.pygkresult;
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.result1 = r.data.rcgkresult;
+              this.result2 = r.data.pygkresult;
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           }
           this.isLoading = false;
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           this.isLoading = false;
         });
     },

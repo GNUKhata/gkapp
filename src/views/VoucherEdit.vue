@@ -1,6 +1,9 @@
 <template>
   <div class="px-md-3 px-1 py-2">
-    <voucher :vid="vid" mode='edit'> </voucher>
+    <voucher
+      :vid="vid"
+      mode="edit"
+    />
   </div>
 </template>
 

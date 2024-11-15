@@ -6,9 +6,11 @@
   >
     <b-form @submit.prevent="confirmOnSubmit">
       <div class="text-center pt-2">
-        <h4 v-translate>Create Delivery Note</h4>
+        <h4 v-translate>
+          Create Delivery Note
+        </h4>
       </div>
-      <hr />
+      <hr>
       <div class="mb-2">
         <b-form-radio-group
           v-model="form.type"
@@ -24,105 +26,125 @@
             <translate> Purchase </translate>
           </b-form-radio>
         </b-form-radio-group>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
       </div>
-      <b-card-group class="d-block d-md-flex my-2" deck>
+      <b-card-group
+        class="d-block d-md-flex my-2"
+        deck
+      >
         <!-- Buyer/Seller Details -->
         <party-details
           :mode="form.type"
-          :parentData="form.party"
-          :gstFlag="isGst"
-          :invoiceParty="invoiceParty"
+          :parent-data="form.party"
+          :gst-flag="isGst"
+          :invoice-party="invoiceParty"
           :config="config.party"
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.party"
+          :update-counter="updateCounter.party"
           ref="party"
-        >
-        </party-details>
+        />
         <!-- Delivery Note Details -->
         <delivery-note-details
           :config="config.delNote"
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.delNote"
-          :parentData="form.delNote"
+          :update-counter="updateCounter.delNote"
+          :parent-data="form.delNote"
           ref="delNote"
-        ></delivery-note-details>
+        />
         <!-- Shipping Details -->
         <ship-details
           :states="options.states"
-          :gstFlag="isGst"
-          :saleFlag="isSale"
-          :billingDetails="form.party"
-          :organisationDetails="options.orgDetails"
-          :updateCounter="updateCounter.ship"
+          :gst-flag="isGst"
+          :sale-flag="isSale"
+          :billing-details="form.party"
+          :organisation-details="options.orgDetails"
+          :update-counter="updateCounter.ship"
           :config="config.ship"
           ref="ship"
-        >
-        </ship-details>
+        />
       </b-card-group>
-      <div class="my-2" v-if="config.taxType">
+      <div
+        class="my-2"
+        v-if="config.taxType"
+      >
         <b-form-radio-group
           button-variant="outline-secondary"
           size="sm"
           buttons
           v-model="form.taxType"
         >
-          <b-form-radio value="gst">GST</b-form-radio>
-          <b-form-radio value="vat">VAT</b-form-radio>
+          <b-form-radio value="gst">
+            GST
+          </b-form-radio>
+          <b-form-radio value="vat">
+            VAT
+          </b-form-radio>
         </b-form-radio-group>
       </div>
       <!-- Bill Table -->
       <bill-table
-        :invDate="form.delNote.date"
-        :saleFlag="isSale"
-        :blockEmptyStock="isSale"
-        :gstFlag="isGst"
+        :inv-date="form.delNote.date"
+        :sale-flag="isSale"
+        :block-empty-stock="isSale"
+        :gst-flag="isGst"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
-        :updateCounter="updateCounter.bill"
-        :parentData="form.bill"
-        :cgstFlag="isCgst"
-        :godownId="form.delNote.godown"
-        :taxState="taxState"
+        :update-counter="updateCounter.bill"
+        :parent-data="form.bill"
+        :cgst-flag="isCgst"
+        :godown-id="form.delNote.godown"
+        :tax-state="taxState"
         ref="bill"
-      ></bill-table>
+      />
       <div class="px-2">
         <!-- b-row has to be enclosed in a container tag with padding
          atleast 2, to avoid creating an offset to the right -->
-        <b-row class="mt-5" v-if="config.total">
-          <b-col cols="12" lg="6"> </b-col>
-          <b-col cols="12" lg="6">
+        <b-row
+          class="mt-5"
+          v-if="config.total"
+        >
+          <b-col
+            cols="12"
+            lg="6"
+          />
+          <b-col
+            cols="12"
+            lg="6"
+          >
             <total-table
               :config="config.total"
-              :gstFlag="isGst"
-              :billData="form.bill"
-              :updateCounter="updateCounter.totalTable"
-              :cgstFlag="isCgst"
+              :gst-flag="isGst"
+              :bill-data="form.bill"
+              :update-counter="updateCounter.totalTable"
+              :cgst-flag="isCgst"
               ref="totalTable"
-            ></total-table>
+            />
           </b-col>
         </b-row>
       </div>
-      <b-card-group class="d-block d-md-flex" deck>
+      <b-card-group
+        class="d-block d-md-flex"
+        deck
+      >
         <!-- Transport Details -->
         <transport-details
           ref="transport"
           :config="config.transport"
-          :updateCounter="updateCounter.transport"
-          :parentData="form.transport"
-          :invDate="form.delNote.date"
+          :update-counter="updateCounter.transport"
+          :parent-data="form.transport"
+          :inv-date="form.delNote.date"
           @details-updated="onComponentDataUpdate"
-        ></transport-details>
+        />
         <!-- Invoice Comments -->
         <comments
           :name="`Delivery Note`"
           ref="narration"
           :config="config.comments"
-          :updateCounter="updateCounter.comments"
-          :parentData="form.comments"
-        ></comments>
+          :update-counter="updateCounter.comments"
+          :parent-data="form.comments"
+        />
       </b-card-group>
       <b-tooltip
         target="inv-submit"
@@ -132,12 +154,12 @@
       >
         <translate
           translate-comment="%{start} and %{end} are a variables, translation is not required for them. Enter them, as they are while translation."
-          :translate-params="{ start: yearStart, end: yearEnd }"
+          :translate-params="{start: yearStart, end: yearEnd}"
         >
           Date must be within the Financial Year, from %{start} to %{end}
         </translate>
       </b-tooltip>
-      <hr />
+      <hr>
       <div class="float-right">
         <b-button
           class="m-1"
@@ -149,8 +171,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-left"
-          ></b-icon>
-          <span class="align-middle" v-translate>Back</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Back</span>
         </b-button>
         <b-button
           class="m-1"
@@ -162,8 +187,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-repeat"
-          ></b-icon>
-          <span class="align-middle" v-translate>Reset</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Reset</span>
         </b-button>
         <b-button
           id="inv-submit"
@@ -174,29 +202,41 @@
           variant="success"
         >
           <span v-if="formMode === 'create'">
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Create</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Create</span>
           </span>
 
           <span v-else>
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="cloud-arrow-up"
-            ></b-icon>
-            <span class="align-middle" v-translate>Save Changes</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Save Changes</span>
           </span>
         </b-button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </b-form>
     <print-page
       :show="showPrintModal"
@@ -204,20 +244,17 @@
       title="Delivery Note"
       :id="delNoteId"
       :pdata="{
-        printTitle: { page: 'Delivery Note', file: 'delivery_note' },
+        printTitle: {page: 'Delivery Note', file: 'delivery_note'},
         useTriplicate: true,
       }"
       @hidden="showPrintModal = false"
-    >
-    </print-page>
+    />
   </b-container>
 </template>
 
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-// import Config from '../../components/Config.vue';
-
 import PartyDetails from '../../components/form/transaction/PartyDetails.vue';
 import ShipDetails from '../../components/form/transaction/ShipDetails.vue';
 import BillTable from '../../components/form/transaction/BillTable.vue';
@@ -233,8 +270,6 @@ import PrintPage from '../../components/workflow/PrintPage.vue';
 export default {
   name: 'DeliveryNote',
   components: {
-    // Config,
-
     PartyDetails,
     ShipDetails,
     BillTable,
@@ -242,7 +277,6 @@ export default {
     TransportDetails,
     Comments,
     DeliveryNoteDetails,
-
     PrintPage,
   },
   props: {
@@ -263,7 +297,6 @@ export default {
       showPrintModal: false,
       delNoteId: 0,
       vuexNameSpace: '',
-      // config: {},
       updateCounter: {
         party: 0,
         delNote: 0,
@@ -309,7 +342,6 @@ export default {
   },
   computed: {
     taxState: (self) => {
-      // debugger;
       return self.form.delNote.taxState ? self.form.delNote.taxState.name : '';
     },
     // config : Gets the custom config from the invoiceConfig Vuex module and
@@ -320,10 +352,10 @@ export default {
       if (newConf) {
         newConf.bill.footer.headingColspan =
           !!newConf.bill.index +
-            !!newConf.bill.product +
-            !!newConf.bill.hsn +
-            !!newConf.bill.qty +
-            !!newConf.bill.rate || 1;
+          !!newConf.bill.product +
+          !!newConf.bill.hsn +
+          !!newConf.bill.qty +
+          !!newConf.bill.rate || 1;
 
         if (newConf.delNote.class) {
           newConf.delNote.class = {
@@ -345,7 +377,6 @@ export default {
         if (newConf.transport.class) {
           newConf.transport.class = {
             'mr-md-1': !!newConf.comments,
-            // 'ml-md-1': !!newConf.payment,
           };
         }
 
@@ -404,8 +435,8 @@ export default {
     maxDate: (self) => new Date(self.yearEnd),
     isInvDateValid: (self) => {
       let currDate = new Date(self.form.delNote.date).getTime(),
-        minDate = self.minDate.getTime(),
-        maxDate = self.maxDate.getTime();
+          minDate = self.minDate.getTime(),
+          maxDate = self.maxDate.getTime();
       return !isNaN(currDate)
         ? currDate >= minDate && currDate <= maxDate
         : null;
@@ -437,32 +468,30 @@ export default {
     onComponentDataUpdate(payload) {
       const self = this;
       switch (payload.name) {
-        case 'delivery-note-details':
-          {
-            // debugger;
-            Object.assign(this.form.delNote, payload.data);
-            this.form.transport.date = this.form.delNote.date;
-            setTimeout(function() {
-              self.updateCounter.transport++;
-            });
-          }
-          break;
-        case 'party-details':
-          // debugger;
-          Object.assign(this.form.party, payload.data);
-          this.updateCounter.ship++;
-          this.form.delNote.taxState = payload.data.state;
+      case 'delivery-note-details':
+        {
+          Object.assign(this.form.delNote, payload.data);
+          this.form.transport.date = this.form.delNote.date;
           setTimeout(function() {
-            self.updateCounter.delNote++;
-          }, 1);
-          break;
-        case 'bill-table':
-          Object.assign(this.form.bill, payload.data);
-          this.updateCounter.totalTable++;
-          break;
-        case 'transport-details':
-          Object.assign(this.form.transport, payload.data);
-          break;
+            self.updateCounter.transport++;
+          });
+        }
+        break;
+      case 'party-details':
+        Object.assign(this.form.party, payload.data);
+        this.updateCounter.ship++;
+        this.form.delNote.taxState = payload.data.state;
+        setTimeout(function() {
+          self.updateCounter.delNote++;
+        }, 1);
+        break;
+      case 'bill-table':
+        Object.assign(this.form.bill, payload.data);
+        this.updateCounter.totalTable++;
+        break;
+      case 'transport-details':
+        Object.assign(this.form.transport, payload.data);
+        break;
       }
     },
     preloadData() {
@@ -536,7 +565,6 @@ export default {
       const self = this;
       let text = '';
       if (this.isSale) {
-        console.log(this.form.delNote.no)
         text = this.$gettextInterpolate(
           this.$gettext(`Create Delivery Note (%{delNoteNo}) for Sale?`),
           { delNoteNo: this.form.delNote.no }
@@ -559,7 +587,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -571,27 +598,22 @@ export default {
     onSubmit() {
       let self = this;
       this.isLoading = true;
-
       const payload = this.initPayload();
-      console.log(payload)
-      // return;
-      // const method = this.formMode === 'create' ? 'post' : 'put';
-      // const actionText = this.formMode === 'create' ? 'Create' : 'Edit';
       let successTitle, successMessage, failTitle;
       if (this.formMode === 'create') {
         successTitle = this.$gettext('Create Delivery Note Successful!');
         successMessage = this.$gettextInterpolate(
           `Delivery Note %{delNoteNo} was successfully created.`, {
-        delNoteNo: payload.delchaldata?.dcno,
-        });
+            delNoteNo: payload.delchaldata?.dcno,
+          });
         failTitle = this.$gettext('Create Delivery Note Failed!');
 
       } else {
         successTitle = this.$gettext('Edit Delivery Note Successful!');
         successMessage = this.$gettextInterpolate(
           `Delivery Note %{delNoteNo} was successfully edited.`, {
-        delNoteNo: payload.delchaldata.dcno,
-        }
+            delNoteNo: payload.delchaldata.dcno,
+          }
         );
         failTitle = this.$gettext('Edit Delivery Note Failed!');
       }
@@ -601,46 +623,46 @@ export default {
           self.isLoading = false;
           if (resp.status === 200) {
             switch (resp.data.gkstatus) {
-              case 0:
-                {
-                  // success
-                  this.displayToast(successTitle, successMessage, 'success');
+            case 0:
+              {
+                // success
+                this.displayToast(successTitle, successMessage, 'success');
 
-                  let log = {
-                    activity: `delivery note ${
-                      self.formMode === 'create' ? 'created' : 'updated'
-                    }: ${self.form.delNote.no}`,
-                  };
-                  axios.post('/log', log);
+                let log = {
+                  activity: `delivery note ${
+                    self.formMode === 'create' ? 'created' : 'updated'
+                  }: ${self.form.delNote.no}`,
+                };
+                axios.post('/log', log);
 
-                  this.delNoteId = resp.data.gkresult;
-                  this.resetForm();
-                  this.showPrintModal = true;
-                }
-                break;
-              case 1:
-                // Duplicate entry
-                this.displayToast(
-                  failTitle,
-                  this.$gettext('Duplicate Entry, Check Delivery Note Id'),
-                  'warning'
-                );
-                break;
-              case 2:
-                // Unauthorized access
-                this.displayToast(
-                  failTitle,
-                  this.$gettext('Unauthorized Access, Contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-                // Connection failed, Check inputs and try again
-                this.displayToast(
-                  failTitle,
-                  this.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
+                this.delNoteId = resp.data.gkresult;
+                this.resetForm();
+                this.showPrintModal = true;
+              }
+              break;
+            case 1:
+              // Duplicate entry
+              this.displayToast(
+                failTitle,
+                this.$gettext('Duplicate Entry, Check Delivery Note Id'),
+                'warning'
+              );
+              break;
+            case 2:
+              // Unauthorized access
+              this.displayToast(
+                failTitle,
+                this.$gettext('Unauthorized Access, Contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+              // Connection failed, Check inputs and try again
+              this.displayToast(
+                failTitle,
+                this.$gettext('Please check your input and try again later'),
+                'danger'
+              );
             }
           }
         })
@@ -718,48 +740,32 @@ export default {
       // === Bill data ===
       let contents = {};
       let stock = {
-        // items: {},
         inout: delchal.inoutflag,
         goid: this.form.delNote.godown,
       };
       let pricedetails = [];
       let tax = {};
       let cess = {};
-      // let av = {
-      //   product: {},
-      //   prodData: {},
-      //   taxpayment: 0,
-      //   totaltaxable: 0,
-      // };
       let freeqty = {};
       let discount = {};
       this.form.bill.forEach((item) => {
-        // let taxable = item.total * item.qty - item.discount.amount;
-
         if (contents[item.product.id] === undefined) {
           contents[item.product.id] = {};
         }
 
         contents[item.product.id][item.rate] = parseFloat(item.qty).toFixed(2);
-        // stock.items[item.product.id] = parseFloat(item.qty).toFixed(2);
 
         if (this.isGst) {
           tax[item.product.id] = parseFloat(item.igst.rate).toFixed(2);
           cess[item.product.id] = parseFloat(item.cess.rate).toFixed(2);
-          // // av.avtax = { GSTName: 'IGST', CESSName: 'CESS' };
         } else {
           tax[item.product.id] = parseFloat(item.vat.rate).toFixed(2);
-          // av.taxpayment += taxable;
         }
 
         freeqty[item.product.id] = isNaN(parseFloat(item.fqty))
           ? 0
           : parseFloat(item.fqty).toFixed(2);
         discount[item.product.id] = parseFloat(item.discount.total).toFixed(2);
-
-        // av.product[item.product.name] = parseFloat(taxable).toFixed(2);
-        // av.prodData[item.product.id] = parseFloat(taxable).toFixed(2);
-        // av.totaltaxable += taxable;
 
         pricedetails.push({
           custid: this.form.party.name.id || '',
@@ -769,28 +775,13 @@ export default {
         });
       });
 
-      // // av.taxpayment = parseFloat(av.taxpayment).toFixed(2);
-      // // av.totaltaxable = parseFloat(av.totaltaxable).toFixed(2);
-
       Object.assign(delchal, {
         contents,
-        // pricedetails,
         tax,
         cess,
-        // av,
         freeqty,
         discount,
       });
-
-      // // === payment details, mode = 2 ===
-      // if (this.form.payment.mode === 2) {
-      //   delchal.bankdetails = {
-      //     accountno: this.form.payment.bank.no,
-      //     bankname: this.form.payment.bank.name,
-      //     ifsc: this.form.payment.bank.ifsc,
-      //     branch: this.form.payment.bank.branch,
-      //   };
-      // }
 
       if (this.form.transport.mode === 'Road') {
         delchal.vehicleno = this.form.transport.vno;
@@ -800,18 +791,6 @@ export default {
         delchal.dateofsupply = this.form.transport.date;
       }
 
-      // if (this.formMode === 'edit') {
-      //   const av = Object.assign({}, invoice.av);
-      //   invoice.invid = parseInt(this.invoiceId);
-
-      //   delete invoice.av;
-      //   delete invoice.pincode;
-      //   delete invoice.discflag;
-
-      //   return { invoice, stock, av };
-      // }
-
-      // console.log({ invoice, stock });
       return { delchaldata: delchal, stockdata: stock };
     },
     resetForm() {

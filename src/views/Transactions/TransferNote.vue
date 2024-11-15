@@ -6,37 +6,42 @@
   >
     <b-form @submit.prevent="confirmOnSubmit">
       <div class="text-center pt-2">
-        <h4 v-translate>Create Transfer Note</h4>
+        <h4 v-translate>
+          Create Transfer Note
+        </h4>
       </div>
-      <hr />
-      <b-card-group class="d-block d-md-flex my-2" deck>
+      <hr>
+      <b-card-group
+        class="d-block d-md-flex my-2"
+        deck
+      >
         <!-- Delivery Note Details -->
         <transfer-note-details
           :config="config.transferNote"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.transferNote"
+          :update-counter="updateCounter.transferNote"
           ref="transferNote"
-        ></transfer-note-details>
+        />
         <transport-details
           ref="transport"
           :config="config.transport"
-          :updateCounter="updateCounter.transport"
-          :parentData="form.transport"
-          :invDate="form.transferNote.date"
-        ></transport-details>
+          :update-counter="updateCounter.transport"
+          :parent-data="form.transport"
+          :inv-date="form.transferNote.date"
+        />
       </b-card-group>
       <!-- Bill Table -->
       <bill-table
-        :saleFlag="true"
-        :gstFlag="true"
+        :sale-flag="true"
+        :gst-flag="true"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
-        :updateCounter="updateCounter.bill"
-        :parentData="form.bill"
-        :godownId="form.transferNote.godownFrom"
-        billType="transfernote"
+        :update-counter="updateCounter.bill"
+        :parent-data="form.bill"
+        :godown-id="form.transferNote.godownFrom"
+        bill-type="transfernote"
         ref="bill"
-      ></bill-table>
+      />
       <b-tooltip
         target="inv-submit"
         :show="showErrorToolTip"
@@ -45,12 +50,12 @@
       >
         <translate
           translate-comment="%{start} and %{end} are a variables, translation is not required for them. Enter them, as they are while translation."
-          :translate-params="{ start: yearStart, end: yearEnd }"
+          :translate-params="{start: yearStart, end: yearEnd}"
         >
           Date must be within the Financial Year, from %{start} to %{end}
         </translate>
       </b-tooltip>
-      <hr />
+      <hr>
       <div class="float-right">
         <b-button
           class="m-1"
@@ -62,8 +67,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-left"
-          ></b-icon>
-          <span class="align-middle" v-translate>Back</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Back</span>
         </b-button>
         <b-button
           class="m-1"
@@ -75,8 +83,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-repeat"
-          ></b-icon>
-          <span class="align-middle" v-translate>Reset</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Reset</span>
         </b-button>
         <b-button
           id="inv-submit"
@@ -87,18 +98,24 @@
           variant="success"
         >
           <span>
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Create</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Create</span>
           </span>
         </b-button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </b-form>
     <print-page
       :show="showPrintModal"
@@ -107,16 +124,13 @@
       :id="tnoteId"
       :pdata="{}"
       @hidden="showPrintModal = false"
-    >
-    </print-page>
+    />
   </b-container>
 </template>
 
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-
-// import Config from '../../components/Config.vue';
 
 import BillTable from '../../components/form/transaction/BillTable.vue';
 import TransportDetails from '../../components/form/transaction/TransportDetails.vue';
@@ -126,10 +140,8 @@ import PrintPage from '../../components/workflow/PrintPage.vue';
 import TransferNoteConfig from '../../js/config/transaction/transferNote.js';
 
 export default {
-  name: '',
+  name: 'TransferNote',
   components: {
-    // Config,
-
     BillTable,
     TransportDetails,
     TransferNoteDetails,
@@ -195,13 +207,13 @@ export default {
   methods: {
     onComponentDataUpdate(payload) {
       switch (payload.name) {
-        case 'transfer-note-details':
-          Object.assign(this.form.transferNote, payload.data);
-          this.isInvDateValid = payload.options.isDateValid;
-          this.godownFrom = payload.options.godownFrom;
-          this.godownTo = payload.options.godownTo;
-          this.isLocationValid = payload.options.isLocationValid;
-          break;
+      case 'transfer-note-details':
+        Object.assign(this.form.transferNote, payload.data);
+        this.isInvDateValid = payload.options.isDateValid;
+        this.godownFrom = payload.options.godownFrom;
+        this.godownTo = payload.options.godownTo;
+        this.isLocationValid = payload.options.isLocationValid;
+        break;
       }
     },
     collectComponentData() {
@@ -217,7 +229,6 @@ export default {
       this.updateCounter.bill++;
     },
     confirmOnSubmit() {
-      // this.updateCounter.transferNote++;
       const self = this;
       let text = `Create Transfer (${this.form.transferNote.no}) from Godown <b>${this.godownFrom}</b> to <b>${this.godownTo}</b>?`;
       let textDom = this.$createElement('div', {
@@ -232,7 +243,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -246,55 +256,53 @@ export default {
       this.isLoading = true;
 
       const payload = this.initPayload();
-      // return;
-      // const method = this.formMode === 'create' ? 'post' : 'put';
       axios
         .post('/transfernote', payload)
         .then((resp) => {
           self.isLoading = false;
           if (resp.status === 200) {
             switch (resp.data.gkstatus) {
-              case 0:
-                {
-                  // success
-                  this.displayToast(
-                    this.$gettext(`Create Transfer Note Successfull!`),
-                    `Transfer Note #${self.form.transferNote.no} was successfully created`,
-                    'success'
-                  );
+            case 0:
+              {
+                // success
+                this.displayToast(
+                  this.$gettext(`Create Transfer Note Successfull!`),
+                  `Transfer Note #${self.form.transferNote.no} was successfully created`,
+                  'success'
+                );
 
-                  let log = {
-                    activity: `transfer note created: ${self.form.transferNote.no}`,
-                  };
-                  axios.post('/log', log);
-                  this.resetForm();
-                  this.showPrintModal = true;
-                  this.tnoteId = resp.data.gkresult;
-                }
-                break;
-              case 1:
-                // Duplicate entry
-                this.displayToast(
-                  this.$gettext(`Create Transfer Note Failed!`),
-                  this.$gettext('Duplicate Entry, Check No.'),
-                  'warning'
-                );
-                break;
-              case 2:
-                // Unauthorized access
-                this.displayToast(
-                  this.$gettext(`Create Transfer Note Failed!`),
-                  this.$gettext('Unauthorized Access, Contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-                // Connection failed, Check inputs and try again
-                this.displayToast(
-                  this.$gettext(`Create Transfer Note Failed!`),
-                  this.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
+                let log = {
+                  activity: `transfer note created: ${self.form.transferNote.no}`,
+                };
+                axios.post('/log', log);
+                this.resetForm();
+                this.showPrintModal = true;
+                this.tnoteId = resp.data.gkresult;
+              }
+              break;
+            case 1:
+              // Duplicate entry
+              this.displayToast(
+                this.$gettext(`Create Transfer Note Failed!`),
+                this.$gettext('Duplicate Entry, Check No.'),
+                'warning'
+              );
+              break;
+            case 2:
+              // Unauthorized access
+              this.displayToast(
+                this.$gettext(`Create Transfer Note Failed!`),
+                this.$gettext('Unauthorized Access, Contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+              // Connection failed, Check inputs and try again
+              this.displayToast(
+                this.$gettext(`Create Transfer Note Failed!`),
+                this.$gettext('Please check your input and try again later'),
+                'danger'
+              );
             }
           }
         })

@@ -171,7 +171,6 @@ const config = {
 
         // Invoice in credit
         if (resp[1].data.gkstatus === 0) {
-          // let data = transactionTab['Invoice'].data;
           if (resp[1].data.gkstatus === 0 && list.length) {
             let index = '';
             resp[1].data.invoices.forEach((inv) => {
@@ -188,7 +187,6 @@ const config = {
         // Deleted Invoices
         if (resp[2].data.gkstatus === 0) {
           const deletedInv = resp[2].data.gkresult.map((item) => {
-            // debugger;
             return Object.assign(
               {
                 id: item.invid,
@@ -203,7 +201,6 @@ const config = {
                 onCreditFlag: false,
                 rectifyFlag: false, // can be rectified or not
                 deletedFlag: true,
-                // dateObj is invoicedate stored in a format that can be logically compared, used by sorters and filters.
                 dateObj: Date.parse(
                   item.invoicedate
                     .split('-')
@@ -220,7 +217,7 @@ const config = {
         return list;
       })
       .catch((e) => {
-        console.log(e.message);
+        console.error(e.message);
       });
   },
   initListColumns: initColumns,
@@ -228,7 +225,6 @@ const config = {
 };
 
 function initColumns() {
-  // debugger;
   let columns = [];
   axios.get('/config?conftype=user').then((resp) => {
     if (resp.data.gkstatus === 0) {

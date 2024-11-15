@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-center align-form-label-right">
     <div class="d-inline-block mt-4 mx-2">
-      <business-item :mode="mode"></business-item>
+      <business-item :mode="mode" />
     </div>
   </div>
 </template>

@@ -18,7 +18,7 @@
               v-model="form.unitname"
               type="text"
               required
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label-align="right"
@@ -30,7 +30,7 @@
               v-model="form.description"
               type="text"
               required
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label-align="right"
@@ -49,7 +49,7 @@
                   :required="!form.uqc"
                   v-bind="attributes"
                   v-on="events"
-                />
+                >
               </template>
             </v-select>
           </b-form-group>
@@ -64,7 +64,7 @@
               :options="uomList"
               :reduce="(uom) => uom.value"
               :placeholder="$gettext('Select Parent Unit')"
-            ></v-select>
+            />
           </b-form-group>
           <b-form-group
             :label="$gettext('Conversion Rate')"
@@ -78,21 +78,31 @@
               placeholder="0.00"
               step="0.01"
               required
-            ></b-form-input>
+            />
           </b-form-group>
-          <b-button-group size="sm" class="float-right">
-            <b-button type="submit" class="mr-1" variant="success">
-              <b-icon icon="thermometer"></b-icon>
-              <translate>Update Unit</translate></b-button
+          <b-button-group
+            size="sm"
+            class="float-right"
+          >
+            <b-button
+              type="submit"
+              class="mr-1"
+              variant="success"
             >
+              <b-icon icon="thermometer" />
+              <translate>Update Unit</translate>
+            </b-button>
             <b-button
               variant="danger"
               :disabled="sysunit == 1"
               @click="confirm('delete')"
             >
-              <b-icon class="mr-1" icon="x-circle"></b-icon>
-              <translate>Delete Unit</translate></b-button
-            >
+              <b-icon
+                class="mr-1"
+                icon="x-circle"
+              />
+              <translate>Delete Unit</translate>
+            </b-button>
           </b-button-group>
         </b-form>
       </b-card>
@@ -207,7 +217,7 @@ export default {
         .then((r) => {
           if (r.status == 200 && r.data.gkstatus == 0) {
             let uomList = [],
-              uqcList = [];
+                uqcList = [];
             r.data.gkresult.forEach((data) => {
               let obj = {
                 label: `${data.unitname} - ${data.description}`,
@@ -221,7 +231,6 @@ export default {
             this.uomList = uomList;
             this.uqcList = uqcList;
           } else {
-            console.log(r.data.gkstatus);
             this.$bvToast.toast(
               'Unable to fetch UOM list, Please reload the page',
               { variant: 'danger' }
@@ -238,7 +247,6 @@ export default {
      * Update UOM details
      */
     updateUOM() {
-      console.log(this.form);
       this.isLoading = true;
       axios
         .put(`${this.gkCoreUrl}/unitofmeasurement`, this.form, {
@@ -249,64 +257,64 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.$bvToast.toast(
-                  `${this.form.unitname} updated successfully`,
-                  {
-                    variant: 'success',
-                    solid: true,
-                  }
-                );
-                // Create log
-                axios.post(
-                  `${this.gkCoreUrl}/log`,
-                  {
-                    activity: `uom updated: ${this.form.unitname}`,
+            case 0:
+              this.$bvToast.toast(
+                `${this.form.unitname} updated successfully`,
+                {
+                  variant: 'success',
+                  solid: true,
+                }
+              );
+              // Create log
+              axios.post(
+                `${this.gkCoreUrl}/log`,
+                {
+                  activity: `uom updated: ${this.form.unitname}`,
+                },
+                {
+                  headers: {
+                    gktoken: this.authToken,
                   },
-                  {
-                    headers: {
-                      gktoken: this.authToken,
-                    },
-                  }
-                );
-                this.isLoading = false;
-                this.$emit('refresh');
-                break;
-              case 1:
-                this.$bvToast.toast(`Duplicate Entry`, {
-                  variant: 'warning',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 2:
-                this.$bvToast.toast(`Unauthorised Access`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 3:
-                this.$bvToast.toast(`Connection Failed`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 4:
-                this.$bvToast.toast(`Bad Privilege`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 5:
-                this.$bvToast.toast(`Action Disallowed`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
+                }
+              );
+              this.isLoading = false;
+              this.$emit('refresh');
+              break;
+            case 1:
+              this.$bvToast.toast(`Duplicate Entry`, {
+                variant: 'warning',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 2:
+              this.$bvToast.toast(`Unauthorised Access`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 3:
+              this.$bvToast.toast(`Connection Failed`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 4:
+              this.$bvToast.toast(`Bad Privilege`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 5:
+              this.$bvToast.toast(`Action Disallowed`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
             }
           } else {
             this.$bvToast.toast(`Request failed with status code ${r.status}`, {
@@ -337,63 +345,63 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                // Create log
-                axios.post(
-                  `${this.gkCoreUrl}/log`,
-                  {
-                    activity: `uom deleted: ${this.form.unitname}`,
+            case 0:
+              // Create log
+              axios.post(
+                `${this.gkCoreUrl}/log`,
+                {
+                  activity: `uom deleted: ${this.form.unitname}`,
+                },
+                {
+                  headers: {
+                    gktoken: this.authToken,
                   },
-                  {
-                    headers: {
-                      gktoken: this.authToken,
-                    },
-                  }
-                );
-                this.isLoading = false;
-                this.$emit('refresh');
-                this.gk_toast(
-                  'Success',
-                  `${this.form.unitname} deleted`,
-                  'success'
-                );
-                setTimeout(() => this.$router.push('/uom'), 2000);
-                break;
-              case 1:
-                this.$bvToast.toast(`Duplicate Entry`, {
-                  variant: 'warning',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 2:
-                this.$bvToast.toast(`Unauthorised Access`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 3:
-                this.$bvToast.toast(`Connection Failed`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 4:
-                this.$bvToast.toast(`Bad Privilege`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 5:
-                this.$bvToast.toast(`Action Disallowed`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
+                }
+              );
+              this.isLoading = false;
+              this.$emit('refresh');
+              this.gk_toast(
+                'Success',
+                `${this.form.unitname} deleted`,
+                'success'
+              );
+              setTimeout(() => this.$router.push('/uom'), 2000);
+              break;
+            case 1:
+              this.$bvToast.toast(`Duplicate Entry`, {
+                variant: 'warning',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 2:
+              this.$bvToast.toast(`Unauthorised Access`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 3:
+              this.$bvToast.toast(`Connection Failed`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 4:
+              this.$bvToast.toast(`Bad Privilege`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 5:
+              this.$bvToast.toast(`Action Disallowed`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
             }
           }
         });

@@ -11,41 +11,48 @@
           <div v-translate>
             This menu will help you to import your data into GNUKhata:
 
-            <h4 class="mt-4">Supported Imports</h4>
+            <h4 class="mt-4">
+              Supported Imports
+            </h4>
             <ul>
               <li>Tally (.xlsx)</li>
               <li>GNUKhata Legacy (.xlsx)</li>
               <li>GNUKhata New (.json)</li>
             </ul>
-            <h4 class="mt-4">Import Instructions</h4>
+            <h4 class="mt-4">
+              Import Instructions
+            </h4>
             <ul>
               <li>
                 <router-link to="/data/import/help/tally">
-                  Tally & GNUKhata</router-link
-                >
+                  Tally & GNUKhata
+                </router-link>
               </li>
               <li>
-                <router-link to="/data/import/help/json"> JSON</router-link>
+                <router-link to="/data/import/help/json">
+                  JSON
+                </router-link>
               </li>
             </ul>
           </div>
-          <br />
+          <br>
           <!-- Export buttons -->
           <b-form-file
             required
             v-model="file"
             accept=".json, .xlsx"
             size="sm"
-          ></b-form-file>
+          />
           <div class="text-center">
             <b-button
               type="submit"
               variant="dark"
               class="mt-3 text-center"
               size="sm"
-              ><b-icon icon="file"></b-icon>
-              <translate> Import Data</translate></b-button
             >
+              <b-icon icon="file" />
+              <translate> Import Data</translate>
+            </b-button>
           </div>
           <!-- show duplicate entries -->
           <b-modal
@@ -62,7 +69,12 @@
               <h5>
                 <translate>Imported Entries</translate>: {{ json_info.success }}
               </h5>
-              <h5 v-translate class="text-primary">Duplicate Entries</h5>
+              <h5
+                v-translate
+                class="text-primary"
+              >
+                Duplicate Entries
+              </h5>
 
               <div
                 v-for="(section, index) in json_info.duplicate"
@@ -77,7 +89,7 @@
                     v-for="item in section"
                     :key="item"
                     v-text="item"
-                  ></li>
+                  />
                 </ol>
               </div>
             </div>
@@ -122,47 +134,47 @@ export default {
         .post(`/import/${url}`, fd, { headers: { gktoken: this.authToken } })
         .then((r) => {
           switch (r.data.gkstatus) {
-            case 0:
-              this.$bvToast.toast(this.$gettext('Import Successful'), {
-                variant: 'success',
-                solid: true,
-              });
-              if (this.file.type == 'application/json') {
-                this.json_info = r.data.gkresult;
-                this.$bvModal.show('response-modal');
-              }
-              this.$emit('refresh');
-              break;
-            case 1:
-              this.$bvToast.toast('Duplicate Entry', {
-                variant: 'warning',
-                solid: true,
-              });
-              break;
-            case 2:
-              this.$bvToast.toast('Unauthorised Access', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 3:
-              this.$bvToast.toast('Data error', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 4:
-              this.$bvToast.toast('No Privilege', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 5:
-              this.$bvToast.toast('Integrity error', {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
+          case 0:
+            this.$bvToast.toast(this.$gettext('Import Successful'), {
+              variant: 'success',
+              solid: true,
+            });
+            if (this.file.type == 'application/json') {
+              this.json_info = r.data.gkresult;
+              this.$bvModal.show('response-modal');
+            }
+            this.$emit('refresh');
+            break;
+          case 1:
+            this.$bvToast.toast('Duplicate Entry', {
+              variant: 'warning',
+              solid: true,
+            });
+            break;
+          case 2:
+            this.$bvToast.toast('Unauthorised Access', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 3:
+            this.$bvToast.toast('Data error', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 4:
+            this.$bvToast.toast('No Privilege', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 5:
+            this.$bvToast.toast('Integrity error', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
           }
         });
     },

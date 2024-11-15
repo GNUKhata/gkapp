@@ -18,8 +18,7 @@
         class="mb-2 mx-auto"
         style="max-width:35em"
         v-html="gkConfig.login_banner.content"
-      >
-      </b-alert>
+      />
       <b-form @submit.prevent="preUserLogin">
         <!--Username area-->
         <b-form-group
@@ -34,7 +33,7 @@
             size="sm"
             :placeholder="$gettext('Enter Username')"
             required
-          ></b-form-input>
+          />
         </b-form-group>
         <!-- Password area -->
         <b-form-group
@@ -48,7 +47,7 @@
             :password-hint="false"
             :placeholder="$gettext('Password')"
             size="sm"
-          ></password>
+          />
           <b-button
             variant="link"
             class="p-0 float-right"
@@ -67,7 +66,7 @@
             label-cols="4"
             label-size="sm"
           >
-            <captcha v-model="captcha.answer"></captcha>
+            <captcha v-model="captcha.answer" />
           </b-form-group>
 
           <!-- captcha answer -->
@@ -84,17 +83,23 @@
               :placeholder="$gettext('Enter the Answer')"
               required
               size="sm"
-            ></b-form-input>
+            />
           </b-form-group>
         </div>
-        <b-button-group size="sm" class="row float-right">
+        <b-button-group
+          size="sm"
+          class="row float-right"
+        >
           <b-button
             variant="dark"
             class="m-1"
             @click="switchServer"
             :disabled="isOrgLoading"
           >
-            <b-icon class="mr-1" icon="cloud"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="cloud"
+            />
             <translate> Change Server</translate>
           </b-button>
           <b-button
@@ -103,7 +108,10 @@
             class="m-1"
             :disabled="isOrgLoading"
           >
-            <b-icon class="mr-1" icon="person-plus"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="person-plus"
+            />
             <translate> Create User</translate>
           </b-button>
           <b-button
@@ -112,16 +120,32 @@
             variant="success"
             type="submit"
           >
-            <b-spinner class="mr-1" v-if="isOrgLoading" small> </b-spinner>
-            <b-icon class="mr-1" v-else icon="box-arrow-in-right"></b-icon>
+            <b-spinner
+              class="mr-1"
+              v-if="isOrgLoading"
+              small
+            />
+            <b-icon
+              class="mr-1"
+              v-else
+              icon="box-arrow-in-right"
+            />
             <translate> Login</translate>
           </b-button>
         </b-button-group>
       </b-form>
     </b-card>
     <!-- Org selection -->
-    <b-card v-else class="mt-3">
-      <b-overlay :show="isLoading" variant="secondary" no-wrap blur></b-overlay>
+    <b-card
+      v-else
+      class="mt-3"
+    >
+      <b-overlay
+        :show="isLoading"
+        variant="secondary"
+        no-wrap
+        blur
+      />
       <div class="d-flex justify-content-between">
         <span class="">Welcome {{ form.name || userName || '' }}!</span>
         <b-dropdown
@@ -130,19 +154,26 @@
           size="sm"
           variant="dark"
         >
-          <b-dropdown-item @click="onLogout"
-            ><translate>Log Out</translate></b-dropdown-item
+          <b-dropdown-item
+            @click="onLogout"
           >
-          <b-dropdown-item v-b-modal.change-pwd
-            ><translate>Change Password</translate></b-dropdown-item
+            <translate>Log Out</translate>
+          </b-dropdown-item>
+          <b-dropdown-item
+            v-b-modal.change-pwd
           >
-          <b-dropdown-item @click="deleteUser" variant="danger"
-            ><translate>Delete Account</translate></b-dropdown-item
+            <translate>Change Password</translate>
+          </b-dropdown-item>
+          <b-dropdown-item
+            @click="deleteUser"
+            variant="danger"
           >
+            <translate>Delete Account</translate>
+          </b-dropdown-item>
         </b-dropdown>
       </div>
-      <div class="clearfix"></div>
-      <hr />
+      <div class="clearfix" />
+      <hr>
       <b-row>
         <b-col>
           <div class="mb-2">
@@ -155,8 +186,9 @@
               :disabled="showForm.createOrg"
               @click="showForm.createOrg = true"
               class="float-right"
-              >Create Org</b-button
             >
+              Create Org
+            </b-button>
           </div>
           <b-table
             head-variant="dark"
@@ -173,7 +205,10 @@
           >
             <template #table-busy>
               <div class="text-center">
-                <b-spinner class="align-middle" type="grow"></b-spinner>
+                <b-spinner
+                  class="align-middle"
+                  type="grow"
+                />
                 <strong> <translate>Fetching List...</translate> </strong>
               </div>
             </template>
@@ -186,15 +221,23 @@
                 :options="data.item.yearData"
                 v-model="data.item.selected"
               >
-                <template #selected-option="{ yend, ystart }">
-                  <div class="text-truncate">{{ ystart }}</div>
+                <template #selected-option="{yend, ystart}">
+                  <div class="text-truncate">
+                    {{ ystart }}
+                  </div>
                   <div>to</div>
-                  <div class="text-truncate">{{ yend }}</div>
+                  <div class="text-truncate">
+                    {{ yend }}
+                  </div>
                 </template>
               </v-select>
             </template>
             <template #cell(action)="data">
-              <b-button size="sm" variant="dark" @click="orgLogin(data.item)">
+              <b-button
+                size="sm"
+                variant="dark"
+                @click="orgLogin(data.item)"
+              >
                 Open
               </b-button>
             </template>
@@ -221,7 +264,10 @@
           >
             <template #table-busy>
               <div class="text-center">
-                <b-spinner class="align-middle" type="grow"></b-spinner>
+                <b-spinner
+                  class="align-middle"
+                  type="grow"
+                />
                 <strong> <translate>Fetching List...</translate> </strong>
               </div>
             </template>
@@ -239,7 +285,10 @@
                   class="p-1 mx-1"
                   variant="success"
                 >
-                  <b-icon scale="0.9" icon="check-circle"></b-icon>
+                  <b-icon
+                    scale="0.9"
+                    icon="check-circle"
+                  />
                 </b-button>
                 <b-button
                   @click="onRejectInvite(data.index, data.item.name)"
@@ -247,14 +296,22 @@
                   class="p-1"
                   variant="danger"
                 >
-                  <b-icon scale="0.9" icon="trash"></b-icon>
+                  <b-icon
+                    scale="0.9"
+                    icon="trash"
+                  />
                 </b-button>
               </div>
             </template>
           </b-table>
-          <b-alert class="text-center" variant="success" show v-else
-            >No invitations pending!</b-alert
+          <b-alert
+            class="text-center"
+            variant="success"
+            show
+            v-else
           >
+            No invitations pending!
+          </b-alert>
         </b-col>
       </b-row>
     </b-card>
@@ -269,8 +326,10 @@
       hide-footer
       hide-header
     >
-      <create-organisation :inOverlay="true" :onSave="onOrgCreate">
-      </create-organisation>
+      <create-organisation
+        :in-overlay="true"
+        :on-save="onOrgCreate"
+      />
     </b-modal>
     <!-- forgot password modal -->
     <b-modal
@@ -283,7 +342,7 @@
       hide-footer
       hide-header
     >
-      <reset-password :onSuccess="onPwdReset"></reset-password>
+      <reset-password :on-success="onPwdReset" />
     </b-modal>
     <!-- create user modal -->
     <b-modal
@@ -296,7 +355,7 @@
       hide-footer
       hide-header
     >
-      <create-user :onSuccess="onUserCreate"></create-user>
+      <create-user :on-success="onUserCreate" />
     </b-modal>
     <!-- Change password dialog -->
     <b-modal
@@ -308,7 +367,7 @@
       header-text-variant="light"
       hide-footer
     >
-      <change-pwd v-on:close-pwd="closeModal"></change-pwd>
+      <change-pwd @close-pwd="closeModal" />
     </b-modal>
   </section>
 </template>
@@ -332,7 +391,7 @@ export default {
     CreateUser,
     ChangePwd,
   },
-  name: 'SelectOrg',
+  name: 'SelectUserOrg',
   data() {
     return {
       isLoading: false,
@@ -356,7 +415,6 @@ export default {
         { label: 'No.', key: 'index', stickyColumn: true },
         { label: 'Name', key: 'name', stickyColumn: true },
         'role',
-        // 'year',
         'action',
       ],
       invOrgFields: [
@@ -520,40 +578,40 @@ export default {
       let payload = { orgcode: parseInt(org.yearData[org.selected].code) };
       axios.post('/invite/reject', payload).then((resp) => {
         switch (resp.data.gkstatus) {
-          case STATUS_CODES['Success']:
-            this.$bvToast.toast(
-              `Invitation to ${org.name} organisation has been rejected successfully`,
-              {
-                autoHideDelay: 3000,
-                variant: 'success',
-              }
-            );
-            this.fetchUserOrgs();
-            break;
-          case STATUS_CODES['ActionDisallowed']:
-            this.$bvToast.toast(
-              `Please check the invitation status with the organisation`,
-              {
-                autoHideDelay: 3000,
-                variant: 'warning',
-              }
-            );
-            break;
-          case STATUS_CODES['UnauthorisedAccess']:
-            this.$bvToast.toast(`Please check your login status`, {
+        case STATUS_CODES['Success']:
+          this.$bvToast.toast(
+            `Invitation to ${org.name} organisation has been rejected successfully`,
+            {
+              autoHideDelay: 3000,
+              variant: 'success',
+            }
+          );
+          this.fetchUserOrgs();
+          break;
+        case STATUS_CODES['ActionDisallowed']:
+          this.$bvToast.toast(
+            `Please check the invitation status with the organisation`,
+            {
               autoHideDelay: 3000,
               variant: 'warning',
-            });
-            break;
-          case STATUS_CODES['ConnectionFailed']:
-          default:
-            this.$bvToast.toast(
-              `An issue has ocurred while trying to reject the invitation to ${org.name}. Please contact admin`,
-              {
-                autoHideDelay: 3000,
-                variant: 'danger',
-              }
-            );
+            }
+          );
+          break;
+        case STATUS_CODES['UnauthorisedAccess']:
+          this.$bvToast.toast(`Please check your login status`, {
+            autoHideDelay: 3000,
+            variant: 'warning',
+          });
+          break;
+        case STATUS_CODES['ConnectionFailed']:
+        default:
+          this.$bvToast.toast(
+            `An issue has ocurred while trying to reject the invitation to ${org.name}. Please contact admin`,
+            {
+              autoHideDelay: 3000,
+              variant: 'danger',
+            }
+          );
         }
       });
     },
@@ -580,40 +638,40 @@ export default {
       let payload = { orgcode: parseInt(org.yearData[org.selected].code) };
       axios.post('/invite/accept', payload).then((resp) => {
         switch (resp.data.gkstatus) {
-          case STATUS_CODES['Success']:
-            this.$bvToast.toast(
-              `Invitation to ${org.name} organisation has been accepted successfully`,
-              {
-                autoHideDelay: 3000,
-                variant: 'success',
-              }
-            );
-            this.fetchUserOrgs();
-            break;
-          case STATUS_CODES['ActionDisallowed']:
-            this.$bvToast.toast(
-              `Please check the invitation status with the organisation`,
-              {
-                autoHideDelay: 3000,
-                variant: 'warning',
-              }
-            );
-            break;
-          case STATUS_CODES['UnauthorisedAccess']:
-            this.$bvToast.toast(`Please check your login status`, {
+        case STATUS_CODES['Success']:
+          this.$bvToast.toast(
+            `Invitation to ${org.name} organisation has been accepted successfully`,
+            {
+              autoHideDelay: 3000,
+              variant: 'success',
+            }
+          );
+          this.fetchUserOrgs();
+          break;
+        case STATUS_CODES['ActionDisallowed']:
+          this.$bvToast.toast(
+            `Please check the invitation status with the organisation`,
+            {
               autoHideDelay: 3000,
               variant: 'warning',
-            });
-            break;
-          case STATUS_CODES['ConnectionFailed']:
-          default:
-            this.$bvToast.toast(
-              `An issue has ocurred while trying to accept the invitation to ${org.name}. Please contact admin`,
-              {
-                autoHideDelay: 3000,
-                variant: 'danger',
-              }
-            );
+            }
+          );
+          break;
+        case STATUS_CODES['UnauthorisedAccess']:
+          this.$bvToast.toast(`Please check your login status`, {
+            autoHideDelay: 3000,
+            variant: 'warning',
+          });
+          break;
+        case STATUS_CODES['ConnectionFailed']:
+        default:
+          this.$bvToast.toast(
+            `An issue has ocurred while trying to accept the invitation to ${org.name}. Please contact admin`,
+            {
+              autoHideDelay: 3000,
+              variant: 'danger',
+            }
+          );
         }
       });
     },
@@ -654,37 +712,37 @@ export default {
         .post(`${this.gkCoreUrl}/login/user`, payload)
         .then((resp) => {
           switch (resp.data.gkstatus) {
-            case 0:
-              this.$bvToast.toast(`Welcome ${this.form.name}`, {
-                title: 'Login Success!',
-                autoHideDelay: 3000,
-                variant: 'success',
-              });
-              // set the user auth status
-              this.$store.dispatch('setSessionStates', {
-                userAuth: true,
-                userAuthToken: resp.data.token,
-                user: { username: payload.username },
-              });
-              this.initOrgs(resp.data.gkresult);
-              break;
-            case 2:
-              this.$bvToast.toast(`Invalid login details`, {
-                title: 'Login Error!',
-                autoHideDelay: 3000,
-                variant: 'danger',
-              });
-              break;
-            case 5:
-              // Username was not unique but exists in the old users table, so try loggin in the old way
-              this.$router.push('/select-org');
-              break;
-            default:
-              this.$bvToast.toast(`Internal Server Error`, {
-                title: 'Login Error!',
-                autoHideDelay: 3000,
-                variant: 'danger',
-              });
+          case 0:
+            this.$bvToast.toast(`Welcome ${this.form.name}`, {
+              title: 'Login Success!',
+              autoHideDelay: 3000,
+              variant: 'success',
+            });
+            // set the user auth status
+            this.$store.dispatch('setSessionStates', {
+              userAuth: true,
+              userAuthToken: resp.data.token,
+              user: { username: payload.username },
+            });
+            this.initOrgs(resp.data.gkresult);
+            break;
+          case 2:
+            this.$bvToast.toast(`Invalid login details`, {
+              title: 'Login Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
+            break;
+          case 5:
+            // Username was not unique but exists in the old users table, so try loggin in the old way
+            this.$router.push('/select-org');
+            break;
+          default:
+            this.$bvToast.toast(`Internal Server Error`, {
+              title: 'Login Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
           }
         })
         .finally(() => {
@@ -708,87 +766,86 @@ export default {
         })
         .then((resp) => {
           switch (resp.data.gkstatus) {
-            case 0:
-              {
-                axios.defaults.baseURL = this.gkCoreUrl;
-                axios.defaults.headers = { gktoken: resp.data.token };
+          case 0:
+            {
+              axios.defaults.baseURL = this.gkCoreUrl;
+              axios.defaults.headers = { gktoken: resp.data.token };
 
-                // Initiate Custom states to localhost
-                let orgName = orgData.name;
-                let orgType = orgData.type;
-                // useful in consolidated final accounts
-                sessionStorage.setItem(
-                  'orgArray',
-                  JSON.stringify([orgName, orgType])
-                );
-                sessionStorage.setItem('orgCodeChoice', selectedYear.code);
+              // Initiate Custom states to localhost
+              let orgName = orgData.name;
+              let orgType = orgData.type;
+              // useful in consolidated final accounts
+              sessionStorage.setItem(
+                'orgArray',
+                JSON.stringify([orgName, orgType])
+              );
+              sessionStorage.setItem('orgCodeChoice', selectedYear.code);
 
-                // Initiate vuex store
-                this.$store.dispatch('setSessionStates', {
-                  auth: true,
-                  orgCode: selectedYear.code,
-                  orgName: `${orgName} (${orgType})`,
-                  authToken: resp.data.token,
-                  user: { username: this.form.name },
-                  orgYears: {
-                    yearStart: selectedYear.ystart
-                      .split('-')
-                      .reverse()
-                      .join('-'),
-                    yearEnd: selectedYear.yend
-                      .split('-')
-                      .reverse()
-                      .join('-'),
-                  },
-                  finYears: orgData.yearData,
+              // Initiate vuex store
+              this.$store.dispatch('setSessionStates', {
+                auth: true,
+                orgCode: selectedYear.code,
+                orgName: `${orgName} (${orgType})`,
+                authToken: resp.data.token,
+                user: { username: this.form.name },
+                orgYears: {
+                  yearStart: selectedYear.ystart
+                    .split('-')
+                    .reverse()
+                    .join('-'),
+                  yearEnd: selectedYear.yend
+                    .split('-')
+                    .reverse()
+                    .join('-'),
+                },
+                finYears: orgData.yearData,
+              });
+              Promise.all([
+                this.$store.dispatch('initLocalStates'), // initialises vuex, org image and org address
+                this.$store.dispatch('global/initGlobalConfig'), // initialises global config
+                this.$store.dispatch('initGstin'), // initialises org GSTIN
+              ])
+                .then(() => {
+                  this.$store
+                    .dispatch('global/initGlobalState', {
+                      lang: this.$language,
+                    })
+                    .then(() => {
+                      this.$store.commit('setUserRole', orgData.role);
+                      this.$store.commit('setOrgType', orgType);
+                      // visit the dashboard page
+                      this.$router
+                        .push('/dashboard')
+                        .then(() => {
+                          this.isLoading = false;
+                        })
+                        .catch((e) => {
+                          console.error(e);
+                          this.isLoading = false;
+                        });
+                    });
+                })
+                .catch((e) => {
+                  console.error(e);
                 });
-                Promise.all([
-                  this.$store.dispatch('initLocalStates'), // initialises vuex, org image and org address
-                  this.$store.dispatch('global/initGlobalConfig'), // initialises global config
-                  this.$store.dispatch('initGstin'), // initialises org GSTIN
-                ])
-                  .then(() => {
-                    this.$store
-                      .dispatch('global/initGlobalState', {
-                        lang: this.$language,
-                      })
-                      .then(() => {
-                        this.$store.commit('setUserRole', orgData.role);
-                        this.$store.commit('setOrgType', orgType);
-                        // visit the dashboard page
-                        this.$router
-                          .push('/dashboard')
-                          .then(() => {
-                            this.isLoading = false;
-                            // window.location.reload();
-                          })
-                          .catch((e) => {
-                            console.log(e);
-                            this.isLoading = false;
-                          });
-                      });
-                  })
-                  .catch((e) => {
-                    console.log(e);
-                  });
-              }
-              break;
-            case 2:
-              this.$bvToast.toast(`Invalid login details`, {
-                title: 'Login Error!',
-                autoHideDelay: 3000,
-                variant: 'danger',
-              });
-              break;
-            case 5:
-              this.$router.push('/select-org');
-              break;
-            default:
-              this.$bvToast.toast(`Internal Server Error`, {
-                title: 'Login Error!',
-                autoHideDelay: 3000,
-                variant: 'danger',
-              });
+            }
+            break;
+          case 2:
+            this.$bvToast.toast(`Invalid login details`, {
+              title: 'Login Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
+            break;
+          case 5:
+            this.$router.push('/select-org');
+            break;
+          default:
+            this.$bvToast.toast(`Internal Server Error`, {
+              title: 'Login Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
           }
           if (resp.data.gkstatus) {
             this.isLoading = false;

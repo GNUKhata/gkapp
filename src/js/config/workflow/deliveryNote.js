@@ -192,7 +192,7 @@ const config = {
         return dnotes;
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   },
   initListColumns: initColumns,
@@ -200,7 +200,6 @@ const config = {
 };
 
 function initColumns() {
-  // debugger;
   let columns = [];
   axios.get('/config?conftype=user').then((resp) => {
     if (resp.data.gkstatus === 0) {

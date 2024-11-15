@@ -9,25 +9,31 @@
       >
         <b-form @submit.prevent="stockOnHand">
           <!-- product select -->
-          <b-form-group :label="$gettext('Product')" label-cols="auto">
+          <b-form-group
+            :label="$gettext('Product')"
+            label-cols="auto"
+          >
             <v-select
               :options="productList"
               v-model="selectedProduct"
               :placeholder="this.$gettext('Search Products')"
               label="name"
               :required="true"
-            ></v-select>
-            <div class="text-left"></div>
+            />
+            <div class="text-left" />
           </b-form-group>
           <!-- Godown select -->
-          <b-form-group :label="$gettext('Godown')" label-cols="auto">
+          <b-form-group
+            :label="$gettext('Godown')"
+            label-cols="auto"
+          >
             <v-select
               v-model="selectedGodown"
               :options="godowns"
               :placeholder="this.$gettext('Search / Select a godown')"
               label="name"
               :required="true"
-            ></v-select>
+            />
           </b-form-group>
           <div class="col">
             <b-form-group
@@ -36,14 +42,14 @@
               label-align="right"
             >
               <gk-date
-              v-model="toDate"
-              :format="dateFormat"
-              :min="minimumDate"
-              :max="maxDate"
-              id="to"
-              @validity="setDateValidity"
-              :required="true"
-              ></gk-date>
+                v-model="toDate"
+                :format="dateFormat"
+                :min="minimumDate"
+                :max="maxDate"
+                id="to"
+                @validity="setDateValidity"
+                :required="true"
+              />
             </b-form-group>
           </div>
           <b-button
@@ -52,18 +58,23 @@
             variant="success"
             class="float-right"
           >
-            <b-icon class="mr-1" icon="cloud-download"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="cloud-download"
+            />
             <translate>Get Details</translate>
           </b-button>
         </b-form>
       </b-card>
     </b-overlay>
     <!-- Table -->
-    <section class="mt-2" v-if="report.length > 0">
+    <section
+      class="mt-2"
+      v-if="report.length > 0"
+    >
       <report-header>
         <div class="text-center">
-          <i
-            >Stock report of {{ selectedProduct.name }} in Godown:
+          <i>Stock report of {{ selectedProduct.name }} in Godown:
             {{ selectedGodown.name }} as on: {{ dateReverse(toDate) }}
           </i>
         </div>
@@ -72,7 +83,7 @@
         v-model="search"
         :placeholder="$gettext('Search Products')"
         class="gkcard mx-auto d-print-none"
-      ></b-form-input>
+      />
       <!-- results -->
       <b-table
         caption-top
@@ -92,7 +103,8 @@
             :to="
               `/product-register?product_id=${selectedProduct.id}&current_date=${toDate}&goid=${selectedGodown?.id}`
             "
-            >{{ data.item.product }}
+          >
+            {{ data.item.product }}
           </router-link>
         </template>
         <template #cell(balance)="data">
@@ -100,9 +112,13 @@
             class="bg-danger text-light"
             v-if="data.item.balance.split('').includes('-')"
           >
-            <div class="ml-1">{{ data.item.balance }}</div>
+            <div class="ml-1">
+              {{ data.item.balance }}
+            </div>
           </div>
-          <div v-else>{{ data.item.balance }}</div>
+          <div v-else>
+            {{ data.item.balance }}
+          </div>
         </template>
       </b-table>
     </section>
@@ -197,7 +213,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
     // get product list from the api
@@ -266,29 +282,29 @@ export default {
       Promise.all(requests)
         .then(([resp1, resp2]) => {
           switch (resp1.data.gkstatus) {
-            case 0:
-              this.report = resp1.data.gkresult?.map((data) => {
-                return {
-                  no: data.srno,
-                  product: data.productname || this.selectedProduct.name,
-                  total_inward_qty: data.totalinwardqty,
-                  total_outward_qty: data.totaloutwardqty,
-                  balance: data.balance,
-                  productcode: data.productcode,
-                };
-              }) ?? [];
-              break;
-            case 2:
-              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            default:
-              this.$bvToast.toast(this.$gettext('Data error'), {
-                variant: 'danger',
-                solid: true,
-              });
+          case 0:
+            this.report = resp1.data.gkresult?.map((data) => {
+              return {
+                no: data.srno,
+                product: data.productname || this.selectedProduct.name,
+                total_inward_qty: data.totalinwardqty,
+                total_outward_qty: data.totaloutwardqty,
+                balance: data.balance,
+                productcode: data.productcode,
+              };
+            }) ?? [];
+            break;
+          case 2:
+            this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          default:
+            this.$bvToast.toast(this.$gettext('Data error'), {
+              variant: 'danger',
+              solid: true,
+            });
           }
 
           if (resp2.data.gkstatus === 0 && this.report?.[0]) {
@@ -345,9 +361,9 @@ export default {
     reverseDate(date) {
       return date
         ? date
-            .split('-')
-            .reverse()
-            .join('-')
+          .split('-')
+          .reverse()
+          .join('-')
         : '';
     },
   },

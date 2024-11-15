@@ -22,10 +22,13 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
-      <div class="mt-3" :class="{ 'd-md-block': true, 'd-none': !isCollapsed }">
+      <div
+        class="mt-3"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
+      >
         <b-form-group
           label="No. of packages"
           label-for="tpd-input-10"
@@ -33,7 +36,9 @@
           label-cols="4"
           v-if="config.packageCount"
         >
-          <template #label> <translate> No. of packages </translate> </template>
+          <template #label>
+            <translate> No. of packages </translate>
+          </template>
           <b-form-input
             size="sm"
             id="tpd-input-10"
@@ -41,7 +46,7 @@
             type="number"
             min="0"
             no-wheel
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Transport By"
@@ -51,14 +56,16 @@
           v-if="config.mode"
           label-class="required"
         >
-          <template #label> <translate> Transport By </translate> </template>
+          <template #label>
+            <translate> Transport By </translate>
+          </template>
           <b-form-select
             size="sm"
             id="tpd-input-20"
             v-model="form.mode"
             :options="options.transportModes"
             required
-          ></b-form-select>
+          />
         </b-form-group>
         <b-form-group
           label="Vehicle No."
@@ -67,13 +74,15 @@
           label-size="sm"
           v-if="form.mode === 'Road' && config.vno"
         >
-          <template #label> <translate> Vehicle No. </translate> </template>
+          <template #label>
+            <translate> Vehicle No. </translate>
+          </template>
           <b-form-input
             size="sm"
             id="tpd-input-30"
             v-model="form.vno"
             trim
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Date of Supply"
@@ -82,7 +91,9 @@
           id="tpd-input-group-1"
           label-class="required"
         >
-          <template #label> <translate> Date of Supply </translate> </template>
+          <template #label>
+            <translate> Date of Supply </translate>
+          </template>
           <gk-date
             id="tpd-date-1"
             :format="date.format"
@@ -90,8 +101,7 @@
             :min="minDate"
             @validity="setDateValidity"
             :required="true"
-          >
-          </gk-date>
+          />
         </b-form-group>
         <b-form-group
           id="tpd-input-group-2"
@@ -102,7 +112,9 @@
           v-if="config.receiptDate"
           label-class="required"
         >
-          <template #label> <translate> Receipt Date </translate> </template>
+          <template #label>
+            <translate> Receipt Date </translate>
+          </template>
           <gk-date
             id="tpd-date-2"
             :format="date.format"
@@ -110,7 +122,7 @@
             :min="form.date ? dateReverse(form.date) : ''"
             @validity="setDateValidity"
             :required="true"
-          ></gk-date>
+          />
         </b-form-group>
         <b-form-group
           label="Grace Period"
@@ -119,8 +131,13 @@
           label-cols="4"
           v-if="config.gracePeriod"
         >
-          <template #label> <translate> Grace Period </translate> </template>
-          <b-input-group append="days" size="sm">
+          <template #label>
+            <translate> Grace Period </translate>
+          </template>
+          <b-input-group
+            append="days"
+            size="sm"
+          >
             <b-form-input
               size="sm"
               id="tpd-input-40"
@@ -129,7 +146,7 @@
               min="0"
               no-wheel
               required
-            ></b-form-input>
+            />
           </b-input-group>
         </b-form-group>
         <!-- Reverse charge is a mechanism where the recipient of the goods or services is liable to pay Goods and Services Tax (GST) instead of the supplier. -->

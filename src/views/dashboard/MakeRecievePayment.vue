@@ -1,5 +1,8 @@
 <template>
-  <b-card-group deck class="mt-5">
+  <b-card-group
+    deck
+    class="mt-5"
+  >
     <!-- Make Payment -->
     <b-card class="shadow">
       <b-card-header
@@ -14,8 +17,9 @@
           role="button"
           @click="sortPurchaseInvoice"
           class="mt-1 float-right"
-          ><BIcon icon="filter" /> {{ invoice.purchase.sort_by }}</b-badge
         >
+          <BIcon icon="filter" /> {{ invoice.purchase.sort_by }}
+        </b-badge>
       </b-card-header>
       <b-table
         :items="invoice.purchase.data"
@@ -36,18 +40,14 @@
           {{ gk_currency(d.item.balanceamount) }}
         </template>
         <template #cell(payment)="data">
-          <b-button @click="onPayment('payment', data.item.invid)" size="sm">
+          <b-button
+            @click="onPayment('payment', data.item.invid)"
+            size="sm"
+          >
             Pay
           </b-button>
         </template>
       </b-table>
-      <!-- <template #footer>
-           <b-button
-           @click="$router.push('/business-details/create')"
-           variant="dark float-right"
-           ><translate>Add product/Service</translate></b-button
-           >
-           </template> -->
     </b-card>
     <!-- Receive Payment -->
     <b-card class="shadow">
@@ -63,8 +63,9 @@
           role="button"
           @click="sortSaleInvoice"
           class="mt-1 float-right"
-          ><BIcon icon="filter" /> {{ invoice.sale.sort_by }}</b-badge
         >
+          <BIcon icon="filter" /> {{ invoice.sale.sort_by }}
+        </b-badge>
       </b-card-header>
       <b-table
         :items="invoice.sale.data"
@@ -85,21 +86,18 @@
           {{ gk_currency(d.item.balanceamount) }}
         </template>
         <template #cell(receipt)="data">
-          <b-button @click="onPayment('receipt', data.item.invid)" size="sm">
+          <b-button
+            @click="onPayment('receipt', data.item.invid)"
+            size="sm"
+          >
             Receipt
           </b-button>
         </template>
       </b-table>
-      <!-- <template #footer>
-           <b-button
-           @click="$router.push('/contact-details/create')"
-           variant="dark float-right"
-           ><translate>Add Supplier</translate></b-button
-           >
-           </template> -->
     </b-card>
   </b-card-group>
 </template>
+
 <script>
 export default {
   name: 'MakeRecievePayment',

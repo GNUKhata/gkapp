@@ -2,7 +2,11 @@
   <div class="card">
     <div class="card-header py-1 px-2">
       <!-- === Voucher Type Dropdown -->
-      <b-dropdown size="sm" variant="outline-dark" :disabled="!isCreateMode">
+      <b-dropdown
+        size="sm"
+        variant="outline-dark"
+        :disabled="!isCreateMode"
+      >
         <template #button-content>
           <b> {{ form.vtype.text }} Voucher </b>
         </template>
@@ -19,12 +23,18 @@
           {{ type.text }}
         </b-dropdown-item>
       </b-dropdown>
-      <slot name="close-button"> </slot>
+      <slot name="close-button" />
     </div>
     <div>
-      <b-form class="p-2 pt-3" @submit.prevent="confirmOnSubmit">
+      <b-form
+        class="p-2 pt-3"
+        @submit.prevent="confirmOnSubmit"
+      >
         <b-row no-gutters>
-          <b-col cols="12" sm="6">
+          <b-col
+            cols="12"
+            sm="6"
+          >
             <div v-if="isReceiptOrPayment && !inOverlay">
               <v-select
                 class="my-1"
@@ -36,9 +46,9 @@
                 :reduce="(inv) => inv.id"
                 @input="onInvSelect"
                 style="max-width: 250px"
-              ></v-select>
+              />
               <p v-if="form.inv">
-                Total Invoice Amount: {{ creditInvData.invoicetotal }}<br />
+                Total Invoice Amount: {{ creditInvData.invoicetotal }}<br>
                 Invoice Balance Amount: {{ creditInvData.balanceamount }}
               </p>
             </div>
@@ -52,7 +62,10 @@
               </b-checkbox>
             </div>
           </b-col>
-          <b-col sm="6" class="mb-2">
+          <b-col
+            sm="6"
+            class="mb-2"
+          >
             <gk-date
               class="float-left float-sm-right my-1"
               id="v-date-1"
@@ -62,15 +75,21 @@
               :max="_maxDate"
               @validity="setDateValidity"
               :required="true"
-            >
-            </gk-date>
+            />
           </b-col>
           <b-col cols="12">
-            <b-table-simple hover small caption-top bordered>
+            <b-table-simple
+              hover
+              small
+              caption-top
+              bordered
+            >
               <b-thead head-variant="dark">
                 <!-- table header -->
                 <b-tr class="text-center">
-                  <b-th :style="{ maxWidth: '25px', width: '25px' }">-</b-th>
+                  <b-th :style="{maxWidth: '25px', width: '25px'}">
+                    -
+                  </b-th>
                   <b-th
                     :style="{
                       maxWidth: '300px',
@@ -80,11 +99,13 @@
                   >
                     <translate> Account </translate>
                     <b-button
-                        class="ml-2 py-0 px-1"
-                        variant="success"
-                        size="sm"
-                         @click.prevent="onCreateAccount(1,2)"
-                        >+</b-button>
+                      class="ml-2 py-0 px-1"
+                      variant="success"
+                      size="sm"
+                      @click.prevent="onCreateAccount(1,2)"
+                    >
+                      +
+                    </b-button>
                   </b-th>
                   <b-th
                     :style="{
@@ -107,8 +128,9 @@
                       class="py-0"
                       variant="success"
                       size="sm"
-                      >+</b-button
                     >
+                      +
+                    </b-button>
                     Dr
                   </b-th>
                   <b-th
@@ -123,10 +145,11 @@
                       class="py-0"
                       variant="success"
                       size="sm"
-                      >+</b-button
                     >
-                    Cr</b-th
-                  >
+                      +
+                    </b-button>
+                    Cr
+                  </b-th>
                 </b-tr>
               </b-thead>
               <b-tbody>
@@ -144,8 +167,9 @@
                       class="py-0 px-1"
                       variant="success"
                       size="sm"
-                      >-</b-button
                     >
+                      -
+                    </b-button>
                   </b-td>
 
                   <!-- Account -->
@@ -158,23 +182,21 @@
                       required
                       @input="onAccountSelect(data.account, 'dr', indexDr)"
                       class="text-left"
-                      :resetOnOptionsChange="true"
-                    >
-                    </v-select>
+                      :reset-on-options-change="true"
+                    />
                   </b-td>
 
                   <!-- Balance -->
                   <b-td
                     class="position-relative"
-                    :style="{ 'font-size': '0.85rem' }"
+                    :style="{'font-size': '0.85rem'}"
                   >
                     <b-overlay
                       :show="data.isLoading"
                       variant="secondary"
                       no-wrap
                       blur
-                    >
-                    </b-overlay>
+                    />
                     <b>{{ data.balance }}</b>
                   </b-td>
 
@@ -190,11 +212,11 @@
                       debounce="500"
                       required
                       size="sm"
-                    ></b-input>
+                    />
                   </b-td>
 
                   <!-- Cr Amount -->
-                  <b-td> </b-td>
+                  <b-td />
                 </b-tr>
                 <!-- Credit Row -->
                 <b-tr
@@ -210,8 +232,9 @@
                       class="py-0 px-1"
                       variant="success"
                       size="sm"
-                      >-</b-button
                     >
+                      -
+                    </b-button>
                   </b-td>
 
                   <!-- Account -->
@@ -224,28 +247,26 @@
                       :reduce="(acc) => acc.accountcode"
                       required
                       @input="onAccountSelect(data.account, 'cr', indexCr)"
-                      :resetOnOptionsChange="true"
-                    >
-                    </v-select>
+                      :reset-on-options-change="true"
+                    />
                   </b-td>
 
                   <!-- Balance -->
                   <b-td
                     class="position-relative"
-                    :style="{ 'font-size': '0.85rem' }"
+                    :style="{'font-size': '0.85rem'}"
                   >
                     <b-overlay
                       :show="data.isLoading"
                       variant="secondary"
                       no-wrap
                       blur
-                    >
-                    </b-overlay>
+                    />
                     <b>{{ data.balance }}</b>
                   </b-td>
 
                   <!-- Dr Amount -->
-                  <b-td> </b-td>
+                  <b-td />
 
                   <!-- Cr Amount -->
                   <b-td>
@@ -259,13 +280,18 @@
                       debounce="500"
                       required
                       size="sm"
-                    ></b-input>
+                    />
                   </b-td>
                 </b-tr>
               </b-tbody>
               <b-tfoot>
-                <b-tr variant="secondary" class="text-right">
-                  <b-th colspan="3"> <translate> Total </translate> </b-th>
+                <b-tr
+                  variant="secondary"
+                  class="text-right"
+                >
+                  <b-th colspan="3">
+                    <translate> Total </translate>
+                  </b-th>
                   <b-th>
                     <span>₹ {{ totalDr }}</span>
                   </b-th>
@@ -276,8 +302,14 @@
               </b-tfoot>
             </b-table-simple>
           </b-col>
-          <b-col cols="12" sm="6"></b-col>
-          <b-col cols="12" sm="6">
+          <b-col
+            cols="12"
+            sm="6"
+          />
+          <b-col
+            cols="12"
+            sm="6"
+          >
             <b-form-group
               label="Comments"
               label-for="vo-comment"
@@ -292,12 +324,12 @@
                 rows="4"
                 max-rows="5"
                 trim
-              ></b-form-textarea>
+              />
             </b-form-group>
           </b-col>
         </b-row>
 
-        <hr class="my-2 mx-0" />
+        <hr class="my-2 mx-0">
         <div class="float-right">
           <b-button
             size="sm"
@@ -310,8 +342,11 @@
               aria-hidden="true"
               class="align-middle mr-1"
               icon="arrow-left"
-            ></b-icon>
-            <span class="align-middle" v-translate>Back</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Back</span>
           </b-button>
           <b-button
             size="sm"
@@ -323,8 +358,11 @@
               aria-hidden="true"
               class="align-middle mr-1"
               icon="arrow-repeat"
-            ></b-icon>
-            <span class="align-middle" v-translate>Reset</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Reset</span>
           </b-button>
           <b-button
             size="sm"
@@ -337,8 +375,11 @@
               aria-hidden="true"
               class="align-middle mr-1"
               icon="trash"
-            ></b-icon>
-            <span class="align-middle" v-translate>Delete</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Delete</span>
           </b-button>
           <b-button
             size="sm"
@@ -347,20 +388,31 @@
             variant="success"
             :disabled="!isDateValid || !isVoucherTotalValid"
           >
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               :icon="isCreateMode ? 'plus-square' : 'cloud-arrow-up'"
-            ></b-icon>
-            <span class="align-middle" v-if="isCreateMode" v-translate>
+            />
+            <span
+              class="align-middle"
+              v-if="isCreateMode"
+              v-translate
+            >
               Save
             </span>
-            <span v-else class="align-middle" v-translate>Update</span>
+            <span
+              v-else
+              class="align-middle"
+              v-translate
+            >Update</span>
           </b-button>
         </div>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
       </b-form>
     </div>
   </div>
@@ -443,7 +495,6 @@ export default {
     },
     updateUrl() {
       let url = window.location.href.split('#')[0];
-      // += `#/accounts/${gid}/${sgid}/${aid}`;
       url+="#/voucher/create/receipt/-1";
       history.replaceState(null, '', url); // replace state method allows us to update the last history instance inplace,
       // instead of creating a new history instances for every entity selected
@@ -462,12 +513,10 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
           if (val) {
-            // return;
             axios
               .delete('/transaction', {
                 data: {
@@ -520,7 +569,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -533,10 +581,7 @@ export default {
     onSubmit() {
       this.isLoading = true;
       const self = this;
-
       const payload = this.initPayload();
-      // console.log(payload);
-      // return;
 
       if (!payload.invid || payload.invid == null) {
         delete payload.invid;
@@ -544,82 +589,82 @@ export default {
 
       const method = this.isCreateMode ? 'post' : 'put';
       const failTitle = this.isCreateMode
-          ? this.$gettext('Create Voucher Failure!')
-          : this.$gettext('Update Voucher Failure!'),
-        failMessage = this.isCreateMode
-          ? this.$gettext('Voucher Creation Failed!')
-          : this.$gettext('Voucher Updation Failed!');
+              ? this.$gettext('Create Voucher Failure!')
+              : this.$gettext('Update Voucher Failure!'),
+            failMessage = this.isCreateMode
+              ? this.$gettext('Voucher Creation Failed!')
+              : this.$gettext('Voucher Updation Failed!');
       axios({ method: method, url: '/transaction', data: payload })
         .then((resp) => {
           self.isLoading = false;
           switch (resp.data.gkstatus) {
-            case 0:
-              {
-                if (this.isCreateMode) {
-                  self.displayToast(
-                    this.$gettext('Create Voucher Success!'),
-                    this.$gettext('Voucher Created Successfully!'),
-                    'success'
-                  );
-                  const accMap = self.options.acc;
-                  let dr = self.form.dr.reduce(
-                    (acc, dr) => acc + `${accMap[dr.account]}, `,
-                    ''
-                  );
-                  let cr = self.form.cr.reduce(
-                    (acc, cr) => acc + `${accMap[cr.account]}, `,
-                    ''
-                  );
-                  dr = dr.substring(0, dr.length - 2);
-                  cr = cr.substring(0, cr.length - 2);
-                  let log = {
-                    activity: `${self.form.vtype.value} voucher created: dr [ ${dr} ], cr [ ${cr} ]`,
-                  };
-                  axios.post('/log', log);
+          case 0:
+            {
+              if (this.isCreateMode) {
+                self.displayToast(
+                  this.$gettext('Create Voucher Success!'),
+                  this.$gettext('Voucher Created Successfully!'),
+                  'success'
+                );
+                const accMap = self.options.acc;
+                let dr = self.form.dr.reduce(
+                  (acc, dr) => acc + `${accMap[dr.account]}, `,
+                  ''
+                );
+                let cr = self.form.cr.reduce(
+                  (acc, cr) => acc + `${accMap[cr.account]}, `,
+                  ''
+                );
+                dr = dr.substring(0, dr.length - 2);
+                cr = cr.substring(0, cr.length - 2);
+                let log = {
+                  activity: `${self.form.vtype.value} voucher created: dr [ ${dr} ], cr [ ${cr} ]`,
+                };
+                axios.post('/log', log);
 
-                  // update billwise if receipt or payment
-                  if (self.isReceiptOrPayment) {
-                    let billData = {
-                      adjbills: [
-                        {
-                          invid: parseInt(payload.invid),
-                          adjamount: parseFloat(self.totalCr),
-                          vouchercode: resp.data.vouchercode,
-                        },
-                      ],
-                    };
-
-                    axios.post('/billwise', billData).then(() => {});
-                  }
-
-                  if (self.onSave !== null) {
-                    self.onSave(resp.data);
-                  }
-                  self.preloadData();
-                  self._resetForm(true);
-                } else {
-                  self.displayToast(
-                    this.$gettext('Update Voucher Success!'),
-                    this.$gettextInterpolate(
-                      this.$gettext(
-                        `Voucher %{voucherNo} Updated Successfully!`
-                      ),
+                // update billwise if receipt or payment
+                if (self.isReceiptOrPayment) {
+                  let billData = {
+                    adjbills: [
                       {
-                        voucherNo: self.form.vno,
-                      }
-                    ),
-                    'success'
-                  );
-
-                  let log = {
-                    activity: `${self.form.vtype.value} voucher updated: ${self.form.vno} `,
+                        invid: parseInt(payload.invid),
+                        adjamount: parseFloat(self.totalCr),
+                        vouchercode: resp.data.vouchercode,
+                      },
+                    ],
                   };
-                  axios.post('/log', log);
+
+                  axios.post('/billwise', billData).then(() => {});
                 }
+
+                if (self.onSave !== null) {
+                  self.onSave(resp.data);
+                }
+                self.preloadData();
+                self._resetForm(true);
+              } else {
+                self.displayToast(
+                  this.$gettext('Update Voucher Success!'),
+                  this.$gettextInterpolate(
+                    this.$gettext(
+                      `Voucher %{voucherNo} Updated Successfully!`
+                    ),
+                    {
+                      voucherNo: self.form.vno,
+                    }
+                  ),
+                  'success'
+                );
+
+                let log = {
+                  activity: `${self.form.vtype.value} voucher updated: ${self.form.vno} `,
+                };
+                axios.post('/log', log);
               }
-              break;
-            default:
-              self.displayToast(failTitle, failMessage, 'danger');
+            }
+            break;
+          default:
+            self.displayToast(failTitle, failMessage, 'danger');
           } // end switch
         })
         .catch((error) => {

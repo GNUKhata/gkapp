@@ -6,10 +6,20 @@
   >
     <b-form @submit.prevent="confirmOnSubmit">
       <div class="text-center pt-2">
-        <h4 v-if="isCredit" v-translate>Create Credit Note</h4>
-        <h4 v-else v-translate>Create Debit Note</h4>
+        <h4
+          v-if="isCredit"
+          v-translate
+        >
+          Create Credit Note
+        </h4>
+        <h4
+          v-else
+          v-translate
+        >
+          Create Debit Note
+        </h4>
       </div>
-      <hr />
+      <hr>
       <div class="mb-2">
         <b-form-radio-group
           v-model="form.type"
@@ -25,7 +35,10 @@
             <translate> Purchase </translate>
           </b-form-radio>
         </b-form-radio-group>
-        <span id="edit-invoice-list" class="d-inline-block mt-2 mt-sm-0">
+        <span
+          id="edit-invoice-list"
+          class="d-inline-block mt-2 mt-sm-0"
+        >
           <v-select
             id="input-8-2"
             v-model="invId"
@@ -36,75 +49,86 @@
             label="text"
             :reduce="(invdata) => invdata.value"
             style="min-width: 200px"
-            :resetOnOptionsChange="true"
-          >
-          </v-select>
+            :reset-on-options-change="true"
+          />
         </span>
       </div>
-      <b-card-group class="d-block d-md-flex my-2" deck>
+      <b-card-group
+        class="d-block d-md-flex my-2"
+        deck
+      >
         <!-- Debit Credit Note Details -->
         <dc-note-details
           :config="config.dcNote"
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.dcNote"
-          :invDate="form.invoice.date"
+          :update-counter="updateCounter.dcNote"
+          :inv-date="form.invoice.date"
           ref="dcNote"
-        ></dc-note-details>
+        />
         <!-- Invoice Details -->
         <invoice-details
           :config="config.inv"
-          :saleFlag="isSale"
-          :parentData="form.invoice"
+          :sale-flag="isSale"
+          :parent-data="form.invoice"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.invoice"
+          :update-counter="updateCounter.invoice"
           ref="invoice"
-          :editFlag="true"
-        ></invoice-details>
+          :edit-flag="true"
+        />
         <!-- Buyer/Seller Details -->
         <party-details
           :mode="form.type"
-          :parentData="form.party"
-          :gstFlag="isGst"
+          :parent-data="form.party"
+          :gst-flag="isGst"
           :icflag="form.invoice.icflag"
-          :invoiceParty="invoiceParty"
+          :invoice-party="invoiceParty"
           :config="config.party"
-          :saleFlag="isSale"
+          :sale-flag="isSale"
           @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.party"
+          :update-counter="updateCounter.party"
           ref="party"
-        >
-        </party-details>
+        />
       </b-card-group>
-      <div class="my-2" v-if="config.taxType">
+      <div
+        class="my-2"
+        v-if="config.taxType"
+      >
         <b-form-radio-group
           button-variant="outline-secondary"
           size="sm"
           buttons
           v-model="form.taxType"
         >
-          <b-form-radio value="gst">GST</b-form-radio>
-          <b-form-radio value="vat">VAT</b-form-radio>
+          <b-form-radio value="gst">
+            GST
+          </b-form-radio>
+          <b-form-radio value="vat">
+            VAT
+          </b-form-radio>
         </b-form-radio-group>
       </div>
       <!-- Bill Table -->
       <bill-table
-        :gstFlag="isGst"
+        :gst-flag="isGst"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
-        :updateCounter="updateCounter.bill"
-        :parentData="form.bill"
-        :cgstFlag="isCgst"
-        :creditFlag="isCredit"
-        :invDate="form.invoice.date"
-        :taxState="form.invoice?.state?.name"
-        :crdrnote=true
+        :update-counter="updateCounter.bill"
+        :parent-data="form.bill"
+        :cgst-flag="isCgst"
+        :credit-flag="isCredit"
+        :inv-date="form.invoice.date"
+        :tax-state="form.invoice?.state?.name"
+        :crdrnote="true"
         ref="bill"
-      ></bill-table>
+      />
       <div class="px-2">
         <!-- b-row has to be enclosed in a container tag with padding
          atleast 2, to avoid creating an offset to the right -->
-        <b-row class="mt-5" v-if="config.total">
+        <b-row
+          class="mt-5"
+          v-if="config.total"
+        >
           <b-col
             class="align-self-lg-end"
             cols="12"
@@ -112,27 +136,35 @@
             order-lg="1"
             order="2"
           >
-            <b-card-group class="d-block d-md-flex" deck>
+            <b-card-group
+              class="d-block d-md-flex"
+              deck
+            >
               <!-- Invoice Comments -->
               <comments
                 :name="`Credit Note`"
                 ref="narration"
                 :config="config.comments"
-                :updateCounter="updateCounter.comments"
-                :parentData="form.comments"
-              ></comments>
+                :update-counter="updateCounter.comments"
+                :parent-data="form.comments"
+              />
             </b-card-group>
           </b-col>
-          <b-col cols="12" lg="6" order-lg="2" order="1">
+          <b-col
+            cols="12"
+            lg="6"
+            order-lg="2"
+            order="1"
+          >
             <total-table
               :config="config.total"
-              :gstFlag="isGst"
-              :billData="form.bill"
-              :updateCounter="updateCounter.totalTable"
+              :gst-flag="isGst"
+              :bill-data="form.bill"
+              :update-counter="updateCounter.totalTable"
               @details-updated="onComponentDataUpdate"
-              :cgstFlag="isCgst"
+              :cgst-flag="isCgst"
               ref="totalTable"
-            ></total-table>
+            />
           </b-col>
         </b-row>
       </div>
@@ -152,7 +184,7 @@
           Date must be within the Financial Year, from %{start} to %{end}
         </translate>
       </b-tooltip>
-      <hr />
+      <hr>
       <div class="float-right">
         <b-button
           class="m-1"
@@ -164,8 +196,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-left"
-          ></b-icon>
-          <span class="align-middle" v-translate>Back</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Back</span>
         </b-button>
         <b-button
           class="m-1"
@@ -177,8 +212,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-repeat"
-          ></b-icon>
-          <span class="align-middle" v-translate>Reset</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Reset</span>
         </b-button>
         <b-button
           id="inv-submit"
@@ -189,18 +227,24 @@
           variant="success"
         >
           <span>
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Create</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Create</span>
           </span>
         </b-button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </b-form>
     <print-page
       :show="showPrintModal"
@@ -209,8 +253,7 @@
       :id="dcnoteId"
       :pdata="{}"
       @hidden="showPrintModal = false"
-    >
-    </print-page>
+    />
   </b-container>
 </template>
 
@@ -219,13 +262,9 @@ import axios from 'axios';
 import { mapState } from 'vuex';
 import { reverseDate } from '../../js/utils';
 import { DR_CR_MODE } from '@/js/enum.js';
-// import Config from '../../components/Config.vue';
-
 import PartyDetails from '../../components/form/transaction/PartyDetails.vue';
-// import ShipDetails from '../../components/form/transaction/ShipDetails.vue';
 import BillTable from '../../components/form/transaction/BillTable.vue';
 import TotalTable from '../../components/form/transaction/TotalTable.vue';
-// import TransportDetails from '../../components/form/transaction/TransportDetails.vue';
 import Comments from '../../components/form/transaction/Comments.vue';
 import InvoiceDetails from '../../components/form/transaction_details/InvoiceDetailsEdit.vue';
 import DcNoteDetails from '../../components/form/transaction_details/DcNoteDetails.vue';
@@ -237,14 +276,10 @@ import dcNoteConfig from '../../js/config/transaction/debitCreditNote.js';
 export default {
   name: 'DebitCreditNote',
   components: {
-    // Config,
-
     PartyDetails,
-    // ShipDetails,
     DcNoteDetails,
     BillTable,
     TotalTable,
-    // TransportDetails,
     Comments,
     InvoiceDetails,
     PrintPage,
@@ -347,34 +382,34 @@ export default {
   methods: {
     onComponentDataUpdate(payload) {
       switch (payload.name) {
-        case 'dc-note-details':
-          {
-            const oldPurpose = this.form.dcNote.purpose;
-            Object.assign(this.form.dcNote, payload.data);
-            this.isInvDateValid = payload.options.isDateValid;
-            if (oldPurpose !== payload.data.purpose) {
-              this.isPurposeChange = payload.data.purpose;
-              if (this.$refs.bill && typeof this.$refs.bill.handlePurposeChange === 'function') {
-                this.$refs.bill.handlePurposeChange(this.isPurposeChange);
-              }
-              this.updateConfig(); // updates dcValue and qty field config
+      case 'dc-note-details':
+        {
+          const oldPurpose = this.form.dcNote.purpose;
+          Object.assign(this.form.dcNote, payload.data);
+          this.isInvDateValid = payload.options.isDateValid;
+          if (oldPurpose !== payload.data.purpose) {
+            this.isPurposeChange = payload.data.purpose;
+            if (this.$refs.bill && typeof this.$refs.bill.handlePurposeChange === 'function') {
+              this.$refs.bill.handlePurposeChange(this.isPurposeChange);
             }
+            this.updateConfig(); // updates dcValue and qty field config
           }
-          break;
-        case 'party-details':
-          Object.assign(this.form.party, payload.data);
-          break;
-        case 'bill-table':
-          Object.assign(this.form.bill, payload.data);
-          this.updateCounter.totalTable++;
-          break;
-        case 'total-table':
-          Object.assign(this.form.total, payload.data);
-          break;
-        case 'invoice-details':
-          Object.assign(this.form.invoice, payload.data);
-          this.isCgst = (this.form.invoice.state.name === this.form.invoice.taxState.name)
-          break;
+        }
+        break;
+      case 'party-details':
+        Object.assign(this.form.party, payload.data);
+        break;
+      case 'bill-table':
+        Object.assign(this.form.bill, payload.data);
+        this.updateCounter.totalTable++;
+        break;
+      case 'total-table':
+        Object.assign(this.form.total, payload.data);
+        break;
+      case 'invoice-details':
+        Object.assign(this.form.invoice, payload.data);
+        this.isCgst = (this.form.invoice.state.name === this.form.invoice.taxState.name)
+        break;
       }
     },
     confirmOnSubmit() {
@@ -398,7 +433,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -411,8 +445,6 @@ export default {
       const self = this;
       this.isLoading = true;
       const payload = this.initPayload();
-      // console.log(payload);
-      // return;
       const noteType = this.isCredit ? 'Credit' : 'Debit';
       axios
         .post('/drcrnote', payload)
@@ -420,62 +452,62 @@ export default {
           self.isLoading = false;
           if (resp.status === 200) {
             switch (resp.data.gkstatus) {
-              case 0:
-                {
-                  // success
-                  const vchCode = resp.data.vchCode;
-                  let message = '';
-                  if (vchCode) {
-                    if (vchCode.vflag === 0) {
-                      message = this.$gettext(
-                        'Accounting entry could not be made due to mismatch of accounts. Please make the entry yourself.'
-                      );
-                    } else {
-                      message = `Accounting entry made with voucher no ${vchCode['vchCode']}`;
-                    }
+            case 0:
+              {
+                // success
+                const vchCode = resp.data.vchCode;
+                let message = '';
+                if (vchCode) {
+                  if (vchCode.vflag === 0) {
+                    message = this.$gettext(
+                      'Accounting entry could not be made due to mismatch of accounts. Please make the entry yourself.'
+                    );
+                  } else {
+                    message = `Accounting entry made with voucher no ${vchCode['vchCode']}`;
                   }
-                  self.displayToast(
-                    `Create ${noteType} Note Successfull!`,
-                    message,
-                    vchCode.vflag === 0 ? 'warning' : 'success'
-                  );
-
-                  let log = {
-                    activity: `${noteType.toLowerCase()} note created: ${
-                      self.form.dcNote.no
-                    }`,
-                  };
-                  axios.post('/log', log);
-                  this.titleName = (this.form.dcNote.type === 'credit') ? 'Credit Note' : 'Debit Note';
-                  self.resetForm();
-                  this.showPrintModal = true;
-                  self.preloadData();
-                  this.dcnoteId = resp.data.gkresult;
                 }
-                break;
-              case 1:
-                // Duplicate entry
                 self.displayToast(
-                  `Create ${noteType} Note Failed!`,
-                  this.$gettext('Duplicate Entry, Check Invoice Id'),
-                  'warning'
+                  `Create ${noteType} Note Successfull!`,
+                  message,
+                  vchCode.vflag === 0 ? 'warning' : 'success'
                 );
-                break;
-              case 2:
-                // Unauthorized access
-                self.displayToast(
-                  `Create ${noteType} Note Failed!`,
-                  this.$gettext('Unauthorized Access, Contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-                // Connection failed, Check inputs and try again
-                self.displayToast(
-                  `Create ${noteType} Note Failed!`,
-                  this.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
+
+                let log = {
+                  activity: `${noteType.toLowerCase()} note created: ${
+                    self.form.dcNote.no
+                  }`,
+                };
+                axios.post('/log', log);
+                this.titleName = (this.form.dcNote.type === 'credit') ? 'Credit Note' : 'Debit Note';
+                self.resetForm();
+                this.showPrintModal = true;
+                self.preloadData();
+                this.dcnoteId = resp.data.gkresult;
+              }
+              break;
+            case 1:
+              // Duplicate entry
+              self.displayToast(
+                `Create ${noteType} Note Failed!`,
+                this.$gettext('Duplicate Entry, Check Invoice Id'),
+                'warning'
+              );
+              break;
+            case 2:
+              // Unauthorized access
+              self.displayToast(
+                `Create ${noteType} Note Failed!`,
+                this.$gettext('Unauthorized Access, Contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+              // Connection failed, Check inputs and try again
+              self.displayToast(
+                `Create ${noteType} Note Failed!`,
+                this.$gettext('Please check your input and try again later'),
+                'danger'
+              );
             }
           }
         })
@@ -593,7 +625,6 @@ export default {
       const self = this;
       axios.get(`/delchal/${dcid}`).then((resp) => {
         if (resp.data.gkstatus === 0) {
-          // debugger;
           self.options.dnData = resp.data.gkresult.delchaldata;
           self.form.invoice.godown = resp.data.gkresult.delchaldata.goid;
           self.form.invoice.dnNo = resp.data.gkresult.delchaldata.dcno;
@@ -604,11 +635,11 @@ export default {
     initPayload() {
       this.collectComponentData();
       const isDiscount = [
-          DR_CR_MODE['discount'],
-          DR_CR_MODE['pos_change'],
-          DR_CR_MODE['inv_correction'],
-          DR_CR_MODE['prov_assessment'],
-          DR_CR_MODE['service_deficiency'],
+        DR_CR_MODE['discount'],
+        DR_CR_MODE['pos_change'],
+        DR_CR_MODE['inv_correction'],
+        DR_CR_MODE['prov_assessment'],
+        DR_CR_MODE['service_deficiency'],
       ].includes(this.form.dcNote.purpose);
 
       let drcrdata = {
@@ -654,11 +685,11 @@ export default {
       }
 
       let product = {},
-        prodData = {},
-        taxes = {},
-        cess = {},
-        reductionval = {},
-        quantities = {};
+          prodData = {},
+          taxes = {},
+          cess = {},
+          reductionval = {},
+          quantities = {};
       this.form.bill.forEach((item) => {
         if (item.qty) {
           const rate = isDiscount ? item.dcValue || 0 : item.rate;
@@ -799,7 +830,7 @@ export default {
             };
             resp5.data.gkresult.forEach((item) => {
               const state = Object.values(item)[0],
-                code = Object.keys(item)[0];
+                    code = Object.keys(item)[0];
               stateMap.name[state] = code;
               stateMap.id[code] = state;
             });
@@ -878,7 +909,6 @@ export default {
     },
     initForm() {
       this.preloadData();
-      // this.resetForm();
     },
     displayToast(title, message, variant) {
       this.$bvToast.toast(message, {

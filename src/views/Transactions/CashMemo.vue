@@ -6,9 +6,11 @@
   >
     <b-form @submit.prevent="confirmOnSubmit">
       <div class="text-center pt-2">
-        <h4 v-translate>Create Cash Memo</h4>
+        <h4 v-translate>
+          Create Cash Memo
+        </h4>
       </div>
-      <hr />
+      <hr>
       <div class="mb-2">
         <b-form-radio-group
           v-model="form.type"
@@ -25,48 +27,37 @@
         <span class="float-right">
           <config
             title="Invoice Page Configuration"
-            getDefault="getDefaultInvoiceConfig"
-            setCustom="updateInvoiceConfig"
-            getCustom="getCustomInvoiceConfig"
-          >
-          </config>
+            get-default="getDefaultInvoiceConfig"
+            set-custom="updateInvoiceConfig"
+            get-custom="getCustomInvoiceConfig"
+          />
         </span>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
       </div>
-      <b-card-group class="d-block d-md-flex my-2" deck>
+      <b-card-group
+        class="d-block d-md-flex my-2"
+        deck
+      >
         <!-- Delivery Note Details -->
         <cash-memo-details
           ref="memo"
           :config="config.memo"
-          :parentData="form.memo"
-          :updateCounter="updateCounter.memo"
+          :parent-data="form.memo"
+          :update-counter="updateCounter.memo"
           @details-updated="onComponentDataUpdate"
-          :saleFlag="isSale"
-        ></cash-memo-details>
-        <!-- Buyer/Seller Details -->
-        <!-- <party-details
-          :mode="form.type"
-          :parentData="form.party"
-          :gstFlag="isGst"
-          :invoiceParty="invoiceParty"
-          :config="config.party"
-          :saleFlag="isSale"
-          @details-updated="onComponentDataUpdate"
-          :updateCounter="updateCounter.party"
-          ref="party"
-        >
-        </party-details> -->
+          :sale-flag="isSale"
+        />
         <!-- Payment Details -->
         <payment-details
           ref="payment"
-          :updateCounter="updateCounter.payment"
+          :update-counter="updateCounter.payment"
           :config="config.payment"
-          :saleFlag="isSale"
-          :parentData="form.payment"
-          :optionsData="{
+          :sale-flag="isSale"
+          :parent-data="form.payment"
+          :options-data="{
             payModes,
           }"
-        ></payment-details>
+        />
       </b-card-group>
       <div
         class="my-2"
@@ -78,63 +69,57 @@
           buttons
           v-model="form.taxType"
         >
-          <b-form-radio value="gst">GST</b-form-radio>
-          <b-form-radio value="vat">VAT</b-form-radio>
+          <b-form-radio value="gst">
+            GST
+          </b-form-radio>
+          <b-form-radio value="vat">
+            VAT
+          </b-form-radio>
         </b-form-radio-group>
       </div>
       <!-- Bill Table -->
       <bill-table
-        :gstFlag="isGst"
-        :cgstFlag="isCgst"
-        :vatFlag="isVat"
+        :gst-flag="isGst"
+        :cgst-flag="isCgst"
+        :vat-flag="isVat"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
-        :updateCounter="updateCounter.bill"
-        :parentData="form.bill"
+        :update-counter="updateCounter.bill"
+        :parent-data="form.bill"
         ref="bill"
-        :godownId="goid"
-        :saleFlag="isSale"
-        :blockEmptyStock="isSale"
-        :invDate="form.memo.date"
-        :taxState="taxState"
-      ></bill-table>
+        :godown-id="goid"
+        :sale-flag="isSale"
+        :block-empty-stock="isSale"
+        :inv-date="form.memo.date"
+        :tax-state="taxState"
+      />
       <div class="px-2">
         <!-- b-row has to be enclosed in a container tag with padding
         atleast 2, to avoid creating an offset to the right -->
-        <b-row class="mt-5" v-if="config.total">
-          <b-col cols="12" lg="6"> </b-col>
-          <b-col cols="12" lg="6">
+        <b-row
+          class="mt-5"
+          v-if="config.total"
+        >
+          <b-col
+            cols="12"
+            lg="6"
+          />
+          <b-col
+            cols="12"
+            lg="6"
+          >
             <total-table
               ref="totalTable"
               :config="config.total"
-              :billData="form.bill"
-              :gstFlag="isGst"
-              :cgstFlag="isCgst"
-              :isVat="isVat"
-              :updateCounter="updateCounter.totalTable"
-            ></total-table>
+              :bill-data="form.bill"
+              :gst-flag="isGst"
+              :cgst-flag="isCgst"
+              :is-vat="isVat"
+              :update-counter="updateCounter.totalTable"
+            />
           </b-col>
         </b-row>
       </div>
-      <!-- <b-card-group class="d-block d-md-flex" deck> -->
-      <!-- Transport Details -->
-      <!-- <transport-details
-          ref="transport"
-          :config="config.transport"
-          :updateCounter="updateCounter.transport"
-          :parentData="form.transport"
-          :invDate="form.memo.date"
-          @details-updated="onComponentDataUpdate"
-        ></transport-details> -->
-      <!-- Invoice Comments -->
-      <!-- <comments
-          :name="`Cash Memo`"
-          ref="narration"
-          :config="config.comments"
-          :updateCounter="updateCounter.comments"
-          :parentData="form.comments"
-        ></comments> -->
-      <!-- </b-card-group> -->
       <b-tooltip
         target="inv-submit"
         :show="showErrorToolTip"
@@ -143,12 +128,12 @@
       >
         <translate
           translate-comment="%{start} and %{end} are a variables, translation is not required for them. Enter them, as they are while translation."
-          :translate-params="{ start: yearStart, end: yearEnd }"
+          :translate-params="{start: yearStart, end: yearEnd}"
         >
           Date must be within the Financial Year, from %{start} to %{end}
         </translate>
       </b-tooltip>
-      <hr />
+      <hr>
       <div class="float-right">
         <b-button
           class="m-1"
@@ -160,8 +145,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-left"
-          ></b-icon>
-          <span class="align-middle" v-translate>Back</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Back</span>
         </b-button>
         <b-button
           class="m-1"
@@ -173,8 +161,11 @@
             aria-hidden="true"
             class="align-middle mr-1"
             icon="arrow-repeat"
-          ></b-icon>
-          <span class="align-middle" v-translate>Reset</span>
+          />
+          <span
+            class="align-middle"
+            v-translate
+          >Reset</span>
         </b-button>
         <b-button
           id="inv-submit"
@@ -185,18 +176,24 @@
           variant="success"
         >
           <span>
-            <b-spinner v-if="isLoading" small></b-spinner>
+            <b-spinner
+              v-if="isLoading"
+              small
+            />
             <b-icon
               v-else
               aria-hidden="true"
               class="align-middle mr-1"
               icon="plus-square"
-            ></b-icon>
-            <span class="align-middle" v-translate>Create</span>
+            />
+            <span
+              class="align-middle"
+              v-translate
+            >Create</span>
           </span>
         </b-button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
     </b-form>
     <print-page
       :show="showPrintModal"
@@ -205,8 +202,7 @@
       :id="memoId"
       :pdata="{}"
       @hidden="showPrintModal = false"
-    >
-    </print-page>
+    />
   </b-container>
 </template>
 
@@ -220,10 +216,6 @@ import CashMemoDetails from '@/components/form/transaction_details/CashMemoDetai
 import BillTable from '@/components/form/transaction/BillTable.vue';
 import PaymentDetails from '@/components/form/transaction/PaymentDetails.vue';
 import TotalTable from '@/components/form/transaction/TotalTable.vue';
-// import PartyDetails from '@/components/form/transaction/PartyDetails.vue';
-// import Comments from '@/components/form/transaction/Comments.vue';
-// import TransportDetails from '@/components/form/transaction/TransportDetails.vue';
-
 import cashMemoConfig from '../../js/config/transaction/cashMemo';
 
 import PrintPage from '@/components/workflow/PrintPage.vue';
@@ -235,9 +227,6 @@ export default {
     Config,
     PaymentDetails,
     TotalTable,
-    // PartyDetails,
-    // Comments,
-    // TransportDetails,
     PrintPage,
   },
   data() {
@@ -261,10 +250,6 @@ export default {
           taxState: { id: null },
         },
         bill: [],
-        // party: {
-        //   state: { id: null },
-        // },
-        // transport: {},
         narration: null,
       },
       options: {
@@ -276,9 +261,6 @@ export default {
         bill: 0,
         totalTable: 0,
         payment: 0,
-        // party: 0,
-        // transport: 0,
-        // comments: 0,
       },
     };
   },
@@ -310,10 +292,10 @@ export default {
       if (newConf) {
         newConf.bill.footer.headingColspan =
           !!newConf.bill.index +
-            !!newConf.bill.product +
-            !!newConf.bill.hsn +
-            !!newConf.bill.qty +
-            !!newConf.bill.rate || 1;
+          !!newConf.bill.product +
+          !!newConf.bill.hsn +
+          !!newConf.bill.qty +
+          !!newConf.bill.rate || 1;
       } else {
         // In Hot Module Reloading during dev, the dynamic Vuex module does not get loaded and errors are printed in console.
         // This is because during HMR, the Invoice component gets loaded before old one can be destroyed, causing an error (https://github.com/vuejs/vue/issues/6518)
@@ -355,22 +337,21 @@ export default {
     isVat: (self) => self.isVatEnabled && self.form.taxType === 'vat',
     isGst: (self) => self.isGstEnabled && self.form.taxType === 'gst',
     isCgst: (self) => {
-      // debugger;
       if (
         self.isIndia &&
-          self.form.memo.state &&
-          (self.form.memo.taxState || self.form.party?.state)
+        self.form.memo.state &&
+        (self.form.memo.taxState || self.form.party?.state)
       ) {
         if (self.form.memo.taxState) {
           if (
             parseInt(self.form.memo.state.id) ===
-              parseInt(self.form.memo.taxState.id)
+            parseInt(self.form.memo.taxState.id)
           ) {
             return true;
           }
         } else if (
           parseInt(self.form.memo.state.id) ===
-            parseInt(self.form.party?.state.id)
+          parseInt(self.form.party?.state.id)
         ) {
           return true;
         }
@@ -391,47 +372,25 @@ export default {
       this.updateCounter.bill++;
       this.updateCounter.totalTable++;
       this.updateCounter.payment++;
-      // this.updateCounter.party++;
-      // this.updateCounter.transport++;
-      // this.updateCounter.comments++;
     },
     onComponentDataUpdate(payload) {
       switch (payload.name) {
-        case 'cash-memo-details':
-          {
-            Object.assign(this.form.memo, payload.data);
-            this.isInvDateValid = payload.options.isDateValid;
-            // debugger;
-            if (payload.options.bankDetails) {
-              this.options.orgDetails.bankDetails = payload.options.bankDetails;
-              this.setBankDetails();
-            }
-
-            // this.form.transport.date = this.form.memo.date;
-
-            this.goid = payload.data.godown || -1;
-
-            // this.updateCounter.transport++;
-            this.$forceUpdate();
+      case 'cash-memo-details':
+        {
+          Object.assign(this.form.memo, payload.data);
+          this.isInvDateValid = payload.options.isDateValid;
+          if (payload.options.bankDetails) {
+            this.options.orgDetails.bankDetails = payload.options.bankDetails;
+            this.setBankDetails();
           }
-          break;
-        // case 'party-details':
-        //   this.options.partyDetails = payload;
-        //   Object.assign(this.form.party, payload.data);
-
-        //   this.form.memo.taxState = payload.data.state;
-        //   this.setBankDetails();
-        //   // this.updateCounter.ship++;
-        //   this.updateCounter.memo++;
-        //   break;
-        case 'bill-table': {
-          Object.assign(this.form.bill, payload.data);
-          this.updateCounter.totalTable++;
+          this.goid = payload.data.godown || -1;
+          this.$forceUpdate();
         }
-        // break;
-        // case 'transport-details':
-        //   Object.assign(this.form.transport, payload.data);
-        //   break;
+        break;
+      case 'bill-table': {
+        Object.assign(this.form.bill, payload.data);
+        this.updateCounter.totalTable++;
+      }
       }
     },
     setBankDetails() {
@@ -462,7 +421,6 @@ export default {
         taxflag = 22;
       }
       let invoice = {
-        // dcid: null, // Has to be filled when Delivery Note is implemented. If no Deliver Note is available skip this property
         invoiceno: this.form.memo.no,
         invoicedate: this.form.memo.date,
         orgstategstin: this.form.memo.gstin || null,
@@ -497,7 +455,6 @@ export default {
       // === Bill data ===
       let contents = {};
       let stock = { items: {}, inout: invoice.inoutflag };
-      // let pricedetails = [];
       let tax = {};
       let cess = {};
       let av = {
@@ -538,13 +495,6 @@ export default {
         av.product[item.product.name] = parseFloat(taxable).toFixed(2);
         av.prodData[item.product.id] = parseFloat(taxable).toFixed(2);
         av.totaltaxable += taxable;
-
-        // pricedetails.push({
-        //   custid: this.form.party.name.id || '',
-        //   productcode: item.product.id,
-        //   inoutflag: invoice.inoutflag,
-        //   lastprice: item.rate,
-        // });
       });
 
       av.taxpayment = parseFloat(av.taxpayment).toFixed(2);
@@ -552,7 +502,6 @@ export default {
 
       Object.assign(invoice, {
         contents,
-        // pricedetails,
         tax,
         cess,
         av,
@@ -570,7 +519,6 @@ export default {
         };
       }
 
-      // console.log({ invoice, stock });
       return { invoice, stock };
     },
     initDelNotePayload() {
@@ -620,19 +568,6 @@ export default {
       // === Total Invoice price data ===
       delchal.delchaltotal = this.form.total.amount;
       delchal.totalinword = this.form.total.text;
-
-      // === Consignee data ===
-      // if (this.form.ship.name) {
-      //   delchal.consignee = {
-      //     consigneename: this.form.party.name || '',
-      //     tinconsignee: this.form.party.tin || '',
-      //     gstinconsignee: this.form.party.gstin || '',
-      //     consigneeaddress: this.form.party.addr || '',
-      //     consigneestate: this.form.party.state.name || null,
-      //     consigneestatecode: this.form.party.state.id || null,
-      //     consigneepincode: this.form.party.pin || '',
-      //   };
-      // }
 
       // === Bill data ===
       let contents = {};
@@ -702,7 +637,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -726,51 +660,51 @@ export default {
 
           if (resp.status === 200) {
             switch (resp.data.gkstatus) {
-              case 0:
-                {
-                  // success
+            case 0:
+              {
+                // success
 
-                  this.displayToast(
-                    this.$gettext(`Create Cash Memo Successfull!`),
-                    `Cash Memo saved with entry no. ${resp.data.invoiceid ||
-                      resp.data.gkresult ||
-                      resp.data.vchData.vchno}`,
-                    'success'
-                  );
+                this.displayToast(
+                  this.$gettext(`Create Cash Memo Successfull!`),
+                  `Cash Memo saved with entry no. ${resp.data.invoiceid ||
+                    resp.data.gkresult ||
+                    resp.data.vchData.vchno}`,
+                  'success'
+                );
 
-                  let log = {
-                    activity: `cash memo created: ${self.form.memo.no}`,
-                  };
-                  axios.post('/log', log);
+                let log = {
+                  activity: `cash memo created: ${self.form.memo.no}`,
+                };
+                axios.post('/log', log);
 
-                  this.memoId = resp.data.gkresult;
-                  this.resetForm();
-                  this.showPrintModal = true;
-                }
-                break;
-              case 1:
-                // Duplicate entry
-                this.displayToast(
-                  this.$gettext(`Create Cash Memo Failed!`),
-                  this.$gettext('Duplicate Entry, Check Cash Memo Id'),
-                  'warning'
-                );
-                break;
-              case 2:
-                // Unauthorized access
-                this.displayToast(
-                  this.$gettext(`Create Cash Memo Failed!`),
-                  this.$gettext('Unauthorized Access, Contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-                // Connection failed, Check inputs and try again
-                this.displayToast(
-                  this.$gettext(`Create Cash Memo Failed!`),
-                  this.$gettext('Please check your input and try again later'),
-                  'danger'
-                );
+                this.memoId = resp.data.gkresult;
+                this.resetForm();
+                this.showPrintModal = true;
+              }
+              break;
+            case 1:
+              // Duplicate entry
+              this.displayToast(
+                this.$gettext(`Create Cash Memo Failed!`),
+                this.$gettext('Duplicate Entry, Check Cash Memo Id'),
+                'warning'
+              );
+              break;
+            case 2:
+              // Unauthorized access
+              this.displayToast(
+                this.$gettext(`Create Cash Memo Failed!`),
+                this.$gettext('Unauthorized Access, Contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+              // Connection failed, Check inputs and try again
+              this.displayToast(
+                this.$gettext(`Create Cash Memo Failed!`),
+                this.$gettext('Please check your input and try again later'),
+                'danger'
+              );
             }
           }
         })
@@ -791,11 +725,6 @@ export default {
               this.delNote.id = resp.data.gkresult || null;
             }
             return resp.data.gkresult;
-          } else if (resp.data.gkstatus === 1) {
-            // let no = payload.delchaldata.dcno;
-            // let
-            // this.form.inv.delNoteNo = parseInt(no.split('/')[0])++;
-            // this.createDelNote();
           }
         })
         .catch(() => {
@@ -811,8 +740,6 @@ export default {
           if (resp.data.gkstatus === 0) {
             self.issuer = resp.data.gkresult.username;
             self.role = resp.data.gkresult.userroleName;
-          } else {
-            // User data not available, check again
           }
         })
         .catch((error) => {
@@ -828,15 +755,15 @@ export default {
       this.showPrintModal = false;
       let paymentMode;
       switch (this.defaultPaymentMode) {
-        case 'bank':
-          {
-            paymentMode = PAYMENT_TYPE['bank'];
-          }
-          break;
-        case 'cash':
-        default: {
-          paymentMode = PAYMENT_TYPE['cash'];
+      case 'bank':
+        {
+          paymentMode = PAYMENT_TYPE['bank'];
         }
+        break;
+      case 'cash':
+      default: {
+        paymentMode = PAYMENT_TYPE['cash'];
+      }
       }
       let type = this.form.type;
       this.form = {
@@ -924,10 +851,6 @@ export default {
     });
   },
   mounted() {
-    // Using non props to store these props, as these can be edited in the future
-    // this.formMode = this.mode;
-    // this.invoiceId = this.invid;
-    // this.initForm();
     this.fetchUserData();
     this.resetForm();
     this.form.taxType = this.defaultTaxMode;

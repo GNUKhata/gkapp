@@ -80,7 +80,7 @@
                     label-cols="2"
                     label-class="required"
                   >
-                    <GkDate
+                    <gk-date
                       id="bud-date-1"
                       :format="dateFormat"
                       v-model="form.from"
@@ -96,7 +96,7 @@
                     label-class="required"
                     :style="{minWidth: '180px'}"
                   >
-                    <GkDate
+                    <gk-date
                       id="bud-date-2"
                       :format="dateFormat"
                       :min="minDate"
@@ -550,7 +550,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -563,7 +562,6 @@ export default {
       const self = this;
       this.isLoading = true;
       const payload = this.initPayload();
-      // console.log(payload);
       let formMode = 'Create',
           method = 'post';
       if (this.isEditMode) {
@@ -572,7 +570,6 @@ export default {
       }
       axios({ method: method, url: '/budget', data: payload })
         .then((response) => {
-          // console.log(response)
           self.isLoading = false;
           switch (response.data.gkstatus) {
           case 0:
@@ -759,7 +756,6 @@ export default {
         .then((resp) => {
           if (resp.data.gkstatus === 0) {
             let details = resp.data.gkresult;
-            console.log(details);
             this.displayToast(
               this.$gettext(`Success!`),
               this.$gettext('Fetched Budget Details!'),

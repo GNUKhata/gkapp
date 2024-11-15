@@ -1,5 +1,8 @@
 <template>
-  <b-card border-variant="secondary" no-body>
+  <b-card
+    border-variant="secondary"
+    no-body
+  >
     <div class="p-2 p-md-3">
       <b v-translate> Attachments </b>
       <b-form-file
@@ -11,9 +14,9 @@
         placeholder="Choose a file / Drag & drop it here"
         drop-placeholder="Drop file here..."
         multiple
-      ></b-form-file>
+      />
       <p><b class="mt-2">Note: Please upload only JPEG, JPG, or PNG images</b></p>
-      <div class="clearfix"></div>
+      <div class="clearfix" />
       <div class="mt-2">
         <div
           class="m-1 d-inline-block text-center float-left position-relative"
@@ -28,14 +31,17 @@
             style="right: 0px"
             size="sm"
           >
-            <b-icon variant="danger" icon="trash"></b-icon>
+            <b-icon
+              variant="danger"
+              icon="trash"
+            />
           </b-button>
           <img
             style="height: 196px; box-sizing: border-box"
             @load="onAttachementPreviewLoad"
             :src="image"
             :alt="'Preview_' + index"
-          />
+          >
         </div>
       </div>
     </div>
@@ -100,13 +106,13 @@ export default {
           let images = [];
           let b64Requests = [];
           b64Requests = attachments.map((att) => getBase64(att));
-            Promise.all(b64Requests).then((b64Images) => {
-              images = b64Images.map((image) => {
-                let imageData = image.split(',')[1];
-                return `data:image/jpg;base64,${imageData}`;
-              });
-              self.form.attachments.push(...images);
+          Promise.all(b64Requests).then((b64Images) => {
+            images = b64Images.map((image) => {
+              let imageData = image.split(',')[1];
+              return `data:image/jpg;base64,${imageData}`;
             });
+            self.form.attachments.push(...images);
+          });
           this.fileValidationError = '';
         }
       }
@@ -123,7 +129,6 @@ export default {
       this.form.attachments.splice(index, 1);
     },
     onAttachementPreviewLoad(e) {
-      // console.log(e)
       if (e.target) {
         let height = e.target.height;
         let width = e.target.width;

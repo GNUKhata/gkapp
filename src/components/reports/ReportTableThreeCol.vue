@@ -29,14 +29,14 @@
             class="d-print-none"
             font-scale="0.7"
             :icon="data.detailsShowing ? 'dash' : 'arrows-fullscreen'"
-          ></b-icon>
+          />
           {{ data.value }}
         </b-button>
         <b-button
           size="sm"
           variant="link"
           class="p-0"
-          :to="{ path: `/ledger/${data.item.id}` }"
+          :to="{path: `/ledger/${data.item.id}`}"
           v-else-if="data.item.isAccount"
         >
           {{ data.value }}
@@ -73,7 +73,7 @@
               size="sm"
               variant="link"
               class="p-0"
-              :to="{ path: `/ledger/${data.item.id}` }"
+              :to="{path: `/ledger/${data.item.id}`}"
               v-if="data.item.isAccount"
             >
               {{ data.value }}
@@ -133,33 +133,34 @@
     </template>
   </b-table>
 </template>
+
 <script>
- export default {
-   name: 'ReportTableThreeCol',
-   props: {
-     items: [], // Vue bootstrap table items
-     fields: [], // Vue bootstrap table fields
-     tableName: String, // Table name (used to show/hide table head)
-     divideThousand: Boolean,
-     filterTable: { // Vue bootstrap filter-function
-       type: Object,
-       default: function () {
-         return {}
-       },
-     },
-   },
-   data() {
-     return {
-       tHeadClass: '',
-     }
-   },
-   methods: {
-     printPage() {
-       window.print();
-     },
-   },
-   mounted() {
-     this.tHeadClass = (this?.tableName === "pnl") ? 'd-none' : '';
-   },
- };
+export default {
+  name: 'ReportTableThreeCol',
+  props: {
+    items: {type: Array}, // Vue bootstrap table items
+    fields: {type: Array}, // Vue bootstrap table fields
+    tableName: String, // Table name (used to show/hide table head)
+    divideThousand: Boolean,
+    filterTable: { // Vue bootstrap filter-function
+      type: Object,
+      default: function () {
+        return {}
+      },
+    },
+  },
+  data() {
+    return {
+      tHeadClass: '',
+    }
+  },
+  methods: {
+    printPage() {
+      window.print();
+    },
+  },
+  mounted() {
+    this.tHeadClass = (this?.tableName === "pnl") ? 'd-none' : '';
+  },
+};
 </script>

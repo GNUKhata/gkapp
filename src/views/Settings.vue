@@ -1,9 +1,15 @@
 <template>
   <section class="container-fluid mt-2">
     <b-card no-body>
-      <b-tabs pills card :vertical="!mobileMode">
-        <b-tab title="General" active>
-          <!-- <b-card-text>Tab contents 1</b-card-text> -->
+      <b-tabs
+        pills
+        card
+        :vertical="!mobileMode"
+      >
+        <b-tab
+          title="General"
+          active
+        >
           <b-form @submit.prevent="saveConfig">
             <b-form-group
               label="Date Format"
@@ -12,14 +18,16 @@
               label-cols="3"
               label-size="sm"
             >
-              <template #label> <translate> Date Format </translate> </template>
+              <template #label>
+                <translate> Date Format </translate>
+              </template>
               <b-form-select
                 size="sm"
                 id="gs-t1-select-10"
                 v-model="conf.general.format.date"
                 :options="options.general.dateFormat"
-                :style="{ 'max-width': '200px' }"
-              ></b-form-select>
+                :style="{'max-width': '200px'}"
+              />
             </b-form-group>
             <b-form-group
               label="App Language"
@@ -35,23 +43,27 @@
                 size="sm"
                 id="gs-t1-select-20"
                 v-model="conf.general.default.locale"
-                :style="{ 'max-width': '200px' }"
+                :style="{'max-width': '200px'}"
               >
                 <b-form-select-option
                   v-for="(language, key) in $language.available"
                   :key="key"
                   :value="key"
-                  >{{ language }}</b-form-select-option
                 >
+                  {{ language }}
+                </b-form-select-option>
               </b-form-select>
             </b-form-group>
-            <b-button type="submit" size="sm" variant="success">
+            <b-button
+              type="submit"
+              size="sm"
+              variant="success"
+            >
               <translate> save </translate>
             </b-button>
           </b-form>
         </b-tab>
         <b-tab :title="$gettext('Transaction')">
-          <!-- <b-card-text>Tab contents 2</b-card-text> -->
           <b-form @submit.prevent="saveConfig">
             <b-form-group
               label="Payment Mode"
@@ -68,8 +80,8 @@
                 id="gs-t2-select-10"
                 v-model="conf.transaction.default.payment"
                 :options="options.transaction.paymentMode"
-                :style="{ 'max-width': '200px' }"
-              ></b-form-select>
+                :style="{'max-width': '200px'}"
+              />
             </b-form-group>
             <b-form-group
               label="Default Godown"
@@ -86,8 +98,8 @@
                 id="gs-t2-select-30"
                 v-model="conf.transaction.default.godown"
                 :options="options.transaction.godowns"
-                :style="{ 'max-width': '200px' }"
-              ></b-form-select>
+                :style="{'max-width': '200px'}"
+              />
             </b-form-group>
             <b-form-group
               label="Allow Negative Stock"
@@ -104,8 +116,7 @@
               <b-form-checkbox
                 switch
                 v-model="conf.transaction.default.allowNegativeStock"
-              >
-              </b-form-checkbox>
+              />
             </b-form-group>
             <b-form-group
               label="Use contact ledgers to track transactions"
@@ -119,7 +130,7 @@
                   Use contact ledgers to track transactions
                 </translate>
                 <div v-b-modal.m1>
-                  <b-icon icon="question-circle"></b-icon>
+                  <b-icon icon="question-circle" />
                 </div>
                 <b-modal
                   id="m1"
@@ -142,10 +153,13 @@
               <b-form-checkbox
                 switch
                 v-model="conf.transaction.default.partyVoucherFlag"
-              >
-              </b-form-checkbox>
+              />
             </b-form-group>
-            <b-button type="submit" size="sm" variant="success">
+            <b-button
+              type="submit"
+              size="sm"
+              variant="success"
+            >
               <translate> save </translate>
             </b-button>
           </b-form>
@@ -153,23 +167,25 @@
         <b-tab
           :title="$gettext('Organisation')"
           @click="$router.push('/orgprofile')"
-        ></b-tab>
-        <b-tab title="Manage Users" @click="$router.push('/users')"></b-tab>
+        />
+        <b-tab
+          title="Manage Users"
+          @click="$router.push('/users')"
+        />
         <b-tab
           :title="$gettext('Import Data')"
           @click="$router.push('/data/import')"
-        ></b-tab>
+        />
         <b-tab
           :title="$gettext('Export Data')"
           @click="$router.push('/data/export')"
-        ></b-tab>
+        />
       </b-tabs>
     </b-card>
   </section>
 </template>
 
 <script>
-// import axios from 'axios';
 import { mapState } from 'vuex';
 import { debounceEvent } from '../js/utils.js';
 
@@ -255,4 +271,5 @@ export default {
   },
 };
 </script>
+
 <style scoped></style>

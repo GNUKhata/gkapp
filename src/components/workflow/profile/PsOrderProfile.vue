@@ -1,50 +1,78 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <b-row>
-      <b-col order="2" order-md="1">
-        <b-container fluid class="pl-0">
+      <b-col
+        order="2"
+        order-md="1"
+      >
+        <b-container
+          fluid
+          class="pl-0"
+        >
           <b-col class="px-0">
-            <b v-if="party.isCustomer" v-translate> Customer Details </b>
-            <b v-else v-translate> Supplier Details </b>
+            <b
+              v-if="party.isCustomer"
+              v-translate
+            > Customer Details </b>
+            <b
+              v-else
+              v-translate
+            > Supplier Details </b>
             <p class="text-small">
               <span>
                 <router-link :to="`/ledger/${custid}`">{{ party.name }}</router-link>
-              </span><br />
-              <span> {{ party.addr }} </span> <br />
-              <span> {{ party.state }} </span> <br />
+              </span><br>
+              <span> {{ party.addr }} </span> <br>
+              <span> {{ party.state }} </span> <br>
               <span v-if="party.pin"> <b v-translate> Postal Code: </b> {{ party.pin }} </span>
-              <br />
+              <br>
               <span v-if="psorder.isGst">
                 <b>GSTIN: </b>{{ party.gstin }}
               </span>
               <span v-if="psorder.isVat">
                 <b>TIN: </b>{{ party.tin }}
               </span>
-              <br />
+              <br>
             </p>
           </b-col>
           <b-col class="px-0">
             <b v-translate> Delivery Details </b>
             <p class="text-small">
-              <span> {{ shipping.name }} </span> <br />
-              <span> {{ shipping.addr }} </span> <br />
-              <span> {{ shipping.state }} </span> <br />
+              <span> {{ shipping.name }} </span> <br>
+              <span> {{ shipping.addr }} </span> <br>
+              <span> {{ shipping.state }} </span> <br>
               <span v-if="shipping.pin"> <b v-translate> Postal Code: </b> {{ shipping.pin }} </span>
-              <br />
+              <br>
               <span v-if="shipping.gstin && psorder.isGst">
                 <b>GSTIN: </b>{{ shipping.gstin }}
               </span>
-              <br />
+              <br>
             </p>
           </b-col>
-          <br class="d-none d-md-block" />
+          <br class="d-none d-md-block">
         </b-container>
       </b-col>
-      <b-col class="text-md-right" cols="12" md="6" order="1" order-md="2">
-        <b v-translate v-if="saleFlag"> Sale Order Details </b>
-        <b v-translate v-else> Purchase Order Details </b>
+      <b-col
+        class="text-md-right"
+        cols="12"
+        md="6"
+        order="1"
+        order-md="2"
+      >
+        <b
+          v-translate
+          v-if="saleFlag"
+        > Sale Order Details </b>
+        <b
+          v-translate
+          v-else
+        > Purchase Order Details </b>
         <!-- Note Details Table -->
         <b-table-lite
           :fields="['title', 'value']"
@@ -54,7 +82,7 @@
           thead-class="d-none"
           fixed
           class="text-small table-border-dark"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <!-- Content Table -->
@@ -69,45 +97,71 @@
       striped
       class="text-small table-border-dark"
     >
-    <template #cell(name)="data">
-      <template v-if="data.item.gsflag === 7">
-        <router-link
-          :to="`/product-register?product_id=${data.item.productcode}&current_date=${toDate}&goid=${data.item.goid}`"
-        >
-          {{ data.item.name }}
-        </router-link>
+      <template #cell(name)="data">
+        <template v-if="data.item.gsflag === 7">
+          <router-link
+            :to="`/product-register?product_id=${data.item.productcode}&current_date=${toDate}&goid=${data.item.goid}`"
+          >
+            {{ data.item.name }}
+          </router-link>
+        </template>
+        <template v-else>
+          <span>{{ data.item.name }}</span>
+        </template>
       </template>
-      <template v-else>
-        <span>{{ data.item.name }}</span>
-      </template>
-    </template>
     </b-table-lite>
     <b-row>
-      <b-col class="my-2" order="2" order-md="1"> </b-col>
-      <b-col cols="12" md="8" class="my-2" order="1" order-md="2">
+      <b-col
+        class="my-2"
+        order="2"
+        order-md="1"
+      />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+        order="1"
+        order-md="2"
+      >
         <!-- Total Table -->
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            { key: 'title', label: 'Total', tdClass: '' },
-            { key: 'value', label: '₹', class: 'text-right' },
+            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'value', label: '₹', class: 'text-right'},
           ]"
           small
           fixed
           class="text-small"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="my-2"> </b-col>
-      <b-col cols="12" md="8" class="my-2">
+      <b-col class="my-2" />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+      >
         <div>
           <b v-translate> Payment Details </b>
-          <div v-if="payment.mode > 2" class="mb-3">
-            <span v-translate v-if="payment.mode === 3"> Paid By Cash </span>
-            <span v-translate v-else> On Credit </span>
+          <div
+            v-if="payment.mode > 2"
+            class="mb-3"
+          >
+            <span
+              v-translate
+              v-if="payment.mode === 3"
+            > Paid By Cash </span>
+            <span
+              v-translate
+              v-else
+            > On Credit </span>
           </div>
-          <div class="text-small" v-else>
+          <div
+            class="text-small"
+            v-else
+          >
             <translate> To Be Paid By Bank Transfer </translate>
             <b-table-lite
               :items="bankDetails"
@@ -116,8 +170,7 @@
               bordered
               fixed
               thead-class="d-none"
-            >
-            </b-table-lite>
+            />
           </div>
         </div>
         <b v-translate> Narration: </b> {{ psorder.narration }}
@@ -231,7 +284,7 @@ export default {
           value: self.total.roundoffflag ? Math.round(self.total.amount).toFixed(2) : self.total.amount,
         },
         { title: self.$gettext('Total In Words'),
-         value: self.total.roundoffflag ? numberToRupees(Math.round(self.total.amount)) : numberToRupees(self.total.amount),
+          value: self.total.roundoffflag ? numberToRupees(Math.round(self.total.amount)) : numberToRupees(self.total.amount),
         }
       );
       return total;
@@ -371,12 +424,12 @@ export default {
         });
       }
       axios.get(`/accounts?type=getAccCode&accountname=${this.party.name}`)
-      .then(response => {
-        this.custid = response.data.accountcode;
-      })
-      .catch(error => {
-        this.error = 'Failed to load data: ' + error.message;
-      });
+        .then(response => {
+          this.custid = response.data.accountcode;
+        })
+        .catch(error => {
+          this.error = 'Failed to load data: ' + error.message;
+        });
     },
     getDetails() {
       return axios
@@ -394,42 +447,39 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            // this.invoice = response.data.gkresult;
-            // this.formatInvoiceDetails(response.data.gkresult);
-            // this.output = response.data.gkresult;
-            this.formatDetails(response.data.gkresult);
-            break;
-          case 2:
-            {
-              let title = this.saleFlag
-                ? this.$gettext('Fetch sale order error')
-                : this.$gettext('Fetch purchase order error');
-              this.$bvToast.toast(
-                this.$gettext(`Unauthorized access, Please contact admin`),
-                {
-                  title: title,
-                  autoHideDelay: 3000,
-                  variant: 'warning',
-                  appendToast: true,
-                  solid: true,
-                }
-              );
-            }
-            break;
-          default:
+        case 0:
+          this.formatDetails(response.data.gkresult);
+          break;
+        case 2:
+          {
+            let title = this.saleFlag
+              ? this.$gettext('Fetch sale order error')
+              : this.$gettext('Fetch purchase order error');
             this.$bvToast.toast(
-              this.$gettext(
-                `Unable to Fetch Purchase Sales Order Details! Please Try after sometime.`
-              ),
+              this.$gettext(`Unauthorized access, Please contact admin`),
               {
-                title: this.$gettext(`Fetch Transaction Details Error!`),
+                title: title,
                 autoHideDelay: 3000,
                 variant: 'warning',
                 appendToast: true,
                 solid: true,
               }
             );
+          }
+          break;
+        default:
+          this.$bvToast.toast(
+            this.$gettext(
+              `Unable to Fetch Purchase Sales Order Details! Please Try after sometime.`
+            ),
+            {
+              title: this.$gettext(`Fetch Transaction Details Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
         } // end switch
       });
     },
@@ -437,7 +487,6 @@ export default {
   watch: {
     id: function(id) {
       if (id && parseInt(id) > -1) {
-        console.log(`Fetch id = ${id}`);
         this.isPreloading = true;
         this.fetchAndUpdateData()
           .then(() => {

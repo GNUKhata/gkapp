@@ -13,23 +13,23 @@
         required
         aria-label="Password input"
         :placeholder="placeholder"
-      >
-      </b-form-input>
-      <b-input-group-append
-        ><b-button
+      />
+      <b-input-group-append>
+        <b-button
           @click="toggleVisibility"
           :size="size"
           class="ml-1"
           variant="light"
-          ><b-icon :icon="field.icon"></b-icon></b-button
-      ></b-input-group-append>
+        >
+          <b-icon :icon="field.icon" />
+        </b-button>
+      </b-input-group-append>
     </b-input-group>
   </b-form-group>
 </template>
 
 <script>
 import { passwordStrength } from 'check-password-strength';
-// import sha512 from 'crypto-js/sha512';
 
 export default {
   name: 'Password',
@@ -40,12 +40,12 @@ export default {
   props: {
     size: String,
     passwordHint: {
-      value: Boolean,
+      type: Boolean,
       required: false,
       default: true,
     },
     placeholder: {
-      value: String,
+      type: String,
       required: false,
     },
   },

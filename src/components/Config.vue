@@ -1,7 +1,10 @@
 <template>
   <div class="d-inline-block">
-    <b-button size="sm" @click="openModal()">
-      <b-icon icon="gear"></b-icon>
+    <b-button
+      size="sm"
+      @click="openModal"
+    >
+      <b-icon icon="gear" />
     </b-button>
     <b-modal
       v-model="showModal"
@@ -13,9 +16,16 @@
       id="config-modal"
       :title="title || 'Page Configuration'"
     >
-      <b-container fluid :style="{ minWidth: '300px' }">
+      <b-container
+        fluid
+        :style="{minWidth: '300px'}"
+      >
         <b-row>
-          <b-col cols="12" md="6" class="mb-1 pr-md-2">
+          <b-col
+            cols="12"
+            md="6"
+            class="mb-1 pr-md-2"
+          >
             <b v-translate>Custom Config</b>
             <b-form-textarea
               v-model="customConfig"
@@ -26,16 +36,28 @@
                 'border-danger': isFormatError,
                 'border-success': isFormatSuccess,
               }"
-              :style="{ height: '300px', maxHeight: '300px' }"
-            ></b-form-textarea>
-            <div :style="{ fontSize: '0.8rem' }" v-if="isFormatError">
-              <b-icon icon="x-circle-fill" variant="danger"></b-icon>
+              :style="{height: '300px', maxHeight: '300px'}"
+            />
+            <div
+              :style="{fontSize: '0.8rem'}"
+              v-if="isFormatError"
+            >
+              <b-icon
+                icon="x-circle-fill"
+                variant="danger"
+              />
               <translate>
                 JSON validation error! Fix your JSON structure and try again.
               </translate>
             </div>
-            <div :style="{ fontSize: '0.8rem' }" v-if="isFormatSuccess">
-              <b-icon icon="check-circle-fill" variant="success"></b-icon>
+            <div
+              :style="{fontSize: '0.8rem'}"
+              v-if="isFormatSuccess"
+            >
+              <b-icon
+                icon="check-circle-fill"
+                variant="success"
+              />
               <translate> Configuration validated successfully! </translate>
             </div>
           </b-col>
@@ -51,18 +73,22 @@
             <b v-translate>Validated Config</b>
             <div
               class="border border-dark h-100 rounded overflow-auto p-1 position-relative"
-              :style="{ height: '300px', maxHeight: '300px' }"
+              :style="{height: '300px', maxHeight: '300px'}"
             >
-              <b-overlay :show="isFormatting" variant="secondary" no-wrap blur>
-              </b-overlay>
+              <b-overlay
+                :show="isFormatting"
+                variant="secondary"
+                no-wrap
+                blur
+              />
               <pre>{{ formattedConfig }}</pre>
             </div>
           </b-col>
         </b-row>
-        <hr class="my-2" />
+        <hr class="my-2">
         <b-button
           class="mx-1"
-          @click="editDefault()"
+          @click="editDefault"
           size="sm"
           variant="primary"
         >
@@ -72,7 +98,7 @@
           size="sm"
           variant="warning"
           class="mx-1"
-          @click="formatConfig()"
+          @click="formatConfig"
         >
           <translate> Validate </translate>
         </b-button>
@@ -80,7 +106,7 @@
           class="float-right"
           size="sm"
           variant="success"
-          @click="confirmOnSave()"
+          @click="confirmOnSave"
         >
           <translate> Save </translate>
         </b-button>
@@ -146,7 +172,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -159,7 +184,6 @@ export default {
       this.showModal = true;
       this.formattedConfig = {};
       this.customConfig = JSON.stringify(this.getCustomConfig, undefined, 2);
-      // console.log(this.getCustomConfig)
       this.isFormatError = false;
       this.isFormatSuccess = false;
       this.isFormatting = false;
@@ -243,7 +267,7 @@ export default {
       } catch (error) {
         this.isFormatError = true;
         this.isFormatSuccess = false;
-        console.log('JSON format is not correct');
+        console.error('JSON format is not correct');
         custom = {};
         this.formattedConfig = JSON.stringify({}, undefined, 2);
       }

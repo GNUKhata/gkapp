@@ -8,13 +8,17 @@
     >
       <autocomplete
         :options="orgList"
-        textField="yearstart"
-        valueField="orgcode"
+        text-field="yearstart"
+        value-field="orgcode"
         placeholder="Select year"
-      ></autocomplete>
-      <b-button size="sm" variant="success" class="mt-3 float-right">
-        <b-icon icon="eye-fill"></b-icon> View</b-button
+      />
+      <b-button
+        size="sm"
+        variant="success"
+        class="mt-3 float-right"
       >
+        <b-icon icon="eye-fill" /> View
+      </b-button>
     </b-card>
   </section>
 </template>

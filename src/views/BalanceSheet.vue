@@ -2,20 +2,24 @@
   <section class="m-2">
     <b-overlay :show="isLoading">
       <!-- TODO: rm this alert when fixed -->
-      <b-alert show variant="warning" class="container mt-2"
-        ><b>NOTE:</b> Some data presented in this report is incorrect. We are
-        working on fixing the issue.</b-alert
+      <b-alert
+        show
+        variant="warning"
+        class="container mt-2"
       >
+        <b>NOTE:</b> Some data presented in this report is incorrect. We are
+        working on fixing the issue.
+      </b-alert>
       <b-card
         class="gkcard mx-auto"
         header-bg-variant="dark"
         header-text-variant="light"
       >
         <template #header>
-          <gk-cardheader
+          <gk-card-header
             v-if="orgType == 'Profit Making'"
             :name="$gettext('Balance Sheet Statement')"
-            helpBody="Statement of Affairs / Balance Sheet
+            help-body="Statement of Affairs / Balance Sheet
 This report can be seen in two formats, namely, Conventional and Vertical.
 The Vertical format is also called Sources and Application of Funds. The period for this report must begin with the first date of the Financial Year and can end on any date.
 In the Conventional format assets are shown on right side and capital and liabilities on the left side. In the Vertical format capital & liabilities are shown in the upper part and assets are shown in the lower part. Operators cannot view this report. Besides this report you can also see a Consolidated Balance Sheet of holding and subsidiary organizations. For this select Consolidated Final Accounts from the drop down of the report menu.
@@ -25,12 +29,12 @@ GNUKhata provides an easy and quick way of doing this.
 The user will be asked to select a Holding Company and its subsidiary company(s).
 All these organizations must be of the same Type and must have the same Financial Year.
 Note that this is a consolidated report generated from organizations which are separately created in GNUKhata and no changes in the accounts of these organizations will take place. Operators cannot view this report."
-          ></gk-cardheader>
+          />
 
-          <gk-cardheader
+          <gk-card-header
             v-else
             name="Statement Of Affairs"
-            helpBody="Statement of Affairs / Balance Sheet
+            help-body="Statement of Affairs / Balance Sheet
 This report can be seen in two formats, namely, Conventional and Vertical.
 The Vertical format is also called Sources and Application of Funds. The period for this report must begin with the first date of the Financial Year and can end on any date.
 In the Conventional format assets are shown on right side and capital and liabilities on the left side. In the Vertical format capital & liabilities are shown in the upper part and assets are shown in the lower part. Operators cannot view this report. Besides this report you can also see a Consolidated Balance Sheet of holding and subsidiary organizations. For this select Consolidated Final Accounts from the drop down of the report menu.
@@ -40,17 +44,38 @@ GNUKhata provides an easy and quick way of doing this.
 The user will be asked to select a Holding Company and its subsidiary company(s).
 All these organizations must be of the same Type and must have the same Financial Year.
 Note that this is a consolidated report generated from organizations which are separately created in GNUKhata and no changes in the accounts of these organizations will take place. Operators cannot view this report."
-          ></gk-cardheader>
+          />
         </template>
         <b-form @submit.prevent="getReport">
-          <b-form-group label="From" label-align="right" content-cols="8">
-            <gk-date id="fromdate" v-model="fromDate"></gk-date>
+          <b-form-group
+            label="From"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="fromdate"
+              v-model="fromDate"
+            />
           </b-form-group>
-          <b-form-group label="To" label-align="right" content-cols="8">
-            <gk-date id="todate" v-model="toDate"></gk-date>
+          <b-form-group
+            label="To"
+            label-align="right"
+            content-cols="8"
+          >
+            <gk-date
+              id="todate"
+              v-model="toDate"
+            />
           </b-form-group>
-          <b-button variant="success" class="float-right" type="submit"
-            ><b-icon class="mr-1" icon="cloud-arrow-up"></b-icon>
+          <b-button
+            variant="success"
+            class="float-right"
+            type="submit"
+          >
+            <b-icon
+              class="mr-1"
+              icon="cloud-arrow-up"
+            />
             <translate>Get Details</translate>
           </b-button>
         </b-form>
@@ -58,12 +83,21 @@ Note that this is a consolidated report generated from organizations which are s
       <!--     {{ result }} -->
       <report-header>
         <div class="text-center">
-          <b v-if="orgType == 'Profit Making'" v-translate>Balance Sheet</b>
-          <b v-else v-translate>Statement Of Affairs</b>for the period
+          <b
+            v-if="orgType == 'Profit Making'"
+            v-translate
+          >Balance Sheet</b>
+          <b
+            v-else
+            v-translate
+          >Statement Of Affairs</b>for the period
           {{ fromDate }} to
           {{ toDate }}
-          <br />
-          <small v-if="hideZeroFilter" v-translate>
+          <br>
+          <small
+            v-if="hideZeroFilter"
+            v-translate
+          >
             "Hide Zero Value Rows" Filter has been applied
           </small>
         </div>
@@ -87,17 +121,23 @@ Note that this is a consolidated report generated from organizations which are s
           variant="link"
           @click="printPage"
         >
-          <b-icon class="align-middle" icon="printer"></b-icon>
+          <b-icon
+            class="align-middle"
+            icon="printer"
+          />
         </b-button>
         <gk-file-download
           :url="downloadUrl"
-          :fileName="downloadFileName"
-          fileExtn=".xlsx"
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          :file-name="downloadFileName"
+          file-extn=".xlsx"
+          :message-from-parent="parentMessage"
+        />
       </div>
       <b-row class="row text-small">
-        <b-col cols="12" md="6">
+        <b-col
+          cols="12"
+          md="6"
+        >
           <b-table
             striped
             small
@@ -139,14 +179,14 @@ Note that this is a consolidated report generated from organizations which are s
                     font-scale="0.7"
                     :icon="data.item.isOpen ? 'dash' : 'arrows-fullscreen'"
                     v-if="!data.item.isAccount && data.item.hasChildren"
-                  ></b-icon>
+                  />
                   {{ data.value }}
                 </b-button>
                 <b-button
                   size="sm"
                   variant="link"
                   class="p-0"
-                  :to="{ path: `/ledger/${data.item.groupAcccode}` }"
+                  :to="{path: `/ledger/${data.item.groupAcccode}`}"
                   v-else-if="data.item.isAccount"
                 >
                   {{ data.value }}
@@ -193,7 +233,10 @@ Note that this is a consolidated report generated from organizations which are s
             </template>
           </b-table>
         </b-col>
-        <b-col cols="12" md="6">
+        <b-col
+          cols="12"
+          md="6"
+        >
           <b-table
             :items="bsheet.right"
             :fields="tableFields"
@@ -235,7 +278,7 @@ Note that this is a consolidated report generated from organizations which are s
                     font-scale="0.7"
                     :icon="data.item.isOpen ? 'dash' : 'arrows-fullscreen'"
                     v-if="!data.item.isAccount && data.item.hasChildren"
-                  ></b-icon>
+                  />
                   {{ data.value }}
                 </b-button>
                 <span
@@ -247,7 +290,7 @@ Note that this is a consolidated report generated from organizations which are s
                   size="sm"
                   variant="link"
                   class="p-0"
-                  :to="{ path: `/ledger/${data.item.groupAcccode}` }"
+                  :to="{path: `/ledger/${data.item.groupAcccode}`}"
                   v-else-if="data.item.isAccount"
                 >
                   {{ data.value }}
@@ -302,12 +345,12 @@ Note that this is a consolidated report generated from organizations which are s
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import GkCardheader from '../components/GkCardheader.vue';
+import GkCardHeader from '../components/GkCardHeader.vue';
 import GkDate from '../components/GkDate.vue';
 import ReportHeader from '../components/ReportHeader.vue';
 import GkFileDownload from '@/components/GkFileDownload.vue';
 export default {
-  components: { GkCardheader, GkDate, ReportHeader, GkFileDownload },
+  components: { GkCardHeader, GkDate, ReportHeader, GkFileDownload },
   name: 'BalanceSheet',
   data() {
     return {
@@ -417,8 +460,8 @@ export default {
       let map = {};
       report.forEach((item, index) => {
         let isGroup = !(!!item.subgroupof || !!item.accountof),
-          isSubGroup = !!item.subgroupof && !item.accountof,
-          isAccount = !!item.accountof;
+            isSubGroup = !!item.subgroupof && !item.accountof,
+            isAccount = !!item.accountof;
 
         // ignore empty buffer rows
         if (item.amount === '') return;
@@ -458,53 +501,53 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                {
-                  let report = r.data.gkresult;
-                  report.leftlist.shift();
-                  report.rightlist.shift();
-                  self.bsheet = {
-                    left: self.formatReport(report.leftlist),
-                    right: self.formatReport(report.rightlist),
-                  };
-                }
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              {
+                let report = r.data.gkresult;
+                report.leftlist.shift();
+                report.rightlist.shift();
+                self.bsheet = {
+                  left: self.formatReport(report.leftlist),
+                  right: self.formatReport(report.rightlist),
+                };
+              }
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           }
           this.isLoading = false;
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           this.isLoading = false;
         });
     },
@@ -516,6 +559,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .text-small {
   font-size: 0.9rem;

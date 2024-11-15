@@ -8,7 +8,7 @@
       ref="canvas"
       style="border: 1px solid black; background-color: antiquewhite"
       class="ml-2"
-    ></canvas>
+    />
     <b-icon
       class="ml-3 mt-2"
       @click="audioCaptcha"
@@ -18,7 +18,7 @@
       title="Audio Captcha"
       aria-label="audio question button"
       scale="1.5x"
-    ></b-icon>
+    />
     <b-icon
       class="ml-3 mt-2"
       @click="newCaptcha"
@@ -28,7 +28,7 @@
       title="Generate New Captcha"
       aria-label="generate new captcha button"
       scale="1.3x"
-    ></b-icon>
+    />
   </b-form-row>
 </template>
 
@@ -45,10 +45,12 @@ export default {
       note: 'this prop gets the answer',
     },
     width: {
+      type: Number,
       default: 90,
       note: 'Canvas Width (optional). Default is 90',
     },
     height: {
+      type: Number,
       default: 30,
       note: 'Canvas height (optional), Default is 30',
     },

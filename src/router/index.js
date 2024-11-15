@@ -322,7 +322,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "dashboard" */ "../views/dashboard/Main.vue"),
+      import(/* webpackChunkName: "dashboard" */ "../views/dashboard/Dashboard.vue"),
   },
   {
     meta: {
@@ -730,7 +730,7 @@ const routes = [
     path: "/gst/3b",
     name: "GST 3B Report",
     component: () =>
-      import(/* webpackChunkName: "gst-3b" */ "../views/gst/3B/Main.vue"),
+      import(/* webpackChunkName: "gst-3b" */ "../views/gst/3B/3B.vue"),
   },
   {
     meta: {
@@ -798,7 +798,7 @@ const routes = [
     name: "Report Bug",
     component: () =>
       import(
-        /* webpackChunkName: "gstnews-single-post" */ "../views/report-bug/Main.vue"
+        /* webpackChunkName: "gstnews-single-post" */ "../views/report-bug/ReportBug.vue"
       ),
   },
 ];
@@ -816,7 +816,6 @@ router.beforeEach((to, _from, next) => {
     if (userOrgAuthStatus !== "true") {
       next({ name: "User Login" });
     } else {
-      // console.log('Auth succeeded')
       next();
     }
   } else {

@@ -1,44 +1,63 @@
 <template>
   <section class="m-2">
-    <h3 class="text-center" v-translate>Accounts</h3>
+    <h3
+      class="text-center"
+      v-translate
+    >
+      Accounts
+    </h3>
     <gk-toolbar>
       <b-button
         class="float-right p-1"
-        :class="{ 'mb-2': showSearchBar }"
+        :class="{'mb-2': showSearchBar}"
         variant="link"
         @click="showSearchBar = !showSearchBar"
       >
-        <b-icon icon="funnel"></b-icon>
+        <b-icon icon="funnel" />
       </b-button>
       <gk-file-download
         file-suffix="AccountList"
         :font-scale="1"
         :url="
           `/accounts/spreadsheet?fystart=${this.dateReverse(
-            this.yearStart
+            this.yearStart,
           )}&fyend=${this.dateReverse(this.yearEnd)}&orgname=${
             this.orgName
           }&orgtype=${this.orgType}`
         "
         title="Download Account List"
-        :commonParams="false"
-        :messageFromParent="parentMessage"
-      ></gk-file-download>
+        :common-params="false"
+        :message-from-parent="parentMessage"
+      />
     </gk-toolbar>
-    <div class="clearfix"></div>
-    <b-collapse v-model="showSearchBar" id="search-bar">
+    <div class="clearfix" />
+    <b-collapse
+      v-model="showSearchBar"
+      id="search-bar"
+    >
       <b-card body-class="py-2">
-        <div :class="{ 'mb-3': showSearchBar }">
-          <h6 class="d-inline-block" v-translate>Filter By</h6>
+        <div :class="{'mb-3': showSearchBar}">
+          <h6
+            class="d-inline-block"
+            v-translate
+          >
+            Filter By
+          </h6>
         </div>
         <b-row>
-          <b-col class="px-1" cols="12" md="4">
+          <b-col
+            class="px-1"
+            cols="12"
+            md="4"
+          >
             <b-form-group
               label-for="search-by-group"
               label="Group"
               label-class="label-on-input"
             >
-              <template #label> <translate> Group </translate> </template>
+              <template #label>
+                <translate> Group </translate>
+              </template>
               <v-select
                 id="search-by-group"
                 v-model="searchBy.group"
@@ -46,17 +65,22 @@
                 label="text"
                 :reduce="(gdata) => gdata.value"
                 @input="openSearchedCard(!!searchBy.group, null, null)"
-              >
-              </v-select>
+              />
             </b-form-group>
           </b-col>
-          <b-col class="px-1" cols="12" md="4">
+          <b-col
+            class="px-1"
+            cols="12"
+            md="4"
+          >
             <b-form-group
               label-for="search-by-sub-group"
               label="Sub Group"
               label-class="label-on-input"
             >
-              <template #label> <translate> Sub Group </translate> </template>
+              <template #label>
+                <translate> Sub Group </translate>
+              </template>
               <v-select
                 id="search-by-sub-group"
                 v-model="searchBy.subGroup"
@@ -64,18 +88,23 @@
                 @input="openSearchedCard(null, !!searchBy.subGroup, null)"
                 label="text"
                 :reduce="(sgdata) => sgdata.value"
-                :resetOnOptionsChange="true"
-              >
-              </v-select>
+                :reset-on-options-change="true"
+              />
             </b-form-group>
           </b-col>
-          <b-col class="px-1" cols="12" md="4">
+          <b-col
+            class="px-1"
+            cols="12"
+            md="4"
+          >
             <b-form-group
               label-for="search-by-account"
               label="Account"
               label-class="label-on-input"
             >
-              <template #label> <translate> Account </translate> </template>
+              <template #label>
+                <translate> Account </translate>
+              </template>
               <v-select
                 id="search-by-account"
                 v-model="searchBy.account"
@@ -83,16 +112,18 @@
                 @input="openSearchedCard(null, null, !!searchBy.account)"
                 label="text"
                 :reduce="(accdata) => accdata.value"
-                :resetOnOptionsChange="true"
-              >
-              </v-select>
+                :reset-on-options-change="true"
+              />
             </b-form-group>
           </b-col>
         </b-row>
       </b-card>
     </b-collapse>
 
-    <u><small class="ml-2" v-translate>Groups</small></u>
+    <u><small
+      class="ml-2"
+      v-translate
+    >Groups</small></u>
     <b-container fluid>
       <b-row>
         <b-col
@@ -101,30 +132,41 @@
           v-for="(gdata, gname) in options.accData"
           :key="gdata.id"
           class="p-1"
-          :class="{ 'd-none': !gdata.show }"
+          :class="{'d-none': !gdata.show}"
         >
           <b-card
             v-if="gdata.show"
             body-class="p-2 bg-dark-grey"
             class="shadow-sm"
           >
-            <div class="acc-card-header" v-b-toggle="`g-${gdata.id}`">
-              <h4 class="d-inline-block">{{ gname }}</h4>
+            <div
+              class="acc-card-header"
+              v-b-toggle="`g-${gdata.id}`"
+            >
+              <h4 class="d-inline-block">
+                {{ gname }}
+              </h4>
               <b-icon
                 class="float-right"
                 font-scale="0.7"
                 :icon="gdata.open ? 'dash' : 'arrows-fullscreen'"
-              ></b-icon>
+              />
             </div>
             <div v-if="!gdata.open">
-              <small>Sub-Groups: {{ gdata.subCount }}</small> <br />
+              <small>Sub-Groups: {{ gdata.subCount }}</small> <br>
               <small>Accounts: {{ gdata.accCount }}</small>
             </div>
-            <b-collapse :id="`g-${gdata.id}`" v-model="gdata.open">
+            <b-collapse
+              :id="`g-${gdata.id}`"
+              v-model="gdata.open"
+            >
               <u>
                 <small>Sub-Groups: {{ gdata.subCount }}</small>
               </u>
-              <b-container class="mt-1" fluid>
+              <b-container
+                class="mt-1"
+                fluid
+              >
                 <b-row>
                   <b-col
                     cols="12"
@@ -132,7 +174,7 @@
                     class="p-1"
                     v-for="(sgdata, sgname) in gdata.subGroups"
                     :key="sgdata.id"
-                    :class="{ 'd-none': !sgdata.show }"
+                    :class="{'d-none': !sgdata.show}"
                   >
                     <b-card
                       v-if="sgdata.show"
@@ -143,14 +185,16 @@
                         class="acc-card-header"
                         v-b-toggle="`sg-${sgdata.id}`"
                       >
-                        <h5 class="d-inline-block">{{ sgname }}</h5>
+                        <h5 class="d-inline-block">
+                          {{ sgname }}
+                        </h5>
                         <b-icon
                           class="float-right"
                           font-scale="0.7"
                           :icon="sgdata.open ? 'dash' : 'arrows-fullscreen'"
-                        ></b-icon>
+                        />
                       </div>
-                      <br />
+                      <br>
                       <u>
                         <small>Accounts: {{ sgdata.accCount }}</small>
                       </u>
@@ -159,14 +203,18 @@
                         variant="success"
                         size="sm"
                         @click.prevent="onCreateAccount(gdata.id, sgdata.id)"
-                        >+</b-button
                       >
+                        +
+                      </b-button>
                       <b-collapse
                         :id="`sg-${sgdata.id}`"
                         class="mt-2"
                         v-model="sgdata.open"
                       >
-                        <b-container fluid style="">
+                        <b-container
+                          fluid
+                          style=""
+                        >
                           <b-row>
                             <b-col
                               cols="12"
@@ -174,7 +222,7 @@
                               class="px-1"
                               v-for="(accData, accId) in sgdata.accounts"
                               :key="accId"
-                              :class="{ 'd-none': !accData.show }"
+                              :class="{'d-none': !accData.show}"
                             >
                               <b-card
                                 :id="`acc-${accId}`"
@@ -202,14 +250,14 @@
                                         accData,
                                         gdata.id,
                                         sgdata.id,
-                                        accId
+                                        accId,
                                       )
                                     "
                                   >
                                     <b-icon
                                       font-scale="0.9"
                                       icon="trash-fill"
-                                    ></b-icon>
+                                    />
                                   </b-button>
                                   <b-button
                                     size="sm"
@@ -220,7 +268,7 @@
                                         gdata.id,
                                         sgdata.id,
                                         accId,
-                                        accData.sysFlag
+                                        accData.sysFlag,
                                       )
                                     "
                                   >
@@ -228,10 +276,10 @@
                                       class="font-bold"
                                       font-scale="0.8"
                                       icon="pencil-fill"
-                                    ></b-icon>
+                                    />
                                   </b-button>
                                 </div>
-                                <br />
+                                <br>
                                 ₹ {{ accData.openingBal }}
                               </b-card>
                             </b-col>
@@ -410,7 +458,7 @@ export default {
           return null;
         }
         let debtGroupCode = resp.data.gkresult['Sundry Debtors'],
-          credGroupCode = resp.data.gkresult['Sundry Creditors for Purchase'];
+            credGroupCode = resp.data.gkresult['Sundry Creditors for Purchase'];
         if (debtGroupCode === groupCode || credGroupCode === groupCode) {
           let custType = debtGroupCode === groupCode ? 'custall' : 'supall';
           return axios.get(`/customer?qty=${custType}`).then((resp2) => {
@@ -453,7 +501,6 @@ export default {
             okVariant: 'danger',
             headerClass: 'p-0 border-bottom-0',
             footerClass: 'border-top-0', // p-1
-            // bodyClass: 'p-2',
             centered: true,
           })
           .then((val) => {
@@ -489,8 +536,8 @@ export default {
             let idToName = {};
             let emptySGCounter = 0;
             let groups = [],
-              accounts = [],
-              subGroups = [];
+                accounts = [],
+                subGroups = [];
             resp.data.gkresult.forEach((acc) => {
               if (!accData[acc.groupname]) {
                 accData[acc.groupname] = {
@@ -678,14 +725,12 @@ export default {
       if (accCode) {
         let account = this.accounts.filter((acc) => acc.value === accCode)[0];
         if (account) {
-          // this.closeAllCards();
           this.hideAllCards();
           this.openCard(account.group, account.subGroup, accCode);
         }
       } else if (sgCode) {
         let subGroup = this.subGroups.filter((sg) => sg.value === sgCode)[0];
         if (subGroup) {
-          // this.closeAllCards();
           this.hideAllCards();
           this.openCard(subGroup.group, sgCode);
         }
@@ -713,6 +758,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .acc-card-header {
   border-bottom: 1px solid #0000001a;

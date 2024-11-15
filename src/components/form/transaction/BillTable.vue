@@ -4,9 +4,16 @@
  -->
 <template>
   <div>
-    <div v-if="config" class="position-relative my-2">
-      <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-      </b-overlay>
+    <div
+      v-if="config"
+      class="position-relative my-2"
+    >
+      <b-overlay
+        :show="isPreloading"
+        variant="secondary"
+        no-wrap
+        blur
+      />
       <b-card body-class="py-2 px-2">
         <b-button
           v-if="editMode"
@@ -36,7 +43,7 @@
           </b-button>
           <b-button
             v-if="config.addBtn"
-            @click.prevent="addBillItem()"
+            @click.prevent="addBillItem"
             class="py-0 mx-1"
             variant="success"
             size="sm"
@@ -71,8 +78,9 @@
             variant="outline"
             @click.prevent="onItemEdit(data.item.index)"
             size="sm"
-            ><b-icon icon="pencil"></b-icon
-          ></b-button>
+          >
+            <b-icon icon="pencil" />
+          </b-button>
         </template>
 
         <!-- Row Selected -->
@@ -80,14 +88,14 @@
           <b-form-checkbox
             @input="selectAllRows"
             v-model="allRowsSelected"
-          ></b-form-checkbox>
+          />
         </template>
         <template #cell(rowSelected)="data">
           <b-form-checkbox
             v-if="form[data.item.index]"
             @input="callRowSelected(data.item.index)"
             v-model="form[data.item.index].rowSelected"
-          ></b-form-checkbox>
+          />
         </template>
 
         <!-- Product -->
@@ -95,56 +103,70 @@
           <span>{{ data.label }}</span>
         </template>
         <template #cell(product)="data">
-        <b-form-select
-          class="item"
-          v-if="form[data.item.index] && !disabled.product"
-          v-model="form[data.item.index].product"
-          required
-          @change="onBillItemSelect(form[data.item.index].product, data.item.index)"
-          :disabled="disabled.product"
-          :state="!form[data.item.index].product ? false : null"
-          :rules="[v => !!form[data.item.index].product || 'Please select an option']"
-        >
-          <b-form-select-option
-            v-for="option in options.products"
-            :key="option.id"
-            :value="option"
+          <b-form-select
+            class="item"
+            v-if="form[data.item.index] && !disabled.product"
+            v-model="form[data.item.index].product"
+            required
+            @change="onBillItemSelect(form[data.item.index].product, data.item.index)"
+            :disabled="disabled.product"
+            :state="!form[data.item.index].product ? false : null"
+            :rules="[v => !!form[data.item.index].product || 'Please select an option']"
           >
-            <div v-if="options.productData[option.id] && options.productData[option.id]?.gsflag !== 19">
-              {{ option.name }}
-              <div class="text-small" v-if="options.stock[option.id] && options.stock[option.id] > 0">
-                ({{ options.stock[option.id] }})
+            <b-form-select-option
+              v-for="option in options.products"
+              :key="option.id"
+              :value="option"
+            >
+              <div v-if="options.productData[option.id] && options.productData[option.id]?.gsflag !== 19">
+                {{ option.name }}
+                <div
+                  class="text-small"
+                  v-if="options.stock[option.id] && options.stock[option.id] > 0"
+                >
+                  ({{ options.stock[option.id] }})
+                </div>
+                <div v-else>
+                  ({{ options.stock[option.id] || 0 }})
+                </div>
               </div>
-              <div v-else>({{ options.stock[option.id] || 0 }})</div>
-            </div>
-             <div v-else>{{ option.name }}</div>
-          </b-form-select-option>
-        </b-form-select>
-        <b-form-select
-          class="item"
-          v-else-if="form[data.item.index] && form[data.item.index].product"
-          v-model="form[data.item.index].product"
-          required
-          @change="onBillItemSelect(form[data.item.index].product, data.item.index)"
-          :disabled="disabled.product"
-          :state="!form[data.item.index].product ? false : null"
-          :rules="[v => !!form[data.item.index].product || 'Please select an option']"
-        >
-          <b-form-select-option
-            v-for="option in options.products"
-            :key="option.id"
-            :value="option"
+              <div v-else>
+                {{ option.name }}
+              </div>
+            </b-form-select-option>
+          </b-form-select>
+          <b-form-select
+            class="item"
+            v-else-if="form[data.item.index] && form[data.item.index].product"
+            v-model="form[data.item.index].product"
+            required
+            @change="onBillItemSelect(form[data.item.index].product, data.item.index)"
+            :disabled="disabled.product"
+            :state="!form[data.item.index].product ? false : null"
+            :rules="[v => !!form[data.item.index].product || 'Please select an option']"
           >
-            <div v-if="options.productData[option.id] && options.productData[option.id]?.gsflag !== 19">
-              {{ option.name }}
-              <div class="text-small" v-if="options.stock[option.id] && options.stock[option.id] > 0">
-                ({{ options.stock[option.id] }})
+            <b-form-select-option
+              v-for="option in options.products"
+              :key="option.id"
+              :value="option"
+            >
+              <div v-if="options.productData[option.id] && options.productData[option.id]?.gsflag !== 19">
+                {{ option.name }}
+                <div
+                  class="text-small"
+                  v-if="options.stock[option.id] && options.stock[option.id] > 0"
+                >
+                  ({{ options.stock[option.id] }})
+                </div>
+                <div v-else>
+                  ({{ options.stock[option.id] || 0 }})
+                </div>
               </div>
-              <div v-else>({{ options.stock[option.id] || 0 }})</div>
-            </div>
-             <div v-else>{{ option.name }}</div>
-          </b-form-select-option>
-        </b-form-select>
+              <div v-else>
+                {{ option.name }}
+              </div>
+            </b-form-select-option>
+          </b-form-select>
         </template>
 
 
@@ -167,7 +189,7 @@
               @input="onQtyUpdate(data.item.index, data.item.pid)"
               :readonly="data.item.isService || disabled.qty"
               :tabindex="data.item.isService ? -1 : 0"
-            ></b-input>
+            />
             <span v-else>{{
               form[data.item.index] ? form[data.item.index].disabledQty : ''
             }}</span>
@@ -209,7 +231,7 @@
               min="0.01"
               :readonly="data.item.isService"
               :tabindex="data.item.isService ? -1 : 0"
-            ></b-input>
+            />
             <span v-else>{{ form[data.item.index].packageCount }}</span>
           </div>
         </template>
@@ -231,15 +253,21 @@
               min="0"
               :max="data.item.qty"
               @input="onRejectedQty(data.item.index)"
-            ></b-input>
+            />
             <span v-else>{{ form[data.item.index].rejectedQty }}</span>
           </div>
         </template>
 
         <!-- Debit Credit Value (Debit Credit Note) -->
         <template #head(dcValue)="">
-          <span v-if="creditFlag" v-translate> Credited Rate </span>
-          <span v-else v-translate> Debited Rate </span>
+          <span
+            v-if="creditFlag"
+            v-translate
+          > Credited Rate </span>
+          <span
+            v-else
+            v-translate
+          > Debited Rate </span>
         </template>
         <template #cell(dcValue)="data">
           <div v-if="form[data.item.index]">
@@ -255,7 +283,7 @@
               :max="creditFlag ? (form[data.item.index]?.drcrrate ?? null) : null"
               @input="updateTaxAndTotal(data.item.index)"
               required
-            ></b-input>
+            />
             <span v-else>{{ form[data.item.index].dcValue }}</span>
           </div>
         </template>
@@ -280,7 +308,7 @@
               @blur="updateRateField(data.item.index, ['rate'], 'clickout')"
               :readonly="disabled.rate"
               :required="!disabled.rate"
-            ></b-input>
+            />
             <span v-else>{{ crdrnote ? form[data.item.index].drcrrate : form[data.item.index].rate }}</span>
           </div>
         </template>
@@ -351,24 +379,27 @@
                 updateRateField(
                   data.item.index,
                   ['discount', 'total'],
-                  'clickin'
+                  'clickin',
                 )
               "
               @blur="
                 updateRateField(
                   data.item.index,
                   ['discount', 'total'],
-                  'clickout'
+                  'clickout',
                 )
               "
               :readonly="disabled.discount"
-            ></b-input>
+            />
             <span v-else>{{ form[data.item.index].discount.total }}</span>
           </div>
         </template>
 
         <template #foot(discount)="">
-          <div class="text-right" v-if="config.footer.discount">
+          <div
+            class="text-right"
+            v-if="config.footer.discount"
+          >
             {{ getTotal('discount', 'total') }}
           </div>
         </template>
@@ -381,8 +412,13 @@
           {{ form[data.item.index] ? form[data.item.index].total : '' }}
         </template>
 
-        <template v-if="config.footer.total" #foot(total)="">
-          <div class="text-right">{{ getTotal('total') || '-' }}</div>
+        <template
+          v-if="config.footer.total"
+          #foot(total)=""
+        >
+          <div class="text-right">
+            {{ getTotal('total') || '-' }}
+          </div>
         </template>
 
         <!-- +/- Buttons -->
@@ -409,7 +445,7 @@
         align="fill"
         size="sm"
         class="my-0"
-      ></b-pagination>
+      />
     </div>
 
     <!-- Create Business Modal -->
@@ -425,10 +461,10 @@
       hide-header
     >
       <business-item
-        :hideBackButton="true"
-        :onSave="onBusinessSave"
+        :hide-back-button="true"
+        :on-save="onBusinessSave"
         mode="create"
-        :inOverlay="true"
+        :in-overlay="true"
         @childValueUpdate="onBusinessSave"
       >
         <template #close-button>
@@ -440,8 +476,9 @@
                 showBusinessForm = false;
               }
             "
-            >x</b-button
           >
+            x
+          </b-button>
         </template>
       </business-item>
     </b-modal>
@@ -580,7 +617,6 @@ export default {
       allRowsSelected: false,
       skipAllRowSelect: false,
       taxInclusiveFlag: false,
-      // fields: [],
       form: [
         {
           index: 0,
@@ -666,7 +702,6 @@ export default {
           ? self.$gettext('Credited Value')
           : self.$gettext('Debited Value')
       );
-      // debugger;
       if (self.isIndia) {
         if (self.gstFlag) {
           remove('vat');
@@ -738,8 +773,6 @@ export default {
   },
   watch: {
     updateCounter() {
-      // debugger;
-      // console.log(1);
       let updateBillTable = !(
         this.parentData.length &&
         typeof this.parentData[0].product === 'object' &&
@@ -780,14 +813,12 @@ export default {
           });
         }
       });
-      // this.$forceUpdate();
       this.$nextTick().then(() => {
         this.$refs.billTable.refresh();
         if (products.length) {
           let requests = [];
           products.forEach((product, index) => {
             self.form[index] = product;
-            // console.log(product);
             requests.push(
               self.fetchProductDetails(self.form[index].product.id, index)
             );
@@ -818,7 +849,6 @@ export default {
       });
     },
     godownId() {
-      // this.fetchStockOnHandData();
       this.fetchAllStockOnHand();
     },
     invDate() {
@@ -871,7 +901,6 @@ export default {
       if (this.form.length) {
         result = this.form;
       }
-      // console.log(JSON.stringify(result));
       return result;
     },
     /**
@@ -883,8 +912,6 @@ export default {
      */
     checkProductValidity(product) {
       let id = product.id;
-      // let prodOptions = this.options.products;
-
       let valid = true;
       if (
         this.options.productData[id] &&
@@ -920,25 +947,25 @@ export default {
     },
     updateTaxDetails(index) {
       let tax = {
-        taxes: {},
-        igst: { rate: 0, amount: 0 },
-        cgst: { rate: 0, amount: 0 },
-        sgst: { rate: 0, amount: 0 },
-        cess: { rate: 0, amount: 0 },
-        vat: { rate: 0, amount: 0 },
-      },
-      igst = this.config.igst
-        ? this.productTaxes.filter((item) => item.taxname === 'IGST')
-        : 0,
-      cgst = this.config.igst
-        ? this.productTaxes.filter((item) => item.taxname === 'CGST')
-        : 0,
-      cess = this.config.cess
-        ? this.productTaxes.filter((item) => item.taxname === 'CESS')
-        : 0,
-      vat = this.config.vat
-        ? this.productTaxes.filter((item) => item.taxname === 'VAT')
-        : 0;
+            taxes: {},
+            igst: { rate: 0, amount: 0 },
+            cgst: { rate: 0, amount: 0 },
+            sgst: { rate: 0, amount: 0 },
+            cess: { rate: 0, amount: 0 },
+            vat: { rate: 0, amount: 0 },
+          },
+          igst = this.config.igst
+            ? this.productTaxes.filter((item) => item.taxname === 'IGST')
+            : 0,
+          cgst = this.config.igst
+            ? this.productTaxes.filter((item) => item.taxname === 'CGST')
+            : 0,
+          cess = this.config.cess
+            ? this.productTaxes.filter((item) => item.taxname === 'CESS')
+            : 0,
+          vat = this.config.vat
+            ? this.productTaxes.filter((item) => item.taxname === 'VAT')
+            : 0;
 
       if (igst.length) {
         igst.forEach((igst2) => {
@@ -1024,8 +1051,8 @@ export default {
       let self = this;
       const stockPath =
         this.godownId === -1
-        ? '/reports/stock-on-hand'
-        : '/reports/godownwise-stock-on-hand';
+          ? '/reports/stock-on-hand'
+          : '/reports/godownwise-stock-on-hand';
       let stockParams = `?productcode=${id}&enddate=${this.endDate}`;
       if (this.godownId !== -1) {
         stockParams += `&goid=${this.godownId}&type=pg`;
@@ -1059,8 +1086,8 @@ export default {
                 // quantity as in the available stock.
                 maxQty: (
                   this.saleFlag
-                    && !this.allowNegativeStock
-                    && !isService
+                  && !this.allowNegativeStock
+                  && !isService
                 ) ? (
                   this.options.stock[data.productcode]
                 ) : (
@@ -1076,7 +1103,7 @@ export default {
             }
           }
         } else {
-          console.log(resp1.message);
+          console.error(resp1.message);
         }
 
         // Tax details
@@ -1086,7 +1113,7 @@ export default {
             this.updateTaxDetails(index);
           }
         } else {
-          console.log(resp2.message);
+          console.error(resp2.message);
         }
         self.updateTaxAndTotal(index);
 
@@ -1248,7 +1275,7 @@ export default {
       // item will be an object which will have the path key in it
       // sometimes, the object could be nested with multiple keys to traverse through to get to the leaf node
       let pathLength = path.length - 1,
-        i = -1;
+          i = -1;
       while (++i < pathLength) {
         item = item[path[i]];
       }
@@ -1394,10 +1421,10 @@ export default {
               }
               if (this.crdrnote) {
                 if((this.purposeSelectedValue && this.purposeSelectedValue != 18)) {
-                    item.taxable = parseFloat(item.dcValue || 0) * item.disabledQty;
-                  } else {
-                    item.taxable = parseFloat((item.drcrrate * qty).toFixed(2));
-                  }
+                  item.taxable = parseFloat(item.dcValue || 0) * item.disabledQty;
+                } else {
+                  item.taxable = parseFloat((item.drcrrate * qty).toFixed(2));
+                }
               } else {
                 item.taxable = parseFloat((rate * qty - item.discount.total).toFixed(2));
               }
@@ -1432,15 +1459,14 @@ export default {
       // if godown id is -1, uses stockonhand, else uses godownwise stock on hand
       const url =
         this.godownId === -1
-        ? '/reports/stock-on-hand'
-        : '/reports/godownwise-stock-on-hand';
+          ? '/reports/stock-on-hand'
+          : '/reports/godownwise-stock-on-hand';
       let params;
       if (self.godownId !== -1) {
         if (self.godownId === null) {
           return;
         } else if (this.options.godownStock[this.godownId] && !forceFetch) {
           this.options.stock = this.options.godownStock[this.godownId];
-          // this.setStockStatus();
           return;
         }
       }
@@ -1461,26 +1487,20 @@ export default {
           self.options.stock = {};
           let stock = self.options.stock;
           let godownStock = {};
-          // let prodOptions = self.options.products;
           let id;
           if (resp.data.gkstatus === 0) {
             resp.data.gkresult.forEach((soh) => {
               id = soh.productcode;
               stock[id] = parseFloat(soh.balance);
-              // option is marked active if stock is greater than 1 or its a service (gsflag=19)
-              // if(productMap[id]) {
-              //   productMap[id].active = stock[id] > 0;
-              // }
               godownStock[id] = stock[id];
             });
             self.options.godownStock[self.godownId] = godownStock;
-            // self.setStockStatus();
             self.isPreloading = false;
           }
         })
         .catch((error) => {
           self.isPreloading = false;
-          console.log(error);
+          console.error(error);
           return error;
         });
     },
@@ -1492,7 +1512,6 @@ export default {
         id = product.productcode;
         // option is marked active if stock is greater than 1 or its a service (gsflag=19)
         prodOptions[index].active = self.options.stock[id] > 0;
-        // console.log(`${self.options.stock[id]} - ${prodOptions[index].active}`)
         if (product.gsflag === 19) {
           prodOptions[index].active = true;
         }
@@ -1520,9 +1539,9 @@ export default {
                   (
                     (
                       this.saleFlag &&
-                        (this.allowNegativeStock || parseInt(item.productquantity) > 0)
+                      (this.allowNegativeStock || parseInt(item.productquantity) > 0)
                     )
-                      || !this.saleFlag
+                    || !this.saleFlag
                   ) || item.gsflag === 19
                 ) {
                   self.options.products.push({
@@ -1536,7 +1555,6 @@ export default {
                 }
               });
               if (!self.allowNegativeStock) {
-                // self.fetchStockOnHandData();
                 self.fetchAllStockOnHand(true);
               }
             } else {

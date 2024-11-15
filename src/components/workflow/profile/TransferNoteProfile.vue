@@ -1,7 +1,11 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="mb-3 clearfix d-print-none">
       <div class="float-right">
         <b-button
@@ -15,29 +19,39 @@
       </div>
     </div>
     <b-row>
-      <b-col class="pl-0" order="2" order-md="1">
+      <b-col
+        class="pl-0"
+        order="2"
+        order-md="1"
+      >
         <b-container fluid>
           <b-col class="px-0">
             <b v-translate> Transfer From </b>
             <p class="text-small">
-              <span> {{ godown.from.name }} </span> <br />
-              <span> {{ godown.from.addr }} </span> <br />
-              <span> {{ godown.from.state }} </span> <br />
+              <span> {{ godown.from.name }} </span> <br>
+              <span> {{ godown.from.addr }} </span> <br>
+              <span> {{ godown.from.state }} </span> <br>
             </p>
-            <br class="d-none d-md-block" />
+            <br class="d-none d-md-block">
           </b-col>
           <b-col class="px-0">
             <b v-translate> Transfer To </b>
             <p class="text-small">
-              <span> {{ godown.to.name }} </span> <br />
-              <span> {{ godown.to.addr }} </span> <br />
-              <span> {{ godown.to.state }} </span> <br />
+              <span> {{ godown.to.name }} </span> <br>
+              <span> {{ godown.to.addr }} </span> <br>
+              <span> {{ godown.to.state }} </span> <br>
             </p>
           </b-col>
-          <br class="d-none d-md-block" />
+          <br class="d-none d-md-block">
         </b-container>
       </b-col>
-      <b-col cols="12" md="6" order="1" order-md="2" class="text-md-right">
+      <b-col
+        cols="12"
+        md="6"
+        order="1"
+        order-md="2"
+        class="text-md-right"
+      >
         <b v-translate> Transfer Note Details </b>
         <!-- Note Details Table -->
         <b-table-lite
@@ -58,9 +72,9 @@
                 :min="minDate"
                 :required="true"
                 v-if="!data.item.status"
-                :inputStyle="{ 'max-width': '150px' }"
+                :input-style="{'max-width': '150px'}"
                 class="d-inline-block d-print-none"
-              ></gk-date>
+              />
               <span v-else>{{ data.value }}</span>
             </div>
             <span v-else>{{ data.value }}</span>
@@ -233,9 +247,9 @@ export default {
     reverseDate(date) {
       return date
         ? date
-            .split('-')
-            .reverse()
-            .join('-')
+          .split('-')
+          .reverse()
+          .join('-')
         : '';
     },
     formatDetails(details) {
@@ -298,25 +312,22 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            // this.invoice = response.data.gkresult;
-            // this.formatInvoiceDetails(response.data.gkresult);
-            // this.output = response.data.gkresult;
-            this.formatDetails(response.data.gkresult);
-            break;
-          case 2:
-            this.displayToast(
-              this.$gettext(`Fetch Transfer Note Error!`),
-              this.$gettext(`Unauthorized access, Please contact admin`),
-              'warning'
-            );
-            break;
-          default:
-            this.displayToast(
-              this.$gettext(`Fetch Transfer Note Error!`),
-              this.$gettext(`Unable to Fetch Transaction Details! Please Try after sometime.`),
-              'warning'
-            );
+        case 0:
+          this.formatDetails(response.data.gkresult);
+          break;
+        case 2:
+          this.displayToast(
+            this.$gettext(`Fetch Transfer Note Error!`),
+            this.$gettext(`Unauthorized access, Please contact admin`),
+            'warning'
+          );
+          break;
+        default:
+          this.displayToast(
+            this.$gettext(`Fetch Transfer Note Error!`),
+            this.$gettext(`Unable to Fetch Transaction Details! Please Try after sometime.`),
+            'warning'
+          );
         } // end switch
       });
     },

@@ -11,8 +11,10 @@
   >
     <div id="transaction-print-page">
       <b-container fluid>
-        <h3 class="text-center">{{ title || name }}</h3>
-        <br />
+        <h3 class="text-center">
+          {{ title || name }}
+        </h3>
+        <br>
         <div class="text-md-right">
           <img
             v-if="orgDetails.logo"
@@ -21,15 +23,17 @@
             height="30"
             class="rounded d-inline-block align-top"
             alt="Logo"
-          />
-          <h5 class="d-inline-block ml-2">{{ orgDetails.name }}</h5>
-          <br />
+          >
+          <h5 class="d-inline-block ml-2">
+            {{ orgDetails.name }}
+          </h5>
+          <br>
           <p class="ml-3">
-            <small>{{ orgDetails.addr1 }}</small> <br />
-            <small>{{ orgDetails.addr2 }}</small> <br />
-            <small>{{ orgDetails.country }}</small> <br />
+            <small>{{ orgDetails.addr1 }}</small> <br>
+            <small>{{ orgDetails.addr2 }}</small> <br>
+            <small>{{ orgDetails.country }}</small> <br>
             <span v-if="orgDetails.phone">
-              <small>Contact No: {{ orgDetails.phone }}</small> <br />
+              <small>Contact No: {{ orgDetails.phone }}</small> <br>
             </span>
             <span v-if="isGstEnabled">
               <small>GSTIN: {{ orgDetails.gstin }}</small>
@@ -43,13 +47,16 @@
           </p>
         </div>
       </b-container>
-      <br />
+      <br>
       <transaction-profile
         :name="name"
         :id="id"
         :pdata="pdata"
-      ></transaction-profile>
-      <div id="button-wrapper" class="d-print-none">
+      />
+      <div
+        id="button-wrapper"
+        class="d-print-none"
+      >
         <b-button
           @click.prevent="closeModal"
           class="m-1 float-right"
@@ -60,10 +67,10 @@
             aria-hidden="true"
             class="align-middle"
             icon="x-circle"
-          ></b-icon>
+          />
         </b-button>
-        <br />
-        <div class="clearfix"></div>
+        <br>
+        <div class="clearfix" />
         <div v-if="useTriplicate">
           <b-button
             class="m-1 float-right"
@@ -75,10 +82,10 @@
               aria-hidden="true"
               class="align-middle"
               icon="printer"
-            ></b-icon>
+            />
             <span class="sr-only">Print</span>
           </b-button>
-          <div class="clearfix"></div>
+          <div class="clearfix" />
           <b-collapse
             id="triplicate-wrapper"
             class="shadow-sm"
@@ -86,45 +93,45 @@
           >
             <print-helper
               class="d-block"
-              contentId="transaction-print-page"
+              content-id="transaction-print-page"
               variant="link"
-              textMode="Original"
-              :pageTitle="triplicateTitle[0].page"
-              :printStyles="printStyles"
-              :fileName="triplicateTitle[0].file"
-              :messageFromParent="printMessage"
-            ></print-helper>
+              text-mode="Original"
+              :page-title="triplicateTitle[0].page"
+              :print-styles="printStyles"
+              :file-name="triplicateTitle[0].file"
+              :message-from-parent="printMessage"
+            />
             <print-helper
               class="d-block"
-              contentId="transaction-print-page"
+              content-id="transaction-print-page"
               variant="link"
-              textMode="Duplicate"
-              :pageTitle="triplicateTitle[1].page"
-              :printStyles="printStyles"
-              :fileName="triplicateTitle[1].file"
-              :messageFromParent="printMessage"
-            ></print-helper>
+              text-mode="Duplicate"
+              :page-title="triplicateTitle[1].page"
+              :print-styles="printStyles"
+              :file-name="triplicateTitle[1].file"
+              :message-from-parent="printMessage"
+            />
             <print-helper
               class="d-block"
-              contentId="transaction-print-page"
+              content-id="transaction-print-page"
               variant="link"
-              textMode="Triplicate"
-              :pageTitle="triplicateTitle[2].page"
-              :printStyles="printStyles"
-              :fileName="triplicateTitle[2].file"
-              :messageFromParent="printMessage"
-            ></print-helper>
+              text-mode="Triplicate"
+              :page-title="triplicateTitle[2].page"
+              :print-styles="printStyles"
+              :file-name="triplicateTitle[2].file"
+              :message-from-parent="printMessage"
+            />
           </b-collapse>
         </div>
         <print-helper
           v-else
           class="btn-primary m-1 float-right"
-          contentId="transaction-print-page"
-          :pageTitle="printPageTitle"
-          :printStyles="printStyles"
-          :fileName="printFileTitle"
-          :messageFromParent="printMessage"
-        ></print-helper>
+          content-id="transaction-print-page"
+          :page-title="printPageTitle"
+          :print-styles="printStyles"
+          :file-name="printFileTitle"
+          :message-from-parent="printMessage"
+        />
       </div>
     </div>
   </b-modal>

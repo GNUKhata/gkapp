@@ -1,14 +1,22 @@
 <template>
   <section class="ml-3 mr-3">
-    <b-alert class="mt-3" show variant="warning">
+    <b-alert
+      class="mt-3"
+      show
+      variant="warning"
+    >
       <b>
         Please read and follow the instructions carefully for smooth and
-        flawless data import.</b
-      >
+        flawless data import.</b>
     </b-alert>
     <!-- Tally documentation -->
-    <div v-if="help_type == 'tally'" v-translate>
-      <h3 id="tally">Tally (.xlsx)</h3>
+    <div
+      v-if="help_type == 'tally'"
+      v-translate
+    >
+      <h3 id="tally">
+        Tally (.xlsx)
+      </h3>
       <p>
         This section will assist you to import data from any software that
         exports data to XLSX spreadsheets.Such software includes Tally ERP 9
@@ -57,15 +65,15 @@
           <li>Show additional details ? <code>No</code></li>
         </ul>
       </ul>
-      For more details on how to export, please refer Tally documentation.<br />
+      For more details on how to export, please refer Tally documentation.<br>
       Once data is exported to the spreadsheet, it however has to comply with
       the import specification given below, which need minor adjustment in the
       sheets. These adjustment applies to importing data from any software.
-      <br />
+      <br>
       <div class="mygrid-wrapper ">
         <ul>
           <li>
-            First sheet must have list of groups, subgroups and accounts.<br />
+            First sheet must have list of groups, subgroups and accounts.<br>
           </li>
           <li>
             The main groups exported should be only amongst the 13 given below:
@@ -90,9 +98,9 @@
               <li>Reserves</li>
             </ul>
           </li>
-          <li>Every group must be followed by it's subgroups if any.<br /></li>
+          <li>Every group must be followed by it's subgroups if any.<br></li>
           <li>
-            Every subgroup must be followed by it's list of accounts.<br />
+            Every subgroup must be followed by it's list of accounts.<br>
           </li>
           <li>
             Note the Sub Group Bank account under Current Assets must be 'Bank'
@@ -103,42 +111,52 @@
           </li>
           <li>
             If accounts are under a group directly, then the list must follow
-            the group.<br />
+            the group.<br>
           </li>
           <li>
             All groups must be in bold, accounts in italics and subgroups normal
-            font.<br />
+            font.<br>
           </li>
-          <li>This data must be in column A of the sheet.<br /></li>
+          <li>This data must be in column A of the sheet.<br></li>
           <li>
             The following 2 columns B and C must have either Dr or Cr opening
-            balance respectively for the account.<br />
+            balance respectively for the account.<br>
           </li>
           <li>
             The Profit &amp; Loss A/c account should be rename to Profit &amp;
-            Loss.<br />
+            Loss.<br>
           </li>
           <li>
-            The said account should be under the group Direct Income. <br />
+            The said account should be under the group Direct Income. <br>
           </li>
           <li>
             All additional information must be removed such as Company name,
-            address, fianancial year,etc.<br />
+            address, fianancial year,etc.<br>
           </li>
           The above mentioned changes should be made once data is exported.
 
-          <p></p>
+          <p />
         </ul>
       </div>
     </div>
     <!-- GNUKhata -->
-    <div v-if="help_type == 'tally'" v-translate>
-      <h3 id="gnukhata">GNUKhata (.xlsx)</h3>
+    <div
+      v-if="help_type == 'tally'"
+      v-translate
+    >
+      <h3 id="gnukhata">
+        GNUKhata (.xlsx)
+      </h3>
       TODO
     </div>
     <!-- Json documentation -->
-    <div v-translate v-else>
-      <h3 id="json">JSON</h3>
+    <div
+      v-translate
+      v-else
+    >
+      <h3 id="json">
+        JSON
+      </h3>
       The following data is imported:
       <ul>
         <li>Customers / Suppliers (contacts)</li>

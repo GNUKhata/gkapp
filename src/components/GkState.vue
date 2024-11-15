@@ -9,8 +9,11 @@
     @change="$emit('change', selectedState)"
   >
     <template #first>
-      <b-form-select-option value="" disabled
-        >-- Please select state --
+      <b-form-select-option
+        value=""
+        disabled
+      >
+        -- Please select state --
       </b-form-select-option>
     </template>
   </b-select>
@@ -54,7 +57,7 @@ export default {
         if (r.status == 200) {
           this.states = r.data.gkresult;
         } else {
-          console.log('failed to fetch states');
+          console.error('Failed to fetch states');
         }
       });
     },

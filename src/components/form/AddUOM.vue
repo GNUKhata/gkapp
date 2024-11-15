@@ -7,7 +7,10 @@
       class="mx-auto gkcard"
     >
       <b-overlay :show="isLoading">
-        <b-form ref="editingForm" @submit.prevent="createUOM">
+        <b-form
+          ref="editingForm"
+          @submit.prevent="createUOM"
+        >
           <b-form-group
             :label="$gettext('Name')"
             label-align="right"
@@ -18,7 +21,7 @@
               v-model="form.unitname"
               type="text"
               required
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label-align="right"
@@ -30,7 +33,7 @@
               v-model="form.description"
               type="text"
               required
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label-align="right"
@@ -49,7 +52,7 @@
                   :required="!form.uqc"
                   v-bind="attributes"
                   v-on="events"
-                />
+                >
               </template>
             </v-select>
           </b-form-group>
@@ -64,7 +67,7 @@
               :options="uomList"
               :reduce="(uom) => uom.value"
               :placeholder="$gettext('Select Parent Unit')"
-            ></v-select>
+            />
           </b-form-group>
           <b-form-group
             label-align="right"
@@ -78,12 +81,16 @@
               required
               step="0.01"
               placeholder="0.00"
-            ></b-form-input>
+            />
           </b-form-group>
-          <b-button type="submit" variant="success" class="float-right"
-            ><b-icon icon="thermometer"></b-icon>
-            <translate>Create New Unit</translate></b-button
+          <b-button
+            type="submit"
+            variant="success"
+            class="float-right"
           >
+            <b-icon icon="thermometer" />
+            <translate>Create New Unit</translate>
+          </b-button>
         </b-form>
       </b-overlay>
     </b-card>
@@ -124,7 +131,7 @@ export default {
         .then((r) => {
           if (r.status == 200 && r.data.gkstatus == 0) {
             let uomList = [],
-              uqcList = [];
+                uqcList = [];
             r.data.gkresult.forEach((data) => {
               let obj = {
                 label: `${data.unitname} - ${data.description}`,
@@ -138,7 +145,6 @@ export default {
             this.uomList = uomList;
             this.uqcList = uqcList;
           } else {
-            console.log(r.data.gkstatus);
             this.$bvToast.toast(
               'Unable to fetch UOM list, Please reload the page',
               { variant: 'danger' }
@@ -163,65 +169,65 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.$bvToast.toast(
-                  `UOM ${this.form.unitname} Created Successfully`,
-                  {
-                    variant: 'success',
-                    solid: true,
-                  }
-                );
-                this.isLoading = false;
-                // Create log
-                axios.post(
-                  `${this.gkCoreUrl}/log`,
-                  {
-                    activity: `uom created: ${this.form.unitname}`,
+            case 0:
+              this.$bvToast.toast(
+                `UOM ${this.form.unitname} Created Successfully`,
+                {
+                  variant: 'success',
+                  solid: true,
+                }
+              );
+              this.isLoading = false;
+              // Create log
+              axios.post(
+                `${this.gkCoreUrl}/log`,
+                {
+                  activity: `uom created: ${this.form.unitname}`,
+                },
+                {
+                  headers: {
+                    gktoken: this.authToken,
                   },
-                  {
-                    headers: {
-                      gktoken: this.authToken,
-                    },
-                  }
-                );
-                this.$emit('refresh');
-                this.$refs.editingForm.reset();
-                break;
-              case 1:
-                this.$bvToast.toast(`Duplicate Entry`, {
-                  variant: 'warning',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 2:
-                this.$bvToast.toast(`Unauthorised Access`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 3:
-                this.$bvToast.toast(`Data error`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 4:
-                this.$bvToast.toast(`No Privilege`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
-              case 5:
-                this.$bvToast.toast(`Integrity error`, {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.isLoading = false;
-                break;
+                }
+              );
+              this.$emit('refresh');
+              this.$refs.editingForm.reset();
+              break;
+            case 1:
+              this.$bvToast.toast(`Duplicate Entry`, {
+                variant: 'warning',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 2:
+              this.$bvToast.toast(`Unauthorised Access`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 3:
+              this.$bvToast.toast(`Data error`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 4:
+              this.$bvToast.toast(`No Privilege`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
+            case 5:
+              this.$bvToast.toast(`Integrity error`, {
+                variant: 'danger',
+                solid: true,
+              });
+              this.isLoading = false;
+              break;
             }
           } else {
             this.$bvToast.toast(`${r.status} error`, {

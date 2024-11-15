@@ -1,6 +1,12 @@
 <template>
-  <div class="mt-4 mx-2 align-form-label-right" style="min-width: 300px">
-    <budget-item mode="create" :type='type'> </budget-item>
+  <div
+    class="mt-4 mx-2 align-form-label-right"
+    style="min-width: 300px"
+  >
+    <budget-item
+      mode="create"
+      :type="type"
+    />
   </div>
 </template>
 

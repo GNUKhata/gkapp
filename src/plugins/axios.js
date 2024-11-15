@@ -2,18 +2,9 @@
 
 import Vue from 'vue';
 import axios from "axios";
-// import store from '@/store'
-
-// axios.defaults.baseURL = store.state.gkCoreUrl
-
-// Full config:  https://github.com/axios/axios#request-config
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  // baseURL: process.env.baseURL || process.env.apiUrl || ""
-  // timeout: 60 * 1000, // Timeout
-  // withCredentials: true, // Check cross-site Access-Control
+  // Full config:  https://github.com/axios/axios#request-config
 };
 
 const _axios = axios.create(config);

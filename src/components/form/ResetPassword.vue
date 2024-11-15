@@ -21,7 +21,7 @@
             type="text"
             required
             :state="valid.username"
-          ></b-form-input>
+          />
         </b-overlay>
       </b-form-group>
       <b-form-group
@@ -37,7 +37,7 @@
             :options="orgList"
             v-model="selectedOrg"
             placeholder="Select an Organisation"
-          ></v-select>
+          />
         </b-overlay>
       </b-form-group>
       <b-button
@@ -46,8 +46,10 @@
         variant="success"
         class="float-right"
       >
-        <!-- <b-icon class="mr-1" v-if="!submitting" icon="question-circle"></b-icon> -->
-        <b-spinner v-if="submitting" small></b-spinner>
+        <b-spinner
+          v-if="submitting"
+          small
+        />
         <translate>Verify Username</translate>
       </b-button>
       <div v-if="valid.username">
@@ -64,16 +66,15 @@
               v-model="form.userquestion"
               type="text"
               disabled
-            ></b-form-input>
+            />
             <template #overlay>
               <div class="text-center">
                 <b-icon
                   icon="cloud-arrow-down"
                   font-scale="2"
                   animation="throb"
-                >
-                </b-icon>
-                <br />
+                />
+                <br>
                 <small>
                   <translate>Getting Security Question</translate>
                 </small>
@@ -93,7 +94,7 @@
             :state="valid.answer"
             v-model="form.useranswer"
             required
-          ></b-form-input>
+          />
         </b-form-group>
         <b-button
           v-if="!valid.answer"
@@ -102,8 +103,10 @@
           class="float-right"
           type="submit"
         >
-          <!-- <b-icon class="mr-1" v-if="!submitting" icon="question-circle"></b-icon> -->
-          <b-spinner v-if="submitting" small></b-spinner>
+          <b-spinner
+            v-if="submitting"
+            small
+          />
           <translate>Verify Answer</translate>
         </b-button>
       </div>
@@ -115,8 +118,7 @@
           label-align="right"
           :label="$gettext('New Password')"
         >
-          <!-- <b-form-input v-model="form.userpassword" required></b-form-input> -->
-          <password v-model="form.userpassword"></password>
+          <password v-model="form.userpassword" />
         </b-form-group>
         <!-- Confirm Password -->
         <b-form-group
@@ -130,7 +132,7 @@
             required
             v-model="password2"
             type="password"
-          ></b-form-input>
+          />
           <b-form-valid-feedback>
             <translate>Passwords Match</translate>
           </b-form-valid-feedback>
@@ -145,8 +147,15 @@
           variant="success"
           class="float-right"
         >
-          <b-icon class="mr-1" v-if="!submitting" icon="key-fill"></b-icon>
-          <b-spinner v-if="submitting" small></b-spinner>
+          <b-icon
+            class="mr-1"
+            v-if="!submitting"
+            icon="key-fill"
+          />
+          <b-spinner
+            v-if="submitting"
+            small
+          />
           <translate>Reset Password</translate>
         </b-button>
       </div>
@@ -239,81 +248,71 @@ export default {
     },
     onSubmit() {
       switch (this.formPosition) {
-        case POSITION['VERIFY_USER']:
-        case POSITION['VERIFY_USER_LEGACY']:
-          {
-            let url = `/gkuser/pwd/question?username=${this.form.username}`;
-            if (this.formPosition === POSITION['VERIFY_USER_LEGACY']) {
-              url += `&orgname=${this.selectedOrg.orgname}&orgtype=${this.selectedOrg.orgtype}`;
-            }
-            axios
-              .get(url)
-              .then((resp) => {
-                switch (resp.data.gkstatus) {
-                  case STATUS_CODES['Success']: {
-                    this.form.userquestion = resp.data.gkresult.userquestion;
-                    this.uid = resp.data.gkresult.userid;
-                    this.valid.username = true;
-                    if (this.formPosition === POSITION['VERIFY_USER_LEGACY']) {
-                      this.valid.username_legacy = true;
-                    }
-                    this.formPosition = POSITION['VERIFY_ANSWER'];
-                    break;
-                  }
-                  case STATUS_CODES['ActionDisallowed']: {
-                    this.formPosition = POSITION['VERIFY_USER_LEGACY'];
-                    break;
-                  }
-                  case STATUS_CODES['BadPrivilege']: {
-                    this.$bvToast.toast('Invalid Username', {
-                      variant: 'danger',
-                      solid: true,
-                    });
-                    this.valid.username = false;
-                    break;
-                  }
-                }
-              })
-              .catch(() => {
-                this.$bvToast.toast(
-                  'Issue verifying the username, please contact admin',
-                  {
-                    variant: 'danger',
-                    solid: true,
-                  }
-                );
-              });
+      case POSITION['VERIFY_USER']:
+      case POSITION['VERIFY_USER_LEGACY']:
+        {
+          let url = `/gkuser/pwd/question?username=${this.form.username}`;
+          if (this.formPosition === POSITION['VERIFY_USER_LEGACY']) {
+            url += `&orgname=${this.selectedOrg.orgname}&orgtype=${this.selectedOrg.orgtype}`;
           }
-          break;
-        case POSITION['VERIFY_ANSWER']: {
           axios
-            .get(
-              `/gkuser/pwd/answer?userid=${this.uid}&useranswer=${this.form.useranswer}`
-            )
+            .get(url)
             .then((resp) => {
               switch (resp.data.gkstatus) {
-                case STATUS_CODES['Success']:
-                  this.valid.answer = true;
-                  this.formPosition = POSITION['RESET_PASSWORD'];
-                  break;
-                case STATUS_CODES['BadPrivilege']:
-                  this.$bvToast.toast('Invalid Answer', {
-                    variant: 'danger',
-                    solid: true,
-                  });
-                  this.valid.answer = false;
-                  break;
-                default:
-                  this.$bvToast.toast(
-                    'Issue verifying the security answer, please contact admin',
-                    {
-                      variant: 'danger',
-                      solid: true,
-                    }
-                  );
+              case STATUS_CODES['Success']: {
+                this.form.userquestion = resp.data.gkresult.userquestion;
+                this.uid = resp.data.gkresult.userid;
+                this.valid.username = true;
+                if (this.formPosition === POSITION['VERIFY_USER_LEGACY']) {
+                  this.valid.username_legacy = true;
+                }
+                this.formPosition = POSITION['VERIFY_ANSWER'];
+                break;
+              }
+              case STATUS_CODES['ActionDisallowed']: {
+                this.formPosition = POSITION['VERIFY_USER_LEGACY'];
+                break;
+              }
+              case STATUS_CODES['BadPrivilege']: {
+                this.$bvToast.toast('Invalid Username', {
+                  variant: 'danger',
+                  solid: true,
+                });
+                this.valid.username = false;
+                break;
+              }
               }
             })
             .catch(() => {
+              this.$bvToast.toast(
+                'Issue verifying the username, please contact admin',
+                {
+                  variant: 'danger',
+                  solid: true,
+                }
+              );
+            });
+        }
+        break;
+      case POSITION['VERIFY_ANSWER']: {
+        axios
+          .get(
+            `/gkuser/pwd/answer?userid=${this.uid}&useranswer=${this.form.useranswer}`
+          )
+          .then((resp) => {
+            switch (resp.data.gkstatus) {
+            case STATUS_CODES['Success']:
+              this.valid.answer = true;
+              this.formPosition = POSITION['RESET_PASSWORD'];
+              break;
+            case STATUS_CODES['BadPrivilege']:
+              this.$bvToast.toast('Invalid Answer', {
+                variant: 'danger',
+                solid: true,
+              });
+              this.valid.answer = false;
+              break;
+            default:
               this.$bvToast.toast(
                 'Issue verifying the security answer, please contact admin',
                 {
@@ -321,56 +320,56 @@ export default {
                   solid: true,
                 }
               );
-            });
-          break;
-        }
-        case POSITION['RESET_PASSWORD']: {
-          let payload = {
-            useranswer: this.form.useranswer,
-            userid: this.uid,
-            userpassword: this.form.userpassword,
-          };
-          axios
-            .put(`/gkuser/pwd/reset`, payload)
-            .then((resp) => {
-              switch (resp.data.gkstatus) {
-                case STATUS_CODES['Success']:
-                  this.resetForm();
-                  this.$bvModal
-                    .msgBoxOk(
-                      this.$gettext(
-                        'Password Change Successful, Memorize it well this time 😉'
-                      ),
-                      {
-                        title: this.$gettext('Success'),
-                        headerTextVariant: 'light',
-                        headerBgVariant: 'success',
-                        okVariant: 'success',
-                      }
-                    )
-                    .then((res) => {
-                      if (res == true) {
-                        this.onSuccess();
-                      }
-                    });
-                  break;
-                case STATUS_CODES['BadPrivilege']:
-                  this.$bvToast.toast('Invalid Answer', {
-                    variant: 'danger',
-                    solid: true,
-                  });
-                  break;
-                default:
-                  this.$bvToast.toast(
-                    'Issue resetting the password, please contact admin',
-                    {
-                      variant: 'danger',
-                      solid: true,
-                    }
-                  );
+            }
+          })
+          .catch(() => {
+            this.$bvToast.toast(
+              'Issue verifying the security answer, please contact admin',
+              {
+                variant: 'danger',
+                solid: true,
               }
-            })
-            .catch(() => {
+            );
+          });
+        break;
+      }
+      case POSITION['RESET_PASSWORD']: {
+        let payload = {
+          useranswer: this.form.useranswer,
+          userid: this.uid,
+          userpassword: this.form.userpassword,
+        };
+        axios
+          .put(`/gkuser/pwd/reset`, payload)
+          .then((resp) => {
+            switch (resp.data.gkstatus) {
+            case STATUS_CODES['Success']:
+              this.resetForm();
+              this.$bvModal
+                .msgBoxOk(
+                  this.$gettext(
+                    'Password Change Successful, Memorize it well this time 😉'
+                  ),
+                  {
+                    title: this.$gettext('Success'),
+                    headerTextVariant: 'light',
+                    headerBgVariant: 'success',
+                    okVariant: 'success',
+                  }
+                )
+                .then((res) => {
+                  if (res == true) {
+                    this.onSuccess();
+                  }
+                });
+              break;
+            case STATUS_CODES['BadPrivilege']:
+              this.$bvToast.toast('Invalid Answer', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            default:
               this.$bvToast.toast(
                 'Issue resetting the password, please contact admin',
                 {
@@ -378,8 +377,18 @@ export default {
                   solid: true,
                 }
               );
-            });
-        }
+            }
+          })
+          .catch(() => {
+            this.$bvToast.toast(
+              'Issue resetting the password, please contact admin',
+              {
+                variant: 'danger',
+                solid: true,
+              }
+            );
+          });
+      }
       }
     },
     /*
@@ -396,12 +405,10 @@ export default {
             this.uid = r.data.gkdata[0].orgcode;
             this.disableUserName = false;
             this.userNameIsLoading = false;
-          } else {
-            console.log('Unable to fetch org years');
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
     /* Get user's security question */
@@ -415,19 +422,17 @@ export default {
           if (r.status == 200) {
             let usr = r.data.gkresult;
             switch (r.data.gkstatus) {
-              case 0:
-                this.form.userquestion = usr.userquestion;
-                this.uid = usr.userid;
-                break;
-              default:
-                this.$bvToast.toast('Invalid Username', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                this.form.userquestion = '';
+            case 0:
+              this.form.userquestion = usr.userquestion;
+              this.uid = usr.userid;
+              break;
+            default:
+              this.$bvToast.toast('Invalid Username', {
+                variant: 'danger',
+                solid: true,
+              });
+              this.form.userquestion = '';
             }
-          } else {
-            console.log(r.status);
           }
           this.isLoading = false;
           this.cardLoading = false;
@@ -452,34 +457,34 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.$bvModal
-                  .msgBoxOk(
-                    this.$gettext(
-                      'Password Change Successful, Memorize it well this time 😉'
-                    ),
-                    {
-                      title: this.$gettext('Success'),
-                      headerTextVariant: 'light',
-                      headerBgVariant: 'success',
-                      okVariant: 'success',
-                    }
-                  )
-                  .then((res) => {
-                    if (res == true) {
-                      this.$router.push('/');
-                    }
-                  });
-                break;
-              default:
-                this.$bvToast.toast(
-                  this.$gettext('Invalid answer, Please try again'),
+            case 0:
+              this.$bvModal
+                .msgBoxOk(
+                  this.$gettext(
+                    'Password Change Successful, Memorize it well this time 😉'
+                  ),
                   {
-                    variant: 'danger',
-                    solid: true,
+                    title: this.$gettext('Success'),
+                    headerTextVariant: 'light',
+                    headerBgVariant: 'success',
+                    okVariant: 'success',
                   }
-                );
-                this.submitting = false;
+                )
+                .then((res) => {
+                  if (res == true) {
+                    this.$router.push('/');
+                  }
+                });
+              break;
+            default:
+              this.$bvToast.toast(
+                this.$gettext('Invalid answer, Please try again'),
+                {
+                  variant: 'danger',
+                  solid: true,
+                }
+              );
+              this.submitting = false;
             }
           } else {
             this.$bvToast.toast(

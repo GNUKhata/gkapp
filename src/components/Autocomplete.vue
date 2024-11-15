@@ -1,13 +1,17 @@
 <template>
-  <div ref="autocomplete" class="gk-autocomplete" v-if="options">
+  <div
+    ref="autocomplete"
+    class="gk-autocomplete"
+    v-if="options"
+  >
     <!-- Autocomplete Input -->
     <b-form-input
       :size="size"
       class="gk-autocomplete-input"
       v-model="searchFilter"
       ref="inputField"
-      @focus="showOptions()"
-      @blur="exit()"
+      @focus="showOptions"
+      @blur="exit"
       @keydown="keyMonitor"
       @update="onInput"
       debounce="500"
@@ -24,13 +28,12 @@
     <div
       class="gk-autocomplete-content"
       v-if="optionsShown && !readonly"
-      v-bind:style="{ minWidth: dropDownWidth }"
+      :style="{minWidth: dropDownWidth}"
     >
-      <!--  -->
       <b-list-group-item
         button
         class="gk-autocomplete-item"
-        :class="{ 'gk-autocomplete-item-hover': index === hovered }"
+        :class="{'gk-autocomplete-item-hover': index === hovered}"
         v-for="(option, index) in filteredOptions"
         :key="index"
         @mousedown="onMouseDown(option)"
@@ -39,7 +42,10 @@
         <div class="text-truncate">
           {{ option.text }}
         </div>
-        <small class="text-danger" v-if="!option.active && checkActive">
+        <small
+          class="text-danger"
+          v-if="!option.active && checkActive"
+        >
           ({{ inactiveText }})
         </small>
       </b-list-group-item>
@@ -49,9 +55,9 @@
         :class="{
           'gk-autocomplete-item-hover': filteredOptions.length === hovered,
         }"
-        @mousedown="clearSelection()"
+        @mousedown="clearSelection"
       >
-        <b-icon icon="x-circle-fill"></b-icon> Clear Selection
+        <b-icon icon="x-circle-fill" /> Clear Selection
       </b-list-group-item>
     </div>
   </div>
@@ -170,13 +176,11 @@ export default {
   methods: {
     /** Creates a local copy of Options prop in a desired format, {text: , value:} */
     initOptions() {
-      // console.log("in optionsB");
       let options = [];
       if (this.options.length) {
         let val;
         this.options.forEach((option) => {
           val = null;
-          // console.log(JSON.stringify(option))
           if (typeof option === 'object') {
             val = option;
             val.text = option[this.textField];
@@ -201,24 +205,18 @@ export default {
       this.optionsB = options;
     },
     onInput() {
-      // console.log("In search filter");
-      // console.log(this.filteredOptions)
       if (this.isSelected || this.searchFilter) {
         if (this.filteredOptions.length > 0) {
           this.selected = this.filteredOptions[0];
         }
         this.setHovered(0);
-      } else {
-        // this.selectOption(null);
       }
       this.isSelected = false;
       this.filterOptions();
-      // this.$emit("filter", this.searchFilter);
     },
     /** Filter the given options based on the query string */
     filterOptions() {
       if (typeof this.searchFilter === 'string') {
-        // console.log("In FilteredOptions");
         const filtered = [];
         let searchText = this.searchFilter.toLowerCase();
         let optionText = '';
@@ -250,13 +248,10 @@ export default {
           this.updateDisabledStatus(option);
         }
 
-        // console.log("In select option")
         this.selected = option;
-        // this.optionsShown = false;
         if ((this.searchFilter !== this.selected.text) && !this.searchFilter) {
           this.searchFilter = this.selected.text;
         }
-        // console.log(this.selected.value)
         this.$emit('input', this.selected.value);
       }
     },
@@ -271,7 +266,6 @@ export default {
     },
     /** Perform required inits and Display the dropdown menu */
     showOptions() {
-      // console.log("In showOptions");
       if (!this.searchFilter) {
         this.searchFilter = '';
       }
@@ -299,8 +293,6 @@ export default {
     },
     /** When the component loses focus, update the component and hide the drop down menu */
     exit() {
-      // console.log("In Exit");
-      // console.log(this.selected.value)
       if (this.selected.value) {
         this.searchFilter = this.selected.text;
       } else {
@@ -324,48 +316,40 @@ export default {
     /** Keyboard press event handlers for arrow keys, enter and escape key */
     keyMonitor: function(event) {
       switch (event.which) {
-        case 38: // ArrowUp
-          {
-            this.setHovered(Math.max(0, --this.hovered));
-          }
-          break;
-        case 40: // ArrowDown
-          {
-            this.setHovered(
-              Math.min(this.filteredOptions.length, ++this.hovered)
-            );
-          }
-          break;
-        case 13:
-          {
-            // Enter Key
-            if (this.hovered === this.filteredOptions.length) {
-              // to choose clear selection on enter key press
-              event.preventDefault();
-              this.clearSelection();
-            } else if (this.filteredOptions[this.hovered]) {
-              // if options have active data, only select options that are active = true
-              // else select the option that is being hovered
-              if (this.checkActive) {
-                if (
-                  !this.filteredOptions[this.hovered].active &&
-                  !this.blockInactive
-                ) {
-                  break;
-                }
-              }
-              event.preventDefault();
-              this.selectOption(this.filteredOptions[this.hovered]);
-              this.isSelected = true;
+      case 38: // ArrowUp
+        this.setHovered(Math.max(0, --this.hovered));
+        break;
+      case 40: // ArrowDown
+        this.setHovered(
+          Math.min(this.filteredOptions.length, ++this.hovered)
+        );
+        break;
+      case 13:
+        // Enter Key
+        if (this.hovered === this.filteredOptions.length) {
+          // to choose clear selection on enter key press
+          event.preventDefault();
+          this.clearSelection();
+        } else if (this.filteredOptions[this.hovered]) {
+          // if options have active data, only select options that are active = true
+          // else select the option that is being hovered
+          if (this.checkActive) {
+            if (
+              !this.filteredOptions[this.hovered].active &&
+              !this.blockInactive
+            ) {
+              break;
             }
           }
-          break;
-        case 27:
-          {
-            // Esc key
-            this.$refs.inputField.blur();
-          }
-          break;
+          event.preventDefault();
+          this.selectOption(this.filteredOptions[this.hovered]);
+          this.isSelected = true;
+        }
+        break;
+      case 27:
+        // Esc key
+        this.$refs.inputField.blur();
+        break;
       }
 
       // on arrow key press, move the hover from one element to another and scroll when necessary
@@ -416,9 +400,6 @@ export default {
      * 2. When the program assigns a value via v-model to the component
      */
     value(newVal) {
-      // debugger;
-      // console.log('In Value');
-      // console.log(newVal);
       const self = this;
       if (!this.optionsB) {
         return;
@@ -461,7 +442,6 @@ export default {
           }
         }
       }
-      // this.filterOptions();
     },
     searchFilter() {
       if (!this.optionsB) {
@@ -498,23 +478,13 @@ export default {
   display: block;
   margin: auto;
   .gk-autocomplete-input {
-    // background: #fff;
-    // border: 1px solid #ced4da;
-    // border: 1px solid #e7ecf5;
-    // border-radius: 0.25rem;
-    // color: #333;
     display: block;
-    // font-size: 0.8em;
     padding: 6px;
-    // min-width: 250px;
-    // max-width: 250px;
   }
   .gk-autocomplete-content {
     position: absolute;
     background-color: #fff;
-    // min-width: 248px;
     width: 100%;
-    // max-width: 248px;
     max-height: 200px;
     border: 1px solid #e7ecf5;
     box-shadow: 0px -8px 34px 0px rgba(0, 0, 0, 0.05);

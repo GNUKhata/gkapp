@@ -4,7 +4,7 @@
       v-for="(style, index) in colorVersion"
       :key="index"
       :style="style"
-    ></div>
+    />
   </div>
 </template>
 
@@ -14,19 +14,6 @@ export default {
   name: 'ColorBar',
   data() {
     return {
-      // color codes for numbers
-      // number: {
-      //     zero: 'violet',
-      //     one: 'Indigo',
-      //     two: 'blue',
-      //     three: 'green',
-      //     four: 'yellow',
-      //     five: 'orange',
-      //     six: 'red',
-      //     seven: 'black',
-      //     eight: 'maroon',
-      //     nine: 'coral'
-      //     },
       colors: [
         'violet',
         'Indigo',

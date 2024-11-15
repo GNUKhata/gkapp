@@ -8,14 +8,14 @@
     >
       <!-- card header -->
       <template #header>
-        <gk-cardheader
+        <gk-card-header
           name="Report Bug"
           :help-body="
             $gettext(
-              'Select the component for which you want to report bug, briefly describe your issue & click on the <b>Submit</b> Button. This will open your email client & prefills the details. Then, you need to send the email.'
+              'Select the component for which you want to report bug, briefly describe your issue & click on the <b>Submit</b> Button. This will open your email client & prefills the details. Then, you need to send the email.',
             )
           "
-        ></gk-cardheader>
+        />
       </template>
       <!-- select component -->
       <b-form-group
@@ -30,7 +30,7 @@
           :placeholder="this.$gettext('Select / Search Modules')"
           label="name"
           required
-        ></v-select>
+        />
       </b-form-group>
       <!-- Bug Title -->
       <b-form-group
@@ -42,7 +42,7 @@
         <b-form-input
           :placeholder="$gettext('Title')"
           v-model="bugTitle"
-        ></b-form-input>
+        />
       </b-form-group>
       <!-- bug description -->
       <b-form-group
@@ -55,7 +55,7 @@
           required
           class="mt-2"
           :placeholder="this.$gettext('Describe your problem')"
-        ></b-textarea>
+        />
       </b-form-group>
       <!-- Submit button -->
       <b-button
@@ -72,8 +72,10 @@
           `mailto:incoming+gnukhata-issue-tracker-40456223-8s695fsvkl2uw7wjim3xsmk0r-issue@incoming.gitlab.com?subject=[${this.selectedModule?.name}] ${this.bugTitle}&body=${this.bugDescription}`
         "
       >
-        <b-icon class="mr-1" icon="envelope"></b-icon
-        ><translate>Submit</translate>
+        <b-icon
+          class="mr-1"
+          icon="envelope"
+        /><translate>Submit</translate>
       </b-button>
     </b-card>
   </section>
@@ -81,9 +83,10 @@
 
 <script>
 import routes from '../../router/index';
-import GkCardheader from '@/components/GkCardheader.vue';
+import GkCardHeader from '@/components/GkCardHeader.vue';
 export default {
-  components: { GkCardheader },
+  name: 'ReportBug',
+  components: { GkCardHeader },
   data() {
     return {
       selectedModule: '',

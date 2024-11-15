@@ -6,14 +6,15 @@
           @click="$router.push('/godowns/add')"
           variant="warning"
           size="sm"
-          ><b-icon icon="building"></b-icon> <translate> Add Godown </translate>
+        >
+          <b-icon icon="building" /> <translate> Add Godown </translate>
         </b-button>
       </template>
       <b-form-input
         type="text"
         placeholder="Search Godowns"
         v-model="searchText"
-      ></b-form-input>
+      />
     </b-input-group>
     <gk-toolbar>
       <gk-file-download
@@ -21,11 +22,11 @@
         file-suffix="GodownList"
         :url="
           `/spreadsheet?all-godowns&fystart=${this.dateReverse(
-            this.yearStart
+            this.yearStart,
           )}&fyend=${this.dateReverse(this.yearEnd)}&orgname=${this.orgName}`
         "
-        :messageFromParent="parentMessage"
-      ></gk-file-download>
+        :message-from-parent="parentMessage"
+      />
     </gk-toolbar>
     <b-table
       :filter="searchText"
@@ -45,7 +46,10 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle" type="grow"></b-spinner>
+          <b-spinner
+            class="align-middle"
+            type="grow"
+          />
           <strong> Fetching Godowns... </strong>
         </div>
       </template>
@@ -54,8 +58,8 @@
           variant="dark"
           @click="$router.push(`/godowns/${data.item.goid}`)"
         >
-          {{ data.item.godown_name }}</b-link
-        >
+          {{ data.item.godown_name }}
+        </b-link>
       </template>
     </b-table>
   </section>
@@ -137,6 +141,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 table {
   width: 70%;

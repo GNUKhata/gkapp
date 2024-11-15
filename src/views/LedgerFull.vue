@@ -4,7 +4,10 @@
       <div class="bg-dark mb-4">
         <!-- header -->
         <h6 class="text-center card-header text-light d-print-none">
-          <i class="mr-1" v-translate>Ledger Account:</i>
+          <i
+            class="mr-1"
+            v-translate
+          >Ledger Account:</i>
           <b>{{ ledgerHead.accountname }}</b> |
           <i v-translate>Period: </i>
           <b> {{ ledgerHead.calculatefrom }} </b> to
@@ -30,7 +33,7 @@
             v-model="search"
             type="text"
             style="align-self:center"
-          ></b-form-input>
+          />
         </template>
         <gk-hover class="col">
           <!-- Filters / Checkboxes -->
@@ -41,8 +44,8 @@
             value="all"
             unchecked-value="all"
           >
-            <translate>All</translate></b-form-checkbox
-          >
+            <translate>All</translate>
+          </b-form-checkbox>
           <b-form-checkbox
             @change="getCrDrLedger"
             class="mr-2"
@@ -50,8 +53,8 @@
             value="cr"
             unchecked-value="all"
           >
-            <translate>Credit Only</translate></b-form-checkbox
-          >
+            <translate>Credit Only</translate>
+          </b-form-checkbox>
           <b-form-checkbox
             @change="getCrDrLedger"
             class="mr-2"
@@ -59,8 +62,8 @@
             unchecked-value="all"
             value="dr"
           >
-            <translate>Debit Only</translate></b-form-checkbox
-          >
+            <translate>Debit Only</translate>
+          </b-form-checkbox>
         </gk-hover>
         <gk-file-download
           v-if="ledgerChoice == 'all'"
@@ -68,8 +71,8 @@
           :url="
             `/spreadsheet/ledger?accountcode=${this.accountCode}&accountname=${this.ledgerHead.accountname}&from=${this.fromDate}&to=${this.toDate}&orgtype=${this.orgType}&projectcode=${this.projectCode}&fystart=${this.yearStart}&fyend=${this.yearEnd}&orgname=${this.orgName}`
           "
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          :message-from-parent="parentMessage"
+        />
       </gk-toolbar>
       <!-- result -->
       <b-table
@@ -97,7 +100,10 @@
           </router-link>
         </template>
         <template #cell(particulars)="data">
-          <div v-for="item in data.item.particulars" :key="item.accountname">
+          <div
+            v-for="item in data.item.particulars"
+            :key="item.accountname"
+          >
             {{ item.accountname }}
           </div>
         </template>
@@ -115,7 +121,7 @@ import GkFileDownload from '../components/GkFileDownload.vue';
 import GkHover from '../components/GkHovermenu.vue';
 export default {
   components: { ReportHeader, GkToolbar, GkFileDownload, GkHover },
-  name: 'LedgerMonthly',
+  name: 'LedgerFull',
   data() {
     return {
       parentMessage: '',
@@ -198,40 +204,40 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.result = r.data.gkresult;
-                this.ledgerHead = r.data.ledgerheader;
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.result = r.data.gkresult;
+              this.ledgerHead = r.data.ledgerheader;
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           }
           this.loading = false;
@@ -246,40 +252,40 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.result = r.data.gkresult;
-                this.ledgerHead = r.data.ledgerheader;
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.result = r.data.gkresult;
+              this.ledgerHead = r.data.ledgerheader;
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           }
           this.loading = false;

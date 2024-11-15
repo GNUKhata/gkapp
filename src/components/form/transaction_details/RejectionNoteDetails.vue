@@ -5,8 +5,12 @@
     no-body
     :class="config.class"
   >
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="p-2 p-md-3">
       <div>
         <b v-translate>Rejection Note Details</b>
@@ -23,10 +27,13 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
-      <div class="mt-3" :class="{ 'd-md-block': true, 'd-none': !isCollapsed }">
+      <div
+        class="mt-3"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
+      >
         <b-form-group
           label="No."
           label-for="rnd-input-10"
@@ -43,7 +50,7 @@
             v-model="form.no"
             trim
             required
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Date"
@@ -63,27 +70,8 @@
             :max="maxDate"
             @validity="setDateValidity"
             :required="true"
-          ></gk-date>
+          />
         </b-form-group>
-        <!-- <b-form-group
-          label="Transaction Type"
-          label-for="rnd-input-30"
-          label-cols-md="4"
-          label-cols="3"
-          label-size="sm"
-        >
-          <template #label>
-            <translate> Transaction Type </translate>
-          </template>
-          <b-form-select
-            id="rnd-input-30"
-            v-model="form.type"
-            size="sm"
-            :options="options.transactionTypes"
-            :disabled="true"
-          >
-          </b-form-select>
-        </b-form-group> -->
         <b-form-group
           label="Issuer"
           label-for="rnd-input-40"
@@ -102,7 +90,7 @@
             required
             readonly
             tabindex="-1"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Role"
@@ -122,17 +110,15 @@
             required
             readonly
             tabindex="-1"
-          ></b-form-input>
+          />
         </b-form-group>
       </div>
     </div>
   </b-card>
 </template>
+
 <script>
 import axios from 'axios';
-// import { mapState } from 'vuex';
-
-// import GkDate from '../../GkDate.vue';
 import GkDate from '../../GkDate.vue';
 import trnDetailsMixin from '@/mixins/transactionProfile.js';
 export default {

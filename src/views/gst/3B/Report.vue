@@ -4,14 +4,11 @@
     <div class="text-center">
       <h4>{{ orgName }}</h4>
       <h5 class="text-muted text-center text-uppercase">
-        GSTR-3B Report {{ params.type }} <br />
+        GSTR-3B Report {{ params.type }} <br>
         ({{ dateReverse(params.fd) }} to {{ dateReverse(params.td) }})
       </h5>
     </div>
-    <div class="gkcard mx-auto">
-      <!-- <b-form-input type="text" v-model="search" placeholder="Search">
-             </b-form-input> -->
-    </div>
+    <div class="gkcard mx-auto" />
     <!-- report  -->
     <b-table
       class="mt-3"
@@ -26,7 +23,10 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner type="grow" class="align-middle"></b-spinner>
+          <b-spinner
+            type="grow"
+            class="align-middle"
+          />
           <strong> Fetching data</strong>
         </div>
       </template>
@@ -68,8 +68,6 @@ export default {
     ...mapState(['orgName']),
   },
   methods: {
-    // formatTable(data) {
-    //     for(data.igst)
     getGstSummary() {
       this.loading = true;
       axios
@@ -77,42 +75,42 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.list = r.data.gkresult;
-                break;
-              case 1:
-                this.$bvToast.toast('Duplicate Entry', {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast('Unauthorised Access', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast('Data error', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast('No Privilege', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast('Integrity error', {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.list = r.data.gkresult;
+              break;
+            case 1:
+              this.$bvToast.toast('Duplicate Entry', {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast('Unauthorised Access', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast('Data error', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast('No Privilege', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast('Integrity error', {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           } else {
-            console.log(r);
+            console.error(r);
           }
           this.loading = false;
         })

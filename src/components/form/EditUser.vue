@@ -8,7 +8,11 @@
     >
       <!-- Manage Users -->
       <b-form @submit.prevent="confirm('update')">
-        <b-overlay :show="isLoading" blur no-wrap></b-overlay>
+        <b-overlay
+          :show="isLoading"
+          blur
+          no-wrap
+        />
         <!-- username -->
         <b-form-group
           label-size="sm"
@@ -22,7 +26,7 @@
             size="sm"
             v-model="form.username"
             trim
-          ></b-form-input>
+          />
           <b-form-invalid-feedback id="userid-feedback">
             <translate>Username must be minimum 3 characters</translate>
           </b-form-invalid-feedback>
@@ -41,7 +45,10 @@
             :disabled="form.userrole == -1 && admins.length == 1"
           >
             <template #first>
-              <b-form-select-option value="null" disabled>
+              <b-form-select-option
+                value="null"
+                disabled
+              >
                 <translate> -- Select User --</translate>
               </b-form-select-option>
             </template>
@@ -49,8 +56,9 @@
               v-for="role in roles"
               :key="role.value"
               :value="role.value"
-              >{{ role.text }}</b-form-select-option
             >
+              {{ role.text }}
+            </b-form-select-option>
           </b-form-select>
         </b-form-group>
         <!-- user godowns -->
@@ -66,22 +74,32 @@
           </caption>
           <b-thead head-variant="dark">
             <b-tr>
-              <b-th v-translate>Select</b-th>
-              <b-th v-translate>Name</b-th>
-              <b-th v-translate>State</b-th>
-              <b-th v-translate>Address</b-th>
+              <b-th v-translate>
+                Select
+              </b-th>
+              <b-th v-translate>
+                Name
+              </b-th>
+              <b-th v-translate>
+                State
+              </b-th>
+              <b-th v-translate>
+                Address
+              </b-th>
             </b-tr>
           </b-thead>
           <b-tbody>
-            <b-tr v-for="godown in userGodowns" :key="godown.goid">
+            <b-tr
+              v-for="godown in userGodowns"
+              :key="godown.goid"
+            >
               <b-td>
                 <b-form-checkbox
                   value="accepted"
                   unchecked-value="not_accepted"
                   v-model="godown.checked"
                   switch
-                >
-                </b-form-checkbox>
+                />
               </b-td>
               <b-td>{{ godown.goname }}</b-td>
               <b-td>{{ godown.state }}</b-td>
@@ -96,11 +114,10 @@
           label-cols="3"
           :label="$gettext('New Password')"
         >
-          <!-- <b-form-input
-               v-model="form.userpassword"
-               type="password"
-               ></b-form-input> -->
-          <password size="sm" v-model="form.userpassword"></password>
+          <password
+            size="sm"
+            v-model="form.userpassword"
+          />
         </b-form-group>
         <!-- Security question -->
         <b-form-group
@@ -112,7 +129,7 @@
           <security-questions
             size="sm"
             v-model="form.userquestion"
-          ></security-questions>
+          />
         </b-form-group>
         <!-- answer -->
         <b-form-group
@@ -126,21 +143,34 @@
             size="sm"
             type="text"
             :required="form.userquestion !== ''"
-          ></b-form-input>
+          />
         </b-form-group>
-        <b-button-group size="sm" class="float-right">
-          <b-button type="submit" class="mr-1" variant="warning">
-            <b-icon class="mr-1" icon="cloud-arrow-up"></b-icon>
-            <translate>Update user</translate></b-button
+        <b-button-group
+          size="sm"
+          class="float-right"
+        >
+          <b-button
+            type="submit"
+            class="mr-1"
+            variant="warning"
           >
+            <b-icon
+              class="mr-1"
+              icon="cloud-arrow-up"
+            />
+            <translate>Update user</translate>
+          </b-button>
           <b-button
             variant="danger"
             :disabled="form.userrole == -1 && admins.length == 1"
             @click="confirm('delete')"
           >
-            <b-icon class="mr-1" icon="x-circle"></b-icon>
-            <translate>Delete User</translate></b-button
-          >
+            <b-icon
+              class="mr-1"
+              icon="x-circle"
+            />
+            <translate>Delete User</translate>
+          </b-button>
         </b-button-group>
       </b-form>
     </b-card>
@@ -157,7 +187,7 @@ import Password from '../Password.vue';
 
 export default {
   components: { SecurityQuestions, Password },
-  name: 'UserManagement',
+  name: 'EditUser',
   data() {
     return {
       id: Number,
@@ -259,7 +289,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
 
       this.getAdmins();
@@ -276,12 +306,10 @@ export default {
         .then((r) => {
           if (r.status === 200 && r.data.gkstatus === 0) {
             this.admins = r.data.gkresult;
-          } else {
-            console.log('failed to get admins list');
           }
         })
         .catch((e) => {
-          console.log('admin list fetch: ', e.message);
+          console.error(e.message);
         });
     },
     /**
@@ -297,9 +325,7 @@ export default {
           let allGodowns = val[1].data.gkresult;
           let i, u;
           for (i in allGodowns) {
-            //
             for (u in userGodowns) {
-              //
               if (userGodowns[u].goid === allGodowns[i].goid) {
                 allGodowns[i].checked = 'accepted';
               }
@@ -335,66 +361,66 @@ export default {
       axios.put('/users?editdata', this.form).then((r) => {
         if (r.status == 200)
           switch (r.data.gkstatus) {
-            case 0:
-              {
-                this.$bvToast.toast(
-                  `user ${this.form.username} updated successfully`,
-                  {
-                    title: 'Success',
-                    variant: 'success',
-                    solid: true,
-                  }
-                );
-                // Add delete user log to server
-                const payload = {
-                  activity: `user ${this.form.username} details updated`,
-                };
-                axios.post(`${this.gkCoreUrl}/log`, payload, {
-                  headers: { gktoken: this.authToken },
-                });
-                this.isLoading = false;
-                this.$emit('refreshUsers');
-              }
-              break;
-            case 1:
+          case 0:
+            {
               this.$bvToast.toast(
-                `Username ${this.form.username} already exists`,
+                `user ${this.form.username} updated successfully`,
                 {
-                  title: 'Duplicate Entry',
-                  variant: 'danger',
+                  title: 'Success',
+                  variant: 'success',
                   solid: true,
                 }
               );
-              this.isLoading = false;
-              break;
-            case 2:
-              this.$bvToast.toast('Unauthorised access', {
-                variant: 'danger',
-                solid: true,
+              // Add delete user log to server
+              const payload = {
+                activity: `user ${this.form.username} details updated`,
+              };
+              axios.post(`${this.gkCoreUrl}/log`, payload, {
+                headers: { gktoken: this.authToken },
               });
               this.isLoading = false;
-              break;
-            case 3:
-              this.$bvToast.toast('Connection Failed', {
+              this.$emit('refreshUsers');
+            }
+            break;
+          case 1:
+            this.$bvToast.toast(
+              `Username ${this.form.username} already exists`,
+              {
+                title: 'Duplicate Entry',
                 variant: 'danger',
                 solid: true,
-              });
-              this.isLoading = false;
-              break;
-            case 4:
-              this.$bvToast.toast('Bad Privilege', {
-                variant: 'danger',
-                solid: true,
-              });
-              this.isLoading = false;
-              break;
-            case 5:
-              this.$bvToast.toast('Action Disallowed', {
-                variant: 'danger',
-                solid: true,
-              });
-              this.isLoading = false;
-              break;
+              }
+            );
+            this.isLoading = false;
+            break;
+          case 2:
+            this.$bvToast.toast('Unauthorised access', {
+              variant: 'danger',
+              solid: true,
+            });
+            this.isLoading = false;
+            break;
+          case 3:
+            this.$bvToast.toast('Connection Failed', {
+              variant: 'danger',
+              solid: true,
+            });
+            this.isLoading = false;
+            break;
+          case 4:
+            this.$bvToast.toast('Bad Privilege', {
+              variant: 'danger',
+              solid: true,
+            });
+            this.isLoading = false;
+            break;
+          case 5:
+            this.$bvToast.toast('Action Disallowed', {
+              variant: 'danger',
+              solid: true,
+            });
+            this.isLoading = false;
+            break;
           }
       });
     },

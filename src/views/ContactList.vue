@@ -1,6 +1,5 @@
 <template>
   <section class="container-fluid">
-    <!-- <b-overlay :show="isLoading" no-wrap> </b-overlay> -->
     <report-header>
       <div class="text-center mb-2 d-none d-print-block">
         <i>Customer / Supplier List</i>
@@ -12,13 +11,33 @@
         type="text"
         placeholder="Search Customers / Suppliers"
         v-model="searchText"
-      ></b-form-input>
+      />
     </div>
     <div class="d-flex justify-content-center mb-2">
       Sort by:
-      <b-form-checkbox class="ml-2 mr-2" @change="applyFilter" v-model="status" value="all">All</b-form-checkbox>
-      <b-form-checkbox @change="applyFilter" class="mr-2" v-model="status" value="cus">Customers</b-form-checkbox>
-      <b-form-checkbox @change="applyFilter" v-model="status" value="sup">Suppliers</b-form-checkbox>
+      <b-form-checkbox
+        class="ml-2 mr-2"
+        @change="applyFilter"
+        v-model="status"
+        value="all"
+      >
+        All
+      </b-form-checkbox>
+      <b-form-checkbox
+        @change="applyFilter"
+        class="mr-2"
+        v-model="status"
+        value="cus"
+      >
+        Customers
+      </b-form-checkbox>
+      <b-form-checkbox
+        @change="applyFilter"
+        v-model="status"
+        value="sup"
+      >
+        Suppliers
+      </b-form-checkbox>
     </div>
     <b-table
       class="rtable mx-auto"
@@ -35,18 +54,24 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle" type="grow"></b-spinner>
+          <b-spinner
+            class="align-middle"
+            type="grow"
+          />
           <strong>Fetching Contacts ...</strong>
         </div>
       </template>
       <template #cell(custname)="data">
         <b-link
           @click="$router.push(`/workflow/Contacts/${data.item.custid}`)"
-        >{{ data.item.custname }}</b-link>
+        >
+          {{ data.item.custname }}
+        </b-link>
       </template>
     </b-table>
   </section>
 </template>
+
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
@@ -76,15 +101,15 @@ export default {
   methods: {
     applyFilter() {
       switch (this.status) {
-        case 'all':
-          this.result = [...this.customerList, ...this.supplierList];
-          break;
-        case 'cus':
-          this.result = this.customerList;
-          break;
-        case 'sup':
-          this.result = this.supplierList;
-          break;
+      case 'all':
+        this.result = [...this.customerList, ...this.supplierList];
+        break;
+      case 'cus':
+        this.result = this.customerList;
+        break;
+      case 'sup':
+        this.result = this.supplierList;
+        break;
       }
     },
     getContacts() {
@@ -108,7 +133,7 @@ export default {
           this.isLoading = false;
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
   },

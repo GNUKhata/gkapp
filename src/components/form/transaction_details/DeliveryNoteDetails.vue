@@ -4,8 +4,12 @@
     border-variant="secondary"
     no-body
   >
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div class="p-2 p-md-3">
       <div>
         <b v-translate>Delivery Note Details</b>
@@ -22,10 +26,13 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
-      <div class="mt-3" :class="{ 'd-md-block': true, 'd-none': !isCollapsed }">
+      <div
+        class="mt-3"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
+      >
         <b-form-group
           label="Del. Note No."
           label-for="dnd-input-10"
@@ -33,14 +40,16 @@
           label-size="sm"
           label-class="required"
         >
-          <template #label> <translate> Del. Note No. </translate> </template>
+          <template #label>
+            <translate> Del. Note No. </translate>
+          </template>
           <b-form-input
             size="sm"
             id="dnd-input-10"
             v-model="form.no"
             trim
             required
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Date"
@@ -49,7 +58,9 @@
           id="dnd-input-group-1"
           label-class="required"
         >
-          <template #label> <translate> Date </translate> </template>
+          <template #label>
+            <translate> Date </translate>
+          </template>
           <gk-date
             id="dnd-date-1"
             :format="dateFormat"
@@ -58,8 +69,7 @@
             :max="maxDate"
             @validity="setDateValidity"
             :required="true"
-          >
-          </gk-date>
+          />
         </b-form-group>
         <b-form-group
           label="Transaction Type"
@@ -76,8 +86,7 @@
             v-model="form.type"
             size="sm"
             :options="options.transactionTypes"
-          >
-          </b-form-select>
+          />
         </b-form-group>
         <b-form-group
           :label="saleFlag ? 'Origin State' : 'Destination State'"
@@ -87,8 +96,14 @@
           label-class="required"
         >
           <template #label>
-            <span v-if="saleFlag" v-translate> Origin State </span>
-            <span v-else v-translate> Destination State </span>
+            <span
+              v-if="saleFlag"
+              v-translate
+            > Origin State </span>
+            <span
+              v-else
+              v-translate
+            > Destination State </span>
           </template>
           <v-select
             id="dnd-input-30"
@@ -97,8 +112,7 @@
             @input="onSelectState(form.state)"
             required
             label="name"
-          >
-          </v-select>
+          />
         </b-form-group>
         <b-form-group
           :label="saleFlag ? 'From Godown' : 'To Godown'"
@@ -108,8 +122,14 @@
           label-class="required"
         >
           <template #label>
-            <span v-if="saleFlag" v-translate> From Godown </span>
-            <span v-else v-translate> To Godown </span>
+            <span
+              v-if="saleFlag"
+              v-translate
+            > From Godown </span>
+            <span
+              v-else
+              v-translate
+            > To Godown </span>
           </template>
           <v-select
             id="dnd-input-40"
@@ -119,8 +139,7 @@
             required
             label="text"
             :reduce="(gdata) => gdata.value"
-          >
-          </v-select>
+          />
         </b-form-group>
         <b-form-group
           label="Place of Supply"
@@ -130,7 +149,9 @@
           label-size="sm"
           label-class="required"
         >
-          <template #label> <translate> Place of Supply </translate> </template>
+          <template #label>
+            <translate> Place of Supply </translate>
+          </template>
           <v-select
             id="dnd-input-41"
             v-model="form.taxState"
@@ -138,8 +159,7 @@
             :required="true"
             @input="onUpdateDetails"
             label="name"
-          >
-          </v-select>
+          />
         </b-form-group>
         <b-form-group
           label="GSTIN"
@@ -154,7 +174,7 @@
             trim
             required
             readonly
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Issuer"
@@ -162,7 +182,9 @@
           label-size="sm"
           label-cols="4"
         >
-          <template #label> <translate> Issuer </translate> </template>
+          <template #label>
+            <translate> Issuer </translate>
+          </template>
           <b-form-input
             size="sm"
             id="dnd-input-60"
@@ -171,7 +193,7 @@
             required
             readonly
             tabindex="-1"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           label="Role"
@@ -179,7 +201,9 @@
           label-cols="4"
           label-size="sm"
         >
-          <template #label> <translate> Role </translate> </template>
+          <template #label>
+            <translate> Role </translate>
+          </template>
           <b-form-input
             size="sm"
             id="dnd-input-70"
@@ -188,15 +212,15 @@
             required
             readonly
             tabindex="-1"
-          ></b-form-input>
+          />
         </b-form-group>
       </div>
     </div>
   </b-card>
 </template>
+
 <script>
 import axios from 'axios';
-// import { mapState } from 'vuex';
 import GkDate from '../../GkDate.vue';
 
 import trnDetailsMixin from '@/mixins/transactionProfile.js';
@@ -367,8 +391,8 @@ export default {
           let orgstate = (this.options.orgDetails.orgstate || '').toLowerCase();
           let state = orgstate
             ? this.options.states.find(
-                (state) => state.name.toLowerCase() === orgstate
-              )
+              (state) => state.name.toLowerCase() === orgstate
+            )
             : null;
           let gstin = this.options.orgDetails.gstin;
           Object.assign(this.form, {

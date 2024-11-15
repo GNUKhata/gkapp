@@ -11,12 +11,19 @@
       variant="secondary"
       no-wrap
       blur
-    >
-    </b-overlay>
+    />
     <div class="p-2 p-md-3">
       <div>
-        <b key="pd-1" v-if="saleFlag" v-translate> Buyer Details</b>
-        <b key="pd-2" v-else v-translate> Seller Details</b>
+        <b
+          key="pd-1"
+          v-if="saleFlag"
+          v-translate
+        > Buyer Details</b>
+        <b
+          key="pd-2"
+          v-else
+          v-translate
+        > Seller Details</b>
         <b-button
           variant="secondary"
           size="sm"
@@ -30,12 +37,12 @@
           <b-icon
             :icon="isCollapsed ? 'dash' : 'arrows-fullscreen'"
             class="float-right"
-          ></b-icon>
+          />
         </b-button>
       </div>
       <div
         class="mt-3 px-2"
-        :class="{ 'd-md-block': true, 'd-none': !isCollapsed }"
+        :class="{'d-md-block': true, 'd-none': !isCollapsed}"
       >
         <b-form-group v-if="config.type">
           <b-form-radio-group
@@ -43,7 +50,7 @@
             size="sm"
             buttons
             v-model="form.type"
-            @change="resetPartyDetails()"
+            @change="resetPartyDetails"
           >
             <b-form-radio value="customer">
               <translate> Customer </translate>
@@ -63,8 +70,9 @@
             size="sm"
             :title="$gettext('Add Contact')"
             @click="$router.push('/contact-details/create/customer')"
-            >+</b-button
           >
+            +
+          </b-button>
           <!-- edit contact button. only shown when a contact is selected -->
           <b-button
             v-if="form.name?.name != ''"
@@ -74,8 +82,12 @@
             @click.prevent="initPartyEdit"
             :disabled="editFlag"
             title="Edit Contact"
-            ><b-icon font-scale="0.95" icon="pencil"></b-icon
-          ></b-button>
+          >
+            <b-icon
+              font-scale="0.95"
+              icon="pencil"
+            />
+          </b-button>
         </b-form-group>
 
         <b-form-group
@@ -86,11 +98,13 @@
           label-cols-md="4"
           label-cols-lg="3"
           label-size="sm"
-          :label-class="{ required: !(editFlag || isNameDisabled) }"
+          :label-class="{required: !(editFlag || isNameDisabled)}"
         >
-          <template #label> <translate> Name </translate> </template>
+          <template #label>
+            <translate> Name </translate>
+          </template>
 
-            <b-form-select
+          <b-form-select
             v-if="isCustomer && options.customers"
             id="ptd-input-10"
             v-model="form.name"
@@ -113,7 +127,7 @@
             v-model="form.name"
             @change="onPartyNameSelect(form.name)"
             :required="true"
-            :disabled="(editFlag || isNameDisabled|| editInvoice) && !!form.name?.name"
+            :disabled="(editFlag || isNameDisabled || editInvoice) && !!form.name?.name"
             :clearable="false"
             :rules="[v => !!form.name || 'Please select an option']"
           >
@@ -125,7 +139,6 @@
               {{ option.name }}
             </b-form-select-option>
           </b-form-select>
-
         </b-form-group>
         <b-form-group
           v-if="config.addr"
@@ -136,7 +149,9 @@
           label-for="ptd-input-20"
           label-size="sm"
         >
-          <template #label> <translate> Address </translate> </template>
+          <template #label>
+            <translate> Address </translate>
+          </template>
           <b-form-textarea
             size="sm"
             id="ptd-input-20"
@@ -145,7 +160,7 @@
             trim
             :readonly="!editFlag"
             tabindex="-1"
-          ></b-form-textarea>
+          />
         </b-form-group>
         <b-form-group
           v-if="config.pin"
@@ -163,7 +178,7 @@
             trim
             :readonly="!editFlag"
             tabindex="-1"
-          ></b-form-input>
+          />
         </b-form-group>
         <b-form-group
           v-if="config.state && isIndia && isIndianParty"
@@ -174,16 +189,18 @@
           label-cols-md="4"
           label-cols-lg="3"
         >
-          <template #label> <translate> State </translate> </template>
+          <template #label>
+            <translate> State </translate>
+          </template>
           <b-form-select
             size="sm"
             id="ptd-input-50"
             v-model="form.state"
             :options="!editFlag ? form.options.states : options.states"
-            @input="setPartyGst()"
+            @input="setPartyGst"
             trim
             :disabled="!editFlag"
-          ></b-form-select>
+          />
         </b-form-group>
 
         <b-form-group
@@ -203,14 +220,13 @@
             trim
             :readonly="!editFlag"
             tabindex="-1"
-          ></b-form-input>
+          />
           <gk-gstin
             v-else
             v-model="form.gstin"
             @gstin_data="onGstinDataFetched"
             @validity="checkGstinValidity"
-          >
-          </gk-gstin>
+          />
         </b-form-group>
         <b-form-group
           v-else-if="config.tin && vatFlag"
@@ -231,7 +247,7 @@
             pattern="[A-Z0-9]+"
             minlength="10"
             maxlength="11"
-          ></b-form-input>
+          />
         </b-form-group>
         <div v-if="editFlag">
           <b-button
@@ -244,8 +260,10 @@
               aria-hidden="true"
               class="align-middle mr-1"
               icon="x-circle"
-            ></b-icon
-            ><span v-translate class="align-middle">Cancel</span>
+            /><span
+              v-translate
+              class="align-middle"
+            >Cancel</span>
           </b-button>
           <b-button
             @click.prevent="onPartyEdit(true)"
@@ -257,37 +275,15 @@
               aria-hidden="true"
               class="align-middle mr-1"
               icon="cloud-arrow-up"
-            ></b-icon>
-            <span v-translate class="align-middle">Save Changes</span>
+            />
+            <span
+              v-translate
+              class="align-middle"
+            >Save Changes</span>
           </b-button>
         </div>
       </div>
     </div>
-
-    <!-- Create Contact Item modal -->
-    <!-- <b-modal
-      size="lg"
-      v-if="config"
-      centered
-      static
-      body-class="p-0"
-      id="contact-item-modal"
-      hide-footer
-      header-bg-variant="dark"
-      title="Create Contact"
-      header-text-variant="light"
-      header-class="p-2"
-    >
-      <contact-item
-        :hideBackButton="true"
-        :onSave="onContactSave"
-        mode="create"
-        :type="form.type"
-        :inOverlay="true"
-        :showHeader="false"
-      >
-      </contact-item>
-    </b-modal> -->
   </b-card>
 </template>
 
@@ -295,11 +291,9 @@
 import axios from 'axios';
 import { mapGetters } from 'vuex';
 import GkGstin from '../../GkGstin.vue';
-// import ContactItem from '../ContactItem.vue';
 export default {
   name: 'PartyDetails',
   components: {
-    // ContactItem,
     GkGstin,
   },
   props: {
@@ -456,7 +450,6 @@ export default {
         party = this.options.suppliers.find((sup) => sup.name === partyName);
       }
       if (party) {
-        // this.isPreloading = true;
         this.form.name = party;
         this.onPartyNameSelect(this.form.name);
       }
@@ -475,7 +468,6 @@ export default {
     onGstinDataFetched({ name, addr, pincode, pan, statecode }) {
       this.form.name.name = name;
       this.form.addr = addr;
-      //       this.form.state= {};
       this.form.pin = pincode;
       this.form.pan = pan;
       if (statecode) {
@@ -512,7 +504,6 @@ export default {
         checksum: '',
         editFlag: false,
       });
-      // this.setShippingDetails();
     },
     /**
      * setPartyGst()
@@ -548,31 +539,29 @@ export default {
           .get(`/customer/${id}`)
           .then((resp) => {
             switch (resp.data.gkstatus) {
-              case 0:
-                self.setCustomerData(resp.data.gkresult);
-                break;
-              case 2:
-                self.resetPartyDetails(); // if there no data, then reset the fields
-                this.displayToast(
-                  this.$gettext('Fetch Customer/Supplier Data Error!'),
-                  this.$gettext('Unauthorized Access, Please contact Admin'),
-                  'warning'
-                );
-                break;
-              case 3:
-              default:
-                self.resetPartyDetails(); // if there no data, then reset the fields
-                this.displayToast(
-                  this.$gettext('Fetch Customer/Supplier Data Error!'),
-                  this.$gettext(
-                    'Unable to Fetch Customer/Supplier Data, Please try again'
-                  ),
-                  'danger'
-                );
+            case 0:
+              self.setCustomerData(resp.data.gkresult);
+              break;
+            case 2:
+              self.resetPartyDetails(); // if there no data, then reset the fields
+              this.displayToast(
+                this.$gettext('Fetch Customer/Supplier Data Error!'),
+                this.$gettext('Unauthorized Access, Please contact Admin'),
+                'warning'
+              );
+              break;
+            case 3:
+            default:
+              self.resetPartyDetails(); // if there no data, then reset the fields
+              this.displayToast(
+                this.$gettext('Fetch Customer/Supplier Data Error!'),
+                this.$gettext(
+                  'Unable to Fetch Customer/Supplier Data, Please try again'
+                ),
+                'danger'
+              );
             }
             self.isPreloading = false;
-            // debugger;
-            // self.setShippingDetails(); // updates shipping details as well if flag is set
           })
           .catch((error) => {
             this.displayToast(
@@ -621,11 +610,11 @@ export default {
       this.bankDetails = data.bankdetails
         ? data.bankdetails
         : {
-            accountno: '',
-            bankname: '',
-            branchname: '',
-            ifsc: '',
-          };
+          accountno: '',
+          bankname: '',
+          branchname: '',
+          ifsc: '',
+        };
 
       setTimeout(() => {
         this.setPartyGst(); // set gstin based on state
@@ -665,7 +654,6 @@ export default {
           tin: null,
           pin: null,
         });
-        // this.setShippingDetails();
         this.onUpdateDetails();
       }
     },
@@ -753,7 +741,6 @@ export default {
       let self = this;
       return Promise.all(requests)
         .then(([resp1, resp2]) => {
-          // debugger;
           // === Customer List ===
           if (resp1.status === 200) {
             if (resp1.data.gkstatus === 0) {
@@ -786,8 +773,6 @@ export default {
 
           // If coming from Contact's page, autofill invoice party details from store
           if (self.invoiceParty.id !== null) {
-            // self.form.inv.type =
-            //   self.invoiceParty.type === 'customer' ? 'sale' : 'purchase';
             self.form = Object.assign({}, self.form, {
               type: self.invoiceParty.type,
               name: {
@@ -818,7 +803,6 @@ export default {
       });
     },
     initPartyEdit() {
-      // debugger;
       this.editFlag = true;
       this.editMode = {
         addr: this.form.addr,
@@ -854,7 +838,7 @@ export default {
             }
           })
           .catch((e) => {
-            console.log(e);
+            console.error(e);
           })
           .finally(() => {
             this.form.loading = false;

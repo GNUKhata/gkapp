@@ -1,6 +1,9 @@
 <template>
   <section class="m-1 align-form-label-right">
-    <b-overlay :show="loading" blur>
+    <b-overlay
+      :show="loading"
+      blur
+    >
       <b-card
         header="Budget"
         header-bg-variant="dark"
@@ -12,7 +15,7 @@
         <template #header>
           <translate> Budget </translate>
           <b-button
-            :to="{ name: 'Create_Budget', params: { type: budgetType } }"
+            :to="{name: 'Create_Budget', params: {type: budgetType}}"
             class="float-right py-0"
             size="sm"
             variant="success"
@@ -20,12 +23,18 @@
             <translate> + Add </translate>
           </b-button>
         </template>
-        <b-form-group label-size="sm" label="Budget Type" label-cols="3">
-          <template #label> <translate> Budget Type </translate> </template>
+        <b-form-group
+          label-size="sm"
+          label="Budget Type"
+          label-cols="3"
+        >
+          <template #label>
+            <translate> Budget Type </translate>
+          </template>
           <b-form-radio-group
             size="sm"
             class="d-flex align-items-center"
-            :style="{ height: '100%' }"
+            :style="{height: '100%'}"
             v-model="budgetType"
             @input="onBudgetFilterUpdate"
           >
@@ -43,7 +52,9 @@
           label-cols="3"
           label-size="sm"
         >
-          <template #label> <translate> Budget List </translate> </template>
+          <template #label>
+            <translate> Budget List </translate>
+          </template>
           <v-select
             id="input-10"
             v-model="budId"
@@ -56,20 +67,26 @@
             :readonly="!budgetList.length"
             label="text"
             :reduce="(bdata) => bdata.value"
-            :resetOnOptionsChange="true"
-          >
-          </v-select>
+            :reset-on-options-change="true"
+          />
         </b-form-group>
-        <div class="float-right" v-if="budId">
+        <div
+          class="float-right"
+          v-if="budId"
+        >
           <b-button
             size="sm"
             class="mx-1"
             variant="primary"
-            :to="{ name: 'Edit_Budget', params: { id: budId } }"
+            :to="{name: 'Edit_Budget', params: {id: budId}}"
           >
             <translate> Edit </translate>
           </b-button>
-          <b-button size="sm" variant="danger" @click.prevent="confirmOnDelete">
+          <b-button
+            size="sm"
+            variant="danger"
+            @click.prevent="confirmOnDelete"
+          >
             <translate> Delete </translate>
           </b-button>
         </div>
@@ -81,7 +98,10 @@
         <span> {{ budName }} ({{ fromDate }} to {{ toDate }}) </span>
       </small>
     </div>
-    <gk-toolbar class="mt-2" v-if="budId">
+    <gk-toolbar
+      class="mt-2"
+      v-if="budId"
+    >
       <b-button
         @click="openTableRow(-1, null, !expandAllRows)"
         class="mr-1"
@@ -91,15 +111,15 @@
         <b-icon
           font-scale="0.95"
           :icon="expandAllRows ? 'dash' : 'arrows-fullscreen'"
-        ></b-icon>
+        />
       </b-button>
       <print-helper
         name="Budget Report"
-        contentId="budget-table-container"
-        :printStyles="printStyles"
+        content-id="budget-table-container"
+        :print-styles="printStyles"
         class="d-none d-lg-inline-block"
-        fileName="Budget_Report"
-      ></print-helper>
+        file-name="Budget_Report"
+      />
       <b-button
         @click="expandTable = !expandTable"
         class="p-2 m-1 d-sm-none"
@@ -110,12 +130,12 @@
           class="float-right"
           font-scale="0.95"
           :icon="expandTable ? 'arrow-bar-left' : 'arrow-right'"
-        ></b-icon>
+        />
       </b-button>
       <!-- Spreadsheet Download -->
-      <GkFileDownload
+      <gk-file-download
         v-if="budgetType === 'pl'"
-        :fileSuffix="`Budget-${budgetType}`"
+        :file-suffix="`Budget-${budgetType}`"
         :url="
           `/spreadsheet?budget-pnl&budid=${this.budId}&budgetdetails=${this.budName}&financialstart=${this.yearStart}`
         "
@@ -123,11 +143,11 @@
         variant="dark"
         class="ml-1"
         :aria-label="`Download budget ${budgetType} spreadsheet button`"
-        :messageFromParent="parentMessage"
+        :message-from-parent="parentMessage"
       />
-      <GkFileDownload
+      <gk-file-download
         v-else
-        :fileSuffix="`Budget-${budgetType}`"
+        :file-suffix="`Budget-${budgetType}`"
         :url="
           `/spreadsheet?budget&budid=${this.budId}&budgetdetails=${this.budName}&financialstart=${this.yearStart}`
         "
@@ -135,11 +155,14 @@
         :aria-label="`Download budget ${budgetType} spreadsheet button`"
         variant="dark"
         class="ml-1"
-        :messageFromParent="parentMessage"
+        :message-from-parent="parentMessage"
       />
     </gk-toolbar>
     <!-- Table -->
-    <div id="budget-table-container" v-if="budId">
+    <div
+      id="budget-table-container"
+      v-if="budId"
+    >
       <report-header>
         <div class="text-center">
           <b>{{ isTypeCash ? 'Cash' : 'Profit & Sale' }} Budget</b>
@@ -173,14 +196,20 @@
               <!--  -->
               <b-icon
                 font-scale="0.8"
-                :style="{ left: '0px', top: '0px' }"
+                :style="{left: '0px', top: '0px'}"
                 class="position-absolute d-print-none"
                 :icon="data.item.isOpen ? 'dash' : 'arrows-fullscreen'"
-              ></b-icon>
+              />
               <b> {{ data.value }} </b>
             </div>
-            <b-collapse :id="`bl-${data.item.name}`" v-model="data.item.isOpen">
-              <div v-for="(accName, index) in data.item.acc" :key="index">
+            <b-collapse
+              :id="`bl-${data.item.name}`"
+              v-model="data.item.isOpen"
+            >
+              <div
+                v-for="(accName, index) in data.item.acc"
+                :key="index"
+              >
                 {{ accName }}
               </div>
             </b-collapse>
@@ -190,7 +219,10 @@
           <div class="text-right">
             <b> {{ data.item.total.budget }} </b>
             <b-collapse v-model="data.item.isOpen">
-              <div v-for="(bud, index) in data.value" :key="index">
+              <div
+                v-for="(bud, index) in data.value"
+                :key="index"
+              >
                 {{ bud }}
               </div>
             </b-collapse>
@@ -200,7 +232,10 @@
           <div class="text-right">
             <b> {{ data.item.total.actual }} </b>
             <b-collapse v-model="data.item.isOpen">
-              <div v-for="(bud, index) in data.value" :key="index">
+              <div
+                v-for="(bud, index) in data.value"
+                :key="index"
+              >
                 {{ bud }}
               </div>
             </b-collapse>
@@ -210,7 +245,10 @@
           <div class="text-right">
             <b> {{ data.item.total.var }} </b>
             <b-collapse v-model="data.item.isOpen">
-              <div v-for="(bud, index) in data.value" :key="index">
+              <div
+                v-for="(bud, index) in data.value"
+                :key="index"
+              >
                 {{ bud }}
               </div>
             </b-collapse>
@@ -220,7 +258,10 @@
           <div class="text-right">
             <b> {{ data.item.total.varPercent }} </b>
             <b-collapse v-model="data.item.isOpen">
-              <div v-for="(bud, index) in data.value" :key="index">
+              <div
+                v-for="(bud, index) in data.value"
+                :key="index"
+              >
                 {{ bud }}
               </div>
             </b-collapse>
@@ -230,6 +271,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 import { debounceEvent } from '../js/utils.js';
@@ -459,7 +501,7 @@ export default {
         result.push(formatRowData(data.incomeacc, 'Income', this.isTypeCash));
         result.push(formatRowData(data.expenseacc, 'Expense', this.isTypeCash));
         let budgetProfit = result[0].total.budget - result[1].total.budget, // income - expense
-          actualProfit = result[0].total.actual - result[1].total.actual; // income - expense
+            actualProfit = result[0].total.actual - result[1].total.actual; // income - expense
         result.push({
           name: 'Net Profit',
           acc: [],
@@ -479,7 +521,6 @@ export default {
           isOpen: true,
         });
       }
-      // console.log(result);
       return result;
     },
     onBudgetFilterUpdate() {
@@ -492,10 +533,6 @@ export default {
       if (parseInt(this.budId) < 0) {
         return;
       }
-      if (this.options.reports[this.budId]) {
-        // use the existing report
-        // return;
-      }
       this.loading = true;
       let type = this.isTypeCash ? 'cashReport' : 'profitlossReport';
       let startDate = this.dateReverse(this.fromDate);
@@ -506,24 +543,24 @@ export default {
         )
         .then((r) => {
           switch (r.data.gkstatus) {
-            case 0:
-              {
-                self.report = self.formatTableData(r.data.gkresult);
-              }
-              break;
-            case 2:
-              self.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            case 3:
-            default:
-              self.$bvToast.toast(this.$gettext('Data error'), {
-                variant: 'danger',
-                solid: true,
-              });
-              break;
+          case 0:
+            {
+              self.report = self.formatTableData(r.data.gkresult);
+            }
+            break;
+          case 2:
+            self.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 3:
+          default:
+            self.$bvToast.toast(this.$gettext('Data error'), {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
           }
           self.loading = false;
         })
@@ -623,8 +660,6 @@ export default {
     },
   },
   mounted() {
-    // this.fromDate = this.dateReverse(this.yearStart);
-    // this.toDate = this.dateReverse(this.yearEnd);
     const self = this;
     this.preloadData().then(() => {
       self.budgetType = self.type;

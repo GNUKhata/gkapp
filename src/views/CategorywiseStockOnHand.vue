@@ -21,7 +21,7 @@
               :options="categoryList"
               placeholder="Search / Select Category"
               :required="!allProducts"
-            ></autocomplete>
+            />
           </b-form-group>
           <!-- subcategory select -->
           <b-form-group
@@ -35,7 +35,7 @@
               :options="subCategoryList"
               :placeholder="$gettext('Search / Select sub category')"
               :required="false"
-            ></autocomplete>
+            />
           </b-form-group>
           <!-- date -->
           <div class="col">
@@ -45,7 +45,11 @@
               label-cols="4"
               label-align="right"
             >
-              <gk-date :required="true" v-model="toDate" id="1"></gk-date>
+              <gk-date
+                :required="true"
+                v-model="toDate"
+                id="1"
+              />
             </b-form-group>
           </div>
           <!-- checkboxes -->
@@ -58,10 +62,11 @@
               switch
               :unchecked-value="false"
               :disabled="allProducts"
-              ><translate
-                >Godown Wise Stock On Hand Report</translate
-              ></b-form-checkbox
             >
+              <translate>
+                Godown Wise Stock On Hand Report
+              </translate>
+            </b-form-checkbox>
           </div>
           <!-- Godown select -->
           <b-form-group
@@ -75,7 +80,7 @@
               :placeholder="$gettext('Search / Select a godown')"
               v-model="godownId"
               :options="godowns"
-            ></autocomplete>
+            />
           </b-form-group>
           <b-button
             size="sm"
@@ -83,7 +88,10 @@
             variant="success"
             class="float-right"
           >
-            <b-icon class="mr-1" icon="cloud-download"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="cloud-download"
+            />
             <translate>Get Details</translate>
           </b-button>
         </b-form>
@@ -91,7 +99,10 @@
     </b-overlay>
 
     <!-- Table -->
-    <section class="mt-5 rtable mx-auto" v-if="report.length > 0">
+    <section
+      class="mt-5 rtable mx-auto"
+      v-if="report.length > 0"
+    >
       <report-header>
         <div class="text-center">
           <translate>Categorywise Stock On Hand report as on: </translate>
@@ -102,7 +113,7 @@
         v-model="search"
         :placeholder="$gettext('Search Products')"
         class="gkcard mx-auto d-print-none"
-      ></b-form-input>
+      />
       <b-table
         caption-top
         class="mt-3"
@@ -115,8 +126,7 @@
         v-if="report.length > 0"
         :items="report"
         :fields="fields"
-      >
-      </b-table>
+      />
     </section>
   </section>
 </template>
@@ -128,7 +138,7 @@ import GkDate from '../components/GkDate.vue';
 import { mapState } from 'vuex';
 import ReportHeader from '../components/ReportHeader.vue';
 export default {
-  name: 'StockOnHand',
+  name: 'CategorywiseStockOnHand',
   components: { Autocomplete, GkDate, ReportHeader },
   data() {
     return {
@@ -179,7 +189,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
     getCategoryList() {
@@ -212,44 +222,20 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.subCategoryList = r.data.gkresult.map((data) => {
-                  return {
-                    text: data.categoryname,
-                    value: data.categorycode,
-                  };
-                });
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              // case 2:
-              //   this.$bvToast.toast('Unauthorised Access', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
-              // case 3:
-              //   this.$bvToast.toast('Data error', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
-              // case 4:
-              //   this.$bvToast.toast('No Privilege', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
-              // case 5:
-              //   this.$bvToast.toast('Integrity error', {
-              //     variant: 'danger',
-              //     solid: true,
-              //   });
-              //   break;
+            case 0:
+              this.subCategoryList = r.data.gkresult.map((data) => {
+                return {
+                  text: data.categoryname,
+                  value: data.categorycode,
+                };
+              });
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
             }
           }
         });
@@ -270,39 +256,39 @@ export default {
         .then((r) => {
           if (r.status == 200) {
             switch (r.data.gkstatus) {
-              case 0:
-                this.report = r.data.gkresult;
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.report = r.data.gkresult;
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
           } else {
             this.$bvToast.toast(

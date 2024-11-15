@@ -2,9 +2,11 @@
   <section class="mt-2 mr-3 ml-3">
     <b-input-group class="mb-3 container-sm gksearch d-print-none">
       <template #prepend>
-        <!-- <b-input-group-text>Username</b-input-group-text> -->
-        <b-button variant="outline-primary" @click="$router.push('/uom/add')">
-          <b-icon icon="thermometer"></b-icon>
+        <b-button
+          variant="outline-primary"
+          @click="$router.push('/uom/add')"
+        >
+          <b-icon icon="thermometer" />
           <translate>Add Unit</translate>
         </b-button>
       </template>
@@ -12,7 +14,7 @@
         type="text"
         :placeholder="$gettext('Search Units')"
         v-model="searchText"
-      ></b-form-input>
+      />
     </b-input-group>
     <b-alert
       dismissible
@@ -21,8 +23,12 @@
       :show="true"
     >
       Valid GST Units are marked
-      <b-badge variant="success">green</b-badge> Custom Units will be marked in
-      <b-badge variant="warning">Yellow</b-badge>
+      <b-badge variant="success">
+        green
+      </b-badge> Custom Units will be marked in
+      <b-badge variant="warning">
+        Yellow
+      </b-badge>
     </b-alert>
     <b-table
       :filter="searchText"
@@ -39,7 +45,10 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle" type="grow"></b-spinner>
+          <b-spinner
+            class="align-middle"
+            type="grow"
+          />
           <strong> <translate>Fetching All Units ...</translate> </strong>
         </div>
       </template>
@@ -48,7 +57,7 @@
           icon="circle-fill"
           class="d-print-none"
           :variant="subUnitStatus(data.item)"
-        ></b-icon>
+        />
         <b-link
           v-if="data.item.sysunit === 0"
           @click="$router.push('/uom/' + data.item.uom_id)"
@@ -63,8 +72,13 @@
         </span>
       </template>
       <template #cell(uqc)="data">
-        <div v-if="!data.value" class="text-danger">
-          <div class="text-small">* Invalid UQC</div>
+        <div
+          v-if="!data.value"
+          class="text-danger"
+        >
+          <div class="text-small">
+            * Invalid UQC
+          </div>
         </div>
         <span v-else>
           {{ data.value }}
@@ -134,7 +148,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
     /* As per Indian GST laws, A custom unit should be mapped to a officially valid unit */
@@ -154,6 +168,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 table {
   width: 70%;

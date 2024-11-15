@@ -1,13 +1,20 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div v-if="deletedFlag">
-      <span class="float-right h5 p-2 bg-danger text-white" v-translate>
+      <span
+        class="float-right h5 p-2 bg-danger text-white"
+        v-translate
+      >
         Cancelled
       </span>
-      <div class="clearfix"></div>
-      <br />
+      <div class="clearfix" />
+      <br>
     </div>
     <!-- action buttons -->
     <div class="mb-3 clearfix d-print-none">
@@ -21,7 +28,10 @@
             v-b-toggle.attachment-container
             @click="fetchAttachments"
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
             <translate>View Attachments</translate>
           </b-button>
           <b-button
@@ -30,7 +40,10 @@
             variant="primary"
             v-b-toggle.voucher-container
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
             <translate>View Vouchers</translate>
           </b-button>
           <b-button
@@ -38,9 +51,13 @@
             size="sm"
             variant="primary"
             v-b-toggle.voucher-container
-            v-if="showButton(3)" @click="redirectBasedOnValue(3)"
+            v-if="showButton(3)"
+            @click="redirectBasedOnValue(3)"
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
             <translate>View Credit Note</translate>
           </b-button>
           <b-button
@@ -48,18 +65,26 @@
             size="sm"
             variant="primary"
             v-b-toggle.voucher-container
-            v-if="showButton(4)" @click="redirectBasedOnValue(4)"
+            v-if="showButton(4)"
+            @click="redirectBasedOnValue(4)"
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
             <translate>View Debit Note</translate>
           </b-button>
           <b-button
             class="mr-1"
             size="sm"
             variant="primary"
-            v-if="showRejectionButton" @click="redirectRejectionNote()"
+            v-if="showRejectionButton"
+            @click="redirectRejectionNote"
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
             <translate>View Rejection Note</translate>
           </b-button>
           <b-button
@@ -69,24 +94,24 @@
             size="sm"
             variant="success"
           >
-            <!-- <b-icon class="mr-1" icon="clipboard-check"></b-icon> -->
-            <translate
-              >{{ invoice.isSale ? 'Receive Payment' : 'Make Payment' }}
+            <translate>{{ invoice.isSale ? 'Receive Payment' : 'Make Payment' }}
             </translate>
           </b-button>
           <b-button
             :to="{
-                  name: 'Billwise',
-                  params: { custType: 3, custName: '-1' },
-                }"
+              name: 'Billwise',
+              params: {custType: 3, custName: '-1'},
+            }"
             v-if="invoice.payment.mode != 5 && paymentFlag"
             class="mr-1"
             size="sm"
             variant="success"
           >
-            <b-icon class="mr-1" icon="clipboard-check"></b-icon>
-            <translate
-              >Adjust
+            <b-icon
+              class="mr-1"
+              icon="clipboard-check"
+            />
+            <translate>Adjust
             </translate>
           </b-button>
           <b-button
@@ -94,9 +119,12 @@
             class="mr-1"
             size="sm"
             variant="warning"
-            :to="{ name: 'Invoice_Edit', params: { invid: id } }"
+            :to="{name: 'Invoice_Edit', params: {invid: id}}"
           >
-            <b-icon class="mr-1" icon="pencil"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="pencil"
+            />
             <translate>Rectify</translate>
           </b-button>
           <b-button
@@ -105,42 +133,64 @@
             variant="danger"
             @click="confirmOnCancel"
           >
-            <b-icon class="mr-1" icon="x-octagon"></b-icon>
+            <b-icon
+              class="mr-1"
+              icon="x-octagon"
+            />
             <translate>Cancel</translate>
           </b-button>
         </span>
       </div>
     </div>
     <div>
-      <h3 v-translate class="d-none d-print-block text-center mt-1">
+      <h3
+        v-translate
+        class="d-none d-print-block text-center mt-1"
+      >
         <span v-if="isGstEnabled || isVatEnabled">TAX</span>
         INVOICE
       </h3>
     </div>
-    <b-card-group deck class="mb-2">
+    <b-card-group
+      deck
+      class="mb-2"
+    >
       <!-- buyer/seller details -->
       <b-card class="border-dark">
-        <b key="1" v-if="invoice.isSale" v-translate>
+        <b
+          key="1"
+          v-if="invoice.isSale"
+          v-translate
+        >
           Buyer Details
         </b>
-        <b key="2" v-else v-translate> Seller Details </b>
-        <br />
+        <b
+          key="2"
+          v-else
+          v-translate
+        > Seller Details </b>
+        <br>
         <p class="text-small">
           <template>
             <div>
-              <router-link v-if="!deletedFlag" :to="`/ledger/${custid}`">{{ invoice.party.name }}</router-link>
+              <router-link
+                v-if="!deletedFlag"
+                :to="`/ledger/${custid}`"
+              >
+                {{ invoice.party.name }}
+              </router-link>
               <span v-else>{{ invoice.party.name }}</span>
             </div>
           </template>
-          <span>{{ invoice.party.addr }} </span> <br />
-          <span>{{ invoice.party.state }} </span> <br />
-          <span>{{ invoice.party.pincode }} </span> <br />
-          <span>{{ invoice.party.country }} </span> <br />
+          <span>{{ invoice.party.addr }} </span> <br>
+          <span>{{ invoice.party.state }} </span> <br>
+          <span>{{ invoice.party.pincode }} </span> <br>
+          <span>{{ invoice.party.country }} </span> <br>
           <span v-if="invoice.party.phone">
-            <span>Contact No: {{ invoice.party.phone }} </span> <br />
+            <span>Contact No: {{ invoice.party.phone }} </span> <br>
           </span>
           <span v-if="invoice.party.email">
-            <span>Email: {{ invoice.party.email }} </span> <br />
+            <span>Email: {{ invoice.party.email }} </span> <br>
           </span>
           <span v-if="invoice.isGst">
             <b> GSTIN: </b> {{ invoice.party.gstin || '-' }}
@@ -152,11 +202,22 @@
       </b-card>
 
       <!-- invoice details -->
-      <b-card class="border-dark" order="1">
-        <b key="3" v-if="invoice.isSale" v-translate>
+      <b-card
+        class="border-dark"
+        order="1"
+      >
+        <b
+          key="3"
+          v-if="invoice.isSale"
+          v-translate
+        >
           Sale Invoice Details
         </b>
-        <b key="4" v-else v-translate>
+        <b
+          key="4"
+          v-else
+          v-translate
+        >
           Purchase Invoice Details
         </b>
         <!-- Note Details Table -->
@@ -201,26 +262,30 @@
       class="text-small border border-dark"
       tbody-tr-class="gk-vertical-row"
     >
-    <template #cell(name)="data">
-      <template v-if="data.item.gsflag === 7 && !deletedFlag">
-        <router-link
-          :to="`/product-register?product_id=${data.item.id}&current_date=${toDate}&goid=${dnote.goid}`"
-        >
-          {{ data.item.name }}
-        </router-link>
+      <template #cell(name)="data">
+        <template v-if="data.item.gsflag === 7 && !deletedFlag">
+          <router-link
+            :to="`/product-register?product_id=${data.item.id}&current_date=${toDate}&goid=${dnote.goid}`"
+          >
+            {{ data.item.name }}
+          </router-link>
+        </template>
+        <template v-else>
+          <span>{{ data.item.name }}</span>
+        </template>
       </template>
-      <template v-else>
-        <span>{{ data.item.name }}</span>
-      </template>
-    </template>
       <template #cell(qty)="data">
         {{ data.value }} <small> {{ data.item.uom }} </small>
       </template>
       <template #cell(hsn)="data">
         {{ data.item.hsn.hsn_code || 'N/A' }}
       </template>
-      <template #cell(price)="data"> {{ data.value }} </template>
-      <template #cell(discount)="data"> {{ data.value }} </template>
+      <template #cell(price)="data">
+        {{ data.value }}
+      </template>
+      <template #cell(discount)="data">
+        {{ data.value }}
+      </template>
       <template #cell(tax)="data">
         {{ data.value.rate }} <small> % </small>
       </template>
@@ -239,7 +304,9 @@
       <template #cell(vat)="data">
         {{ data.value }} <small> % </small>
       </template>
-      <template #cell(total)="data"> {{ data.value }} </template>
+      <template #cell(total)="data">
+        {{ data.value }}
+      </template>
       <template #custom-foot>
         <b-tr>
           <b-th
@@ -248,7 +315,9 @@
           >
             Total
           </b-th>
-          <b-th class="text-right"> {{ invoice.total.amount }}</b-th>
+          <b-th class="text-right">
+            {{ invoice.total.amount }}
+          </b-th>
         </b-tr>
       </template>
     </b-table-lite>
@@ -256,7 +325,10 @@
       <!-- payment details -->
       <b-card class="border-dark">
         <b v-translate> Payment Details </b>
-        <div v-if="bankMode" class="mb-3">
+        <div
+          v-if="bankMode"
+          class="mb-3"
+        >
           {{ paymentMode }}
           <b-table-lite
             :items="bankDetails"
@@ -266,10 +338,12 @@
             fixed
             thead-class="d-none"
             class="mt-1 text-small"
-          >
-          </b-table-lite>
+          />
         </div>
-        <div class="text-small" v-else>
+        <div
+          class="text-small"
+          v-else
+        >
           {{ paymentMode }}
         </div>
         <b v-translate> Narration: </b> {{ invoice.narration }}
@@ -279,27 +353,34 @@
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            { key: 'title', label: 'Total', tdClass: '' },
-            { key: 'value', label: '₹', class: 'text-right' },
+            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'value', label: '₹', class: 'text-right'},
           ]"
           small
           fixed
           class="text-small"
-        ></b-table-lite>
+        />
       </b-card>
     </b-card-group>
     <!-- signature section -->
     <div class="text-right mt-5 font-weight-bold d-none d-print-block mr-2">
       Authorized signatory
     </div>
-    <div class="clearfix"></div>
-    <br />
-    <b-collapse v-model="showAttachments" id="attachment-container">
+    <div class="clearfix" />
+    <br>
+    <b-collapse
+      v-model="showAttachments"
+      id="attachment-container"
+    >
       <div class="position-relative">
-        <b-overlay :show="isAttachmentLoading" variant="secondary" no-wrap blur>
-        </b-overlay>
+        <b-overlay
+          :show="isAttachmentLoading"
+          variant="secondary"
+          no-wrap
+          blur
+        />
         <b v-translate> Attachments: </b>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
         <div
           class="m-1 d-inline-block text-center float-left position-relative"
           style="width: 200px; height: 200px; border: 1px solid; line-height: 196px;"
@@ -311,14 +392,17 @@
             @load="onAttachementPreviewLoad"
             :src="image"
             :alt="'Preview_' + index"
-          />
+          >
         </div>
-        <div class="clearfix"></div>
+        <div class="clearfix" />
       </div>
     </b-collapse>
-    <br />
-    <b-collapse v-model="showVouchers" id="voucher-container">
-      <div class="clearfix"></div>
+    <br>
+    <b-collapse
+      v-model="showVouchers"
+      id="voucher-container"
+    >
+      <div class="clearfix" />
       <b v-translate> Vouchers: </b>
       <div v-if="vouchers.length">
         <b-card
@@ -331,14 +415,14 @@
             <span class="float-left">
               Voucher No:
               <router-link :to="`/Workflow/Transactions-Voucher/${voucher.id}`">
-                {{voucher.no}}
+                {{ voucher.no }}
               </router-link>
             </span>
             <span> {{ voucher.type }} </span>
             <span class="float-right">
               <translate
                 translate-comment="%{voucherDate} is a variable, translation is not required for it. Enter it, as it is while translation."
-                :translate-params="{ voucherDate: voucher.date }"
+                :translate-params="{voucherDate: voucher.date}"
               >
                 Date: %{voucherDate}
               </translate>
@@ -351,23 +435,22 @@
             :items="voucher.transactions"
             :tbody-tr-class="rowClass"
             fixed
-          >
-          </b-table-lite>
+          />
           <div>
             <translate
               translate-comment="%{narration} is a variable, translation is not required for it. Enter it, as it is while translation."
-              :translate-params="{ narration: voucher.narration }"
+              :translate-params="{narration: voucher.narration}"
             >
               Narration: %{narration}
             </translate>
           </div>
-          <br />
+          <br>
         </b-card>
       </div>
       <div v-else>
         <translate
           translate-comment="%{invNo} is a variable, translation is not required for it. Enter it, as it is while translation."
-          :translate-params="{ invNo: invoice.number }"
+          :translate-params="{invNo: invoice.number}"
         >
           No vouchers were found for Invoice: %{invNo}
         </translate>
@@ -385,9 +468,9 @@
     >
       <easy-voucher
         :type="voucherType"
-        :invId="voucherInvId"
-        :onSave="onPaymentComplete"
-      ></easy-voucher>
+        :inv-id="voucherInvId"
+        :on-save="onPaymentComplete"
+      />
     </b-modal>
   </b-container>
 </template>
@@ -395,7 +478,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters, mapState } from 'vuex';
-import EasyVoucher from '@/components/form/VoucherEasy.vue';
+import EasyVoucher from '@/components/form/EasyVoucher.vue';
 import { numberToWords } from '../../../js/utils.js';
 
 export default {
@@ -486,9 +569,6 @@ export default {
     isIndianParty: (self) =>
       !self.invoice.party.country || self.invoice.party.country === 'India',
     tableFields: (self) => {
-      // let designation = self.invoice.designation
-      //   ? `(${self.invoice.designation})`
-      //   : '';
       let fields = [
         {
           key: 'name',
@@ -541,10 +621,6 @@ export default {
         label: self.$gettext('Total (₹)'),
         tdClass: 'gk-currency-sm',
       });
-      // fields.push({
-      //   title: 'Issued By',
-      //   value: `${self.invoice.issuer}  ${designation}`,
-      // });
       return fields;
     },
     invoiceData: (self) => {
@@ -651,16 +727,16 @@ export default {
     paymentMode: (self) => {
       let mode = '';
       switch (parseInt(self.invoice.payment.mode)) {
-        case 2:
-        case 4:
-          mode = 'Paid By Bank Transfer';
-          break;
-        case 3:
-        case 5:
-          mode = 'Paid By Cash';
-          break;
-        case 15:
-          mode = 'On Credit';
+      case 2:
+      case 4:
+        mode = 'Paid By Bank Transfer';
+        break;
+      case 3:
+      case 5:
+        mode = 'Paid By Cash';
+        break;
+      case 15:
+        mode = 'On Credit';
       }
       return mode;
     },
@@ -686,7 +762,6 @@ export default {
       this.refresh();
     },
     onAttachementPreviewLoad(e) {
-      // console.log(e)
       if (e.target) {
         let height = e.target.height;
         let width = e.target.width;
@@ -767,7 +842,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
     getPaymentData() {
@@ -778,7 +853,6 @@ export default {
       });
     },
     getDetails() {
-      // let type = this.deletedFlag ? 'deletedsingle' : 'single';
       let url = this.deletedFlag
         ? `/invoice/cancel/${this.id}`
         : `/invoice/${this.id}`;
@@ -904,12 +978,12 @@ export default {
           );
         }
         axios.get(`/accounts?type=getAccCode&accountname=${this.invoice?.party.name}`)
-        .then(response => {
-          this.custid = response.data.accountcode;
-        })
-        .catch(error => {
-          this.error = 'Failed to load data: ' + error.message;
-        });
+          .then(response => {
+            this.custid = response.data.accountcode;
+          })
+          .catch(error => {
+            this.error = 'Failed to load data: ' + error.message;
+          });
       }
     },
     cancelInvoice() {
@@ -917,31 +991,31 @@ export default {
         .delete(`/invoice/cancel/${this.id}`)
         .then((response) => {
           switch (response.data.gkstatus) {
-            case 0:
-              this.displayToast(
-                'Cancel Invoice Success!',
-                `Successfully cancelled Invoice ${this.invoice.number}`,
-                'success'
-              );
-              this.getDetails().then((response) => {
-                if (typeof this.onUpdate === 'function') {
-                  this.onUpdate(response.data);
-                }
-              });
-              break;
-            case 3:
-              this.displayToast(
-                'Cancel Invoice Failure!',
-                `Could not cancel Invoice ${this.invoice.number}. Try again later or Contact admin`,
-                'danger'
-              );
-              break;
-            default:
-              this.displayToast(
-                'Cancel Invoice Failure!',
-                `Could not cancel Invoice ${this.invoice.number}. Try again later or Contact admin`,
-                'danger'
-              );
+          case 0:
+            this.displayToast(
+              'Cancel Invoice Success!',
+              `Successfully cancelled Invoice ${this.invoice.number}`,
+              'success'
+            );
+            this.getDetails().then((response) => {
+              if (typeof this.onUpdate === 'function') {
+                this.onUpdate(response.data);
+              }
+            });
+            break;
+          case 3:
+            this.displayToast(
+              'Cancel Invoice Failure!',
+              `Could not cancel Invoice ${this.invoice.number}. Try again later or Contact admin`,
+              'danger'
+            );
+            break;
+          default:
+            this.displayToast(
+              'Cancel Invoice Failure!',
+              `Could not cancel Invoice ${this.invoice.number}. Try again later or Contact admin`,
+              'danger'
+            );
           }
         })
         .catch((error) => {
@@ -962,7 +1036,6 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
@@ -983,55 +1056,54 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            {
-              // this.invoice = response.data.gkresult;
-              let invData = response.data.gkresult;
-              this.formatInvoiceDetails(invData);
-              if (invData.dcid) {
-                this.getDelNoteDetails(invData.dcid).then((dnResponse) => {
-                  let dndata = dnResponse.data.gkresult.delchaldata;
-                  if (dndata) {
-                    this.dnote = {
-                      id: dndata.dcid,
-                      no: dndata.dcno,
-                      goname: dndata.goname,
-                      goid: dndata.goid,
-                      packageQty: dndata.noofpackages,
-                    };
-                  }
-                });
-              } else {
-                this.dnote = {
-                  id: '',
-                  no: '',
-                  goname: '',
-                  goid: '',
-                  packageQty: 0,
-                };
-              }
+        case 0:
+          {
+            let invData = response.data.gkresult;
+            this.formatInvoiceDetails(invData);
+            if (invData.dcid) {
+              this.getDelNoteDetails(invData.dcid).then((dnResponse) => {
+                let dndata = dnResponse.data.gkresult.delchaldata;
+                if (dndata) {
+                  this.dnote = {
+                    id: dndata.dcid,
+                    no: dndata.dcno,
+                    goname: dndata.goname,
+                    goid: dndata.goid,
+                    packageQty: dndata.noofpackages,
+                  };
+                }
+              });
+            } else {
+              this.dnote = {
+                id: '',
+                no: '',
+                goname: '',
+                goid: '',
+                packageQty: 0,
+              };
             }
-            break;
-          case 2:
-            this.$bvToast.toast(`Unauthorized access, Please contact admin`, {
-              title: `${this.formMode} ${this.formType} Error!`,
+          }
+          break;
+        case 2:
+          this.$bvToast.toast(`Unauthorized access, Please contact admin`, {
+            title: `${this.formMode} ${this.formType} Error!`,
+            autoHideDelay: 3000,
+            variant: 'warning',
+            appendToast: true,
+            solid: true,
+          });
+          break;
+        default:
+          this.$bvToast.toast(
+            `Unable to Fetch Invoice Details! Please Try after sometime.`,
+            {
+              title: `Fetch Transaction Details Error!`,
               autoHideDelay: 3000,
               variant: 'warning',
               appendToast: true,
               solid: true,
-            });
-            break;
-          default:
-            this.$bvToast.toast(
-              `Unable to Fetch Invoice Details! Please Try after sometime.`,
-              {
-                title: `Fetch Transaction Details Error!`,
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
+            }
+          );
         } // end switch
       });
     },
@@ -1106,7 +1178,6 @@ export default {
   },
   mounted() {
     this.toDate = this.currentDate();
-    // console.log("mounted")
     if (this.id && parseInt(this.id) > -1) {
       this.isPreloading = true;
       Promise.all([
@@ -1120,7 +1191,7 @@ export default {
         .catch(() => {
           this.isPreloading = false;
         });
-        this.getPaymentData();
+      this.getPaymentData();
     } else {
       this.isPreloading = true;
       this.fetchState()

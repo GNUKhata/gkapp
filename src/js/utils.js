@@ -43,7 +43,6 @@ function numberToWords(number) {
         if (number > 0) result += ' ';
       } else {
         var t = Math.floor(number / n.value);
-        // console.log(t);
         var d = number % n.value;
         if (d > 0) {
           return numberToWords(t) + ' ' + n.str + ' ' + numberToWords(d);

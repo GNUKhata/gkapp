@@ -234,21 +234,11 @@ export default {
 
       let requests = [
         axios.get(`/accountsbyrule?type=${type}&side=Dr`).catch((error) => {
-          // this.displayToast(
-          //   this.$gettext('Fetch State Data Failed!'),
-          //   error.message,
-          //   'danger'
-          // );
-          console.log('Fetch Dr accounts failed');
+          console.error('Fetch Dr accounts failed', error);
           return error;
         }),
         axios.get(`/accountsbyrule?type=${type}&side=Cr`).catch((error) => {
-          // this.displayToast(
-          //   this.$gettext('Fetch State Data Failed!'),
-          //   error.message,
-          //   'danger'
-          // );
-          console.log('Fetch Cr accounts failed');
+          console.error('Fetch Cr accounts failed');
           return error;
         }),
       ];
@@ -256,12 +246,7 @@ export default {
       if (this.isReceiptOrPayment) {
         requests.push(
           axios.get(`billwise?type=all`).catch((error) => {
-            // this.displayToast(
-            //   this.$gettext('Fetch State Data Failed!'),
-            //   error.message,
-            //   'danger'
-            // );
-            console.log('Fetch billwise accounts failed');
+            console.error('Fetch billwise accounts failed');
             return error;
           })
         );
@@ -349,27 +334,11 @@ export default {
         acc[cr.account] = cr.amount;
         return acc;
       }, {});
-      // payload.drs[this.form.voucher.dr.account] = this.form.amount;
-      // payload.crs[this.form.voucher.cr.account] = this.form.amount;
 
       if (this.form.vno) {
         payload.vouchernumber = this.form.vno; // doubt on how to obtain this vno
       }
 
-      /**
-       * 
-       * Needs to be added for edit and easy modes separately
-      if (!this.isCreateMode) {
-        payload.projectcode = null;
-        payload.vouchercode = this.vid;
-        const vdata = this.options.vdata;
-        if (vdata.vouchertype === 'sale' || vdata.vouchertype === 'purchase') {
-          payload.invid = vdata.invid ? vdata.invid : null;
-        }
-      } else if (this.isReceiptOrPayment && !this.inOverlay) {
-        payload.invid = `${this.form.inv}` || null;
-      }
-      */
       return payload;
     },
     displayToast(title, message, variant) {

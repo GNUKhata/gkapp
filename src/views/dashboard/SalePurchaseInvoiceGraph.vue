@@ -1,8 +1,11 @@
 <template>
-  <b-card-group deck class="mt-5">
+  <b-card-group
+    deck
+    class="mt-5"
+  >
     <!-- Sale Invoices -->
     <b-card no-body>
-      <Bar
+      <bar
         :chart-options="chartOptions"
         :chart-data="saleChartData"
         :chart-id="chartId"
@@ -16,7 +19,7 @@
     </b-card>
     <!-- Purchase Invoices -->
     <b-card no-body>
-      <Bar
+      <bar
         :chart-options="chartOptions"
         :chart-data="purchaseChartData"
         :chart-id="chartId"

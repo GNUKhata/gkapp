@@ -28,8 +28,8 @@
                     inv.icflag === 3
                       ? 'Transactions-CashMemo' : 
                         'Transactions-Invoice',
-                  wfId: inv.id
-                }
+                  wfId: inv.id,
+                },
               }"
             >{{ inv.icflag === 3 ? 'View Cash Memo' : 'View Invoice' }}
             </router-link>
@@ -144,7 +144,7 @@
           :items="totalDetails"
           :fields="[
             {key: 'title', label: 'Total', tdClass: ''},
-            {key: 'value', label: '₹', class: 'text-right'}
+            {key: 'value', label: '₹', class: 'text-right'},
           ]"
           small
           fixed
@@ -444,7 +444,6 @@ export default {
     },
     formatDetails(details) {
       if (details) {
-        // this.output = JSON.stringify(details, null, 4);
         this.dcNote = {
           date: details.drcrdate,
           dcItems: [],
@@ -484,7 +483,6 @@ export default {
           text: numberToRupees(details.totreduct),
         };
         if (details.drcrcontents) {
-          // let taxState = details.invdata.taxstate;
           for (const id in details.drcrcontents) {
             let item = details.drcrcontents[id];
             this.dcNote.dcItems.push({
@@ -562,7 +560,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
     getDetails() {
@@ -582,7 +580,6 @@ export default {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
         case 0:
-          // this.invoice = response.data.gkresult;
           this.formatDetails(response.data.gkresult);
           break;
         case 2:

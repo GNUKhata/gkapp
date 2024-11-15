@@ -233,7 +233,6 @@ export default new Vuex.Store({
     setFinYears(state, payload) {
       if (payload) {
         state.finYears = payload;
-        // AppStorage.setItem("finYears", JSON.stringify(state.finYears));
       }
     },
 

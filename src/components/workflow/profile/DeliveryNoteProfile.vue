@@ -1,13 +1,20 @@
 <template>
   <b-container fluid>
-    <b-overlay :show="isPreloading" variant="secondary" no-wrap blur>
-    </b-overlay>
+    <b-overlay
+      :show="isPreloading"
+      variant="secondary"
+      no-wrap
+      blur
+    />
     <div v-if="pdata.cancelledFlag">
-      <span class="float-right h5 p-2 bg-danger text-white" v-translate>
+      <span
+        class="float-right h5 p-2 bg-danger text-white"
+        v-translate
+      >
         Cancelled
       </span>
-      <div class="clearfix"></div>
-      <br />
+      <div class="clearfix" />
+      <br>
     </div>
     <!-- action buttons -->
     <div class="mb-3 clearfix d-print-none">
@@ -20,12 +27,16 @@
             v-b-toggle.voucher-container
             v-if="delnote.narration?.includes('Cash Memo')"
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
               :to="
                 `/workflow/Transactions-CashMemo/${invid}`
               "
-              >View Cash Memo
+            >View Cash Memo
             </router-link>
           </b-button>
           <b-button
@@ -35,12 +46,16 @@
             v-b-toggle.voucher-container
             v-else
           >
-            <b-icon class="mr-1" icon="eye"></b-icon>
-            <router-link class="custom-link"
+            <b-icon
+              class="mr-1"
+              icon="eye"
+            />
+            <router-link
+              class="custom-link"
               :to="
                 `/workflow/Transactions-Invoice/${invid}`
               "
-              >View Invoice
+            >View Invoice
             </router-link>
           </b-button>
 
@@ -48,44 +63,56 @@
       </div>
     </div>
     <b-row>
-      <b-col order="2" order-md="1">
-        <b-container fluid class="pl-0">
+      <b-col
+        order="2"
+        order-md="1"
+      >
+        <b-container
+          fluid
+          class="pl-0"
+        >
           <b-col class="px-0">
             <b v-translate> Dispatch From </b>
             <p class="text-small">
-              <span> {{ delnote.from.name }}</span> <br />
-              <span> {{ delnote.from.addr }} </span> <br />
-              <span> {{ delnote.from.state }} </span> <br />
+              <span> {{ delnote.from.name }}</span> <br>
+              <span> {{ delnote.from.addr }} </span> <br>
+              <span> {{ delnote.from.state }} </span> <br>
               <span v-if="delnote.from.pin">
                 <b v-translate> Postal Code: </b> {{ delnote.from.pin }}
               </span>
-              <br />
+              <br>
             </p>
           </b-col>
           <b-col class="px-0">
             <b v-translate> Deliver To </b>
             <p class="text-small">
-              <span> {{ delnote.to.name }} </span> <br />
-              <span> {{ delnote.to.addr }} </span> <br />
-              <span> {{ delnote.to.state }} </span> <br />
+              <span> {{ delnote.to.name }} </span> <br>
+              <span> {{ delnote.to.addr }} </span> <br>
+              <span> {{ delnote.to.state }} </span> <br>
               <span v-if="delnote.to.pin || delnote.to.gstin">
                 <span>
                   <b v-translate> Postal Code: </b> {{ delnote.to.pin }}
                 </span>
-                <br />
+                <br>
                 <span v-if="isGst">
                   <b>GSTIN: </b>{{ delnote.to.gstin }}
                 </span>
                 <span v-if="isVat">
                   <b>TIN: </b>{{ delnote.to.tin }}
                 </span>
-                <br />
+                <br>
               </span>
             </p>
           </b-col>
         </b-container>
       </b-col>
-      <b-col class="text-md-right" cols="12" md="6" order="1" order-md="2">
+      <b-col
+        class="text-md-right"
+        cols="12"
+        md="6"
+        order="1"
+        order-md="2"
+      >
         <b v-translate> Delivery Note Details </b>
         <!-- Note Details Table -->
         <b-table-lite
@@ -96,7 +123,7 @@
           thead-class="d-none"
           fixed
           class="text-small table-border-dark"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <!-- Content Table -->
@@ -126,27 +153,41 @@
       </template>
     </b-table-lite>
     <b-row>
-      <b-col class="my-2" order="2" order-md="1"> </b-col>
-      <b-col cols="12" md="8" class="my-2" order="1" order-md="2">
+      <b-col
+        class="my-2"
+        order="2"
+        order-md="1"
+      />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+        order="1"
+        order-md="2"
+      >
         <!-- Total Table -->
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            { key: 'title', label: 'Total', tdClass: '' },
-            { key: 'value', label: '₹', class: 'text-right' },
+            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'value', label: '₹', class: 'text-right'},
           ]"
           fixed
           small
           class="text-small"
-        ></b-table-lite>
+        />
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="my-2"> </b-col>
-      <b-col cols="12" md="8" class="my-2">
+      <b-col class="my-2" />
+      <b-col
+        cols="12"
+        md="8"
+        class="my-2"
+      >
         <p class="text-small">
           <b v-translate> Narration: </b>
-          <span> {{ delnote.narration }} </span> <br />
+          <span> {{ delnote.narration }} </span> <br>
         </p>
       </b-col>
     </b-row>
@@ -161,7 +202,7 @@
         <translate> Cancel </translate>
       </b-button>
     </div>
-    <br />
+    <br>
   </b-container>
 </template>
 
@@ -345,12 +386,10 @@ export default {
           okVariant: 'success',
           headerClass: 'p-0 border-bottom-0',
           footerClass: 'border-top-0', // p-1
-          // bodyClass: 'p-2',
           centered: true,
         })
         .then((val) => {
           if (val) {
-            // return;
             axios.delete(`/delchal/${this.id}`).then((resp) => {
               if (resp.data.gkstatus === 0) {
                 let type = self.isSale ? 'sale' : 'purchase';
@@ -471,12 +510,12 @@ export default {
         });
       }
       axios.get(`/accounts?type=getAccCode&accountname=${this.delnote.from.name}`)
-      .then(response => {
-        this.custid = response.data.accountcode;
-      })
-      .catch(error => {
-        this.error = 'Failed to load data: ' + error.message;
-      });
+        .then(response => {
+          this.custid = response.data.accountcode;
+        })
+        .catch(error => {
+          this.error = 'Failed to load data: ' + error.message;
+        });
     },
     getDetails() {
       let url = `/delchal/${this.id}`;
@@ -496,37 +535,34 @@ export default {
     fetchAndUpdateData() {
       return this.getDetails().then((response) => {
         switch (response.data.gkstatus) {
-          case 0:
-            // this.invoice = response.data.gkresult;
-            // this.formatInvoiceDetails(response.data.gkresult);
-            // this.output = response.data.gkresult;
-            this.formatDetails(response.data.gkresult);
-            break;
-          case 2:
-            this.$bvToast.toast(
-              this.$gettext(`Unauthorized access, Please contact admin`),
-              {
-                title: this.$gettext(`Fetch Delivery Note Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
-            break;
-          default:
-            this.$bvToast.toast(
-              this.$gettext(
-                `Unable to Fetch Delivery Note Details! Please Try after sometime.`
-              ),
-              {
-                title: this.$gettext(`Fetch Transaction Details Error!`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              }
-            );
+        case 0:
+          this.formatDetails(response.data.gkresult);
+          break;
+        case 2:
+          this.$bvToast.toast(
+            this.$gettext(`Unauthorized access, Please contact admin`),
+            {
+              title: this.$gettext(`Fetch Delivery Note Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
+          break;
+        default:
+          this.$bvToast.toast(
+            this.$gettext(
+              `Unable to Fetch Delivery Note Details! Please Try after sometime.`
+            ),
+            {
+              title: this.$gettext(`Fetch Transaction Details Error!`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            }
+          );
         } // end switch
       });
     },
@@ -540,7 +576,7 @@ export default {
       });
     },
     fetchdId() {
-       axios.get(`/delchal/invid/${this.id}`).then((resp) => {
+      axios.get(`/delchal/invid/${this.id}`).then((resp) => {
         if (resp.data.gkstatus === 0) {
           this.invid = resp.data.data;
         }
@@ -551,7 +587,6 @@ export default {
     id: function(id) {
       if (id && parseInt(id) > -1) {
         this.isPreloading = true;
-        // console.log(`Fetch id = ${id}`);
         this.fetchAndUpdateData()
           .then(() => {
             this.isPreloading = false;
@@ -579,6 +614,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .custom-link {
   color: white;

@@ -9,15 +9,19 @@
         class="mx-auto gkcard d-print-none"
       >
         <b-form @submit.prevent="showSummary">
-          <gk-period @update="onPeriodUpdate" @validity="updateValidity"> </gk-period>
+          <gk-period
+            @update="onPeriodUpdate"
+            @validity="updateValidity"
+          />
           <b-button
             :disabled="!periodValidity"
             type="submit"
             size="sm"
             variant="success"
             class="float-right"
-            ><b-icon icon="eye-fill"></b-icon> Show</b-button
           >
+            <b-icon icon="eye-fill" /> Show
+          </b-button>
         </b-form>
       </b-card>
     </b-overlay>
@@ -26,7 +30,6 @@
 
 <script>
 import GkPeriod from '@/components/GkPeriod.vue';
-// import { mapState } from 'vuex';
 export default {
   components: { GkPeriod },
   name: 'R1',
@@ -41,14 +44,6 @@ export default {
         data: null,
         selected: '',
         summary: null,
-        // list: [
-        //   { value: 'b2b', text: 'B2B' },
-        //   { value: 'b2cl', text: 'B2CL' },
-        //   { value: 'b2cs', text: 'B2CS' },
-        //   { value: 'cdnr', text: 'CDNR' },
-        //   { value: 'cdnur', text: 'CDNUR' },
-        //   { value: 'hsn1', text: 'HSN' },
-        // ],
       },
     };
   },
@@ -77,9 +72,6 @@ export default {
         );
       }
     },
-  },
-  mounted() {
-    // this.calculateTimePeriods();
   },
 };
 </script>

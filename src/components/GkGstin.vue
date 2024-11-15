@@ -12,7 +12,7 @@
         :readonly="readonly"
         :tabindex="readonly ? -1 : 0"
         :state="isGstinValid"
-      ></b-form-input>
+      />
       <b-form-invalid-feedback id="gstin-feedback">
         {{ invalidText }}
       </b-form-invalid-feedback>
@@ -25,7 +25,11 @@
       @click.prevent="getGstinCaptcha"
       :disabled="!(validity.checksum && validity.format) || isCaptchaLoading"
     >
-      <b-spinner v-if="isCaptchaLoading" small class="mr-1"></b-spinner>
+      <b-spinner
+        v-if="isCaptchaLoading"
+        small
+        class="mr-1"
+      />
       {{ valButtonText }}
     </b-button>
 
@@ -41,15 +45,20 @@
       no-close-on-backdrop
       @close="onModalHide"
     >
-        <template #modal-header="{ close }">
+      <template #modal-header="{close}">
         <h5>GSTIN Validation</h5>
-         <b-button size="md" variant="headerTextVariant" @click="close()">
-        x</b-button>
+        <b-button
+          size="md"
+          variant="headerTextVariant"
+          @click="close"
+        >
+          x
+        </b-button>
       </template>
       <b-container
         v-if="!gstinData.validity"
         fluid
-        :style="{ minWidth: '300px' }"
+        :style="{minWidth: '300px'}"
       >
         <b-form>
           <b-form-input
@@ -57,7 +66,7 @@
             size="sm"
             v-model.trim="input"
             placeholder="Enter a valid GSTIN"
-          ></b-form-input>
+          />
           <b-form-group
             class="align-items-baseline"
             label-for="gkg-captcha-input"
@@ -67,27 +76,26 @@
               <img
                 style="width: 182px; height: 50px;"
                 :src="gstinCaptcha.image"
-              />
+              >
               <b-button
                 @click.prevent="getGstinCaptcha"
                 class="p-0 mx-2"
                 variant="link"
               >
-                <b-icon icon="arrow-repeat"></b-icon>
+                <b-icon icon="arrow-repeat" />
               </b-button>
             </template>
             <b-form-input
               v-model.trim="gstinCaptcha.text"
               id="gkg-captcha-input"
               :state="gstinCaptcha.validity"
-            >
-            </b-form-input>
+            />
             <b-form-invalid-feedback>
               <translate> Captcha not correct, please try again! </translate>
             </b-form-invalid-feedback>
           </b-form-group>
         </b-form>
-        <hr class="my-2" />
+        <hr class="my-2">
         <b-button
           size="sm"
           variant="warning"
@@ -95,14 +103,18 @@
           @click.prevent="validateGstinOnline"
           :disabled="isValidationLoading"
         >
-          <b-spinner v-if="isValidationLoading" small class="mr-1"></b-spinner>
+          <b-spinner
+            v-if="isValidationLoading"
+            small
+            class="mr-1"
+          />
           <translate> Validate </translate>
         </b-button>
       </b-container>
       <b-container
         v-if="gstinData.validity"
         fluid
-        :style="{ minWidth: '300px' }"
+        :style="{minWidth: '300px'}"
       >
         <h5>{{ input }} is valid!</h5>
         <b-form class="align-form-label-right">
@@ -118,7 +130,7 @@
               v-model="gstinData.tradeName"
               trim
               readonly
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label="Status"
@@ -132,7 +144,7 @@
               v-model="gstinData.status"
               trim
               readonly
-            ></b-form-input>
+            />
           </b-form-group>
           <b-form-group
             label="Address"
@@ -147,9 +159,9 @@
               rows="3"
               trim
               readonly
-            ></b-form-textarea>
+            />
           </b-form-group>
-          <hr class="my-2" />
+          <hr class="my-2">
           <b-button
             size="sm"
             variant="warning"
@@ -303,7 +315,6 @@ export default {
       });
     },
     useGstinData() {
-      // console.log(this.gstinData.pan);
       this.$emit('gstin_data', {
         name: this.gstinData.tradeName,
         addr: this.gstinData.addr,
@@ -388,7 +399,6 @@ export default {
      * Validates the gstin and emits a payload with validity status and checksum, pan and state code
      *  */
     validateGstin(gstin) {
-      // console.log(1);
       this.validity = this.isValidGstin(gstin);
       let payload = {
         validity: this.validity,
@@ -492,8 +502,8 @@ export default {
       //Calculate 15th digit checksum from 14 digits and compare it
       let gstnCodepointChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       let factor = 2,
-        sum = 0,
-        checkCodePoint = 0;
+          sum = 0,
+          checkCodePoint = 0;
       let mod = gstnCodepointChars.length;
       for (let i = gstn.length - 2; i >= 0; i--) {
         let codePoint = gstnCodepointChars.indexOf(gstn.charAt(i));

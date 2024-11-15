@@ -2,8 +2,14 @@
   <section class="m-2">
     <b-input-group class="mb-3 w-75 mx-auto">
       <template #prepend>
-        <b-button v-b-modal.add-cc variant="warning"
-          ><b-icon class="mr-1" icon="cash"></b-icon>
+        <b-button
+          v-b-modal.add-cc
+          variant="warning"
+        >
+          <b-icon
+            class="mr-1"
+            icon="cash"
+          />
           <translate>Add Cost Center</translate>
         </b-button>
       </template>
@@ -11,7 +17,7 @@
         type="text"
         :placeholder="$gettext('Search Cost Centers')"
         v-model="searchText"
-      ></b-form-input>
+      />
     </b-input-group>
 
     <b-table
@@ -30,7 +36,10 @@
     >
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle" type="grow"></b-spinner>
+          <b-spinner
+            class="align-middle"
+            type="grow"
+          />
           <strong> <translate>Fetching List...</translate> </strong>
         </div>
       </template>
@@ -47,11 +56,19 @@
             role="button"
             size="sm"
             variant="light"
-          ></b-icon>
+          />
         </b-button>
         <!-- delete cost center button -->
-        <b-button size="sm" variant="danger" @click="confirm(data.item)">
-          <b-icon role="button" icon="trash" variant="light"></b-icon>
+        <b-button
+          size="sm"
+          variant="danger"
+          @click="confirm(data.item)"
+        >
+          <b-icon
+            role="button"
+            icon="trash"
+            variant="light"
+          />
         </b-button>
       </template>
     </b-table>
@@ -62,7 +79,7 @@
       header-text-variant="light"
       hide-footer
     >
-      <cost-center-create @created="getCostCenterList"></cost-center-create>
+      <cost-center-create @created="getCostCenterList" />
     </b-modal>
     <b-modal
       id="edit-cc"
@@ -74,7 +91,7 @@
       <cost-center-edit
         :id="ccId"
         @modified="getCostCenterList"
-      ></cost-center-edit>
+      />
     </b-modal>
   </section>
 </template>
@@ -85,7 +102,7 @@ import CostCenterCreate from './CostCenterCreate.vue';
 import CostCenterEdit from './CostCenterEdit.vue';
 export default {
   components: { CostCenterCreate, CostCenterEdit },
-  name: 'Godowns',
+  name: 'CostCenter',
   data() {
     return {
       loading: false,
@@ -158,47 +175,47 @@ export default {
         .then((r) => {
           if (r.status == 200)
             switch (r.data.gkstatus) {
-              case 0:
-                this.$bvToast.toast(`${info.name} Deleted`, {
-                  variant: 'success',
-                  title: 'Success',
-                  solid: true,
-                });
-                axios.post('/log', {
-                  activity: `cost center delete: ${info.name}`,
-                });
-                this.getCostCenterList();
-                break;
-              case 1:
-                this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
-                  variant: 'warning',
-                  solid: true,
-                });
-                break;
-              case 2:
-                this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 3:
-                this.$bvToast.toast(this.$gettext('Data error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 4:
-                this.$bvToast.toast(this.$gettext('No Privilege'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
-              case 5:
-                this.$bvToast.toast(this.$gettext('Integrity error'), {
-                  variant: 'danger',
-                  solid: true,
-                });
-                break;
+            case 0:
+              this.$bvToast.toast(`${info.name} Deleted`, {
+                variant: 'success',
+                title: 'Success',
+                solid: true,
+              });
+              axios.post('/log', {
+                activity: `cost center delete: ${info.name}`,
+              });
+              this.getCostCenterList();
+              break;
+            case 1:
+              this.$bvToast.toast(this.$gettext('Duplicate Entry'), {
+                variant: 'warning',
+                solid: true,
+              });
+              break;
+            case 2:
+              this.$bvToast.toast(this.$gettext('Unauthorised Access'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 3:
+              this.$bvToast.toast(this.$gettext('Data error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 4:
+              this.$bvToast.toast(this.$gettext('No Privilege'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
+            case 5:
+              this.$bvToast.toast(this.$gettext('Integrity error'), {
+                variant: 'danger',
+                solid: true,
+              });
+              break;
             }
         })
         .catch((e) => {

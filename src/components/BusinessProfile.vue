@@ -4,11 +4,23 @@
     id="prod"
     @submit.prevent="updateProfile"
   >
-    <b-overlay :show="loading" blur no-wrap></b-overlay>
+    <b-overlay
+      :show="loading"
+      blur
+      no-wrap
+    />
     <!-- Submit & delete buttons -->
     <div class="mt-4 pb-4 d-flex flex-row-reverse">
-      <b-button type="submit" size="sm" class="ml-2" variant="success">
-        <b-icon class="mr-1" icon="cloud-arrow-up"></b-icon>
+      <b-button
+        type="submit"
+        size="sm"
+        class="ml-2"
+        variant="success"
+      >
+        <b-icon
+          class="mr-1"
+          icon="cloud-arrow-up"
+        />
         <translate>Save Changes</translate>
       </b-button>
       <b-button
@@ -16,25 +28,37 @@
         size="sm"
         class="ml-2"
         variant="danger"
-        ><b-icon
+      >
+        <b-icon
           class="mr-1"
           :icon="details.gsflag == 7 ? 'box' : 'headset'"
-        ></b-icon>
-        <span v-if="details.gsflag == 7" v-translate>Delete Product</span>
-        <span v-else v-translate>Delete Service</span>
+        />
+        <span
+          v-if="details.gsflag == 7"
+          v-translate
+        >Delete Product</span>
+        <span
+          v-else
+          v-translate
+        >Delete Service</span>
       </b-button>
       <b-button
         size="sm"
         class="ml-2"
         variant="success"
         v-if="details.gsflag == 7"
-        ><b-icon class="mr-1" icon="box-seam"></b-icon>
+      >
+        <b-icon
+          class="mr-1"
+          icon="box-seam"
+        />
         <span>
-        <router-link class="custom-link"
+          <router-link
+            class="custom-link"
             :to="
               `/product-register?product_id=${details.productcode}&current_date=${toDate}&goid=${options.godowns[0]?.value}`
             "
-            >Product Register
+          >Product Register
           </router-link></span>
       </b-button>
     </div>
@@ -46,14 +70,25 @@
       no-body
     >
       <template #header>
-        <div class="d-flex" v-b-toggle.collapse-info>
-          <div class="mr-auto" v-translate>Info</div>
+        <div
+          class="d-flex"
+          v-b-toggle.collapse-info
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Info
+          </div>
           <div>
-            <b-icon icon="dash"></b-icon>
+            <b-icon icon="dash" />
           </div>
         </div>
       </template>
-      <b-collapse class="p-3" id="collapse-info">
+      <b-collapse
+        class="p-3"
+        id="collapse-info"
+      >
         <b-form-group
           label-size="sm"
           :label="this.$gettext('Name')"
@@ -64,7 +99,7 @@
             v-model.trim="details.productdesc"
             type="text"
             required
-          ></b-form-input>
+          />
         </b-form-group>
       </b-collapse>
     </b-card>
@@ -75,14 +110,25 @@
       header-text-variant="light"
     >
       <template #header>
-        <div class="d-flex" v-b-toggle.collapse-price>
-          <div class="mr-auto" v-translate>Price</div>
+        <div
+          class="d-flex"
+          v-b-toggle.collapse-price
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Price
+          </div>
           <div>
-            <b-icon icon="dash"></b-icon>
+            <b-icon icon="dash" />
           </div>
         </div>
       </template>
-      <b-collapse class="p-3" id="collapse-price">
+      <b-collapse
+        class="p-3"
+        id="collapse-price"
+      >
         <!--  Cost price. only shown for product -->
         <b-form-group
           label-size="sm"
@@ -91,7 +137,10 @@
           label-cols="4"
           v-if="details.gsflag == 7"
         >
-          <b-form-input size="sm" v-model="details.prodmrp"></b-form-input>
+          <b-form-input
+            size="sm"
+            v-model="details.prodmrp"
+          />
         </b-form-group>
         <!-- Selling Price -->
         <b-form-group
@@ -101,7 +150,10 @@
           :label="$gettext('Selling Price')"
           label-cols="4"
         >
-          <b-form-input size="sm" v-model="details.prodsp"></b-form-input>
+          <b-form-input
+            size="sm"
+            v-model="details.prodsp"
+          />
         </b-form-group>
         <!-- Taxable Sale Price, Incase of a service -->
         <b-form-group
@@ -111,7 +163,10 @@
           :label="$gettext('Taxable Sale Price')"
           label-cols="4"
         >
-          <b-form-input size="sm" v-model="details.prodsp"></b-form-input>
+          <b-form-input
+            size="sm"
+            v-model="details.prodsp"
+          />
         </b-form-group>
         <!-- discount -->
         <b-form-group
@@ -120,22 +175,32 @@
           :label="$gettext('Discount')"
           label-for="input-3"
         >
-          <template #label> <translate> Discount </translate> </template>
-          <b-input-group size="sm" prepend="₹">
+          <template #label>
+            <translate> Discount </translate>
+          </template>
+          <b-input-group
+            size="sm"
+            prepend="₹"
+          >
             <b-form-input
               size="sm"
               type="number"
               step="0.01"
               v-model="details.discountamount"
-            ></b-form-input>
+            />
           </b-input-group>
-          <b-input-group label-size="sm" size="sm" class="mt-1" prepend="%">
+          <b-input-group
+            label-size="sm"
+            size="sm"
+            class="mt-1"
+            prepend="%"
+          >
             <b-form-input
               size="sm"
               type="number"
               step="0.01"
               v-model="discountPercentage"
-            ></b-form-input>
+            />
           </b-input-group>
         </b-form-group>
       </b-collapse>
@@ -149,14 +214,25 @@
       header-text-variant="light"
     >
       <template #header>
-        <div class="d-flex" v-b-toggle.collapse-tax>
-          <div class="mr-auto" v-translate>Taxes</div>
+        <div
+          class="d-flex"
+          v-b-toggle.collapse-tax
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Taxes
+          </div>
           <div>
-            <b-icon icon="dash"></b-icon>
+            <b-icon icon="dash" />
           </div>
         </div>
       </template>
-      <b-collapse class="p-3" id="collapse-tax">
+      <b-collapse
+        class="p-3"
+        id="collapse-tax"
+      >
         <template v-if="isGstEnabled">
           <b-form-group
             label-size="sm"
@@ -167,7 +243,7 @@
             <gk-hsn
               :required="orgGstin != null"
               v-model="details.gscode"
-            ></gk-hsn>
+            />
           </b-form-group>
 
           <b-form-group
@@ -176,14 +252,16 @@
             label="GST"
             label-cols="4"
           >
-            <b-input-group size="sm" append="%">
+            <b-input-group
+              size="sm"
+              append="%"
+            >
               <b-form-select
                 size="sm"
                 :options="gstRates"
                 v-model="tax.gst[0].taxrate"
                 :disabled="multiGstFlag"
-              >
-              </b-form-select>
+              />
             </b-input-group>
           </b-form-group>
 
@@ -199,26 +277,32 @@
               </translate>
             </small>
           </b-form-checkbox>
-          <div class="clearfix"></div>
+          <div class="clearfix" />
           <b-form-group
             label-size="sm"
             label="CESS"
             label-cols="4"
           >
-            <b-input-group size="sm" append="%">
+            <b-input-group
+              size="sm"
+              append="%"
+            >
               <b-form-input
                 size="sm"
                 type="number"
                 step="0.01"
                 no-wheel
                 v-model="tax.cess.taxrate"
-              ></b-form-input>
+              />
             </b-input-group>
           </b-form-group>
 
           <b-collapse v-model="multiGstFlag">
             <b-card no-body>
-              <b-card-body class="p-2" style="min-height: 50px">
+              <b-card-body
+                class="p-2"
+                style="min-height: 50px"
+              >
                 <div class="mb-2">
                   <b>GST</b>
                   <b-button
@@ -238,9 +322,9 @@
                   tbody-tr-class="gk-vertical-row"
                   :items="tax.gst"
                   :fields="[
-                    { key: 'taxrate', label: 'Rate %' },
-                    { key: 'taxfromdate', label: 'Applicable From' },
-                    { key: 'edit', label: '' },
+                    {key: 'taxrate', label: 'Rate %'},
+                    {key: 'taxfromdate', label: 'Applicable From'},
+                    {key: 'edit', label: ''},
                   ]"
                 >
                   <template #cell(taxrate)="data">
@@ -249,18 +333,18 @@
                       id="bi-input-7"
                       v-model="tax.gst[data.index].taxrate"
                       :options="gstRates"
-                    ></b-form-select>
+                    />
                   </template>
                   <template #cell(taxfromdate)="data">
                     <gk-date
                       v-model="tax.gst[data.index].taxfromdate"
                       :id="`gst-from-${data.index}`"
-                      :inputStyle="{ 'max-width': '120px' }"
+                      :input-style="{'max-width': '120px'}"
                       :min="tax.gst[data.index].min"
                       @validity="updateGstDateValidity($event, data.index)"
                       @input="updateGst"
                       :readonly="!data.index"
-                    ></gk-date>
+                    />
                   </template>
                   <template #cell(edit)="data">
                     <b-button
@@ -284,14 +368,17 @@
           label="CVAT"
           label-cols="4"
         >
-          <b-input-group size="sm" append="%">
+          <b-input-group
+            size="sm"
+            append="%"
+          >
             <b-form-input
               size="sm"
               type="number"
               step="0.01"
               no-wheel
               v-model="tax.cvat.taxrate"
-            ></b-form-input>
+            />
           </b-input-group>
         </b-form-group>
 
@@ -301,8 +388,14 @@
           label="VAT"
           label-cols="4"
         >
-          <div v-for="(item, index) in tax.vat" :key="index">
-            <b-input-group v-if="item.taxname === 'VAT'" class="mb-2">
+          <div
+            v-for="(item, index) in tax.vat"
+            :key="index"
+          >
+            <b-input-group
+              v-if="item.taxname === 'VAT'"
+              class="mb-2"
+            >
               <b-form-input
                 size="sm"
                 type="number"
@@ -310,16 +403,19 @@
                 no-wheel
                 v-model="item.taxrate"
                 :required="!!item.state"
-              ></b-form-input>
+              />
               <b-input-group-append>
                 <b-form-select
                   size="sm"
                   :options="options.states"
                   v-model="item.state"
-                  :style="{ 'border-radius': 0, 'max-width': '200px' }"
+                  :style="{'border-radius': 0, 'max-width': '200px'}"
                   :required="!!item.taxrate"
                 />
-                <b-button size="sm" @click.prevent="removeVatEntry(index)">
+                <b-button
+                  size="sm"
+                  @click.prevent="removeVatEntry(index)"
+                >
                   -
                 </b-button>
               </b-input-group-append>
@@ -329,7 +425,7 @@
             size="sm"
             @click.prevent="addVatEntry"
             class="float-right px-1 py-0 my-1"
-            >
+          >
             + VAT
           </b-button>
         </b-form-group>
@@ -354,22 +450,35 @@
       v-if="details.gsflag == 7"
     >
       <template #header>
-        <div class="d-flex" v-b-toggle.collapse-godown>
-          <div class="mr-auto" v-translate>Godownwise Opening Stock</div>
+        <div
+          class="d-flex"
+          v-b-toggle.collapse-godown
+        >
+          <div
+            class="mr-auto"
+            v-translate
+          >
+            Godownwise Opening Stock
+          </div>
           <div>
-            <b-icon icon="dash"></b-icon>
+            <b-icon icon="dash" />
           </div>
         </div>
       </template>
       <div class="p-2">
-        <b-collapse class="p-3" id="collapse-godown">
+        <b-collapse
+          class="p-3"
+          id="collapse-godown"
+        >
           <div
             v-for="(godown, index) in godowns"
             :key="index"
             class="mb-2 d-flex"
             :id="'vat-inp-' + index"
           >
-            <div class="m-1">{{ index + 1 }}.</div>
+            <div class="m-1">
+              {{ index + 1 }}.
+            </div>
             <!-- godown select -->
             <b-form-select
               size="sm"
@@ -379,7 +488,10 @@
               :disabled="isDropdownDisabled(godown.id)"
             >
               <template #first>
-                <b-form-select-option value="" disabled>
+                <b-form-select-option
+                  value=""
+                  disabled
+                >
                   <translate> -- Choose a Godown -- </translate>
                 </b-form-select-option>
               </template>
@@ -393,7 +505,7 @@
               no-wheel
               step="0.01"
               placeholder="Stock Qty"
-            ></b-form-input>
+            />
             <!-- godown stock value -->
             <b-form-input
               class="mx-2"
@@ -403,7 +515,7 @@
               no-wheel
               step="0.01"
               placeholder="Stock Value (Cost Price x Stock Qty)"
-            ></b-form-input>
+            />
             <!-- delete godown button. only appears when there atleast one active godown -->
             <b-button
               variant="danger"
@@ -412,7 +524,10 @@
               title="Delete Godown"
               v-if="options.godowns.length < 2 && godowns.length > 1"
             >
-              <B-Icon icon="trash" variant="light" />
+              <B-Icon
+                icon="trash"
+                variant="light"
+              />
             </b-button>
           </div>
           <!-- add row button -->
@@ -420,7 +535,7 @@
             size="sm"
             @click.prevent="addGodown"
             class="float-right py-0 px-1"
-            v-if = "options.godowns.length !== godowns.length"
+            v-if="options.godowns.length !== godowns.length"
           >
             <translate> Add Row </translate>
           </b-button>
@@ -447,10 +562,10 @@
       hide-header
     >
       <godown
-        :hideBackButton="true"
+        :hide-back-button="true"
         mode="create"
-        :inOverlay="true"
-        :onSave="onGodownSave"
+        :in-overlay="true"
+        :on-save="onGodownSave"
       >
         <template #close-button>
           <b-button
@@ -461,8 +576,9 @@
                 showGodownForm = false;
               }
             "
-            >x</b-button
           >
+            x
+          </b-button>
         </template>
       </godown>
     </b-modal>
@@ -505,7 +621,6 @@ export default {
           {
             taxrate: 0,
             taxfromdate: null,
-            // max: this.dateReverse(to),
           },
         ],
         delGst: [],
@@ -568,24 +683,24 @@ export default {
         })
         .then((res) => {
           switch (res.data.gkstatus) {
-            case 0:
-              this.details = res.data.gkresult;
-              Promise.all([this.getTaxDetails(), this.getGodowns()]).then(
-                () => {
-                  this.loading = false;
-                }
-              );
-              break;
-            case 3:
-              this.loading = false;
-              this.$bvToast.toast(this.$gettext('Product does not exist'), {
-                title: 'Error',
-                variant: 'danger',
-                solid: true,
-              });
-              break;
-            default:
-              this.loading = false;
+          case 0:
+            this.details = res.data.gkresult;
+            Promise.all([this.getTaxDetails(), this.getGodowns()]).then(
+              () => {
+                this.loading = false;
+              }
+            );
+            break;
+          case 3:
+            this.loading = false;
+            this.$bvToast.toast(this.$gettext('Product does not exist'), {
+              title: 'Error',
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          default:
+            this.loading = false;
           }
         });
     },
@@ -643,65 +758,63 @@ export default {
               .then((res) => {
                 this.isLoading = false;
                 switch (res.data.gkstatus) {
-                  case 7:
-                    res.data?.error.forEach((field_err) => {
-                      let location = field_err.loc.join(" at ");
-                      let message = (location ? location+": " : "") + field_err.msg;
-                      this.displayToast("Validation Error", message, "warning");
+                case 7:
+                  res.data?.error.forEach((field_err) => {
+                    let location = field_err.loc.join(" at ");
+                    let message = (location ? location+": " : "") + field_err.msg;
+                    this.displayToast("Validation Error", message, "warning");
+                  });
+                  break;
+
+                case 0:
+                  {
+                    this.$bvToast.toast(
+                      `${this.details.productdesc} updated`,
+                      {
+                        title: this.$gettext('Success'),
+                        variant: 'success',
+                        solid: true,
+                      }
+                    );
+
+                    let log = {
+                      activity: `${
+                        this.details.gsflag === 7 ? 'product' : 'service'
+                      } updated: ${this.details.productdesc}`,
+                    };
+                    axios.post('/log', log);
+
+                    this.onUpdate({
+                      type: 'update',
+                      data: {
+                        productdesc: this.details.productdesc,
+                      },
                     });
-                    break;
 
-                  case 0:
-                    {
-                      this.$bvToast.toast(
-                        `${this.details.productdesc} updated`,
-                        {
-                          title: this.$gettext('Success'),
-                          variant: 'success',
-                          solid: true,
-                        }
-                      );
-
-                      let log = {
-                        activity: `${
-                          this.details.gsflag === 7 ? 'product' : 'service'
-                        } updated: ${this.details.productdesc}`,
-                      };
-                      axios.post('/log', log);
-
-                      this.onUpdate({
-                        type: 'update',
-                        data: {
-                          productdesc: this.details.productdesc,
-                        },
-                      });
-
-                      this.isLoading = false;
-                      this.updateTaxDetails().then(() => {
-                        this.getDetails();
-                      });
-                    }
-                    break;
-                  case 2:
-                    this.$bvToast.toast(this.$gettext(`Unauthorised access`), {
-                      title: this.$gettext('Failure'),
-                      variant: 'danger',
-                      solid: true,
+                    this.isLoading = false;
+                    this.updateTaxDetails().then(() => {
+                      this.getDetails();
                     });
-                    break;
-                  case 3:
-                    this.$bvToast.toast(this.$gettext(`Data Error`), {
-                      title: this.$gettext('Failure'),
-                      variant: 'danger',
-                      solid: true,
-                    });
-                    break;
-                  default:
-                    console.log('product update status ', res.data.gkstatus);
+                  }
+                  break;
+                case 2:
+                  this.$bvToast.toast(this.$gettext(`Unauthorised access`), {
+                    title: this.$gettext('Failure'),
+                    variant: 'danger',
+                    solid: true,
+                  });
+                  break;
+                case 3:
+                  this.$bvToast.toast(this.$gettext(`Data Error`), {
+                    title: this.$gettext('Failure'),
+                    variant: 'danger',
+                    solid: true,
+                  });
+                  break;
                 }
               })
               .catch((e) => {
-                console.log('update details ', e.message);
+                console.error(e.message);
               })
               .then(() => {
                 this.isLoading = false;
@@ -738,7 +851,7 @@ export default {
 
       this.tax.gst.sort((a, b) => {
         let aDate = new Date(a.taxfromdate).getTime(),
-          bDate = new Date(b.taxfromdate).getTime();
+            bDate = new Date(b.taxfromdate).getTime();
         return aDate - bDate;
       });
       for (const name in this.tax) {
@@ -781,7 +894,6 @@ export default {
     addGstEntry() {
       let gsts = this.tax.gst;
       let min = '';
-      //   to = this.yearEnd;
       if (gsts.length && gsts[gsts.length - 1].taxfromdate) {
         let lastDate = new Date(gsts[gsts.length - 1].taxfromdate);
         let minDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
@@ -793,7 +905,6 @@ export default {
         taxfromdate: null,
         min: min,
         dateValidity: true,
-        // max: this.dateReverse(to),
       });
     },
     /** Remove GST entry from the GST list, from the given position */
@@ -816,14 +927,6 @@ export default {
       this.tax.gst[index].dateValidity = validity;
     },
     updateGst() {
-      // let gsts = this.tax.gst;
-      // if (gsts.length > 1) {
-      //   for (let i = 1, l = gsts.length; i < l; i++) {
-      //     let min = gsts[i-1].taxtodate, max = this.yearEnd;
-      //     gsts[i].min = this.dateReverse(min);
-      //     gsts[i].max = this.dateReverse(max);
-      //   }
-      // }
       let prev = null;
       if (this.tax.gst.length) {
         this.tax.gst.forEach((item) => {
@@ -865,62 +968,62 @@ export default {
               .delete(`/product/${this.details.productcode}`, config)
               .then((res) => {
                 switch (res.data.gkstatus) {
-                  case 0:
+                case 0:
+                  {
+                    // Add delete log to server
+                    const payload = {
+                      activity: `${this.details.productdesc} ${
+                        this.details.gsflag == 7 ? 'product' : 'service'
+                      } deleted`,
+                    };
+                    axios.post(`${this.gkCoreUrl}/log`, payload, config);
+                    this.$bvToast.toast(
+                      `${this.details.productdesc} deleted`,
+                      {
+                        title: 'Success',
+                        solid: true,
+                        variant: 'success',
+                      }
+                    );
+                    this.isLoading = false;
+                    document.querySelector('#prod').innerHTML = '';
+                    this.onUpdate({ type: 'delete' });
+                  }
+                  break;
+                case 3:
+                  this.$bvToast.toast(
+                    `${this.details.productdesc} Cannot be deleted`,
                     {
-                      // Add delete log to server
-                      const payload = {
-                        activity: `${this.details.productdesc} ${
-                          this.details.gsflag == 7 ? 'product' : 'service'
-                        } deleted`,
-                      };
-                      axios.post(`${this.gkCoreUrl}/log`, payload, config);
-                      this.$bvToast.toast(
-                        `${this.details.productdesc} deleted`,
-                        {
-                          title: 'Success',
-                          solid: true,
-                          variant: 'success',
-                        }
-                      );
-                      this.isLoading = false;
-                      document.querySelector('#prod').innerHTML = '';
-                      this.onUpdate({ type: 'delete' });
+                      title: '',
+                      solid: true,
+                      variant: 'danger',
                     }
-                    break;
-                  case 3:
-                    this.$bvToast.toast(
-                      `${this.details.productdesc} Cannot be deleted`,
-                      {
-                        title: '',
-                        solid: true,
-                        variant: 'danger',
-                      }
-                    );
-                    break;
-                  case 4:
-                    this.$bvToast.toast(
-                      `Cannot delete ${this.details.productdesc}`,
-                      {
-                        title: this.$gettext('Bad Privilige'),
-                        solid: true,
-                        variant: 'danger',
-                      }
-                    );
-                    break;
-                  case 5:
-                    this.$bvToast.toast(
-                      `Cannot delete ${this.details.productdesc} as there are some existing entries in the software.`,
-                      {
-                        title: this.$gettext('Action Disallowed'),
-                        solid: true,
-                        variant: 'danger',
-                      }
-                    );
-                    break;
+                  );
+                  break;
+                case 4:
+                  this.$bvToast.toast(
+                    `Cannot delete ${this.details.productdesc}`,
+                    {
+                      title: this.$gettext('Bad Privilige'),
+                      solid: true,
+                      variant: 'danger',
+                    }
+                  );
+                  break;
+                case 5:
+                  this.$bvToast.toast(
+                    `Cannot delete ${this.details.productdesc} as there are some existing entries in the software.`,
+                    {
+                      title: this.$gettext('Action Disallowed'),
+                      solid: true,
+                      variant: 'danger',
+                    }
+                  );
+                  break;
                 }
               })
               .catch((e) => {
-                console.log('delete err ', e);
+                console.error(e);
               });
           }
         });
@@ -949,7 +1052,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log('godown fetch error ', e);
+          console.error(e);
         });
     },
     /** Fetch tax details for selected product */
@@ -984,7 +1087,7 @@ export default {
           if (this.tax.gst.length) {
             this.tax.gst.sort((a, b) => {
               let aDate = new Date(a.taxfromdate).getTime(),
-                bDate = new Date(b.taxfromdate).getTime();
+                  bDate = new Date(b.taxfromdate).getTime();
               return aDate - bDate;
             });
             if (this.tax.gst[0].taxfromdate !== this.yearStart) {
@@ -1036,23 +1139,23 @@ export default {
         .get(`${this.gkCoreUrl}/unitofmeasurement`, config)
         .then((response) => {
           switch (response.data.gkstatus) {
-            case 0:
-              this.options.uom = response.data.gkresult.map((uom) => {
-                return {
-                  text: `${uom.unitname} (${uom.description})`,
-                  // value: { id: uom.uomid, name: uom.unitname },
-                  value: uom.uomid,
-                };
-              });
-              break;
-            default:
-              this.$bvToast.toast(this.$gettext(`Please try after sometime`), {
-                title: this.$gettext(`Error: Fetching Unit of Measurement`),
-                autoHideDelay: 3000,
-                variant: 'warning',
-                appendToast: true,
-                solid: true,
-              });
+          case 0:
+            this.options.uom = response.data.gkresult.map((uom) => {
+              return {
+                text: `${uom.unitname} (${uom.description})`,
+                // value: { id: uom.uomid, name: uom.unitname },
+                value: uom.uomid,
+              };
+            });
+            break;
+          default:
+            this.$bvToast.toast(this.$gettext(`Please try after sometime`), {
+              title: this.$gettext(`Error: Fetching Unit of Measurement`),
+              autoHideDelay: 3000,
+              variant: 'warning',
+              appendToast: true,
+              solid: true,
+            });
           }
         })
         .catch(() => {});
@@ -1104,7 +1207,6 @@ export default {
         .then((resp) => {
           if (resp.status === 200) {
             if (resp.data.gkstatus === 0) {
-              // console.log(resp.data.gkresult);
               resp.data.gkresult.sort((a, b) => a.goid - b.goid); // sorting the godown list based on goid, to order it in creation order
               self.options.godowns = resp.data.gkresult.map((item) => {
                 return {
@@ -1175,6 +1277,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .custom-link {
   color: white;

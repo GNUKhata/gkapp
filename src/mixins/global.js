@@ -28,13 +28,8 @@ export default {
     gk_log(payload) {
       axios
         .post('/log', { activity: payload })
-        .then((r) => {
-          if (r.data.gkstatus == 0) {
-            console.log(payload);
-          }
-        })
         .catch((e) => {
-          console.log('failed to log: ', e);
+          console.error('Failed to log: ', e);
         });
     },
     is_mobile() {
@@ -147,7 +142,7 @@ export default {
           this.user_role = res.data.gkresult?.userrole || null;
         })
         .catch((e) => {
-          console.log('admin fetch', e.message);
+          console.error(e.message);
         });
     },
     /* Get org image from server */
@@ -161,7 +156,7 @@ export default {
           }
         })
         .catch((e) => {
-          console.log(e.message);
+          console.error(e.message);
         });
     },
 
