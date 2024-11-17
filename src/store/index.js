@@ -153,18 +153,28 @@ export default new Vuex.Store({
 
       if (gkCoreUrl) {
         state.gkCoreUrl = gkCoreUrl;
-
-        // set axios default every time store inits, as its lost on page refresh
-        axios.defaults.baseURL = gkCoreUrl;
-        let headers = {};
-
+        const headers = {};
         if (authToken) {
           headers.gktoken = authToken;
         }
         if (userAuthToken) {
           headers.gkusertoken = userAuthToken;
         }
-        axios.defaults.headers = headers;
+
+        const { $axios } = Vue.prototype;
+        $axios.defaults.baseURL = gkCoreUrl;
+        $axios.defaults.headers = {
+          ...$axios.defaults.headers,
+          ...headers,
+        };
+
+        // Kept for backwards compatibility, can be removed once all APIs are
+        // rewritten using $axios instance method.
+        axios.defaults.baseURL = gkCoreUrl;
+        axios.defaults.headers = {
+          ...axios.defaults.headers,
+          ...headers,
+        };
       }
     },
 
