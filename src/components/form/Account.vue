@@ -101,7 +101,6 @@
           <b-form-input
             type="number"
             size="sm"
-            required
             v-model="form.openingBalance"
             step="0.01"
           />
