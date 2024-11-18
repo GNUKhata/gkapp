@@ -154,6 +154,11 @@ export default {
       isLoading: false,
     };
   },
+  watch: {
+    formData(newFormData) {
+      this.form = Object.assign({}, this.form, newFormData);
+    },
+  },
   methods: {
     /**
      * setForm
