@@ -151,12 +151,17 @@ export default {
         name: '',
         group: null,
       },
+      defaultForm: {
+        id: null,
+        name: '',
+        group: null,
+      },
       isLoading: false,
     };
   },
   watch: {
     formData(newFormData) {
-      this.form = Object.assign({}, this.form, newFormData);
+      this.setForm(newFormData);
     },
   },
   methods: {
@@ -166,10 +171,18 @@ export default {
      * Actions: Clean form and load form data
      * if it is edit mode.
      */
-    setForm() {
-      this.form = Object.assign({}, this.form, this.FormData);
+    setForm(formData) {
+      this.form = Object.assign({}, this.form, formData);
+      this.form = Object.assign({}, this.defaultForm, formData);
     },
-
+    /**
+     * resetForm
+     *
+     * Actions: Resets form data
+     */
+    resetForm() {
+      this.form = Object.assign({}, this.form, this.defaultForm);
+    },
     /**
      * createItem
      *
@@ -347,14 +360,6 @@ export default {
         });
     },
     /**
-     * resetForm
-     *
-     * Actions: Resets form data
-     */
-    resetForm() {
-      this.setForm();
-    },
-    /**
      * displayToast
      *
      * Description: A utility function to create toast messages
@@ -374,8 +379,7 @@ export default {
    *
    */
   mounted() {
-    this.form = this.formData;
-    this.setForm();
+    this.setForm(this.formData);
   },
 };
 </script>
