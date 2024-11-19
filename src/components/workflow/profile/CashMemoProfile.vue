@@ -123,7 +123,7 @@
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'title', label: '', tdClass: ''},
             {key: 'value', label: '₹', class: 'text-right'},
           ]"
           small
@@ -277,8 +277,25 @@ export default {
       return fields;
     },
     totalDetails: (self) => {
+      const totalAmount = self.invoice.invItems.reduce((_totalAmount, item) => (
+        _totalAmount + (Number(item.price) * Number(item.qty))
+      ), 0);
+      let totalDiscount = (totalAmount - self.invoice.total.taxable).toFixed(2);
+      if (totalDiscount > 0) {
+        totalDiscount = `-${totalDiscount}`;
+      }
+      let details = [
+        {
+          title: self.$gettext('Total'),
+          value: totalAmount.toFixed(2),
+        },
+        {
+          title: self.$gettext('Discount'),
+          value: totalDiscount,
+        },
+      ];
       let total = self.invoice.total;
-      let details = [{ title: self.$gettext('Taxable'), value: total.taxable }];
+      details.push({ title: self.$gettext('Taxable'), value: total.taxable });
       if (self.isIndia) {
         if (self.invoice.isGst) {
           if (total.isIgst) {
