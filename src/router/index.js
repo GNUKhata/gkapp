@@ -500,10 +500,21 @@ const routes = [
       title: "Accounts",
       requiresOrgAuth: true,
     },
-    path: "/accounts/:group/:subGroup/:acc",
+    path: "/accounts",
     name: "Accounts",
     component: () =>
       import(/* webpackChunkName: "accounts-all" */ "../views/Accounts.vue"),
+    props: true,
+  },
+  {
+    meta: {
+      title: "SubGroups",
+      requiresOrgAuth: true,
+    },
+    path: "/sub-groups",
+    name: "SubGroups",
+    component: () =>
+      import(/* webpackChunkName: "subgroups-all" */ "../views/SubGroups.vue"),
     props: true,
   },
   {
