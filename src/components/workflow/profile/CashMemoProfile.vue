@@ -487,8 +487,8 @@ export default {
             roundoffflag: details.roundoff,
           },
           number: details.invoiceno,
-          isGst: self.isGstEnabled && ['GST', 'IGST', 'CGST', 'SGST'].includes(details.taxname),
-          isVat: self.isVatEnabled && details.taxname === 'VAT',
+          isGst: this.isGstEnabled && ['GST', 'IGST', 'CGST', 'SGST'].includes(details.taxname),
+          isVat: this.isVatEnabled && details.taxname === 'VAT',
           gstin: details.orgstategstin,
           payment: {
             mode: details.paymentmode,
