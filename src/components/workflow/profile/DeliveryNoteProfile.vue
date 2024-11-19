@@ -444,8 +444,8 @@ export default {
         text: numberToRupees(noteData.delchaltotal),
       };
       this.delnote = {
-        isGst: self.isGstEnabled && ['GST', 'IGST', 'CGST', 'SGST'].includes(details.taxname),
-        isVat: self.isVatEnabled && details.taxname === 'VAT',
+        isGst: this.isGstEnabled && ['GST', 'IGST', 'CGST', 'SGST'].includes(details.taxname),
+        isVat: this.isVatEnabled && details.taxname === 'VAT',
         contents: [],
         no: noteData.dcno,
         date: noteData.dcdate,
