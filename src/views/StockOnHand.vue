@@ -127,6 +127,7 @@
 
 <script>
 import axios from 'axios';
+import dayjs from 'dayjs';
 import GkDate from '../components/GkDate.vue';
 import { mapState } from 'vuex';
 import ReportHeader from '@/components/ReportHeader.vue';
@@ -338,11 +339,28 @@ export default {
         },
       });
     },
+    getDefaultDate() {
+      const startDate = dayjs(this.yearStart);
+      const endDate = dayjs(this.yearEnd);
+      const currentDate = dayjs();
+      let defaultDate;
+      if (currentDate < startDate) {
+        defaultDate = startDate;
+      }
+      if (currentDate > endDate) {
+        defaultDate = endDate;
+      }
+      if (!defaultDate) {
+        defaultDate = currentDate;
+      }
+      defaultDate = dayjs(defaultDate).format('YYYY-MM-DD');
+      return defaultDate;
+    },
     // check if user changed the date range, then applied them to the url
     parseParams() {
       this.getGodownList();
       this.getProductList();
-      this.toDate = this.currentDate();
+      this.toDate = this.getDefaultDate();
       const params = this.$route.query;
       if (Object.keys(params).length > 0) {
         this.toDate = params.to;
