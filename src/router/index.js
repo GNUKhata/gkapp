@@ -5,8 +5,6 @@ import Logs from "@/views/Logs.vue";
 import CloseBooks from "@/views/CloseBooks.vue";
 import UserManagement from "@/views/UserManagement.vue";
 import UOM from "@/views/UOM.vue";
-import Categories from "@/views/Categories.vue";
-import AddCategory from "@/views/CategoryCreate.vue";
 
 Vue.use(VueRouter);
 
@@ -144,37 +142,6 @@ const routes = [
   },
   {
     meta: {
-      title: "Categories",
-      requiresOrgAuth: true,
-    },
-    path: "/categories",
-    name: "Categories",
-    component: Categories,
-  },
-  {
-    meta: {
-      title: "Add Category",
-      requiresOrgAuth: true,
-    },
-    path: "/categories/add",
-    name: "Add Category",
-    component: AddCategory,
-  },
-  {
-    meta: {
-      title: "Edit_Category",
-      requiresOrgAuth: true,
-    },
-    path: "/categories/edit/:id",
-    name: "Edit_Category",
-    component: () =>
-      import(
-        /* webpackChunkName: "edit_category" */ "../views/CategoryEdit.vue"
-      ),
-    props: true,
-  },
-  {
-    meta: {
       title: "Stock On Hand",
       requiresOrgAuth: true,
     },
@@ -185,21 +152,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "stockonhand" */ "../views/StockOnHand.vue"),
-  },
-  {
-    meta: {
-      title: "Category Wise Stock On Hand",
-      requiresOrgAuth: true,
-    },
-    path: "/categorywise-stock-on-hand",
-    name: "Category Wise Stock On Hand",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(
-        /* webpackChunkName: "catstockonhand" */ "../views/CategorywiseStockOnHand.vue"
-      ),
   },
   {
     meta: {
@@ -216,21 +168,6 @@ const routes = [
   },
   {
     meta: {
-      title: "Cost Center Statement",
-      requiresOrgAuth: true,
-    },
-    path: "/cost-center-statement",
-    name: "Cost Center Statement",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(
-        /* webpackChunkName: "costcenterstatement" */ "../components/CostCenterStatement.vue"
-      ),
-  },
-  {
-    meta: {
       title: "Product Register",
       requiresOrgAuth: true,
     },
@@ -243,19 +180,6 @@ const routes = [
       import(
         /* webpackChunkName: "productregister" */ "../components/ProductRegister.vue"
       ),
-  },
-  {
-    meta: {
-      title: "Cost Center",
-      requiresOrgAuth: true,
-    },
-    path: "/costcenter",
-    name: "Cost Center",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "costcenter" */ "../views/CostCenter.vue"),
   },
   {
     meta: {

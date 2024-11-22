@@ -189,19 +189,6 @@
             >
               <b-icon icon="building" /><translate> Godowns</translate>
             </b-nav-item>
-            <b-nav-item
-              v-if="userRole == -1 || 0"
-              to="/costcenter"
-            >
-              <b-icon icon="cash-stack" /><translate> Cost Center</translate>
-            </b-nav-item>
-
-            <b-nav-item
-              v-if="userRole == -1 || 0"
-              to="/categories"
-            >
-              <b-icon icon="tags" /><translate> Categories</translate>
-            </b-nav-item>
 
             <b-nav-item
               v-if="userRole == -1 || 0"
@@ -233,17 +220,11 @@
               <b-nav-item to="/product-register">
                 <b-icon icon="box-seam" /><translate> Product Register</translate>
               </b-nav-item>
-              <b-nav-item to="/cost-center-statement">
-                <b-icon icon="cash" /><translate> Cost Center Statement</translate>
-              </b-nav-item>
               <b-nav-item to="/registers">
                 <b-icon icon="receipt" /><translate> View Registers</translate>
               </b-nav-item>
               <b-nav-item to="/stock-on-hand">
                 <b-icon icon="receipt" /><translate> Stock On Hand</translate>
-              </b-nav-item>
-              <b-nav-item to="/categorywise-stock-on-hand">
-                <b-icon icon="tag" /><translate> Categorywise Stock On Hand</translate>
               </b-nav-item>
               <b-nav-item to="/profit-loss">
                 <b-icon icon="graph-up" /><translate v-if="orgType == 'Profit Making'">
