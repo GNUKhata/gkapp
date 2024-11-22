@@ -169,7 +169,7 @@
         <b-table-lite
           :items="totalDetails"
           :fields="[
-            {key: 'title', label: 'Total', tdClass: ''},
+            {key: 'title', label: '', tdClass: ''},
             {key: 'value', label: '₹', class: 'text-right'},
           ]"
           fixed
@@ -282,7 +282,21 @@ export default {
       return data;
     },
     totalDetails: (self) => {
+      const totalTaxableAmount = Number(self.total.taxable).toFixed(2);
+      let totalDiscount = Number(self.total.discount).toFixed(2);
+      const totalAmount = (Number(totalTaxableAmount) + Number(totalDiscount)).toFixed(2);
+      if (totalDiscount > 0) {
+        totalDiscount = `-${totalDiscount}`;
+      }
       let total = [
+        {
+          title: self.$gettext('Total'),
+          value: totalAmount,
+        },
+        {
+          title: self.$gettext('Discount'),
+          value: totalDiscount,
+        },
         { title: self.$gettext('Taxable'), value: self.total.taxable },
       ];
       if (self.isIndia) {
@@ -444,8 +458,8 @@ export default {
         text: numberToRupees(noteData.delchaltotal),
       };
       this.delnote = {
-        isGst: self.isGstEnabled && ['GST', 'IGST', 'CGST', 'SGST'].includes(details.taxname),
-        isVat: self.isVatEnabled && details.taxname === 'VAT',
+        isGst: this.isGstEnabled && ['GST', 'IGST', 'CGST', 'SGST'].includes(details.taxname),
+        isVat: this.isVatEnabled && details.taxname === 'VAT',
         contents: [],
         no: noteData.dcno,
         date: noteData.dcdate,
