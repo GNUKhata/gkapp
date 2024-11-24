@@ -16,6 +16,7 @@
     "check-password-strength": "^2.0.10",
     "core-js": "^3.33.1",
     "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.13",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.1",
     "jspdf": "^2.5.1",
