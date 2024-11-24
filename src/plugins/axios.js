@@ -2,7 +2,7 @@
 
 import Vue from 'vue';
 import axios from "axios";
-import { handleHttpError } from '@/js/alertHandlers';
+import { handleCustomError, handleHttpError } from '@/js/alertHandlers';
 
 const Axios = {
   install(Vue) {
@@ -10,6 +10,18 @@ const Axios = {
 
     _axios.interceptors.response.use(
       function (response) {
+        const {
+          status,
+          data: { gkstatus, gkresult, error },
+        } = response;
+        // Handle custom error represented by non-zero gkstatus
+        if (gkstatus > 0) {
+          handleCustomError(gkstatus, error);
+        }
+        // If no error, return gkresult
+        if (status === 200 && gkstatus === 0) {
+          return gkresult;
+        }
         return response;
       },
       function (error) {

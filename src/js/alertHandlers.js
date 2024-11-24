@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { STATUS_CODES } from '@/js/enum';
 
 function showAlert(title, message) {
   const vm = new Vue();
@@ -23,4 +24,42 @@ function handleHttpError(error, customMessage) {
   showAlert('Error', message);
 }
 
-export {  handleHttpError };
+function handleCustomError(statusCode, error) {
+  let title = 'Error';
+  let message;
+
+  // Check for GNUKhata specific status codes.
+  // If status code is invalid, show alert for the same.
+  // If error is an object, iterate and show alert for each property.
+  // If error is a string, use that as message body for alert.
+  // If error is not provided, show status name as the error.
+  const status = Object.entries(STATUS_CODES).find((_status) => (
+    statusCode === _status[1]
+  ))?.[0];
+  if (!status) {
+    message = 'Invalid status code received from server';
+  } else if (status === 'ValidationError' && error) {
+    error.forEach((err) => {
+      title = status;
+      message = `${err.loc.join('.')}: ${err.msg}`;
+      showAlert(status, message);
+    });
+    return;
+  } else if (error?.constructor === Object) {
+    for (let err in error) {
+      title = status;
+      message = `${err}: ${error[err]}`;
+      showAlert(status, message);
+    }
+    return;
+  } else if (typeof(error) === 'string') {
+    title = status;
+    message = error;
+  } else {
+    message = status;
+  }
+
+  showAlert(title, message);
+}
+
+export { handleCustomError, handleHttpError };
