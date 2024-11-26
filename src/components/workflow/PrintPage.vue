@@ -169,7 +169,6 @@ export default {
             'CashMemo',
             'DeliveryNote',
             'PurchaseSalesOrder',
-            'RejectionNote',
             'TransferNote',
           ].indexOf(value) !== -1
         );

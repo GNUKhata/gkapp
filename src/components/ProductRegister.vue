@@ -126,16 +126,6 @@
             </b-form-checkbox>
             <b-form-checkbox
               class="w-100"
-              value="Rejection Note"
-            >
-              <b-icon
-                icon="journal-x"
-                variant="danger"
-              /> Rejection
-              Note
-            </b-form-checkbox>
-            <b-form-checkbox
-              class="w-100"
               value="Debit Note"
             >
               <b-icon
@@ -249,29 +239,6 @@
                 @click="updateRoute"
               >
                 {{ data.item.dcno }}
-              </div>
-            </b-link>
-          </div>
-          <div v-else-if="data.item.trntype === 'Rejection Note'">
-            <b-icon
-              variant="danger"
-              icon="journal-x"
-            />
-            {{ data.item.particulars }} :
-            <b-link
-              :to="{
-                name: 'Workflow',
-                params: {
-                  wfName: 'Transactions-RejectionNote',
-                  wfId: data.item.rnid,
-                },
-              }"
-            >
-              <div
-                class="d-inline"
-                @click="updateRoute"
-              >
-                {{ data.item.rnno }}
               </div>
             </b-link>
           </div>
@@ -414,16 +381,6 @@
             </b-form-checkbox>
             <b-form-checkbox
               class="w-100"
-              value="Rejection Note"
-            >
-              <b-icon
-                icon="journal-x"
-                variant="danger"
-              /> Rejection
-              Note
-            </b-form-checkbox>
-            <b-form-checkbox
-              class="w-100"
               value="Debit Note"
             >
               <b-icon
@@ -519,7 +476,7 @@ export default {
       godowns: [],
       godownId: '',
       godownReport: [],
-      invoiceFilter: ['invoice', 'Rejection Note', 'Debit Note', 'Credit Note', 'transfer note', 'delchal'],
+      invoiceFilter: ['invoice', 'Debit Note', 'Credit Note', 'transfer note', 'delchal'],
       fields: [
         {
           key: 'date',
@@ -671,7 +628,7 @@ export default {
         this.godownId = params.goid;
       }
       this.loading = true;
-      this.invoiceFilter = ['invoice', 'Rejection Note', 'Debit Note', 'Credit Note', 'transfer note', 'delchal'],
+      this.invoiceFilter = ['invoice', 'Debit Note', 'Credit Note', 'transfer note', 'delchal'],
       axios
         .get(
           `/reports/product-register?goid=${this.godownId}&productcode=${this.productId}&startdate=${this.fromDate}&enddate=${this.toDate}`
