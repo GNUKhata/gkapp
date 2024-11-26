@@ -777,7 +777,7 @@ export default {
             pin: resp6.data.gkdata.orgpincode,
             bankDetails: resp6.data.gkdata.bankdetails,
           };
-          if (!self.options.orgDetails.gstin && stateCode < 10) {
+          if (gstin && !self.options.orgDetails.gstin && stateCode < 10) {
             self.options.orgDetails.gstin = gstin[`0${stateCode}`];
           }
           setTimeout(() => {
