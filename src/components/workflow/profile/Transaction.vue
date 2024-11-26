@@ -16,7 +16,6 @@ import CashMemo from './CashMemoProfile.vue';
 import DebitCreditNote from './DcNoteProfile.vue';
 import DeliveryNote from './DeliveryNoteProfile.vue';
 import PurchaseSalesOrder from './PsOrderProfile.vue';
-import RejectionNote from './RejectionNoteProfile.vue';
 import TransferNote from './TransferNoteProfile.vue';
 import Voucher from './VoucherProfile.vue';
 import { mapState } from 'vuex';
@@ -28,7 +27,6 @@ export default {
     DebitCreditNote,
     DeliveryNote,
     PurchaseSalesOrder,
-    RejectionNote,
     TransferNote,
     Voucher,
   },
@@ -44,7 +42,6 @@ export default {
             'CashMemo',
             'DeliveryNote',
             'PurchaseSalesOrder',
-            'RejectionNote',
             'TransferNote',
             'Voucher',
           ].indexOf(value) !== -1

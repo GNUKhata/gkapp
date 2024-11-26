@@ -236,28 +236,6 @@
           </div>
         </template>
 
-        <!-- Rejected Qty (Rejection Note) -->
-        <template #head(rejectedQty)="">
-          <span v-translate>Rejected Qty</span>
-        </template>
-        <template #cell(rejectedQty)="data">
-          <div v-if="form[data.item.index]">
-            <b-input
-              v-if="!disabled.rejectedQty"
-              size="sm"
-              v-model="form[data.item.index].rejectedQty"
-              class="hide-spin-button text-right px-1"
-              type="number"
-              no-wheel
-              step="0.01"
-              min="0"
-              :max="data.item.qty"
-              @input="onRejectedQty(data.item.index)"
-            />
-            <span v-else>{{ form[data.item.index].rejectedQty }}</span>
-          </div>
-        </template>
-
         <!-- Debit Credit Value (Debit Credit Note) -->
         <template #head(dcValue)="">
           <span
@@ -627,7 +605,6 @@ export default {
           maxQty: null,
           fqty: 0,
           packageCount: 0,
-          rejectedQty: 0,
           dcValue: 0,
           rate: 0,
           discount: { rate: 0, amount: 0 },
@@ -676,7 +653,6 @@ export default {
         { key: 'product', label: self.$gettext('Item') },
         { key: 'qty', label: self.$gettext('Qty'), tdClass: 'bt-cell-qty' },
         { key: 'packageCount', label: self.$gettext('No. of Packages') },
-        { key: 'rejectedQty', label: self.$gettext('Rejected Qty') },
         { key: 'dcValue', label: self.$gettext('Value') },
         { key: 'rate', label: self.$gettext('Rate ₹'), tdClass: 'text-right' },
         {
@@ -882,7 +858,6 @@ export default {
           originalQty: null,
           qty: null,
           packageCount: null,
-          rejectedQty: null,
           dcValue: null,
           fqty: 0,
           rate: null,
@@ -1154,7 +1129,6 @@ export default {
           qty: null,
           maxQty: null,
           packageCount: null,
-          rejectedQty: null,
           dcValue: null,
           fqty: 0,
           rate: null,
@@ -1245,7 +1219,6 @@ export default {
         qty: null,
         maxQty: null,
         packageCount: null,
-        rejectedQty: null,
         dcValue: null,
         fqty: 0,
         rate: null,
@@ -1327,9 +1300,6 @@ export default {
         let rate = parseFloat(item.rate);
         if (rate > 0) {
           qty = item.qty;
-          if (this.config.rejectedQty) {
-            qty = item.rejectedQty;
-          }
           // When customDiscount is false, total discount is calculated based on quantity
           if (!customDiscount) {
             item.discount.total = (parseFloat(discountAmount) * qty).toFixed(2);
@@ -1584,19 +1554,6 @@ export default {
       );
     },
     /**
-     * onRejectedQty
-     *
-     * input event callback for rejectedQty field
-     */
-    onRejectedQty(index) {
-      const row = this.form[index];
-      if (!row.rejectedQty && row.rowSelected) {
-        row.rowSelected = false;
-      }
-      this.updateTaxAndTotal(index);
-      this.onUpdateDetails();
-    },
-    /**
      * callRowSelected
      *
      * Calls the rowSelected callback and the emits details-updated event
@@ -1623,12 +1580,6 @@ export default {
         this.skipAllRowSelect = false;
         return;
       }
-      this.form.forEach((row) => {
-        row.rowSelected = this.allRowsSelected;
-        if (!this.allRowsSelected) {
-          row.rejectedQty = 0;
-        }
-      });
     },
   },
   mounted() {

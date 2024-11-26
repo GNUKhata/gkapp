@@ -769,7 +769,6 @@ export default {
             'Transactions-CashMemo',
             'Transactions-DeliveryNote',
             'Transactions-PurchaseSalesOrder',
-            'Transactions-RejectionNote',
             'Transactions-TransferNote',
             'Transactions-Voucher',
           ].indexOf(value) !== -1
@@ -921,8 +920,6 @@ export default {
         };
         break;
       case 'PurchaseSalesOrder':
-        break;
-      case 'RejectionNote':
         break;
       case 'TransferNote':
         break;
@@ -1458,7 +1455,6 @@ export default {
     this.options.tabs['Transactions'].tabs['CashMemo'].data = [];
     this.options.tabs['Transactions'].tabs['DeliveryNote'].data = [];
     this.options.tabs['Transactions'].tabs['PurchaseSalesOrder'].data = [];
-    this.options.tabs['Transactions'].tabs['RejectionNote'].data = [];
     this.options.tabs['Transactions'].tabs['TransferNote'].data = [];
     this.options.tabs['Transactions'].tabs['Voucher'].data = [];
   },

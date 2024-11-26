@@ -409,18 +409,6 @@ const routes = [
   },
   {
     meta: {
-      title: "Rejection_Note",
-      requiresOrgAuth: true,
-    },
-    path: "/rejection-note",
-    name: "Rejection_Note",
-    component: () =>
-      import(
-        /* webpackChunkName: "rejection_note" */ "../views/Transactions/RejectionNote.vue"
-      ),
-  },
-  {
-    meta: {
       title: "Accounts",
       requiresOrgAuth: true,
     },
