@@ -272,7 +272,6 @@
               <gk-gstin
                 @validity="onGstinUpdate"
                 @gstin_data="onGstinDataFetched"
-                @verified="onGstinVerified"
                 :details="details"
                 v-model="gstin"
                 :show-validation="2"
