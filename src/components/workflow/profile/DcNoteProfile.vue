@@ -217,7 +217,7 @@
       <div v-else>
         <translate
           translate-comment="%{memoNo} is a variable, translation is not required for it. Enter it, as it is while translation."
-          :translate-params="{memoNo: dcNote.no}"
+          :translate-params="{memoNo: dcNote.no ?? ''}"
         >
           No vouchers were found for DebitCreditNote: %{memoNo}
         </translate>
