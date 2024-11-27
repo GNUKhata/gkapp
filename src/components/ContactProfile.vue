@@ -547,6 +547,7 @@ export default {
         checksum: new RegExp('[0-9]{1}[A-Z]{1}[0-9A-Z]{1}'),
         pan: new RegExp('[A-Z]{5}[0-9]{4}[A-Z]{1}'),
       },
+      custid: null,
     };
   },
   computed: {
