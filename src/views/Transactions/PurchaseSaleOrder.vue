@@ -55,6 +55,7 @@
           :mode="form.type"
           :parent-data="form.party"
           :gst-flag="isGst"
+          :vat-flag="isVat"
           :invoice-party="invoiceParty"
           :config="config.party"
           :sale-flag="isSale"
@@ -74,6 +75,7 @@
         <ship-details
           :states="options.states"
           :gst-flag="isGst"
+          :vat-flag="isVat"
           :sale-flag="isSale"
           :billing-details="form.party"
           :organisation-details="options.orgDetails"
