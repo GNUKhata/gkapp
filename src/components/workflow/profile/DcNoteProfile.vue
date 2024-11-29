@@ -20,6 +20,7 @@
               icon="eye"
             />
             <router-link
+              v-if="inv.id"
               class="custom-link"
               :to="{
                 name: 'Workflow',
