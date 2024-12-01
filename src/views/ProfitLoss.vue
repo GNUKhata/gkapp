@@ -344,7 +344,7 @@ export default {
     hideZeroFilter: (self) => (self.hideZero ? 'a' : null),
     ...mapState(['yearStart', 'yearEnd', 'orgName', 'orgType']),
   },
-   methods: {
+  methods: {
     printPage() {
       window.print();
     },
