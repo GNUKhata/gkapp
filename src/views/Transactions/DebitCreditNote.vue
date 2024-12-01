@@ -81,6 +81,7 @@
           :mode="form.type"
           :parent-data="form.party"
           :gst-flag="isGst"
+          :vat-flag="isVat"
           :icflag="form.invoice.icflag"
           :invoice-party="invoiceParty"
           :config="config.party"
