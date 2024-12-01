@@ -179,6 +179,7 @@ export default {
       tmp_report: [],
       fields: [],
       expandedTable: false,
+      parentMessage: '',
     };
   },
   watch: {
