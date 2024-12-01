@@ -120,10 +120,10 @@
         </template>
         <gk-file-download
           :url="downloadUrl"
-          :fileName="downloadFileName"
-          fileExtn=".xlsx"
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          :file-name="downloadFileName"
+          file-extn=".xlsx"
+          :message-from-parent="parentMessage"
+        />
       </gk-toolbar>
       <b-table
         caption-top
