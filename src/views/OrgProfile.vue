@@ -527,7 +527,7 @@ export default {
   data() {
     return {
       loading: true,
-      details: Array,
+      details: {},
       states: [],
       gstin: '',
       cess: {},
