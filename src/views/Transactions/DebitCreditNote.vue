@@ -90,24 +90,6 @@
           ref="party"
         />
       </b-card-group>
-      <div
-        class="my-2"
-        v-if="config.taxType"
-      >
-        <b-form-radio-group
-          button-variant="outline-secondary"
-          size="sm"
-          buttons
-          v-model="form.taxType"
-        >
-          <b-form-radio value="gst">
-            GST
-          </b-form-radio>
-          <b-form-radio value="vat">
-            VAT
-          </b-form-radio>
-        </b-form-radio-group>
-      </div>
       <!-- Bill Table -->
       <bill-table
         :gst-flag="isGst"
@@ -305,6 +287,7 @@ export default {
         total: {},
       },
       isCgst: false,
+      taxflag: 0,
       isPurposeChange: 4,
       titleName: '',
       showPrintModal: false,
@@ -334,7 +317,6 @@ export default {
           state: { name: '', id: '' },
         },
         ship: {},
-        taxType: 'gst', // vat
         bill: [],
         transport: {},
         narration: null,
@@ -367,7 +349,8 @@ export default {
     party: (self) =>
       self.form.party.type === 'customer' ? 'Customer' : 'Supplier',
     isSale: (self) => self.form.type === 'sale',
-    isGst: (self) => self.form.taxType === 'gst',
+    isGst: (self) => self.taxflag === 7,
+    isVat: (self) => self.taxflag === 22,
 
     isCredit: (self) => self.form.dcNote.type === 'credit',
     showErrorToolTip: (self) =>
@@ -559,7 +542,7 @@ export default {
         .then((resp) => {
           if (resp.data.gkstatus === 0) {
             const inv = resp.data.gkresult;
-            self.form.taxType = inv.taxflag === 7 ? 'gst' : 'vat';
+            this.taxflag = inv.taxflag;
 
             Object.assign(self.form.invoice, {
               no: inv.invoiceno,
@@ -654,10 +637,21 @@ export default {
         roundoffflag: this.form.total.roundFlag ? 1 : 0,
       };
 
+      let taxname = null;
+      if (this.isGst) {
+        if (this.isCgst) {
+          taxname = 'SGST';
+        } else {
+          taxname = 'IGST';
+        }
+      }
+      if (this.isVat) {
+        taxname = 'VAT';
+      }
       let vdataset = {
         custname: this.form.party.name.name,
-        taxflag: this.isGst ? 7 : 22,
-        taxname: this.isGst ? (this.isCgst ? 'SGST' : 'IGST') : 'VAT',
+        taxflag: this.taxflag,
+        taxname,
         inoutflag: this.isSale ? 15 : 9,
         taxstate: this.form.invoice.taxState
           ? this.form.invoice.taxState.name
@@ -734,7 +728,6 @@ export default {
         party: {
           name: null,
         },
-        taxType: 'gst', // vat
         bill: [
           {
             product: { name: '', id: '' },
