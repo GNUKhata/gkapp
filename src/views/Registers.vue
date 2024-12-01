@@ -140,6 +140,7 @@
       >
         <template #cell(document_no)="voucher">
           <b-link
+            v-if="voucher.item.v_id"
             :to="{
               name: 'Workflow',
               params: {
