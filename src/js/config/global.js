@@ -357,6 +357,7 @@ export default {
     },
     // must be invoked after successful login
     initGlobalConfig({ state, commit, rootGetters }, payload) {
+      if (!axios.defaults.baseURL) return;
       let url = `/config?conftype=org&pageid=${PAGES['global']}&confid=${CONFIGS['global']}`;
       return axios.get(url).then((resp) => {
         let orgCode = rootGetters.getOrgCode;
