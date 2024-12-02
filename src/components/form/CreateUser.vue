@@ -201,7 +201,7 @@ export default {
         return;
       }
       // username should be atleast three characters
-      if (this.form.username.length < 3) {
+      if (this.form.username.length < 5) {
         this.valid.username = false;
         return;
       } else {
@@ -231,10 +231,10 @@ export default {
     },
     /* Create User */
     addUser() {
-      if (this.form.username.length < 3) {
+      if (this.form.username.length < 5) {
         // Alert the user on username length
         this.$bvToast.toast(
-          this.$gettext(`Username is less than 3 characters`),
+          this.$gettext(`Username is less than 5 characters`),
           {
             title: this.$gettext('Invalid username'),
             autoHideDelay: 3000,
