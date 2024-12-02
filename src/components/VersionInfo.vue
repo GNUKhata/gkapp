@@ -34,15 +34,19 @@ export default {
     gitUrl() {
       const baseUrl = 'https://gitlab.com/gnukhata';
       let url = {};
-      if (this.gkappVersion.includes('.')) {
-        url['gkapp'] = `${baseUrl}/gkapp/-/tags/${this.gkappVersion}`;
-      } else {
-        url['gkapp'] = `${baseUrl}/gkapp/-/commit/${this.gkappVersion}`;
+      if (this.gkappVersion) {
+        if (this.gkappVersion.includes('.')) {
+          url['gkapp'] = `${baseUrl}/gkapp/-/tags/${this.gkappVersion}`;
+        } else {
+          url['gkapp'] = `${baseUrl}/gkapp/-/commit/${this.gkappVersion}`;
+        }
       }
-      if (this.gkcoreVersion.includes('.')) {
-        url['gkcore'] = `${baseUrl}/gkcore/-/tags/${this.gkcoreVersion}`;
-      } else {
-        url['gkcore'] = `${baseUrl}/gkcore/-/commit/${this.gkcoreVersion}`;
+      if (this.gkcoreVersion) {
+        if (this.gkcoreVersion.includes('.')) {
+          url['gkcore'] = `${baseUrl}/gkcore/-/tags/${this.gkcoreVersion}`;
+        } else {
+          url['gkcore'] = `${baseUrl}/gkcore/-/commit/${this.gkcoreVersion}`;
+        }
       }
       this.url = url;
     },
