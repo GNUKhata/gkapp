@@ -30,7 +30,6 @@ export default {
       isLoading: false,
       options: {
         vdata: {}, // voucher data to be edited
-        nameToId: {}, // account name to id map
         acc: {}, // account id to name map
         dr: [],
         cr: [],
@@ -282,7 +281,6 @@ export default {
         drData.data?.gkresult.forEach((item) => {
           this.options.dr.push(Object.assign(item, { disabled: false }));
           this.options.acc[item.accountcode] = item.accountname;
-          this.options.nameToId[item.accountname] = item.accountcode;
         });
 
         // === Cr Accounts ===
@@ -290,7 +288,6 @@ export default {
         crData.data?.gkresult.forEach((item) => {
           this.options.cr.push(Object.assign(item, { disabled: false }));
           this.options.acc[item.accountcode] = item.accountname;
-          this.options.nameToId[item.accountname] = item.accountcode;
         });
 
         this.options.drAcc[type] = this.options.dr.slice();
