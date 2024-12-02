@@ -6,6 +6,7 @@ const STATUS_CODES = {
   BadPrivilege: 4,
   ActionDisallowed: 5,
   ProxyServerError: 6,
+  ValidationError: 7,
 };
 
 const PAGES = {

@@ -201,7 +201,7 @@ export default {
         return;
       }
       // username should be atleast three characters
-      if (this.form.username.length < 3) {
+      if (this.form.username.length < 5) {
         this.valid.username = false;
         return;
       } else {
@@ -231,10 +231,10 @@ export default {
     },
     /* Create User */
     addUser() {
-      if (this.form.username.length < 3) {
+      if (this.form.username.length < 5) {
         // Alert the user on username length
         this.$bvToast.toast(
-          this.$gettext(`Username is less than 3 characters`),
+          this.$gettext(`Username is less than 5 characters`),
           {
             title: this.$gettext('Invalid username'),
             autoHideDelay: 3000,
@@ -268,6 +268,13 @@ export default {
         .post(`/gkuser`, this.form)
         .then((resp) => {
           switch (resp.data.gkstatus) {
+            case STATUS_CODES['ValidationError']:
+              resp.data?.error.forEach((field_err) => {
+                let location = field_err.loc.join(" at ");
+                let message = (location ? location+": " : "") + field_err.msg;
+                this.displayToast("Validation Error", message, "warning");
+              });
+              break;
             case STATUS_CODES['Success']:
               {
                 this.$bvToast.toast(`${userName} created successfully`, {
@@ -318,6 +325,15 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
+    },
+    displayToast(title, message, variant) {
+      this.$bvToast.toast(message, {
+        title: title,
+        autoHideDelay: 3000,
+        variant: variant,
+        appendToast: true,
+        solid: true,
+      });
     },
   },
 };
