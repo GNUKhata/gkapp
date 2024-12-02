@@ -693,7 +693,6 @@ export default {
 
     fetchVoucherDetails(vid) {
       const self = this;
-      const nameToId = this.options.nameToId;
       axios.get(`/transaction?code=${vid}`).then((resp) => {
         if (resp.data.gkstatus === 0) {
           let data = resp.data.gkresult;
@@ -723,22 +722,22 @@ export default {
             self.$nextTick().then(() => {
               drs.forEach((acc, index) => {
                 Object.assign(self.form.dr[index], {
-                  account: nameToId[acc],
+                  account: data.drs[acc].accountname,
                   balance: null,
                   isLoading: false,
                   debit: true,
                   credit: false,
-                  amount: data.drs[acc],
+                  amount: data.drs[acc].amount,
                 });
               });
               crs.forEach((acc, index) => {
                 Object.assign(self.form.cr[index], {
-                  account: nameToId[acc],
+                  account: data.crs[acc].accountname,
                   balance: null,
                   isLoading: false,
                   debit: false,
                   credit: true,
-                  amount: data.crs[acc],
+                  amount: data.crs[acc].amount,
                 });
               });
               self.$forceUpdate();
