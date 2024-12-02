@@ -709,14 +709,11 @@ export default {
           let crs = Object.keys(data.crs);
           let dlength = drs.length;
           let clength = crs.length;
-          let loopLength = dlength > clength ? dlength : clength;
-          while (loopLength--) {
-            if (dlength--) {
-              self.addRow('dr');
-            }
-            if (clength--) {
-              self.addRow('cr');
-            }
+          while (dlength--) {
+            self.addRow('dr');
+          }
+          while (clength--) {
+            self.addRow('cr');
           }
           self.preloadData().then(() => {
             self.$nextTick().then(() => {
