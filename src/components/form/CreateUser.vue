@@ -268,6 +268,13 @@ export default {
         .post(`/gkuser`, this.form)
         .then((resp) => {
           switch (resp.data.gkstatus) {
+            case STATUS_CODES['ValidationError']:
+              resp.data?.error.forEach((field_err) => {
+                let location = field_err.loc.join(" at ");
+                let message = (location ? location+": " : "") + field_err.msg;
+                this.displayToast("Validation Error", message, "warning");
+              });
+              break;
             case STATUS_CODES['Success']:
               {
                 this.$bvToast.toast(`${userName} created successfully`, {
@@ -318,6 +325,15 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
+    },
+    displayToast(title, message, variant) {
+      this.$bvToast.toast(message, {
+        title: title,
+        autoHideDelay: 3000,
+        variant: variant,
+        appendToast: true,
+        solid: true,
+      });
     },
   },
 };
