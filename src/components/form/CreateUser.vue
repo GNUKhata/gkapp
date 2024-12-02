@@ -22,7 +22,7 @@
           label-cols="4"
           label-size="sm"
           :state="valid.username"
-          invalid-feedback="Username not unique or less than 3 characters"
+          invalid-feedback="Username should be unique and contain at least 5 characters"
         >
           <b-form-input
             v-model="form.username"
