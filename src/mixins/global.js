@@ -39,6 +39,7 @@ export default {
      * check for latest news from the gst portal
      */
     check_gst_news() {
+      if (!axios.defaults.baseURL) return;
       axios.get('/gst-news').then((r) => {
         if (localStorage.getItem('gstNewsCount') && this.userAuthenticated) {
           if (
