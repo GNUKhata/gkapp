@@ -94,6 +94,7 @@
       <!-- Bill Table -->
       <bill-table
         :gst-flag="isGst"
+        :vat-flag="isVat"
         :config="config.bill"
         @details-updated="onComponentDataUpdate"
         :update-counter="updateCounter.bill"
