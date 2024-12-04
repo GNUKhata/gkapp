@@ -1290,14 +1290,16 @@ export default {
       if (item) {
         item.taxable = (0).toFixed(2);
         let discountAmount = parseFloat(item?.discount?.amount || 0).toFixed(2);
+        let rate = parseFloat(item.rate);
+        let qty = 0;
 
         // Ignore discount if debit/credit note
         if (this.crdrnote) {
+          item.dcValue = item.dcValue || item.drcrrate;
+          rate = item.dcValue;
           discountAmount = 0;
         }
 
-        let qty = 0;
-        let rate = parseFloat(item.rate);
         if (rate > 0) {
           qty = item.qty;
           // When customDiscount is false, total discount is calculated based on quantity
