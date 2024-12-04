@@ -11,15 +11,16 @@ const Axios = {
     _axios.interceptors.response.use(
       function (response) {
         const {
-          status,
+          config: { returnFullResponse },
           data: { gkstatus, gkresult, error },
         } = response;
         // Handle custom error represented by non-zero gkstatus
         if (gkstatus > 0) {
           handleCustomError(gkstatus, error);
         }
-        // If no error, return gkresult
-        if (status === 200 && gkstatus === 0) {
+        // The config option returnFullResponse is used to determine whether to
+        // return gkresult (if applicable) or to return the full response.
+        if (!returnFullResponse && gkstatus === 0 && gkresult) {
           return gkresult;
         }
         return response;
