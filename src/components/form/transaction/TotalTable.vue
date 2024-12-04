@@ -23,7 +23,7 @@
             {{ totalPrice }}
           </b-td>
         </b-tr>
-        <b-tr v-if="config.discount">
+        <b-tr v-if="config.discount && !crdrnote">
           <b-td v-translate>
             Discount
           </b-td>
@@ -116,6 +116,12 @@ export default {
     billData: {
       type: Array,
       required: true,
+    },
+    crdrnote: {
+      type: Boolean,
+      required: false,
+      default: false,
+      note: 'Flag to check if credit/debit note',
     },
     gstFlag: {
       type: Boolean,

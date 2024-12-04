@@ -142,6 +142,7 @@
           >
             <total-table
               :config="config.total"
+              :crdrnote="true"
               :gst-flag="isGst"
               :cgst-flag="isCgst"
               :vat-flag="isVat"
