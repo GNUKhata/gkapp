@@ -268,7 +268,19 @@
 
         <!-- Rate -->
         <template #head(rate)="">
-          <span v-translate>Rate</span> <small>₹</small>
+          <span
+            v-if="crdrnote"
+            v-translate
+          >
+            Original Rate
+          </span>
+          <span
+            v-else
+            v-translate
+          >
+            Rate
+          </span>
+          <small> ₹</small>
         </template>
         <template #cell(rate)="data">
           <div v-if="form[data.item.index]">
