@@ -898,7 +898,7 @@ export default {
               let item = data.invcontents[itemCode];
               let billItem = {
                 product: { id: itemCode, name: item.proddesc },
-                discount: { amount: parseFloat(item.discount) },
+                discount: { amount: parseFloat(item.discount) / parseFloat(item.qty) },
                 qty: parseFloat(item.qty),
                 fqty: item.freeqty,
                 rate: parseFloat(item.priceperunit),
