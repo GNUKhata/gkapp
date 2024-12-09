@@ -167,6 +167,14 @@
               </div>
             </b-form-select-option>
           </b-form-select>
+          <div>
+            <small
+              class="text-danger"
+              v-if="options.products.length == 0"
+            >
+              Stock empty, add new item or restock to continue.
+            </small>
+          </div>
         </template>
 
 
