@@ -88,10 +88,13 @@
               >
                 <template #cell(invoiceno)="data">
                   <b-link
+                    v-if="data.item.invid"
                     :to="{
                       name: 'Workflow',
-                      params: {wfName: 'Transactions-Invoice'},
-                      wfId: data.item.invid,
+                      params: {
+                        wfName: 'Transactions-Invoice',
+                        wfId: data.item.invid,
+                      },
                     }"
                   >
                     {{ data.value }}

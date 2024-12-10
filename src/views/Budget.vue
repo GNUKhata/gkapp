@@ -117,6 +117,7 @@
         name="Budget Report"
         content-id="budget-table-container"
         :print-styles="printStyles"
+        :message-from-parent="parentMessage"
         class="d-none d-lg-inline-block"
         file-name="Budget_Report"
       />

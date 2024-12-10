@@ -6,7 +6,10 @@
     >
       {{ name }}
     </div>
-    <div v-b-modal.m1>
+    <div
+      v-if="helpBody"
+      v-b-modal.m1
+    >
       <b-icon
         variant="light"
         icon="question-circle"
@@ -43,7 +46,6 @@ export default {
     helpBody: {
       type: String,
       default: null,
-      required: true,
       note: 'body of help popover (required)',
     },
   },

@@ -217,6 +217,7 @@ export default new Vuex.Store({
     },
 
     setOrgYears(state, payload) {
+      if (!payload) return;
       state.yearStart = payload.yearStart;
       state.yearEnd = payload.yearEnd;
       AppStorage.setItem(

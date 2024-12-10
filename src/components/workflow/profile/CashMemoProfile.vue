@@ -21,12 +21,13 @@
               icon="eye"
             />
             <router-link
+              v-if="dcid"
               class="custom-link"
               :to="{
                 name: 'Workflow',
                 params: {
                   wfName: 'Transactions-DeliveryNote',
-                  wfId: this.dcid,
+                  wfId: dcid,
                 },
               }"
             >View Delivery Note

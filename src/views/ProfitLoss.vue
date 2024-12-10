@@ -303,7 +303,6 @@ export default {
       toDate: null,
       hideZero: false,
       divideThousand: false,
-      orgType: '',
 
       // set level based fields
       reportFields: [
@@ -344,7 +343,7 @@ export default {
     hideZeroFilter: (self) => (self.hideZero ? 'a' : null),
     ...mapState(['yearStart', 'yearEnd', 'orgName', 'orgType']),
   },
-   methods: {
+  methods: {
     printPage() {
       window.print();
     },
@@ -462,7 +461,6 @@ export default {
             switch (r.data.gkstatus) {
             case 0:
               {
-                self.orgType = r.data.gkresult.org_type;
                 self.formatResponse(r.data.gkresult);
               }
               break;

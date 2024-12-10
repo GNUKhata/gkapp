@@ -120,10 +120,10 @@
         </template>
         <gk-file-download
           :url="downloadUrl"
-          :fileName="downloadFileName"
-          fileExtn=".xlsx"
-          :messageFromParent="parentMessage"
-        ></gk-file-download>
+          :file-name="downloadFileName"
+          file-extn=".xlsx"
+          :message-from-parent="parentMessage"
+        />
       </gk-toolbar>
       <b-table
         caption-top
@@ -140,6 +140,7 @@
       >
         <template #cell(document_no)="voucher">
           <b-link
+            v-if="voucher.item.v_id"
             :to="{
               name: 'Workflow',
               params: {
@@ -178,6 +179,7 @@ export default {
       tmp_report: [],
       fields: [],
       expandedTable: false,
+      parentMessage: '',
     };
   },
   watch: {

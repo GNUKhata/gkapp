@@ -98,10 +98,7 @@
           label-cols="3"
         >
           <template #label>
-            <captcha
-              width="90"
-              v-model="answer"
-            />
+            <captcha v-model="answer" />
           </template>
           <!-- user answer -->
           <b-form-input

@@ -370,11 +370,20 @@ export default {
       form: {
         type: 'sale', // purchase
         inv: {
-          state: { id: null },
-          taxState: { id: null },
+          state: {
+            id: null,
+            name: '',
+          },
+          taxState: {
+            id: null,
+            name: '',
+          },
         },
         party: {
-          state: { id: null },
+          state: {
+            id: null,
+            name: '',
+          },
         },
         ship: {},
         taxType: null,
@@ -777,7 +786,7 @@ export default {
             pin: resp6.data.gkdata.orgpincode,
             bankDetails: resp6.data.gkdata.bankdetails,
           };
-          if (!self.options.orgDetails.gstin && stateCode < 10) {
+          if (gstin && !self.options.orgDetails.gstin && stateCode < 10) {
             self.options.orgDetails.gstin = gstin[`0${stateCode}`];
           }
           setTimeout(() => {
@@ -1529,12 +1538,21 @@ export default {
       this.form = {
         type: type,
         inv: {
-          state: { id: null },
-          taxState: { id: null, name: '' },
+          state: {
+            id: null,
+            name: '',
+          },
+          taxState: {
+            id: null,
+            name: '',
+          },
         },
         party: {
           name: false,
-          state: { id: null },
+          state: {
+            id: null,
+            name: '',
+          },
         },
         ship: {},
         taxType: null,

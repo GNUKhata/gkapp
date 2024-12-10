@@ -1369,7 +1369,7 @@ export default {
               (item.taxable * (cess * 0.01)).toFixed(2)
             );
 
-            item.total = (
+            item.total = parseFloat(
               item.taxable +
               item.igst.amount +
               item.cess.amount

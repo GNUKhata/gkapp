@@ -272,7 +272,6 @@
               <gk-gstin
                 @validity="onGstinUpdate"
                 @gstin_data="onGstinDataFetched"
-                @verified="onGstinVerified"
                 :details="details"
                 v-model="gstin"
                 :show-validation="2"
@@ -528,7 +527,7 @@ export default {
   data() {
     return {
       loading: true,
-      details: Array,
+      details: {},
       states: [],
       gstin: '',
       cess: {},

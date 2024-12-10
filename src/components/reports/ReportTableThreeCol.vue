@@ -143,7 +143,7 @@ export default {
     tableName: String, // Table name (used to show/hide table head)
     divideThousand: Boolean,
     filterTable: { // Vue bootstrap filter-function
-      type: Object,
+      type: Function,
       default: function () {
         return {}
       },

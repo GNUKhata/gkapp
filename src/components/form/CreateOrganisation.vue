@@ -312,6 +312,7 @@ export default {
       });
     },
     checkRegistrationStatus() {
+      if (!axios.defaults.baseURL) return;
       axios.get('/organisation/check_registration').then((r) => {
         if (r.status === 200 && r.data.gkstatus == 5) {
           this.showMenu = false;
@@ -453,6 +454,7 @@ export default {
     },
     preloadData() {
       this.isPreloading = true;
+      if (!axios.defaults.baseURL) return;
       axios
         .get('/state')
         .then((resp) => {
