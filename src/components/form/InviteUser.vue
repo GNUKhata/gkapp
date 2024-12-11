@@ -230,7 +230,7 @@ export default {
       form: {
         username: '',
         userpassword: '',
-        userrole: Number,
+        userrole: null,
         userquestion: '',
         useranswer: '',
         golist: [],
