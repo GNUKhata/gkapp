@@ -98,6 +98,7 @@ export default {
               variant: 'success',
               solid: true,
             });
+            this.logOut();
             break;
           case 1:
             this.$bvToast.toast('Duplicate Entry, organisation with same name and financial year already exists.', {
