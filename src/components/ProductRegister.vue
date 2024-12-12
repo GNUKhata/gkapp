@@ -625,7 +625,7 @@ export default {
         this.fromDate = this.yearStart;
         this.toDate = params.current_date;
         this.productId = params.product_id;
-        this.godownId = params.goid;
+        this.godownId = (params.goid != 0) ? params.goid : this.godowns[0].value;
       }
       this.loading = true;
       this.invoiceFilter = ['invoice', 'Debit Note', 'Credit Note', 'transfer note', 'delchal'],
@@ -746,7 +746,7 @@ export default {
       return product.label;
     },
   },
-   created() {
+  created() {
     this.getProductList();
     this.getGodownList()
       .then(() => {
