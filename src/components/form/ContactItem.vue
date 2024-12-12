@@ -843,7 +843,9 @@ export default {
           ifsc: null,
         },
       };
-      this.contactCountry = null;
+      if (this.isIndia) {
+        this.contactCountry = 'India';
+      }
     },
     preloadData() {
       this.isPreloading = true;
