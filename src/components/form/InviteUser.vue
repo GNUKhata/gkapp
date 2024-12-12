@@ -230,7 +230,7 @@ export default {
       form: {
         username: '',
         userpassword: '',
-        userrole: Number,
+        userrole: null,
         userquestion: '',
         useranswer: '',
         golist: [],
@@ -382,7 +382,15 @@ export default {
               this.$refs['createUserForm'].reset();
               this.createUser = false;
               this.validUser = null;
-              this.form.username = '';
+              this.cnfPassword = '';
+              this.form = {
+                username: '',
+                userpassword: '',
+                userrole: null,
+                userquestion: '',
+                useranswer: '',
+                golist: [],
+              };
               break;
             case STATUS_CODES['DuplicateEntry']:
               this.$bvToast.toast(
