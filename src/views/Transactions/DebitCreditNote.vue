@@ -142,11 +142,13 @@
           >
             <total-table
               :config="config.total"
+              :crdrnote="true"
               :gst-flag="isGst"
+              :cgst-flag="isCgst"
+              :vat-flag="isVat"
               :bill-data="form.bill"
               :update-counter="updateCounter.totalTable"
               @details-updated="onComponentDataUpdate"
-              :cgst-flag="isCgst"
               ref="totalTable"
             />
           </b-col>
@@ -393,7 +395,9 @@ export default {
         break;
       case 'invoice-details':
         Object.assign(this.form.invoice, payload.data);
-        this.isCgst = (this.form.invoice.state.name === this.form.invoice.taxState.name)
+        this.isCgst = this.isGst && (
+          this.form.invoice.state.name === this.form.invoice.taxState.name
+        )
         break;
       }
     },

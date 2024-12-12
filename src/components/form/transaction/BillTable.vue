@@ -276,7 +276,19 @@
 
         <!-- Rate -->
         <template #head(rate)="">
-          <span v-translate>Rate</span> <small>₹</small>
+          <span
+            v-if="crdrnote"
+            v-translate
+          >
+            Original Rate
+          </span>
+          <span
+            v-else
+            v-translate
+          >
+            Rate
+          </span>
+          <small> ₹</small>
         </template>
         <template #cell(rate)="data">
           <div v-if="form[data.item.index]">
@@ -610,7 +622,7 @@ export default {
           hsn: '',
           originalQty: 0,
           qty: 0,
-          maxQty: null,
+          maxQty: 0,
           fqty: 0,
           packageCount: 0,
           dcValue: 0,
@@ -863,14 +875,14 @@ export default {
           rowSelected: false,
           product: { id: '', name: '',  quantity: ''},
           hsn: '',
-          originalQty: null,
-          qty: null,
-          packageCount: null,
-          dcValue: null,
+          originalQty: 0,
+          qty: 0,
+          packageCount: 0,
+          dcValue: 0,
           fqty: 0,
-          rate: null,
-          discount: { rate: 0, amount: null },
-          taxable: null,
+          rate: 0,
+          discount: { rate: 0, amount: 0 },
+          taxable: 0,
           cgst: { rate: 0, amount: 0 },
           sgst: { rate: 0, amount: 0 },
           igst: { rate: 0, amount: 0 },
@@ -1298,14 +1310,16 @@ export default {
       if (item) {
         item.taxable = (0).toFixed(2);
         let discountAmount = parseFloat(item?.discount?.amount || 0).toFixed(2);
+        let rate = parseFloat(item.rate);
+        let qty = 0;
 
         // Ignore discount if debit/credit note
         if (this.crdrnote) {
+          item.dcValue = item.dcValue || item.drcrrate;
+          rate = item.dcValue;
           discountAmount = 0;
         }
 
-        let qty = 0;
-        let rate = parseFloat(item.rate);
         if (rate > 0) {
           qty = item.qty;
           // When customDiscount is false, total discount is calculated based on quantity
