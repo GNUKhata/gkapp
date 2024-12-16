@@ -58,12 +58,6 @@
               {{ form.igst || '-' }}
             </b-td>
           </b-tr>
-          <b-tr v-if="gstFlag && config.cess">
-            <b-td>CESS</b-td>
-            <b-td class="text-right">
-              {{ form.cess || '-' }}
-            </b-td>
-          </b-tr>
           <b-tr v-if="vatFlag && config.vat">
             <b-td>VAT</b-td>
             <b-td class="text-right">
