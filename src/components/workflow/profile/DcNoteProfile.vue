@@ -329,7 +329,6 @@ export default {
               { title: 'SGST', value: self.total.tax }
             );
           }
-          total.push({ title: 'CESS', value: self.total.cess });
         }
         if (self.flags.vat) {
           total.push({ title: 'VAT', value: self.total.tax });
@@ -394,11 +393,6 @@ export default {
               tdClass: 'gk-currency-sm',
             });
           }
-          fields.push({
-            key: 'cess',
-            label: 'CESS (%)',
-            tdClass: 'gk-currency-sm',
-          });
         }
         if (self.flags.vat) {
           fields.push({
@@ -479,7 +473,6 @@ export default {
         this.total = {
           taxable: details.totaltaxablevalue,
           tax: details.totaltaxamt,
-          cess: details.totalcessamt,
           reduct: details.totreduct,
           text: numberToRupees(details.totreduct),
         };
