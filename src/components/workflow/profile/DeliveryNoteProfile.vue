@@ -309,7 +309,6 @@ export default {
               { title: 'SGST', value: self.total.tax }
             );
           }
-          total.push({ title: 'CESS', value: self.total.cess });
         }
         if (self.delnote.isVat) {
           total.push({ title: 'VAT', value: self.total.tax });
@@ -362,11 +361,6 @@ export default {
               tdClass: 'gk-currency-sm',
             });
           }
-          fields.push({
-            key: 'cess',
-            label: 'CESS (%)',
-            tdClass: 'gk-currency-sm',
-          });
         }
         if (self.delnote.isVat) {
           fields.push({
