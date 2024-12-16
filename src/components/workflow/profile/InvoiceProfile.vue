@@ -285,9 +285,6 @@
       <template #cell(igst)="data">
         {{ data.value }} <small> % </small>
       </template>
-      <template #cell(cess)="data">
-        {{ data.value.rate }} <small> % </small>
-      </template>
       <template #cell(vat)="data">
         {{ data.value }} <small> % </small>
       </template>
@@ -595,7 +592,6 @@ export default {
             label: self.$gettext('HSN / SAC'),
             tdClass: 'gk-currency-sm',
           });
-          fields.push({ key: 'cess', label: 'CESS', tdClass: 'gk-currency-sm' });
         }
         if (self.invoice.isVat) {
           fields.push({ key: 'vat', label: 'VAT', tdClass: 'gk-currency-sm' });
@@ -703,7 +699,6 @@ export default {
               { title: 'SGST', value: self.invoice.total.tax }
             );
           }
-          total.push({ title: 'CESS', value: self.invoice.total.cess });
         }
         if (self.invoice.isVat) {
           total.push({ title: 'VAT', value: self.invoice.total.tax });
