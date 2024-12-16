@@ -284,7 +284,6 @@ export default {
               { title: 'SGST', value: self.total.tax }
             );
           }
-          total.push({ title: 'CESS', value: self.total.cess });
         }
         if (self.isVat) {
           total.push({ title: 'VAT', value: self.total.tax });
@@ -342,7 +341,6 @@ export default {
               { key: 'sgst', label: 'SGST (%)' },
             );
           }
-          fields.push({ key: 'cess', label: 'CESS (%)' });
         }
         if (self.total.isVat) {
           fields.push({ key: 'vat', label: 'VAT (%)' });
