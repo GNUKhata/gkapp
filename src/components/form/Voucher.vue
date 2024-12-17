@@ -486,6 +486,24 @@ export default {
     },
   },
   methods: {
+    updateCreditInvoiceBalance() {
+      axios.get(`/billwise?type=all`).then((resp) => {
+        this.options.creditInv.sale = []
+        this.options.creditInv.purchase = []
+        resp?.data.invoices.forEach((item) => {
+          let option = {
+            id: item.invid,
+            label: `${item.invoiceno}, ${item.custname}, ${item.invoicedate}`,
+          };
+          if (item.inoutflag === 15) {
+            this.options.creditInv.sale.push(option);
+          } else {
+            this.options.creditInv.purchase.push(option);
+          }
+          this.options.creditInv.map[item.invid] = item;
+        });
+      });
+    },
     onCreateAccount(gid, sgid) {
       this.updateUrl();
       this.$router.push({
@@ -634,7 +652,9 @@ export default {
                     ],
                   };
 
-                  axios.post('/billwise', billData).then(() => {});
+                  axios.post('/billwise', billData).then(() => {
+                    this.updateCreditInvoiceBalance();
+                  });
                 }
 
                 if (self.onSave !== null) {
