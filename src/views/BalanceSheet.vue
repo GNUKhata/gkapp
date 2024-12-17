@@ -191,6 +191,15 @@ Note that this is a consolidated report generated from organizations which are s
                 >
                   {{ data.value }}
                 </b-button>
+                <b-button
+                  size="sm"
+                  variant="link"
+                  class="p-0"
+                  :to="{path: `/profit-loss`}"
+                  v-else-if="data.item?.type === 'pnl'"
+                >
+                  {{ data.value }}
+                </b-button>
                 <span
                   :class="{
                     'font-weight-bold': data.item.isGroup,
