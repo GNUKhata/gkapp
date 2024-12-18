@@ -207,6 +207,9 @@ export default {
       }
     },
     resetForm() {
+      this.cnfPassword = '';
+      this.answer = null;
+      this.userAnswer = null;
       this.form = {
         username: '',
         userpassword: '',
