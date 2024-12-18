@@ -217,6 +217,20 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (!this?.tnote?.rdate) {
+        this.displayToast(
+          this.$gettext(`Warning`),
+          this.$gettextInterpolate(
+            this.$gettext(
+              `Transfer Note %{transferNoteNo} Actual Receipt Date is not entered!`
+            ),
+            {
+              transferNoteNo: this.tnote.no,
+            }
+          ),
+          'warning'
+        );
+      }
       const payload = {
         transfernoteid: this.id,
         recieveddate: this.tnote.rdate,
