@@ -194,7 +194,7 @@
               step="0.01"
               min="0.01"
               :max="creditFlag ? (form[data.item.index].originalQty ?? null) : form[data.item.index].maxQty"
-              @input="onQtyUpdate(data.item.index, data.item.pid)"
+              @input="onQtyUpdate(data.item.index)"
               :readonly="data.item.isService || disabled.qty"
               :tabindex="data.item.isService ? -1 : 0"
             />
@@ -910,7 +910,8 @@ export default {
 
       return valid;
     },
-    onQtyUpdate(index, pid) {
+    onQtyUpdate(index) {
+      const { pid } = this.form[index];
       if (
         (parseFloat(this.form[index].qty) <= this.options.stock[pid]) ||
         this.allowNegativeStock ||
@@ -927,7 +928,7 @@ export default {
           item.taxable = 0;
           item.dcValue = '';
         } 
-        return this.onQtyUpdate(index, item.pid);
+        return this.onQtyUpdate(index);
       });
     },
     updateTaxDetails(index) {
