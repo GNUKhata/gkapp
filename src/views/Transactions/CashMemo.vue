@@ -779,7 +779,7 @@ export default {
           },
         },
         narration: null,
-        taxType: null,
+        taxType: this.form.taxType,
         bill: [
           {
             product: { name: '', id: '' },
