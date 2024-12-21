@@ -327,45 +327,6 @@
                 type="text"
               />
             </b-form-group>
-
-            <b-form-group
-              v-if="taxMode && taxMode !== 'None'"
-              :label="$gettext('CESS')"
-              label-size="sm"
-              label-cols="4"
-              label-align="right"
-            >
-              <div
-                v-for="(value, cessAmount, index) in cess"
-                :key="index"
-                class="mb-2 d-flex align-items-center justify-content-end justify-content-sm-start"
-              >
-                <b :style="{width: '25px'}">{{ cessAmount }}</b>
-                <b-button
-                  class
-                  size="sm"
-                  variant="danger"
-                  @click="deleteCess(cessAmount)"
-                >
-                  <b-icon
-                    font-scale="0.95"
-                    icon="trash"
-                  />
-                </b-button>
-              </div>
-              <b-button
-                v-b-modal.cess
-                variant="dark"
-                class="p-0 px-1 float-right float-sm-left"
-                @click="onCessAdd"
-                size="sm"
-              >
-                <b-icon
-                  class="align-middle"
-                  icon="plus"
-                /><translate>CESS</translate>
-              </b-button>
-            </b-form-group>
             <!-- {{ details }} -->
           </b-card>
         </b-card-group>

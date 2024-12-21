@@ -369,27 +369,6 @@
                         </small>
                       </b-form-checkbox>
                       <div class="clearfix" />
-                      <b-form-group
-                        label-size="sm"
-                        label="CESS"
-                        label-for="bi-input-8"
-                        label-cols="3"
-                      >
-                        <b-input-group
-                          append="%"
-                          size="sm"
-                        >
-                          <b-form-input
-                            size="sm"
-                            id="bi-input-8"
-                            placeholder=""
-                            v-model="form.tax.cess"
-                            type="number"
-                            no-wheel
-                            step="0.01"
-                          />
-                        </b-input-group>
-                      </b-form-group>
                       <b-collapse v-model="form.tax.gstFlag">
                         <b-card no-body>
                           <b-card-body

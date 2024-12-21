@@ -338,15 +338,6 @@
           }}
         </template>
 
-        <!-- CESS -->
-        <template #cell(cess)="data">
-          {{
-            form[data.item.index] && form[data.item.index].cess
-              ? form[data.item.index].cess.rate
-              : ''
-          }}
-        </template>
-
         <!-- VAT -->
         <template #cell(vat)="data">
           {{
@@ -684,7 +675,6 @@ export default {
         { key: 'cgst', label: 'CGST %' },
         { key: 'sgst', label: 'SGST %' },
         { key: 'igst', label: 'IGST %' },
-        { key: 'cess', label: 'CESS %' },
         {
           key: 'total',
           label: self.$gettext('Total ₹'),

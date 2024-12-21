@@ -106,9 +106,6 @@
       <template #cell(discount)="data">
         {{ data.value }}
       </template>
-      <template #cell(cess)="data">
-        {{ data.value.rate }} <small>%</small>
-      </template>
       <template #cell(total)="data">
         {{ data.value }}
       </template>
@@ -312,7 +309,6 @@ export default {
               { title: 'SGST', value: total.tax }
             );
           }
-          details.push({ title: 'CESS', value: total.cess });
         }
         if (self.invoice.isVat) {
           details.push({ title: 'VAT', value: total.tax });
@@ -362,7 +358,6 @@ export default {
             fields.push({ key: 'cgst', label: 'CGST (%)', tdClass: 'gk-currency-sm', });
             fields.push({ key: 'sgst', label: 'SGST (%)', tdClass: 'gk-currency-sm', });
           }
-          fields.push({ key: 'cess', label: 'CESS (%)', tdClass: 'gk-currency-sm', });
         }
         if (self.invoice.isVat) {
           fields.push({ key: 'vat', label: 'VAT (%)', tdClass: 'gk-currency-sm', });
