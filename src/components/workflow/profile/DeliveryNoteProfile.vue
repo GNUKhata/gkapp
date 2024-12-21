@@ -297,9 +297,14 @@ export default {
           title: self.$gettext('Discount'),
           value: totalDiscount,
         },
-        { title: self.$gettext('Taxable'), value: self.total.taxable },
       ];
       if (self.isIndia) {
+        if (self.delnote.isGst || self.delnote.isVat) {
+          total.push({
+            title: self.$gettext('Taxable'),
+            value: self.total.taxable,
+          });
+        }
         if (self.delnote.isGst) {
           if (self.total.isIgst) {
             total.push({ title: 'IGST', value: self.total.tax });

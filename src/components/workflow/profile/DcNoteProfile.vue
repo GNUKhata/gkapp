@@ -316,10 +316,14 @@ export default {
       ];
     },
     totalDetails: (self) => {
-      let total = [
-        { title: self.$gettext('Taxable'), value: self.total.taxable },
-      ];
+      let total = [];
       if (self.isIndia) {
+        if (self.flags.gst || self.flags.vat) {
+          total.push({
+            title: self.$gettext('Taxable'),
+            value: self.total.taxable,
+          });
+        }
         if (self.flags.gst) {
           if (self.flags.igst) {
             total.push({ title: 'IGST', value: self.total.tax });

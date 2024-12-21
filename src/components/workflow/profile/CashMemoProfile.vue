@@ -296,8 +296,13 @@ export default {
         },
       ];
       let total = self.invoice.total;
-      details.push({ title: self.$gettext('Taxable'), value: total.taxable });
       if (self.isIndia) {
+        if (self.invoice.isGst || self.invoice.isVat) {
+          details.push({
+            title: self.$gettext('Taxable'),
+            value: total.taxable,
+          });
+        }
         if (self.invoice.isGst) {
           if (total.isIgst) {
             details.push({ title: 'IGST', value: total.tax });
