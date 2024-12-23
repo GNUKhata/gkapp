@@ -17,7 +17,7 @@
     <!-- action buttons -->
     <div
       class="mb-3 clearfix d-print-none"
-      v-if="voucher?.invid && !deletedFlag"
+      v-if="!deletedFlag"
     >
       <div class="float-right">
         <span v-if="voucher?.icflag == 9">
@@ -60,7 +60,7 @@
             </router-link>
           </b-button>
         </span>
-        <span v-if="!deletedFlag">
+        <span v-if="!voucher?.invid && !voucher?.drcrid ">
           <b-button
             size="sm"
             variant="warning"
