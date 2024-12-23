@@ -117,7 +117,7 @@
                     />
                   </b-button>
                   <b-button
-                    :disabled="data.item?.sysaccount ? true : false"
+                    :disabled="(data.item?.sysaccount || data.item?.has_voucher) ? true : false"
                     variant="danger"
                     @click.prevent="confirmOnDelete(data.item)"
                     class="pt-0"
