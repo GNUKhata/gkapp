@@ -3,7 +3,7 @@
     <!-- User Login -->
     <b-card
       v-if="!userAuthToken"
-      class="shadow mx-auto"
+      class="mx-auto shadow"
       style="max-width: 35em"
       header-bg-variant="dark"
       header-text-variant="light"
@@ -50,7 +50,7 @@
           />
           <b-button
             variant="link"
-            class="p-0 float-right"
+            class="float-right p-0"
             @click="showForm.resetPwd = true"
           >
             <small><translate>Forgot Password?</translate></small>
@@ -180,15 +180,53 @@
             <h5 class="d-inline-block">
               Organisations <span> ({{ orgs.length }}) </span>
             </h5>
-            <b-button
+
+            <b-dropdown
+              split
+              text="Create Org"
               size="sm"
               variant="success"
               :disabled="showForm.createOrg"
               @click="showForm.createOrg = true"
               class="float-right"
             >
-              Create Org
-            </b-button>
+              <b-dropdown-item
+                v-b-toggle.collapse-1
+              >
+                Import Organisation
+              </b-dropdown-item>
+            </b-dropdown>
+            <div class="my-2">
+              <b-form @submit.prevent="upload">
+                <b-collapse id="collapse-1">
+                  <div class="row">
+                    <div class="col-9">
+                      <!-- Export buttons -->
+                      <b-form-file
+                        required
+                        v-model="file"
+                        accept=".json"
+                        size="sm"
+                      />
+                    </div>
+                    <div class="col-3 text-center">
+                      <b-button
+                        type="submit"
+                        variant="dark"
+                        class="text-center"
+                        size="sm"
+                      >
+                        <b-icon
+                          icon="upload"
+                          class="mr-2"
+                        />
+                        <translate>Import Data</translate>
+                      </b-button>
+                    </div>
+                  </div>
+                </b-collapse>
+              </b-form>
+            </div>
           </div>
           <b-table
             head-variant="dark"
@@ -282,7 +320,7 @@
                 <b-button
                   @click="onAcceptInvite(data.index, data.item.name)"
                   size="sm"
-                  class="p-1 mx-1"
+                  class="mx-1 p-1"
                   variant="success"
                 >
                   <b-icon
@@ -405,6 +443,7 @@ export default {
         name: '',
         pwd: '',
       },
+
       captcha: {
         answer: null,
         userAnswer: null,
@@ -431,6 +470,9 @@ export default {
         2: 'Internal Auditor',
         3: 'Godown In Charge',
       },
+      file: [],
+      file_str: null,
+      json_info: null,
     };
   },
   computed: {
@@ -876,6 +918,61 @@ export default {
             this.isOrgLoading = false;
           });
       }
+    },
+    upload() {
+      // create a form object as api demands it
+      let fd = new FormData();
+      fd.append('gkfile', this.file);
+
+      axios
+        .post(`/import/organisation`, fd, { headers: { gktoken: this.userAuthToken } })
+        .then((r) => {
+          switch (r.data.gkstatus) {
+          case 0:
+            this.$bvToast.toast(this.$gettext('Import Successful'), {
+              variant: 'success',
+              solid: true,
+            });
+            this.fetchUserOrgs();
+
+            if (this.file.type == 'application/json') {
+              this.json_info = r.data.gkresult;
+              this.$bvModal.show('response-modal');
+            }
+            this.$emit('refresh');
+            break;
+          case 1:
+            this.$bvToast.toast('Duplicate Entry', {
+              variant: 'warning',
+              solid: true,
+            });
+            break;
+          case 2:
+            this.$bvToast.toast('Unauthorised Access', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 3:
+            this.$bvToast.toast('Data error', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 4:
+            this.$bvToast.toast('No Privilege', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          case 5:
+            this.$bvToast.toast('Integrity error', {
+              variant: 'danger',
+              solid: true,
+            });
+            break;
+          }
+        });
     },
   },
   mounted() {

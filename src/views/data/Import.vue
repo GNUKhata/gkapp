@@ -54,46 +54,6 @@
               <translate> Import Data</translate>
             </b-button>
           </div>
-          <!-- show duplicate entries -->
-          <b-modal
-            id="response-modal"
-            title="Import Stats"
-            hide-footer
-            scrollable
-            header-bg-variant="dark"
-            header-text-variant="light"
-            header-class="p-2"
-            size="md"
-          >
-            <div v-if="json_info != null">
-              <h5>
-                <translate>Imported Entries</translate>: {{ json_info.success }}
-              </h5>
-              <h5
-                v-translate
-                class="text-primary"
-              >
-                Duplicate Entries
-              </h5>
-
-              <div
-                v-for="(section, index) in json_info.duplicate"
-                :key="section"
-              >
-                <h6 class="text-capitalize">
-                  {{ index }} ({{ section.length }})
-                </h6>
-                <ol>
-                  <li
-                    class="text-sm text-monospace text-muted"
-                    v-for="item in section"
-                    :key="item"
-                    v-text="item"
-                  />
-                </ol>
-              </div>
-            </div>
-          </b-modal>
         </b-form>
       </b-card-body>
     </b-card>
@@ -109,7 +69,6 @@ export default {
     return {
       file: [],
       file_str: null,
-      json_info: null,
     };
   },
   methods: {
@@ -125,13 +84,13 @@ export default {
       }
     },
 
-    upload(url) {
+    upload() {
       // create a form object as api demands it
       let fd = new FormData();
       fd.append('gkfile', this.file);
 
       axios
-        .post(`/import/${url}`, fd, { headers: { gktoken: this.authToken } })
+        .post(`/import/overwrite-organisation`, fd, { headers: { gktoken: this.authToken } })
         .then((r) => {
           switch (r.data.gkstatus) {
           case 0:
@@ -139,14 +98,10 @@ export default {
               variant: 'success',
               solid: true,
             });
-            if (this.file.type == 'application/json') {
-              this.json_info = r.data.gkresult;
-              this.$bvModal.show('response-modal');
-            }
-            this.$emit('refresh');
+            this.logOut();
             break;
           case 1:
-            this.$bvToast.toast('Duplicate Entry', {
+            this.$bvToast.toast('Duplicate Entry, organisation with same name and financial year already exists.', {
               variant: 'warning',
               solid: true,
             });
