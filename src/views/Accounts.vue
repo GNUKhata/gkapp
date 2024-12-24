@@ -7,13 +7,13 @@
       >
         Accounts
       </h3>
-      <GkToolbar>
-        <GkFileDownload
+      <gk-toolbar>
+        <gk-file-download
           file-suffix="AccountList"
           :font-scale="1"
           :url="
             `/accounts/spreadsheet?fystart=${this.dateReverse(
-              this.yearStart
+              this.yearStart,
             )}&fyend=${this.dateReverse(this.yearEnd)}&orgname=${
               this.orgName
             }&orgtype=${this.orgType}`
@@ -40,7 +40,7 @@
           />
           Subgroups
         </router-link>
-      </GkToolbar>
+      </gk-toolbar>
       <div class="clearfix" />
       <div>
         <b-tabs content-class="mt-3">
@@ -117,7 +117,7 @@
                     />
                   </b-button>
                   <b-button
-                    :disabled="data.item?.sysaccount ? true : false"
+                    :disabled="(data.item?.sysaccount || data.item?.has_voucher) ? true : false"
                     variant="danger"
                     @click.prevent="confirmOnDelete(data.item)"
                     class="pt-0"
@@ -136,7 +136,7 @@
                     hide-header
                     hide-footer
                   >
-                    <Account
+                    <account
                       @account-edited="onModalSubmit('account-edit' + data.value)"
                       :groups-subgroups="groupsSubgroups"
                       :account-details="data.item"
@@ -150,7 +150,7 @@
                           x
                         </b-button>
                       </template>
-                    </Account>
+                    </account>
                   </b-modal>
                 </template>
               </b-table>
@@ -167,7 +167,7 @@
       hide-footer
       hide-header
     >
-      <Account
+      <account
         v-if="Object.values(groupsSubgroups).length"
         @account-created="onModalSubmit('account-create')"
         :groups-subgroups="groupsSubgroups"
@@ -181,7 +181,7 @@
             x
           </b-button>
         </template>
-      </Account>
+      </account>
     </b-modal>
   </div>
 </template>
