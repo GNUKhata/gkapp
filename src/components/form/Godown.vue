@@ -337,7 +337,7 @@ export default {
       return {
         goname: this.form.name,
         goaddr: this.form.address,
-        state: this.form.state.name,
+        state: this.form?.state?.name,
         gocontact: this.form.contactNumber || '',
         contactname: this.form.contactPerson || '',
       };

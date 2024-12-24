@@ -225,6 +225,7 @@ export default {
       this.$refs.transferNote.form.godownFrom = null;
       this.$refs.transferNote.form.godownTo = null;
       Object.assign(this.form.transferNote, this.$refs.transferNote.form);
+      this.updateCounter.transferNote++;
       this.updateCounter.transport++;
       this.updateCounter.bill++;
     },
