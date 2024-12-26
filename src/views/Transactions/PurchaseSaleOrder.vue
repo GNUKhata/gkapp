@@ -938,6 +938,11 @@ export default {
       });
     },
   },
+  watch: {
+    defaultTaxMode(newMode) {
+      this.form.taxType = newMode;
+    },
+  },
   beforeMount() {
     this.vuexNameSpace = 'psOrderConfig_' + Date.now();
     // Dynamically load the config to Vuex, just before the Invoice component is mounted
