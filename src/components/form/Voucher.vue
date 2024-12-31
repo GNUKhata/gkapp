@@ -747,6 +747,7 @@ export default {
                   credit: false,
                   amount: data.drs[acc].amount,
                 });
+                this.onAccountSelect(account, 'dr', index);
               });
               crs.forEach((acc, index) => {
                 let account = {
@@ -761,6 +762,7 @@ export default {
                   credit: true,
                   amount: data.crs[acc].amount,
                 });
+                this.onAccountSelect(account, 'cr', index);
               });
               self.$forceUpdate();
             });
