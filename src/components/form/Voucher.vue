@@ -175,10 +175,9 @@
                   <!-- Account -->
                   <b-td>
                     <v-select
-                      v-model="form.dr[indexDr].account"
                       :options="options['dr']"
+                      v-model="form.dr[indexDr].account"
                       label="accountname"
-                      :reduce="(acc) => acc.accountcode"
                       required
                       @input="onAccountSelect(data.account, 'dr', indexDr)"
                       class="text-left"
@@ -241,10 +240,9 @@
                   <b-td>
                     <v-select
                       class="text-left"
-                      v-model="data.account"
+                      v-model="form.cr[indexCr].account"
                       :options="options['cr']"
                       label="accountname"
-                      :reduce="(acc) => acc.accountcode"
                       required
                       @input="onAccountSelect(data.account, 'cr', indexCr)"
                       :reset-on-options-change="true"
@@ -564,12 +562,11 @@ export default {
         });
     },
     confirmOnSubmit() {
-      const self = this;
       const fromAcc = this.form.cr
-        .reduce((acc, cr) => (acc += `  ${self.options.acc[cr.account]},`), '')
+        .reduce((acc, cr) => (acc += `  ${cr.account.accountname},`), '')
         .slice(0, -1);
       const toAcc = this.form.dr
-        .reduce((acc, dr) => (acc += `  ${self.options.acc[dr.account]},`), '')
+        .reduce((acc, dr) => (acc += `  ${dr.account.accountname},`), '')
         .slice(0, -1);
       const text = this.$createElement('div', {
         domProps: {
@@ -624,13 +621,12 @@ export default {
                   this.$gettext('Voucher Created Successfully!'),
                   'success'
                 );
-                const accMap = self.options.acc;
                 let dr = self.form.dr.reduce(
-                  (acc, dr) => acc + `${accMap[dr.account]}, `,
+                  (acc, dr) => acc + `${dr.account.accountname}, `,
                   ''
                 );
                 let cr = self.form.cr.reduce(
-                  (acc, cr) => acc + `${accMap[cr.account]}, `,
+                  (acc, cr) => acc + `${cr.account.accountname}, `,
                   ''
                 );
                 dr = dr.substring(0, dr.length - 2);
@@ -738,8 +734,12 @@ export default {
           self.preloadData().then(() => {
             self.$nextTick().then(() => {
               drs.forEach((acc, index) => {
+                let account = {
+                  accountcode: acc,
+                  accountname: data.drs[acc].accountname,
+                }
                 Object.assign(self.form.dr[index], {
-                  account: data.drs[acc].accountname,
+                  account: account,
                   balance: null,
                   isLoading: false,
                   debit: true,
@@ -748,8 +748,12 @@ export default {
                 });
               });
               crs.forEach((acc, index) => {
+                let account = {
+                  accountcode: acc,
+                  accountname: data.crs[acc].accountname,
+                }
                 Object.assign(self.form.cr[index], {
-                  account: data.crs[acc].accountname,
+                  account: account,
                   balance: null,
                   isLoading: false,
                   debit: false,

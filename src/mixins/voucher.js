@@ -156,7 +156,8 @@ export default {
      * 1. The balance amount in the account chosen is fetched from server
      * 2. Makes the account selected disabled in the opposite account list
      */
-    onAccountSelect(accCode, type, index) {
+    onAccountSelect(account, type, index) {
+      let accCode = account?.accountcode;
       if (!accCode) {
         this.form[type][index].balance = '';
         return;
@@ -324,11 +325,11 @@ export default {
         vouchertype: this.form.vtype.value,
       };
       payload.drs = this.form.dr.reduce((acc, dr) => {
-        acc[dr.account] = dr.amount;
+        acc[dr.account.accountcode] = dr.amount;
         return acc;
       }, {});
       payload.crs = this.form.cr.reduce((acc, cr) => {
-        acc[cr.account] = cr.amount;
+        acc[cr.account.accountcode] = cr.amount;
         return acc;
       }, {});
 
