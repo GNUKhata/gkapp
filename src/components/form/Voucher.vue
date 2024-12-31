@@ -731,6 +731,7 @@ export default {
           while (clength--) {
             self.addRow('cr');
           }
+          this.allFlag = true;
           self.preloadData().then(() => {
             self.$nextTick().then(() => {
               drs.forEach((acc, index) => {
