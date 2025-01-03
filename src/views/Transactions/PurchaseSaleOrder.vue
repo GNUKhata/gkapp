@@ -736,7 +736,7 @@ export default {
           tin: null,
           pin: null,
         },
-        taxType: null,
+        taxType: this.form.taxType,
         bill: [
           {
             product: { name: '', id: '' },
