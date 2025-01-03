@@ -439,7 +439,7 @@
 
     <!-- Create Business Modal -->
     <b-modal
-      size="xl"
+      :size="businessFormModalSize"
       v-model="showBusinessForm"
       v-if="config"
       centered
@@ -755,6 +755,7 @@ export default {
     allowNegativeStock: (self) => (
       self.$store.getters['global/getAllowNegativeStock']
     ),
+    businessFormModalSize: (self) => self.isIndia ? "xl"  : "lg",
     ...mapState(['yearEnd']),
   },
   watch: {
