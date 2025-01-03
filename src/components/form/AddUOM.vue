@@ -192,6 +192,12 @@ export default {
               );
               this.$emit('refresh');
               this.$refs.editingForm.reset();
+              this.form = {
+                unitname: '',
+                description: '',
+                subunitof: null,
+                uqc: '',
+              };
               break;
             case 1:
               this.$bvToast.toast(`Duplicate Entry`, {
