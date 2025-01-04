@@ -389,15 +389,15 @@ export default {
           cr = this.options.cr.find(
             (acc) => acc.accountname === this.customerName
           );
-          this.form.dr[0].account = dr ? dr.accountcode : -1;
-          this.form.cr[0].account = cr ? cr.accountcode : -1;
+          this.form.dr[0].account = dr ? dr : -1;
+          this.form.cr[0].account = cr ? cr : -1;
         } else if (this.form.vtype.value === 'payment') {
           dr = this.options.dr.find(
             (acc) => acc.accountname === this.customerName
           );
           cr = this.options.cr.find((acc) => acc.accountname === 'Bank A/C');
-          this.form.dr[0].account = dr ? dr.accountcode : -1;
-          this.form.cr[0].account = cr ? cr.accountcode : -1;
+          this.form.dr[0].account = dr ? dr : -1;
+          this.form.cr[0].account = cr ? cr : -1;
         }
       }
     },
