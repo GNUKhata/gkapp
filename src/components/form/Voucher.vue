@@ -175,10 +175,9 @@
                   <!-- Account -->
                   <b-td>
                     <v-select
-                      v-model="form.dr[indexDr].account"
                       :options="options['dr']"
+                      v-model="form.dr[indexDr].account"
                       label="accountname"
-                      :reduce="(acc) => acc.accountcode"
                       required
                       @input="onAccountSelect(data.account, 'dr', indexDr)"
                       class="text-left"
@@ -241,10 +240,9 @@
                   <b-td>
                     <v-select
                       class="text-left"
-                      v-model="data.account"
+                      v-model="form.cr[indexCr].account"
                       :options="options['cr']"
                       label="accountname"
-                      :reduce="(acc) => acc.accountcode"
                       required
                       @input="onAccountSelect(data.account, 'cr', indexCr)"
                       :reset-on-options-change="true"
@@ -486,6 +484,24 @@ export default {
     },
   },
   methods: {
+    updateCreditInvoiceBalance() {
+      axios.get(`/billwise?type=all`).then((resp) => {
+        this.options.creditInv.sale = []
+        this.options.creditInv.purchase = []
+        resp?.data.invoices.forEach((item) => {
+          let option = {
+            id: item.invid,
+            label: `${item.invoiceno}, ${item.custname}, ${item.invoicedate}`,
+          };
+          if (item.inoutflag === 15) {
+            this.options.creditInv.sale.push(option);
+          } else {
+            this.options.creditInv.purchase.push(option);
+          }
+          this.options.creditInv.map[item.invid] = item;
+        });
+      });
+    },
     onCreateAccount(gid, sgid) {
       this.updateUrl();
       this.$router.push({
@@ -546,12 +562,11 @@ export default {
         });
     },
     confirmOnSubmit() {
-      const self = this;
       const fromAcc = this.form.cr
-        .reduce((acc, cr) => (acc += `  ${self.options.acc[cr.account]},`), '')
+        .reduce((acc, cr) => (acc += `  ${cr.account.accountname},`), '')
         .slice(0, -1);
       const toAcc = this.form.dr
-        .reduce((acc, dr) => (acc += `  ${self.options.acc[dr.account]},`), '')
+        .reduce((acc, dr) => (acc += `  ${dr.account.accountname},`), '')
         .slice(0, -1);
       const text = this.$createElement('div', {
         domProps: {
@@ -606,13 +621,12 @@ export default {
                   this.$gettext('Voucher Created Successfully!'),
                   'success'
                 );
-                const accMap = self.options.acc;
                 let dr = self.form.dr.reduce(
-                  (acc, dr) => acc + `${accMap[dr.account]}, `,
+                  (acc, dr) => acc + `${dr.account.accountname}, `,
                   ''
                 );
                 let cr = self.form.cr.reduce(
-                  (acc, cr) => acc + `${accMap[cr.account]}, `,
+                  (acc, cr) => acc + `${cr.account.accountname}, `,
                   ''
                 );
                 dr = dr.substring(0, dr.length - 2);
@@ -634,7 +648,9 @@ export default {
                     ],
                   };
 
-                  axios.post('/billwise', billData).then(() => {});
+                  axios.post('/billwise', billData).then(() => {
+                    this.updateCreditInvoiceBalance();
+                  });
                 }
 
                 if (self.onSave !== null) {
@@ -715,27 +731,38 @@ export default {
           while (clength--) {
             self.addRow('cr');
           }
+          this.allFlag = true;
           self.preloadData().then(() => {
             self.$nextTick().then(() => {
               drs.forEach((acc, index) => {
+                let account = {
+                  accountcode: acc,
+                  accountname: data.drs[acc].accountname,
+                }
                 Object.assign(self.form.dr[index], {
-                  account: data.drs[acc].accountname,
+                  account: account,
                   balance: null,
                   isLoading: false,
                   debit: true,
                   credit: false,
                   amount: data.drs[acc].amount,
                 });
+                this.onAccountSelect(account, 'dr', index);
               });
               crs.forEach((acc, index) => {
+                let account = {
+                  accountcode: acc,
+                  accountname: data.crs[acc].accountname,
+                }
                 Object.assign(self.form.cr[index], {
-                  account: data.crs[acc].accountname,
+                  account: account,
                   balance: null,
                   isLoading: false,
                   debit: false,
                   credit: true,
                   amount: data.crs[acc].amount,
                 });
+                this.onAccountSelect(account, 'cr', index);
               });
               self.$forceUpdate();
             });

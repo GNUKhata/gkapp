@@ -156,7 +156,8 @@ export default {
      * 1. The balance amount in the account chosen is fetched from server
      * 2. Makes the account selected disabled in the opposite account list
      */
-    onAccountSelect(accCode, type, index) {
+    onAccountSelect(account, type, index) {
+      let accCode = account?.accountcode;
       if (!accCode) {
         this.form[type][index].balance = '';
         return;
@@ -324,11 +325,11 @@ export default {
         vouchertype: this.form.vtype.value,
       };
       payload.drs = this.form.dr.reduce((acc, dr) => {
-        acc[dr.account] = dr.amount;
+        acc[dr.account.accountcode] = dr.amount;
         return acc;
       }, {});
       payload.crs = this.form.cr.reduce((acc, cr) => {
-        acc[cr.account] = cr.amount;
+        acc[cr.account.accountcode] = cr.amount;
         return acc;
       }, {});
 
@@ -388,15 +389,15 @@ export default {
           cr = this.options.cr.find(
             (acc) => acc.accountname === this.customerName
           );
-          this.form.dr[0].account = dr ? dr.accountcode : -1;
-          this.form.cr[0].account = cr ? cr.accountcode : -1;
+          this.form.dr[0].account = dr ? dr : -1;
+          this.form.cr[0].account = cr ? cr : -1;
         } else if (this.form.vtype.value === 'payment') {
           dr = this.options.dr.find(
             (acc) => acc.accountname === this.customerName
           );
           cr = this.options.cr.find((acc) => acc.accountname === 'Bank A/C');
-          this.form.dr[0].account = dr ? dr.accountcode : -1;
-          this.form.cr[0].account = cr ? cr.accountcode : -1;
+          this.form.dr[0].account = dr ? dr : -1;
+          this.form.cr[0].account = cr ? cr : -1;
         }
       }
     },
