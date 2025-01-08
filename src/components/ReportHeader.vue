@@ -18,21 +18,21 @@
         </div>
         <div class="d-flex flex-column ml-2">
           <h6 class="font-weight-bold mt-1">
-            {{ orgAddress.orgname || 'N/A' }}
+            {{ orgDetails.orgname || 'N/A' }}
           </h6>
-          <small><b>Address: </b> {{ orgAddress.orgaddr || 'N/A' }}</small>
-          <small><b>City: </b>{{ orgAddress.orgcity || 'N/A' }}</small>
+          <small><b>Address: </b> {{ orgDetails.orgaddr || 'N/A' }}</small>
+          <small><b>City: </b>{{ orgDetails.orgcity || 'N/A' }}</small>
         </div>
       </div>
       <!-- col 2 -->
       <div>
-        <small><b>Phone: </b> {{ orgAddress.orgtelno || 'N/A' }}</small>
+        <small><b>Phone: </b> {{ orgDetails.orgtelno || 'N/A' }}</small>
         <br>
         <small
-          v-if="orgAddress.gstin != null"
+          v-if="orgDetails.gstin != null"
         ><b>GSTIN: </b>
-          {{ Object.values(orgAddress.gstin)[0] || 'N/A' }}</small><br>
-        <small><b>State: </b>{{ orgAddress.orgstate || 'N/A' }}</small> <br>
+          {{ Object.values(orgDetails.gstin)[0] || 'N/A' }}</small><br>
+        <small><b>State: </b>{{ orgDetails.orgstate || 'N/A' }}</small> <br>
       </div>
       <!-- col 3 -->
       <div>
@@ -49,16 +49,40 @@
 <script>
 import { mapState } from 'vuex';
 export default {
+  name: 'ReportHeader',
   props: {
     show: {
       type: [String, Boolean],
       default: false,
     },
+    orgData: {
+      type: Object,
+    },
   },
-  name: 'ReportHeader',
+  data() {
+    return {
+      orgDetails: {},
+    };
+  },
   computed: {
-    ...mapState(['orgName', 'orgImg', 'userName', 'orgAddress']),
+    ...mapState(['orgImg', 'userName']),
+    orgAddress: (self) => self.$store.state['orgAddress'],
     gstin: (self) => (self?.orgAddress.gstin ? self.orgAddress.gstin[0] : ''),
   },
+  watch: {
+    orgData(newData) {
+      this.orgDetails = newData;
+    },
+    orgAddress(newData) {
+      this.orgDetails = { ...newData };
+    },
+  },
+  mounted() {
+    if (this.orgData) {
+      this.orgDetails = this.orgData;
+    } else {
+      this.orgDetails = { ...this.orgAddress };
+    }
+  }
 };
 </script>

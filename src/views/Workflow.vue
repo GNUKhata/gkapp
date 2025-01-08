@@ -713,7 +713,10 @@
             v-if="selectedEntity !== null"
           >
             <div id="transaction-profile-wrapper">
-              <report-header class="mb-4" />
+              <report-header
+                class="mb-4"
+                :org-data="selectedEntity.immutable_data.organisation"
+              />
               <transaction-profile
                 :name="activeWorkflow.tabName"
                 :id="selectedEntity.id"
