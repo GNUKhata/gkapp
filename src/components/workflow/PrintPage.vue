@@ -10,43 +10,10 @@
     hide-header
   >
     <div id="transaction-print-page">
-      <b-container fluid>
-        <h3 class="text-center">
-          {{ title || name }}
-        </h3>
-        <br>
-        <div class="text-md-right">
-          <img
-            v-if="orgDetails.logo"
-            :src="orgDetails.logo"
-            width="30"
-            height="30"
-            class="rounded d-inline-block align-top"
-            alt="Logo"
-          >
-          <h5 class="d-inline-block ml-2">
-            {{ orgDetails.name }}
-          </h5>
-          <br>
-          <p class="ml-3">
-            <small>{{ orgDetails.addr1 }}</small> <br>
-            <small>{{ orgDetails.addr2 }}</small> <br>
-            <small>{{ orgDetails.country }}</small> <br>
-            <span v-if="orgDetails.phone">
-              <small>Contact No: {{ orgDetails.phone }}</small> <br>
-            </span>
-            <span v-if="isGstEnabled">
-              <small>GSTIN: {{ orgDetails.gstin }}</small>
-            </span>
-            <span v-if="orgDetails.email">
-              <small>Email: {{ orgDetails.email }}</small>
-            </span>
-            <span v-if="orgDetails.site">
-              <small>Website: {{ orgDetails.site }}</small>
-            </span>
-          </p>
-        </div>
-      </b-container>
+      <report-header
+        class="mb-4"
+        :show="true"
+      />
       <br>
       <transaction-profile
         :name="name"
@@ -142,10 +109,12 @@ import axios from 'axios';
 import { mapGetters } from 'vuex';
 import TransactionProfile from '../workflow/profile/Transaction.vue';
 import PrintHelper from '../PrintHelper.vue';
+import ReportHeader from '@/components/ReportHeader.vue';
 export default {
   name: 'PrintPage',
   components: {
     TransactionProfile,
+    ReportHeader,
     PrintHelper,
   },
   props: {
