@@ -46,85 +46,204 @@
             <b-icon icon="search" />
             Search Menu
           </div>
-          <!-- master -->
-          <div v-if="userRole == -1">
+          <template v-if="userRole == -1">
+            <!-- Sales -->
             <h6
-              v-b-toggle.master
+              v-b-toggle.sales
               class="text-center mr-5 ml-3 mt-3"
             >
               <b-icon
                 :icon="
-                  collapsed.master ? 'caret-down-fill' : 'caret-right-fill'
+                  collapsed.invoice ? 'caret-down-fill' : 'caret-right-fill'
                 "
-                class="text-right"
               />
-              <translate>Workflow</translate>
+              <translate>Sales</translate>
             </h6>
             <b-collapse
-              v-model="collapsed.master"
-              id="master"
+              v-model="collapsed.sales"
+              id="sales"
             >
-              <!-- Transactions -->
-              <h6
-                v-b-toggle.invoice
-                class="ml-4"
+              <b-nav-item
+                :to="{
+                  name: 'Workflow',
+                  params: {
+                    wfName: 'Transactions-Invoice',
+                    wfId: -1,
+                  },
+                }"
               >
-                <b-icon
-                  :icon="
-                    collapsed.invoice ? 'caret-down-fill' : 'caret-right-fill'
-                  "
-                />
-                <translate>Transactions</translate>
-              </h6>
-              <b-collapse
-                v-model="collapsed.invoice"
-                id="invoice"
-              >
-                <div class="ml-3">
-                  <b-nav-item
-                    :to="{
-                      name: 'Workflow',
-                      params: {
-                        wfName: 'Transactions-Invoice',
-                        wfId: -1,
-                      },
-                    }"
-                  >
-                    <b-icon icon="receipt" /><translate> Invoice</translate>
-                  </b-nav-item>
-                  <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1">
-                    <b-icon icon="receipt" /><translate> Debit/Credit Note </translate>
-                  </b-nav-item>
-                  <b-nav-item to="/workflow/Transactions-CashMemo/-1">
-                    <b-icon icon="receipt" /><translate> Cash Memo</translate>
-                  </b-nav-item>
-                  <b-nav-item to="/workflow/Transactions-DeliveryNote/-1">
-                    <b-icon icon="receipt" /><translate> Delivery Note</translate>
-                  </b-nav-item>
-                  <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1">
-                    <b-icon icon="receipt" /><translate> Purchase/Sales Order</translate>
-                  </b-nav-item>
-                  <b-nav-item to="/workflow/Transactions-TransferNote/-1">
-                    <b-icon icon="receipt" /><translate> Transfer Note</translate>
-                  </b-nav-item>
-                  <b-nav-item to="/workflow/Transactions-Voucher/-1">
-                    <b-icon icon="receipt" /><translate> Voucher</translate>
-                  </b-nav-item>
-                </div>
-              </b-collapse>
-              <b-nav-item to="/workflow/Contacts/-1">
-                <b-icon icon="person-lines-fill" /><translate> Contacts</translate>
+                <b-icon icon="receipt" /><translate>Sales Invoices</translate>
               </b-nav-item>
-              <b-nav-item to="/workflow/Business/-1">
-                <b-icon icon="box" /><translate> Business</translate>
+              <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1">
+                <b-icon icon="receipt" /><translate>Sales Order</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Contacts/-1">
+                <b-icon icon="person-lines-fill" /><translate>Customers</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Transactions-CashMemo/-1">
+                <b-icon icon="receipt" /><translate>Point of Sales</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1">
+                <b-icon icon="receipt" /><translate>Debit/Credit Note</translate>
+              </b-nav-item>
+              <b-nav-item to="/product-register">
+                <b-icon icon="box-seam" /><translate>Sales Register</translate>
               </b-nav-item>
             </b-collapse>
-          </div>
-          <!-- Admin -->
-          <div v-if="userRole == -1 || userRole == 0">
+          </template>
+
+          <template v-if="userRole == -1">
+            <!-- Purchase -->
+            <h6
+              v-b-toggle.purchases
+              class="text-center mr-5 ml-3 mt-2"
+            >
+              <b-icon
+                :icon="
+                  collapsed.purchases ? 'caret-down-fill' : 'caret-right-fill'
+                "
+              />
+              <translate>Purchases</translate>
+            </h6>
+            <b-collapse
+              v-model="collapsed.purchases"
+              id="purchases"
+            >
+              <b-nav-item
+                :to="{
+                  name: 'Workflow',
+                  params: {
+                    wfName: 'Transactions-Invoice',
+                    wfId: -1,
+                  },
+                }"
+              >
+                <b-icon icon="receipt" /><translate>Purchase Invoices</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1">
+                <b-icon icon="receipt" /><translate>Purchase Orders</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Contacts/-1">
+                <b-icon icon="person-lines-fill" /><translate>Suppliers</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1">
+                <b-icon icon="receipt" /><translate>Debit/Credit Note</translate>
+              </b-nav-item>
+              <b-nav-item to="/product-register">
+                <b-icon icon="box-seam" /><translate>Purchase Register</translate>
+              </b-nav-item>
+            </b-collapse>
+          </template>
+
+          <template v-if="userRole == -1">
+            <!-- Banking -->
+            <h6
+              v-b-toggle.banking
+              class="text-center mr-5 ml-3 mt-2"
+            >
+              <b-icon
+                :icon="
+                  collapsed.banking ? 'caret-down-fill' : 'caret-right-fill'
+                "
+              />
+              <translate>Banking</translate>
+            </h6>
+            <b-collapse
+              v-model="collapsed.banking"
+              id="banking"
+            >
+              <b-nav-item to="/accounts">
+                <b-icon icon="people" /><translate>Accounts</translate>
+              </b-nav-item>
+              <b-nav-item to="/bank-recon">
+                <b-icon icon="journals" /><translate>Reconciliation</translate>
+              </b-nav-item>
+            </b-collapse>
+          </template>
+
+          <template v-if="userRole == -1">
+            <!-- Accounting -->
+            <h6
+              v-b-toggle.accounting
+              class="text-center mr-5 ml-3 mt-2"
+            >
+              <b-icon
+                :icon="
+                  collapsed.accounting ? 'caret-down-fill' : 'caret-right-fill'
+                "
+              />
+              <translate>Accounting</translate>
+            </h6>
+            <b-collapse
+              v-model="collapsed.accounting"
+              id="accounting"
+            >
+              <b-nav-item to="/workflow/Transactions-DeliveryNote/-1">
+                <b-icon icon="receipt" /><translate>Delivery Note</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Transactions-Voucher/-1">
+                <b-icon icon="receipt" /><translate>Manual Voucers</translate>
+              </b-nav-item>
+              <b-nav-item to="/accounts">
+                <b-icon icon="files-alt" /><translate>Chart of Accounts</translate>
+              </b-nav-item>
+              <b-nav-item to="/budgets/cash/-1">
+                <b-icon icon="file-ruled" /><translate>Budget</translate>
+              </b-nav-item>
+              <b-nav-item
+                :to="{
+                  name: 'Billwise',
+                  params: {custType: 3, custName: '-1'},
+                }"
+              >
+                <b-icon icon="clipboard" /><translate>Adjust Bills</translate>
+              </b-nav-item>
+              <b-nav-item to="/closebooks">
+                <b-icon icon="journals" /><translate>Close Books</translate>
+              </b-nav-item>
+            </b-collapse>
+          </template>
+
+          <template v-if="userRole == -1">
+            <!-- Products and Services -->
+            <h6
+              v-b-toggle.business
+              class="text-center ml-3 mt-2"
+            >
+              <b-icon
+                :icon="
+                  collapsed.business ? 'caret-down-fill' : 'caret-right-fill'
+                "
+              />
+              <translate>Products and Services</translate>
+            </h6>
+            <b-collapse
+              v-model="collapsed.business"
+              id="business"
+            >
+              <b-nav-item to="/workflow/Business/-1">
+                <b-icon icon="box" /><translate>Products and Services</translate>
+              </b-nav-item>
+              <b-nav-item to="/workflow/Transactions-TransferNote/-1">
+                <b-icon icon="receipt" /><translate>Transfer Notes</translate>
+              </b-nav-item>
+              <b-nav-item to="/godowns">
+                <b-icon icon="building" /><translate>Godowns</translate>
+              </b-nav-item>
+              <b-nav-item
+                v-if="userRole == -1 || 0"
+                to="/uom"
+              >
+                <b-icon icon="thermometer" /><translate>Unit of measurement</translate>
+              </b-nav-item>
+            </b-collapse>
+          </template>
+
+          <template v-if="userRole == -1 || userRole == 0">
+            <!-- Admin -->
             <h6
               v-b-toggle.admin
-              class="text-center ml-3 mt-2 "
+              class="text-center mr-5 ml-3 mt-2 "
             >
               <b-icon
                 :icon="collapsed.admin ? 'caret-down-fill' : 'caret-right-fill'"
@@ -136,74 +255,23 @@
               id="admin"
             >
               <b-nav-item to="/users">
-                <b-icon icon="people" /><translate> Manage Users</translate>
-              </b-nav-item>
-              <b-nav-item
-                to="/logs"
-              >
-                <b-icon icon="server" /><translate> Audit Logs</translate>
-              </b-nav-item>
-              <b-nav-item to="/accounts">
-                <b-icon icon="files-alt" /><translate> Accounts</translate>
-              </b-nav-item>
-              <b-nav-item to="/budgets/cash/-1">
-                <b-icon icon="file-ruled" /><translate> Budget</translate>
-              </b-nav-item>
-              <b-nav-item
-                :to="{
-                  name: 'Billwise',
-                  params: {custType: 3, custName: '-1'},
-                }"
-              >
-                <b-icon icon="clipboard" /><translate> Adjust Bills</translate>
-              </b-nav-item>
-
-              <b-nav-item to="/closebooks">
-                <b-icon icon="journals" /><translate> Close Books / Roll Over</translate>
-              </b-nav-item>
-              <b-nav-item to="/bank-recon">
-                <b-icon icon="journals" /><translate> Bank Reconciliation</translate>
+                <b-icon icon="people" /><translate>Manage Users</translate>
               </b-nav-item>
               <b-nav-item to="/settings">
-                <b-icon icon="gear" /> <translate> Settings</translate>
+                <b-icon icon="gear" /> <translate>Settings</translate>
+              </b-nav-item>
+              <b-nav-item to="/logs">
+                <b-icon icon="server" /><translate>Audit Logs</translate>
               </b-nav-item>
             </b-collapse>
-          </div>
+          </template>
 
-          <!-- Inventory -->
-          <h6
-            v-b-toggle.inv
-            class="text-center ml-3 mt-2"
-          >
-            <b-icon
-              :icon="collapsed.inv ? 'caret-down-fill' : 'caret-right-fill'"
-            />
-            <translate>Inventory</translate>
-          </h6>
-          <b-collapse
-            v-model="collapsed.inv"
-            id="inv"
-          >
-            <b-nav-item
-              to="/godowns"
-            >
-              <b-icon icon="building" /><translate> Godowns</translate>
-            </b-nav-item>
-
-            <b-nav-item
-              v-if="userRole == -1 || 0"
-              to="/uom"
-            >
-              <b-icon icon="thermometer" /><translate> Unit of measurement</translate>
-            </b-nav-item>
-          </b-collapse>
-
-          <!-- Reports -->
-          <!-- only admin role can access reports -->
-          <div v-if="userRole == -1">
+          <template v-if="userRole == -1">
+            <!-- Reports -->
+            <!-- only admin role can access reports -->
             <h6
               v-b-toggle.reports
-              class="ml-3 mr-5 mt-2"
+              class="text-cecnter ml-3 mr-5 mt-2"
             >
               <b-icon
                 :icon="
@@ -218,13 +286,13 @@
               id="reports"
             >
               <b-nav-item to="/product-register">
-                <b-icon icon="box-seam" /><translate> Product Register</translate>
+                <b-icon icon="box-seam" /><translate>Product Register</translate>
               </b-nav-item>
               <b-nav-item to="/registers">
-                <b-icon icon="receipt" /><translate> View Registers</translate>
+                <b-icon icon="receipt" /><translate>View Registers</translate>
               </b-nav-item>
               <b-nav-item to="/stock-on-hand">
-                <b-icon icon="receipt" /><translate> Stock On Hand</translate>
+                <b-icon icon="receipt" /><translate>Stock On Hand</translate>
               </b-nav-item>
               <b-nav-item to="/profit-loss">
                 <b-icon icon="graph-up" /><translate v-if="orgType == 'Profit Making'">
@@ -235,14 +303,14 @@
                 </translate>
               </b-nav-item>
               <b-nav-item to="/cash-flow">
-                <b-icon icon="wallet" /><translate> Cash Flow</translate>
+                <b-icon icon="wallet" /><translate>Cash Flow</translate>
               </b-nav-item>
               <b-nav-item to="/trial-balance">
                 <b-icon icon="wallet" />
-                <translate> Trial Balance</translate>
+                <translate>Trial Balance</translate>
               </b-nav-item>
               <b-nav-item to="/ledger">
-                <b-icon icon="journals" /><translate> Ledger</translate>
+                <b-icon icon="journals" /><translate>Ledger</translate>
               </b-nav-item>
               <b-nav-item to="/balance-sheet">
                 <b-icon icon="journals" />
@@ -254,12 +322,13 @@
                 </translate>
               </b-nav-item>
             </b-collapse>
-          </div>
-          <!-- GST -->
-          <div v-if="isGstEnabled && (userRole == -1 || userRole == 0)">
+          </template>
+
+          <template v-if="isGstEnabled && (userRole == -1 || userRole == 0)">
+            <!-- GST -->
             <h6
               v-b-toggle.gst
-              class="ml-3 mr-5 mt-2"
+              class="text-center ml-3 mr-5 mt-2"
             >
               <b-icon
                 :icon="collapsed.gst ? 'caret-down-fill' : 'caret-right-fill'"
@@ -302,57 +371,61 @@
                 />
               </b-nav-item>
             </b-collapse>
-          </div>
-          <!-- Help -->
-          <h6
-            v-b-toggle.help
-            class="text-center ml-3 mt-2 mr-5"
-          >
-            <b-icon
-              :icon="collapsed.help ? 'caret-down-fill' : 'caret-right-fill'"
-            />
-            <translate> Help</translate>
-          </h6>
-          <b-collapse
-            v-model="collapsed.help"
-            id="help"
-          >
-            <b-nav-item
-              to="/about"
-              class="mr-3"
-            >
-              <b-icon icon="info-circle" /><translate> About</translate>
-            </b-nav-item>
-            <b-nav-item
-              class="mr-3"
-              target="_blank"
-              href="https://gnukhata.org"
-            >
-              <b-icon icon="globe" /><translate> Website</translate>
-            </b-nav-item>
-            <b-nav-item
-              class="mr-3"
-              target="_blank"
-              href="https://gitlab.com/gnukhata"
-            >
-              <b-icon icon="code" /><translate> Source Code</translate>
-            </b-nav-item>
-            <b-nav-item
-              class="mr-3"
-              to="/report-bug"
-            >
-              <b-icon icon="bug" /><translate> Report Bug</translate>
-            </b-nav-item>
+          </template>
 
-            <b-nav-item
-              class="mr-3"
-              target="_blank"
-              href="https://gnukhata.org/faq"
+          <template>
+            <!-- Help -->
+            <h6
+              v-b-toggle.help
+              class="text-center ml-3 mt-2 mr-5"
             >
-              <b-icon icon="question-circle" /><translate> FAQ</translate>
-            </b-nav-item>
-          </b-collapse>
+              <b-icon
+                :icon="collapsed.help ? 'caret-down-fill' : 'caret-right-fill'"
+              />
+              <translate> Help</translate>
+            </h6>
+            <b-collapse
+              v-model="collapsed.help"
+              id="help"
+            >
+              <b-nav-item
+                to="/about"
+                class="mr-3"
+              >
+                <b-icon icon="info-circle" /><translate> About</translate>
+              </b-nav-item>
+              <b-nav-item
+                class="mr-3"
+                target="_blank"
+                href="https://gnukhata.org"
+              >
+                <b-icon icon="globe" /><translate> Website</translate>
+              </b-nav-item>
+              <b-nav-item
+                class="mr-3"
+                target="_blank"
+                href="https://gitlab.com/gnukhata"
+              >
+                <b-icon icon="code" /><translate> Source Code</translate>
+              </b-nav-item>
+              <b-nav-item
+                class="mr-3"
+                to="/report-bug"
+              >
+                <b-icon icon="bug" /><translate> Report Bug</translate>
+              </b-nav-item>
+
+              <b-nav-item
+                class="mr-3"
+                target="_blank"
+                href="https://gnukhata.org/faq"
+              >
+                <b-icon icon="question-circle" /><translate> FAQ</translate>
+              </b-nav-item>
+            </b-collapse>
+          </template>
         </b-nav>
+
         <hr>
         <b-alert
           class="m-2"
