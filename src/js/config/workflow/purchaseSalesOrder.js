@@ -83,9 +83,17 @@ const config = {
       orderno: { label: 'No', key: 'orderno', sortable: true },
     },
   },
-  loadList: function() {
+  loadList: function(wfType) {
+    let orderUrl = '/purchaseorder';
+    if (wfType === 'sales') {
+      orderUrl += '?psflag=19';
+    }
+    if (wfType === 'purchase') {
+      orderUrl += '?psflag=16';
+    }
+
     return axios
-      .get('/purchaseorder')
+      .get(orderUrl)
       .then((resp) => {
         let list = [];
         // Purchase Sales Order

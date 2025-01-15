@@ -77,7 +77,7 @@
               >
                 <b-icon icon="receipt" /><translate>Sales Invoices</translate>
               </b-nav-item>
-              <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1">
+              <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1?type=sales">
                 <b-icon icon="receipt" /><translate>Sales Order</translate>
               </b-nav-item>
               <b-nav-item to="/workflow/Contacts/-1">
@@ -126,7 +126,7 @@
               >
                 <b-icon icon="receipt" /><translate>Purchase Invoices</translate>
               </b-nav-item>
-              <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1">
+              <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1?type=purchase">
                 <b-icon icon="receipt" /><translate>Purchase Orders</translate>
               </b-nav-item>
               <b-nav-item to="/workflow/Contacts/-1">
