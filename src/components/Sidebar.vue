@@ -70,6 +70,9 @@
                     wfName: 'Transactions-Invoice',
                     wfId: -1,
                   },
+                  query: {
+                    type: 'sales',
+                  },
                 }"
               >
                 <b-icon icon="receipt" /><translate>Sales Invoices</translate>
@@ -115,6 +118,9 @@
                   params: {
                     wfName: 'Transactions-Invoice',
                     wfId: -1,
+                  },
+                  query: {
+                    type: 'purchase',
                   },
                 }"
               >

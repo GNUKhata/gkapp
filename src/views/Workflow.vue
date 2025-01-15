@@ -732,6 +732,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters, mapState } from 'vuex';
+import { isNavigationFailure, NavigationFailureType } from 'vue-router';
 
 import ContactConf from '../js/config/workflow/contacts.js';
 import BusinessConf from '../js/config/workflow/business.js';
@@ -783,6 +784,11 @@ export default {
       validator: function() {
         return true;
       },
+    },
+    wfType: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data() {
@@ -864,6 +870,9 @@ export default {
       if (this.activeWorkflow.name !== wfname) {
         this.autoSetActiveWorkflow();
       }
+    },
+    wfType() {
+      this.autoSetActiveWorkflow(true);
     },
     isFilterOpen: function(isOpen) {
       let self = this;
@@ -1119,7 +1128,7 @@ export default {
      * Description: As the name suggests it stores the details about the active workflow.
      * Also initializes the filters and sorts, after that.
      */
-    setActiveWorkflow(index, name, icon, skipUpdate) {
+    setActiveWorkflow(index, name, icon, skipUpdate, reset) {
       let color, tabName;
       let activeWorkflow = name.parent
         ? this.options.tabs[name.parent].tabs[name.child]
@@ -1148,6 +1157,9 @@ export default {
       };
       this.resetFilter();
       const self = this;
+      if (reset) {
+        activeWorkflow.data = [];
+      }
       if (!activeWorkflow.data.length) {
         this.isLoading = true;
         activeWorkflow.initListColumns(this.orgCode);
@@ -1157,7 +1169,7 @@ export default {
           });
         });
         return activeWorkflow
-          .loadList(this.yearStart, this.yearEnd)
+          .loadList(this.wfType, this.yearStart, this.yearEnd)
           .then((resp) => {
             activeWorkflow.data = resp;
             self.isLoading = false;
@@ -1180,7 +1192,7 @@ export default {
       }
     },
     /** Sets the active workflow based on the URL props */
-    autoSetActiveWorkflow() {
+    autoSetActiveWorkflow(reset=false) {
       let self = this;
       let tab, index;
       let setActiveWorkflow;
@@ -1193,7 +1205,8 @@ export default {
           index,
           { parent: name[0], child: name[1] },
           tab.icon,
-          true
+          true,
+          reset,
         );
       } else {
         tab = this.options.tabs[this.wfName];
@@ -1202,7 +1215,8 @@ export default {
           index,
           this.wfName,
           tab.icon,
-          true
+          true,
+          reset,
         );
       }
       if (!this.is_mobile() || parseInt(this.wfId) !== -1) {
@@ -1260,6 +1274,14 @@ export default {
         this.$router.replace({
           name: 'Workflow',
           params: { wfName: wfName, wfId: wfId },
+          query: { type: this.wfType },
+        })
+        .catch((err) => {
+          // Ignore NavigationDuplicated error
+          // For more details, refer https://stackoverflow.com/a/66861102
+          if (isNavigationFailure(err, NavigationFailureType.duplicated)) {
+            return;
+          }
         });
       }
     },

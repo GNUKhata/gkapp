@@ -257,7 +257,10 @@ const routes = [
     name: "Workflow",
     component: () =>
       import(/* webpackChunkName: "workflow" */ "../views/Workflow.vue"),
-    props: true,
+    props: route => ({
+      ...route.params,
+      wfType: route.query.type,
+    }),
   },
   {
     meta: {

@@ -114,11 +114,18 @@ const config = {
       taxamt: { label: 'Tax', key: 'taxamt', sortable: true },
     },
   },
-  loadList: function(yearStart, yearEnd) {
+  loadList: function(wfType, yearStart, yearEnd) {
+    let invoiceFlag = 0;
+    if (wfType === 'sales') {
+      invoiceFlag = 1;
+    }
+    if (wfType === 'purchase') {
+      invoiceFlag = 2;
+    }
     const requests = [
       axios
         .get(
-          `/invoice/list?type=list&flag=0&fromdate=${yearStart}&todate=${yearEnd}`
+          `/invoice/list?type=list&flag=${invoiceFlag}&fromdate=${yearStart}&todate=${yearEnd}`
         )
         .catch((error) => {
           return error;
