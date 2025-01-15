@@ -46,27 +46,33 @@ const config = {
       custname: { label: 'Name', key: 'custname', sortable: true },
     },
   },
-  loadList: function() {
-    const requests = [
-      axios.get('/customer?qty=custall').catch((error) => {
-        return error;
-      }),
-      axios.get('/customer?qty=supall').catch((error) => {
-        return error;
-      }),
-    ];
+  loadList: function(wfType) {
+    const requests = [];
+    const customers = axios.get('/customer?qty=custall').catch((error) => {
+      return error;
+    });
+    const suppliers = axios.get('/customer?qty=supall').catch((error) => {
+      return error;
+    });
+    if (wfType === 'customer') {
+      requests.push(customers);
+    } else if (wfType === 'supplier') {
+      requests.push(suppliers);
+    } else {
+      requests.push(customers, suppliers);
+    }
     return Promise.all(requests).then((resp) => {
       let contacts = [];
 
       // Customer List
-      if (resp[0].data.gkstatus === 0) {
+      if (resp?.[0]?.data.gkstatus === 0) {
         contacts = resp[0].data.gkresult.map((item) => {
           return Object.assign({ csflag: true, icon: 'person-fill' }, item);
         });
       }
 
       // Supplier List
-      if (resp[1].data.gkstatus === 0) {
+      if (resp?.[1]?.data.gkstatus === 0) {
         contacts.push(
           ...resp[1].data.gkresult.map((item) => {
             return Object.assign(

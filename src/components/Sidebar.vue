@@ -80,7 +80,7 @@
               <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1?type=sales">
                 <b-icon icon="receipt" /><translate>Sales Order</translate>
               </b-nav-item>
-              <b-nav-item to="/workflow/Contacts/-1">
+              <b-nav-item to="/workflow/Contacts/-1?type=customer">
                 <b-icon icon="person-lines-fill" /><translate>Customers</translate>
               </b-nav-item>
               <b-nav-item to="/workflow/Transactions-CashMemo/-1">
@@ -129,7 +129,7 @@
               <b-nav-item to="/workflow/Transactions-PurchaseSalesOrder/-1?type=purchase">
                 <b-icon icon="receipt" /><translate>Purchase Orders</translate>
               </b-nav-item>
-              <b-nav-item to="/workflow/Contacts/-1">
+              <b-nav-item to="/workflow/Contacts/-1?type=supplier">
                 <b-icon icon="person-lines-fill" /><translate>Suppliers</translate>
               </b-nav-item>
               <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1">
