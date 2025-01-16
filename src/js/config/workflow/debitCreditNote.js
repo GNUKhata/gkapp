@@ -82,9 +82,16 @@ const config = {
       drcrno: { label: 'No', key: 'drcrno', sortable: true },
     },
   },
-  loadList: function() {
+  loadList: function(wfType) {
+    let inoutflag = 0;
+    if (wfType === 'sales') {
+      inoutflag = 15;
+    }
+    if (wfType === 'purchase') {
+      inoutflag = 9;
+    }
     return axios
-      .get('/drcrnote?drcr=all')
+      .get(`/drcrnote?drcr=all&inoutflag=${inoutflag}`)
       .then((resp) => {
         let list = [];
 

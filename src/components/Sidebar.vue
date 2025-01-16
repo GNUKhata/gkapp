@@ -86,7 +86,7 @@
               <b-nav-item to="/workflow/Transactions-CashMemo/-1">
                 <b-icon icon="receipt" /><translate>Point of Sales</translate>
               </b-nav-item>
-              <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1">
+              <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1?type=sales">
                 <b-icon icon="receipt" /><translate>Debit/Credit Note</translate>
               </b-nav-item>
               <b-nav-item to="/product-register">
@@ -132,7 +132,7 @@
               <b-nav-item to="/workflow/Contacts/-1?type=supplier">
                 <b-icon icon="person-lines-fill" /><translate>Suppliers</translate>
               </b-nav-item>
-              <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1">
+              <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1?type=purchase">
                 <b-icon icon="receipt" /><translate>Debit/Credit Note</translate>
               </b-nav-item>
               <b-nav-item to="/product-register">
