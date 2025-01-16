@@ -89,7 +89,7 @@
               <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1?type=sales">
                 <b-icon icon="receipt" /><translate>Debit/Credit Note</translate>
               </b-nav-item>
-              <b-nav-item to="/product-register">
+              <b-nav-item to="/product-register?type=sales">
                 <b-icon icon="box-seam" /><translate>Sales Register</translate>
               </b-nav-item>
             </b-collapse>
@@ -135,7 +135,7 @@
               <b-nav-item to="/workflow/Transactions-DebitCreditNote/-1?type=purchase">
                 <b-icon icon="receipt" /><translate>Debit/Credit Note</translate>
               </b-nav-item>
-              <b-nav-item to="/product-register">
+              <b-nav-item to="/product-register?type=purchase">
                 <b-icon icon="box-seam" /><translate>Purchase Register</translate>
               </b-nav-item>
             </b-collapse>
