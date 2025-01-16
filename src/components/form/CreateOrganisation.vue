@@ -289,6 +289,21 @@ export default {
     },
   },
   methods: {
+    getYearStart() {
+      // Return starting date of the financial year to be shown as the default
+      // value in organisation creation form.
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      let financialYearStart;
+      // If current date is less than April 01, return financial year ending in
+      // current calendar year, else use financial year ending in next year.
+      if (currentDate < new Date(`04-01-${currentYear}`)) {
+        financialYearStart = `${currentYear - 1}-04-01`;
+      } else {
+        financialYearStart = `${currentYear}-04-01`;
+      }
+      return financialYearStart;
+    },
     checkOrgName(query) {
       if (!query) {
         this.valid.nameFormat = null;
@@ -472,7 +487,7 @@ export default {
   mounted() {
     this.preloadData();
     this.checkRegistrationStatus();
-    this.yearStart = `${new Date().getFullYear()}-04-01`; // 1st of April, current year. YYYY-MM-DD
+    this.yearStart = this.getYearStart();
     this.orgNameRegEx = new RegExp(
       '^(?=.{6,20}$)(?![_. ])(?!.*[_.]{2})[a-zA-Z0-9._ ]+(?<![_. ])$'
     );
