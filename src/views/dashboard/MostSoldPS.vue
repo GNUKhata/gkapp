@@ -1,91 +1,97 @@
 <template>
-  <b-card-group
-    deck
-    class="mt-4"
-  >
-    <!-- Most Sold Product / Service-->
-    <b-card class="shadow">
-      <b-card-header
-        header-bg-variant="light"
-        header-class="mb-1 font-weight-bold"
-        header-text-variant="dark"
+  <b-row class="text-wrap mb-4">
+    <b-col
+      cols
+      lg="6"
+      sm="12"
+    >
+      <!-- Most Sold Product / Service-->
+      <b-card
+        header="Most Sold Items"
+        header-class="font-weight-bold"
+        no-body
+        class="mb-4"
       >
-        <translate>Most Sold Product / Service</translate>
-      </b-card-header>
-      <b-table
-        :fields="supFields"
-        :items="info.stockonhanddata"
-        class="table-border-dark"
-        head-variant="dark"
-        striped
-        small
-      >
-        <template #cell(proddesc)="d">
-          <router-link
-            :to="`/workflow/Business/${d.item.prodcode}`"
-          >
-            {{ d.item.proddesc }}
+        <b-table
+          :fields="supFields"
+          :items="info.stockonhanddata"
+          thead-class="d-none"
+          borderless
+          hover
+          responsive
+          show-empty
+        >
+          <template #cell(proddesc)="d">
+            <router-link
+              :to="`/workflow/Business/${d.item.prodcode}`"
+            >
+              {{ d.item.proddesc }}
+            </router-link>
+          </template>
+        </b-table>
+        <template #footer>
+          <router-link to="business-details/create">
+            <b-button
+              size="sm"
+              variant="dark float-right"
+            >
+              <BIcon
+                icon="box"
+                class="mr-1"
+              /><translate>
+                Add Product / Service
+              </translate>
+            </b-button>
           </router-link>
         </template>
-      </b-table>
-      <template #footer>
-        <router-link to="business-details/create">
-          <b-button
-            size="sm"
-            variant="dark float-right"
-          >
-            <BIcon
-              icon="box"
-              class="mr-1"
-            /><translate>
-              Add Product / Service
-            </translate>
-          </b-button>
-        </router-link>
-      </template>
-    </b-card>
-    <!-- Most purchased product/service -->
-    <b-card class="shadow">
-      <b-card-header
-        header-bg-variant="light"
-        header-class="mb-1 font-weight-bold"
-        header-text-variant="dark"
+      </b-card>
+    </b-col>
+    <b-col
+      cols
+      lg="6"
+      sm="12"
+    >
+      <!-- Most purchased product/service -->
+      <b-card
+        header="Most Purchased Items"
+        header-class="font-weight-bold"
+        no-body
       >
-        <translate>Most Purchased Product / Service</translate>
-      </b-card-header>
-      <b-table
-        :items="info.mostboughtprodsev"
-        :fields="cusFields"
-        class="table-border-dark"
-        head-variant="dark"
-        striped
-        small
-      >
-        <template #cell(proddesc)="d">
-          <router-link
-            :to="`/workflow/Business/${d.item.prodcode}`"
-          >
-            {{ d.item.proddesc }}
+        <b-table
+          :fields="cusFields"
+          :items="info.mostboughtprodsev"
+          thead-class="d-none"
+          borderless
+          hover
+          responsive
+          show-empty
+        >
+          <template #cell(proddesc)="d">
+            <router-link
+              :to="`/workflow/Business/${d.item.prodcode}`"
+            >
+              {{ d.item.proddesc }}
+            </router-link>
+          </template>
+        </b-table>
+        <template #footer>
+          <router-link to="business-details/create">
+            <b-button
+              size="sm"
+              variant="dark float-right"
+            >
+              <BIcon
+                icon="box"
+                class="mr-1"
+              /><translate>
+                Add Product / Service
+              </translate>
+            </b-button>
           </router-link>
         </template>
-      </b-table>
-      <template #footer>
-        <router-link to="business-details/create">
-          <b-button
-            size="sm"
-            variant="dark float-right"
-          >
-            <BIcon
-              icon="box"
-              class="mr-1"
-            /><translate>
-              Add Product / Service
-            </translate>
-          </b-button>
-        </router-link>
-      </template>
-    </b-card>
-  </b-card-group>
+      </b-card>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
