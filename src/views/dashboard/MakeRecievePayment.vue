@@ -1,101 +1,92 @@
 <template>
-  <b-card-group
-    deck
-    class="mt-5"
-  >
-    <!-- Make Payment -->
-    <b-card class="shadow">
-      <b-card-header
-        header-bg-variant="light"
-        header-class="mb-1 font-weight-bold"
-        header-text-variant="dark"
+  <b-row class="text-wrap">
+    <b-col
+      cols
+      lg="6"
+      sm="12"
+    >
+      <!-- Make Payment -->
+      <b-card
+        header="Make Payment"
+        header-class="font-weight-bold"
+        no-body
+        class="mb-4"
       >
-        <translate>Make Payment</translate>
-        <b-badge
-          pill
-          variant="primary"
-          role="button"
-          @click="sortPurchaseInvoice"
-          class="mt-1 float-right"
+        <b-table
+          :items="invoice.sale.data"
+          :fields="saleFields"
+          borderless
+          hover
+          responsive
+          show-empty
         >
-          <BIcon icon="filter" /> {{ invoice.purchase.sort_by }}
-        </b-badge>
-      </b-card-header>
-      <b-table
-        :items="invoice.purchase.data"
-        :fields="purFields"
-        class="table-border-dark"
-        head-variant="dark"
-        striped
-        small
-        responsive="sm"
+          <template #empty>
+            <h4>No invoices fore receipt!!!</h4>
+          </template>
+          <template #cell(invoiceno)="d">
+            <router-link :to="'/workflow/Transactions-Invoice/' + d.item.invid">
+              {{ d.item.invoiceno }}
+            </router-link>
+            from {{ d.item.custname }}
+          </template>
+          <template #cell(balanceamount)="d">
+            {{ gk_currency(d.item.balanceamount) }}
+          </template>
+          <template #cell(receipt)="data">
+            <b-button
+              @click="onPayment('receipt', data.item.invid)"
+              size="sm"
+            >
+              Receipt
+            </b-button>
+          </template>
+        </b-table>
+      </b-card>
+    </b-col>
+    <b-col
+      cols
+      lg="6"
+      sm="12"
+    >
+      <!-- Receive Payment -->
+      <b-card
+        header="Receive Payment"
+        header-class="font-weight-bold"
+        no-body
+        class="mb-4"
       >
-        <template #cell(invoiceno)="d">
-          <router-link :to="'/workflow/Transactions-Invoice/' + d.item.invid">
-            {{ d.item.invoiceno }}
-          </router-link>
-          to {{ d.item.custname }}
-        </template>
-        <template #cell(balanceamount)="d">
-          {{ gk_currency(d.item.balanceamount) }}
-        </template>
-        <template #cell(payment)="data">
-          <b-button
-            @click="onPayment('payment', data.item.invid)"
-            size="sm"
-          >
-            Pay
-          </b-button>
-        </template>
-      </b-table>
-    </b-card>
-    <!-- Receive Payment -->
-    <b-card class="shadow">
-      <b-card-header
-        header-bg-variant="light"
-        header-class="mb-1 font-weight-bold"
-        header-text-variant="dark"
-      >
-        <translate>Issue Receipt</translate>
-        <b-badge
-          pill
-          variant="primary"
-          role="button"
-          @click="sortSaleInvoice"
-          class="mt-1 float-right"
+        <b-table
+          :items="invoice.purchase.data"
+          :fields="purFields"
+          borderless
+          hover
+          responsive
+          show-empty
         >
-          <BIcon icon="filter" /> {{ invoice.sale.sort_by }}
-        </b-badge>
-      </b-card-header>
-      <b-table
-        :items="invoice.sale.data"
-        :fields="saleFields"
-        class="table-border-dark"
-        head-variant="dark"
-        striped
-        small
-        responsive
-      >
-        <template #cell(invoiceno)="d">
-          <router-link :to="'/workflow/Transactions-Invoice/' + d.item.invid">
-            {{ d.item.invoiceno }}
-          </router-link>
-          from {{ d.item.custname }}
-        </template>
-        <template #cell(balanceamount)="d">
-          {{ gk_currency(d.item.balanceamount) }}
-        </template>
-        <template #cell(receipt)="data">
-          <b-button
-            @click="onPayment('receipt', data.item.invid)"
-            size="sm"
-          >
-            Receipt
-          </b-button>
-        </template>
-      </b-table>
-    </b-card>
-  </b-card-group>
+          <template #empty>
+            <h4>Hurray, no invoices to pay!!!</h4>
+          </template>
+          <template #cell(invoiceno)="d">
+            <router-link :to="'/workflow/Transactions-Invoice/' + d.item.invid">
+              {{ d.item.invoiceno }}
+            </router-link>
+            to {{ d.item.custname }}
+          </template>
+          <template #cell(balanceamount)="d">
+            {{ gk_currency(d.item.balanceamount) }}
+          </template>
+          <template #cell(payment)="data">
+            <b-button
+              @click="onPayment('payment', data.item.invid)"
+              size="sm"
+            >
+              Pay
+            </b-button>
+          </template>
+        </b-table>
+      </b-card>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
@@ -131,11 +122,13 @@ export default {
         {
           key: 'invoicedate',
           label: 'Date',
+          sortable: true,
         },
         {
           key: 'balanceamount',
           label: 'Amount',
           class: 'gk-currency',
+          sortable: true,
         },
         {
           key: 'payment',
@@ -151,10 +144,12 @@ export default {
         {
           key: 'invoicedate',
           label: 'Date',
+          sortable: true,
         },
         {
           key: 'balanceamount',
           label: 'Amount',
+          sortable: true,
           class: 'gk-currency',
         },
         {
