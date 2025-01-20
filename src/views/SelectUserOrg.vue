@@ -148,29 +148,6 @@
       />
       <div class="d-flex justify-content-between">
         <span class="">Welcome {{ form.name || userName || '' }}!</span>
-        <b-dropdown
-          :text="$gettext('Actions')"
-          dropleft
-          size="sm"
-          variant="dark"
-        >
-          <b-dropdown-item
-            @click="onLogout"
-          >
-            <translate>Log Out</translate>
-          </b-dropdown-item>
-          <b-dropdown-item
-            v-b-modal.change-pwd
-          >
-            <translate>Change Password</translate>
-          </b-dropdown-item>
-          <b-dropdown-item
-            @click="deleteUser"
-            variant="danger"
-          >
-            <translate>Delete Account</translate>
-          </b-dropdown-item>
-        </b-dropdown>
       </div>
       <div class="clearfix" />
       <hr>
