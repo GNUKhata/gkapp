@@ -51,7 +51,7 @@ export default {
           },
           {
             label: 'Sale Invoices',
-            backgroundColor: '#f87979',
+            backgroundColor: '#3366cc',
             data: this.info.sale.map(item => item.balance),
             tension: 0.3,
           },

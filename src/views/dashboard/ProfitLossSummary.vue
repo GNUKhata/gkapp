@@ -10,7 +10,7 @@
       {{ yearEnd.split('-')[0].slice(2, 4) }}
     </p>
     <p class="h1 text-dark">
-      $  {{ gross_value }}
+      ₹ {{ gross_value }}
     </p>
     ***
     <br>
@@ -23,7 +23,7 @@
       {{ yearEnd.split('-')[0].slice(2, 4) }}
     </p>
     <p class="h1 text-dark">
-      $  {{ net_value }}
+      ₹ {{ net_value }}
     </p>
     ***
   </b-card>
